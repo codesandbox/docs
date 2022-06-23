@@ -1,0 +1,14 @@
+{
+  "name": "docs-sites",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monorepo with documentation websites",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:sandbox": "pnpm --filter sandbox-docs dev",
+    "dev:projects": "pnpm --filter projects-docs dev",
+    "dev:ios": "pnpm --filter ios-docs dev"
+  }
+}
