@@ -22,6 +22,7 @@ import "./polyfill";
 import Breadcrumb from "./breadcrumb";
 import renderComponent from "./utils/render-component";
 import { PageTheme } from "./misc/theme-context";
+import "./styles-cbs.css";
 
 const isProduction = process.env.NODE_ENV === "production";
 

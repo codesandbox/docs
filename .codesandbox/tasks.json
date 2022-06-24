@@ -23,6 +23,11 @@
       "name": "iOS Docs",
       "command": "pnpm dev:ios",
       "runAtStart": false
+    },
+    "dev:theme": {
+      "name": "Watch Theme",
+      "command": "pnpm dev:theme",
+      "runAtStart": false
     }
   }
 }
