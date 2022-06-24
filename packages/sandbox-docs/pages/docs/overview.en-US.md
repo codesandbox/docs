@@ -5,6 +5,9 @@ slug: /
 description: Learn what CodeSandbox is and how to use it.
 ---
 
+<div style={{height:478,width:'100%',background:'#0971F1', borderRadius: '6px'}}>
+</div>
+
 ## What is CodeSandbox
 
 CodeSandbox is an online editor for rapid web development. With CodeSandbox, you

@@ -6,8 +6,7 @@ const FEEDBACK_LINK_WITH_TRANSLATIONS = {
 };
 
 export default {
-  projectLink: "",
-  projectLinkIcon: "",
+  projectLink: "https://codesandbox.io",
   docsRepositoryBase: "https://github.com/vercel/swr-site/blob/master/pages",
   titleSuffix: " – Sandbox",
   feedbackLabels: "feedback",
@@ -91,6 +90,19 @@ export default {
       </>
     );
   },
+  projectLinkIcon: () => (
+    <p
+      style={{
+        fontSize: "12px",
+        textAlign: "right",
+        fontWeight: 500,
+        letterSpacing: "-0.0125em",
+        opacity: 0.5,
+      }}
+    >
+      Back to codesandbox.io
+    </p>
+  ),
   footerEditLink: ({ locale }) => {
     switch (locale) {
       default:
