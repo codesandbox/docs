@@ -1,4 +1,4 @@
-export default function Logo({ children }) {
+export default function Logo() {
   return (
     <svg
       width="135"
