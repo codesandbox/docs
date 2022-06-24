@@ -35,9 +35,15 @@ Optionally, from the dashboard, you can either drag and drop a sandbox from
 folder. There is also an option within the sandbox options menu to
 `Make Sandbox a Template`.
 
-![Make Template from Dragging](./images/templates/3.gif)
+import Image from 'next/image'
+import gif1 from './images/templates/2.gif'
+import gif2 from './images/templates/3.gif'
 
-![Make Template from Make Sandbox a Template](./images/templates/2.gif)
+<br/>
+<Image src={gif1} width={1438} height={790} />
+<br/>
+<br/>
+<Image src={gif2} width={1438} height={790} />
 
 ## Using Templates
 

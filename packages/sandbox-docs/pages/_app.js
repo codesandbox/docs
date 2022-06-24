@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "nextra-theme-docs/style.css";
+import "../../../layout/global.css";
 import "../styles.css";
 
 function ModifyDOMProvider({ children }) {

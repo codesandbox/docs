@@ -1,18 +1,3 @@
-html,
-body {
-  font-family: "Inter", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
-  -webkit-font-smoothing: "antialiased";
-}
-
-.dark {
-  --nextra-primary-hue: 430;
-}
-
-/* a.active,
-li.active a {
-  color: #eaff96 !important;
-} */
-
 /* [data-reach-skip-link] {
   @apply sr-only;
 }
