@@ -148,7 +148,7 @@ export default function Navbar({ flatDirectories, items }: NavBarProps) {
             </div>
           </div>
 
-          <div className="rightMenuWrap flex w-64 xl:block text-sm px-4 order-last flex-shrink-0 md:hidden">
+          <div className="rightMenuWrap flex md:w-64 xl:block text-sm px-4 order-last flex-shrink-0 md:hidden">
             {config.projectLink || config.github ? (
               <a
                 className="text-current p-2"
