@@ -5,7 +5,7 @@ const withNextra = require("nextra")({
   unstable_staticImage: true,
 });
 
-const withTM = require("next-transpile-modules")(["../../layout"]);
+const withTM = require("next-transpile-modules")(["../../shared-components"]);
 
 module.exports = withTM(
   withNextra({

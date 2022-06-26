@@ -40,6 +40,13 @@ body {
   padding: 0 2rem;
 }
 
+@media (max-width: 640px) {
+  .nextra-nav-container nav,
+  .nextra-content-container {
+    padding: 0;
+  }
+}
+
 /* Link
 ------------------------ */
 a {

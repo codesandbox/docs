@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Logo from "./components/Logo";
+import BackLink from "../../shared-components/BackLink";
 import defaultConfigs from "codesandbox-theme-docs/shared.config.js";
 
 export default {
@@ -7,19 +8,7 @@ export default {
   docsRepositoryBase: "https://github.com/vercel/swr-site/blob/master/pages",
   titleSuffix: " - Sandbox",
   i18n: [{ locale: "en-US", text: "English" }],
-  projectLinkIcon: () => (
-    <p
-      style={{
-        fontSize: "12px",
-        textAlign: "right",
-        fontWeight: 500,
-        letterSpacing: "-0.0125em",
-        opacity: 0.5,
-      }}
-    >
-      Back to codesandbox.io
-    </p>
-  ),
+  projectLinkIcon: BackLink,
   logo: () => <Logo />,
   head: ({ title, meta }) => {
     const { route } = useRouter();
