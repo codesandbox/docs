@@ -126,7 +126,8 @@ p a:hover {
   font-weight: normal !important;
 }
 
-.nextra-container .nextra-sidebar ul li.active a {
+.nextra-container .nextra-sidebar ul li.active a,
+.nextra-container .nextra-sidebar ul li.active a:hover {
   font-weight: normal;
 }
 

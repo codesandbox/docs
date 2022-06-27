@@ -7,8 +7,8 @@
     "title": "Docs",
     "type": "page"
   },
-  "api-reference": {
-    "title": "API Reference",
+  "tutorial": {
+    "title": "Tutorial",
     "type": "page"
   }
 }
