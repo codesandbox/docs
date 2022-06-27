@@ -1,3 +1,7 @@
 {
-  "overview": "Overview"
+  "overview": "Overview",
+  "configuring": "Configuring",
+  "devtools": "DevTools",
+  "commandpalette": "Command Palette",
+  "shortcuts": "Shortcuts"
 }

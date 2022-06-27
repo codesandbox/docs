@@ -24,6 +24,11 @@
       "command": "pnpm dev:projects",
       "runAtStart": true
     },
+    "test:projects": {
+      "name": "Lint Project Docs",
+      "command": "pnpm test:projects",
+      "runAtStart": false
+    },
     "dev:ios": {
       "name": "iOS Docs",
       "command": "pnpm dev:ios",
