@@ -9,6 +9,11 @@
 
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
+    "build:theme": {
+      "name": "Build theme",
+      "command": "pnpm build:theme",
+      "runAtStart": true
+    },
     "dev:sandbox": {
       "name": "Sandbox Docs",
       "command": "pnpm dev:sandbox",
@@ -17,16 +22,11 @@
     "dev:projects": {
       "name": "Projects Docs",
       "command": "pnpm dev:projects",
-      "runAtStart": false
+      "runAtStart": true
     },
     "dev:ios": {
       "name": "iOS Docs",
       "command": "pnpm dev:ios",
-      "runAtStart": false
-    },
-    "dev:theme": {
-      "name": "Watch Theme",
-      "command": "pnpm dev:theme",
       "runAtStart": false
     }
   }
