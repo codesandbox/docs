@@ -1,6 +1,6 @@
 {
-  "github-app": "Github App",
+  "github-app": "Github app",
   "vscode": "VS Code extension",
   "browser-extension": "Browser extension",
-  "ios": "Codesandbox for iOS"
+  "ios": "CodeSandbox for iOS"
 }

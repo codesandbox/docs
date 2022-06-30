@@ -15,23 +15,38 @@
       "runAtStart": true
     },
     "dev:sandbox": {
-      "name": "Sandbox Docs",
+      "name": "Dev Sandbox",
       "command": "pnpm dev:sandbox",
       "runAtStart": true
     },
+    "separator": {
+      "name": "----",
+      "command": "----",
+      "runAtStart": false
+    },
     "dev:projects": {
-      "name": "Projects Docs",
+      "name": "Dev Projects",
       "command": "pnpm dev:projects",
       "runAtStart": true
     },
+    "dev:ios": {
+      "name": "Dev iOS",
+      "command": "pnpm dev:ios",
+      "runAtStart": false
+    },
+    "separator2": {
+      "name": "----",
+      "command": "----",
+      "runAtStart": false
+    },
     "test:projects": {
-      "name": "Lint Project Docs",
+      "name": "Lint Project",
       "command": "pnpm test:projects",
       "runAtStart": false
     },
-    "dev:ios": {
-      "name": "iOS Docs",
-      "command": "pnpm dev:ios",
+    "test:sandbox": {
+      "name": "Lint Sandbox",
+      "command": "pnpm test:sandbox",
       "runAtStart": false
     }
   }

@@ -31,13 +31,20 @@ body {
 
 .nextra-sidebar-container,
 .nextra-toc-content {
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 6.5rem);
 }
 
 .nextra-nav-container nav,
 .nextra-content-container {
   box-sizing: border-box;
   padding: 0 2rem;
+}
+
+@media (max-width: 1440px) {
+  .nextra-nav-container nav,
+  .nextra-content-container {
+    padding: 0 1rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -178,7 +185,7 @@ main div.mt-12 {
 }
 
 .dark .nextra-container .nextra-nav-container .nextra-nav-container-blur {
-  background-color: #0d0d0d;
+  background-color: #0e0e0e;
 }
 
 .dark article p a,

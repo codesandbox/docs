@@ -1,7 +1,7 @@
 {
-  "docker" : "Getting started with Docker and NixOS",
+  "docker": "Getting started with Docker and NixOS",
   "cli-tool": "Install CLI tools and global modules",
   "minecraft": "How to run minecraft in projects",
-  "most-git":"Get most of git and source control",
+  "most-git": "Get most of git and source control",
   "review": "Optimize your review process"
 }
