@@ -1,6 +1,7 @@
 {
   "overview": "Overview",
   "tasks": "Tasks",
-  "env": "Environment",
+  "env": "Node Version",
+  "ssh": "SSH",
   "secrets": "Environment variables"
 }
