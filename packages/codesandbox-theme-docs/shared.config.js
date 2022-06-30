@@ -9,14 +9,15 @@ export default {
   unstable_flexsearch: true,
   floatTOC: true,
   footer: false,
-  feedbackLabels: "feedback",
-  feedbackLink: () => {
-    const { locale } = useRouter();
-    return (
-      FEEDBACK_LINK_WITH_TRANSLATIONS[locale] ||
-      FEEDBACK_LINK_WITH_TRANSLATIONS["en-US"]
-    );
-  },
+  feedbackLink: false,
+  //   feedbackLabels: "feedback",
+  //   feedbackLink: () => {
+  //     const { locale } = useRouter();
+  //     return (
+  //       FEEDBACK_LINK_WITH_TRANSLATIONS[locale] ||
+  //       FEEDBACK_LINK_WITH_TRANSLATIONS["en-US"]
+  //     );
+  //   },
   footerEditLink: ({ locale }) => {
     switch (locale) {
       default:

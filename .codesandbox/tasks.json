@@ -14,24 +14,29 @@
       "command": "pnpm build:theme",
       "runAtStart": true
     },
+    "watch:theme": {
+      "name": "Watch theme",
+      "command": "pnpm dev:theme",
+      "runAtStart": false
+    },
     "dev:sandbox": {
-      "name": "Sandbox Docs",
+      "name": "Dev Sandbox",
       "command": "pnpm dev:sandbox",
       "runAtStart": true
     },
     "dev:projects": {
-      "name": "Projects Docs",
+      "name": "Dev Projects",
       "command": "pnpm dev:projects",
       "runAtStart": true
     },
-    "test:projects": {
-      "name": "Lint Project Docs",
-      "command": "pnpm test:projects",
+    "dev:ios": {
+      "name": "Dev iOS",
+      "command": "pnpm dev:ios",
       "runAtStart": false
     },
-    "dev:ios": {
-      "name": "iOS Docs",
-      "command": "pnpm dev:ios",
+    "test:sandbox": {
+      "name": "Lint Sandbox",
+      "command": "pnpm test:sandbox",
       "runAtStart": false
     }
   }
