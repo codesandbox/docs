@@ -1,7 +1,9 @@
 {
-  "overview": "Overview",
-  "configuring": "Configuring",
-  "devtools": "DevTools",
-  "commandpalette": "Command Palette",
-  "shortcuts": "Shortcuts"
+  "introduction": "Introduction",
+  "getting-started": "Getting Started",
+  "editor": "The Editor",
+  "setting-up": "Configuring",
+  "integrations": "Integrations",
+  "teams": "Manage Teams",
+  "faq": "FAQ"
 }
