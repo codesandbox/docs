@@ -31,6 +31,7 @@
     "htmlWhitespaceSensitivity": "strict"
   },
   "alex": {
-    "noBinary": true
+    "noBinary": true,
+    "profanitySureness": 1
   }
 }

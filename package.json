@@ -9,9 +9,10 @@
   "scripts": {
     "dev:sandbox": "pnpm --filter sandbox-docs dev",
     "dev:projects": "pnpm --filter projects-docs dev",
-    "test:projects": "pnpm --filter projects-docs test-docs",
     "dev:ios": "pnpm --filter ios-docs dev",
     "dev:theme": "pnpm --filter codesandbox-theme-docs dev",
-    "build:theme": "pnpm --filter codesandbox-theme-docs build"
+    "build:theme": "pnpm --filter codesandbox-theme-docs build",
+    "test:projects": "pnpm --filter projects-docs test-docs",
+    "test:sandbox": "pnpm --filter sandbox-docs test-docs"
   }
 }
