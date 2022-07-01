@@ -46,7 +46,7 @@ To set the right permissions:
 1. **Click on the Dropdown at the top right of the screen**
 
 1. **Click on Preferences menu point**
-  ![Preferences Dropdown Menu Point on CodeSandbox Dashboard](./images/preferences.png)
+  ![Preferences Dropdown Menu Point on CodeSandbox Dashboard](../images/preferences.png)
   
 1. **Click on Integrations**
 
