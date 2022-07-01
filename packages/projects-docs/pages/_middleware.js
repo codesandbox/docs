@@ -20,7 +20,9 @@ export function locales(request) {
   }
 
   if (nextUrl.pathname == "/docs") {
-    return NextResponse.redirect(new URL("docs/introduction/overview", request.url));
+    return NextResponse.redirect(
+      new URL("docs/introduction/overview", request.url)
+    );
   }
   // -----------------------------------------
 
