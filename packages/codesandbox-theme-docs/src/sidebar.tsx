@@ -76,7 +76,7 @@ function FolderImpl({ item, anchors }: FolderProps) {
         rerender({});
       }}
     >
-      <span className="flex items-center justify-between">
+      <span className={`flex items-center justify-between`}>
         {item.title}
         <ArrowRight
           height="1em"
@@ -159,6 +159,8 @@ function File({ item, anchors, topLevel }: FileProps) {
     return <Separator title={title} topLevel={topLevel} />;
   }
 
+  const wip = item?.frontMatter?.wip ? "wip" : "";
+
   if (anchors && anchors.length) {
     if (active) {
       let activeIndex = 0;
@@ -215,7 +217,7 @@ function File({ item, anchors, topLevel }: FileProps) {
   }
 
   return (
-    <li className={active ? "active" : ""}>
+    <li className={`${active ? "active" : ""} ${wip}`}>
       <Link href={(item as PageItem).href || item.route}>
         <a
           {...((item as PageItem).newWindow

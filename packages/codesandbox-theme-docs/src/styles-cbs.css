@@ -55,7 +55,7 @@ body {
   }
 }
 
-kbd {
+p kbd {
   border-radius: 4px;
   font-size: 13px;
   padding: 6px;
@@ -66,18 +66,21 @@ kbd {
 
 /* Link
 ------------------------ */
-a {
+a,
+li a {
   text-decoration: none;
 }
 
-p a {
+p a,
+li a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.01em;
   text-decoration-color: var(--docs-accent-color-opacity);
 }
 
-p a:hover {
+p a:hover,
+li a:hover {
   text-decoration-color: var(--docs-accent-color-link);
 }
 
@@ -148,6 +151,26 @@ p a:hover {
   font-weight: normal;
 }
 
+.wip {
+  position: relative;
+  display: flex;
+  opacity: 0.5;
+}
+
+.wip:after {
+  content: "WIP";
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  padding: 2px;
+  font-size: 9px;
+  line-height: 13px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  color: #c5c5c5;
+  transform: translate(0, -35%);
+}
+
 /* Content
 ------------------------ */
 main div.mt-12 {
@@ -199,6 +222,7 @@ main div.mt-12 {
 }
 
 .dark article p a,
+.dark article li a,
 .dark .dark\:hover\:text-primary-500:hover {
   color: var(--docs-accent-color-link) !important;
 }
@@ -234,7 +258,7 @@ main div.mt-12 {
   padding-right: 1rem;
 }
 
-.dark kbd {
+.dark p kbd {
   background: rgb(42 42 42);
   box-shadow: rgb(255 255 255 / 12%) 0px -2px 0px inset;
 }
