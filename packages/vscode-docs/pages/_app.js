@@ -1,0 +1,7 @@
+import "codesandbox-theme-docs/style.css";
+import "../styles.css";
+
+export default function Nextra({ Component, pageProps }) {
+  const getLayout = Component.getLayout || ((page) => page);
+  return getLayout(<Component {...pageProps} />);
+}

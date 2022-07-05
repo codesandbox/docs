@@ -4,50 +4,66 @@
     {
       "name": "Install Dependencies",
       "command": "pnpm install"
+    },
+    {
+      "name": "Build theme",
+      "command": "pnpm build:theme"
     }
   ],
-
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
-    "build:theme": {
-      "name": "Build theme",
-      "command": "pnpm build:theme",
-      "runAtStart": true
-    },
     "dev:sandbox": {
       "name": "Dev Sandbox",
       "command": "pnpm dev:sandbox",
       "runAtStart": true
-    },
-    "separator": {
-      "name": "----",
-      "command": "----",
-      "runAtStart": false
     },
     "dev:projects": {
       "name": "Dev Projects",
       "command": "pnpm dev:projects",
       "runAtStart": true
     },
+    "dev:vscode": {
+      "name": "Dev VS code",
+      "command": "pnpm dev:vscode",
+      "runAtStart": false
+    },
     "dev:ios": {
       "name": "Dev iOS",
       "command": "pnpm dev:ios",
       "runAtStart": false
+    },
+    "separator": {
+      "name": "----",
+      "command": "----"
+    },
+    "test:sandbox": {
+      "name": "Lint Text Sandbox",
+      "command": "pnpm test:sandbox"
+    },
+    "test:projects": {
+      "name": "Lint Text Project",
+      "command": "pnpm test:projects"
+    },
+    "test:vscode": {
+      "name": "Lint Text VS Code",
+      "command": "pnpm test:vscode"
+    },
+    "test:ios": {
+      "name": "Lint Text iOS",
+      "command": "pnpm test:ios"
     },
     "separator2": {
       "name": "----",
       "command": "----",
       "runAtStart": false
     },
-    "test:projects": {
-      "name": "Lint Project",
-      "command": "pnpm test:projects",
-      "runAtStart": false
+    "dev:theme": {
+      "name": "Watch theme",
+      "command": "pnpm dev:theme"
     },
-    "test:sandbox": {
-      "name": "Lint Sandbox",
-      "command": "pnpm test:sandbox",
-      "runAtStart": false
+    "build:theme": {
+      "name": "Build theme",
+      "command": "pnpm build:theme"
     }
   }
 }

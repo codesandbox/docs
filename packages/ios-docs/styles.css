@@ -1,0 +1,10 @@
+:root {
+  --docs-accent-color: #EAFF96;
+  --docs-accent-color-opacity: #EAFF9660;
+  --docs-accent-color-link: #EAFF96;
+}
+
+.dark {
+  --nextra-primary-hue: 72;
+  --nextra-primary-hue-saturation: 93%;
+}
