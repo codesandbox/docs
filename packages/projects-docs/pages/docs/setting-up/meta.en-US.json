@@ -1,6 +1,6 @@
 {
   "overview": "Overview",
-  "tasks": "Tasks.json",
+  "tasks": "tasks.json",
   "env": "Environment",
   "ssh": "SSH",
   "secrets": "Environment variables",
