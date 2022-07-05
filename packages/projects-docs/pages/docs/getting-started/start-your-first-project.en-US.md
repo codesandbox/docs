@@ -17,7 +17,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 1. **Once your development workspace is loaded you will see a webserver is running already**
     <Callout emoji="👉">
-        Please note, based on your project's size installing all the dependencies and running your project take some time.
+        Please note, based on your project's size, installing all the dependencies and running your project take some time. We'll create a snapshot right after, so the following forks and starts will be instant.
     </Callout>
     
     Ideally, a webserver will run at the end and you will be able to access it using the Preview. Here Projects is trying to infer scripts from your package.json but if it's not presented in the root folder you have to define it as a task.
