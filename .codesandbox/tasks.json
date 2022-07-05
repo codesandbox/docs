@@ -2,6 +2,10 @@
   // These tasks will run in order when initializing your CodeSandbox project.
   "setupTasks": [
     {
+      "name": "check version",
+      "command" "node --version && npm --version && pnpm --version && cat ~/.npmrc",
+    },
+    {
       "name": "update pnpm",
       "command": "npm install -g pnpm --force"
     },
