@@ -1,14 +1,14 @@
 {
   // These tasks will run in order when initializing your CodeSandbox project.
   "setupTasks": [
-    {
-      "name": "check npmrc",
-      "command": "node --version && npm --version && pnpm --version && cat ~/.npmrc"
-    },
-    {
-      "name": "temp npmrc",
-      "command": "echo 'auto-install-peers=true' >> ~/.npmrc"
-    },
+    // {
+    //   "name": "check npmrc",
+    //   "command": "node --version && npm --version && pnpm --version && cat ~/.npmrc"
+    // },
+    // {
+    //   "name": "temp npmrc",
+    //   "command": "echo 'auto-install-peers=true' >> ~/.npmrc"
+    // },
     {
       "name": "update pnpm",
       "command": "npm install -g pnpm --force"
@@ -16,14 +16,28 @@
     {
       "name": "Install Dependencies",
       "command": "pnpm install"
-    },
-    {
-      "name": "Build theme",
-      "command": "pnpm build:theme"
     }
+    // {
+    //   "name": "Build theme",
+    //   "command": "pnpm build:theme"
+    // }
   ],
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
+    "dev:theme": {
+      "name": "Watch theme",
+      "command": "pnpm dev:theme"
+    },
+    "build:theme": {
+      "name": "Build theme",
+      "command": "pnpm build:theme",
+      "runAtStart": true
+    },
+    "separator": {
+      "name": "----",
+      "command": "----",
+      "runAtStart": false
+    },
     "dev:sandbox": {
       "name": "Dev Sandbox",
       "command": "pnpm dev:sandbox",
@@ -44,7 +58,7 @@
       "command": "pnpm dev:ios",
       "runAtStart": false
     },
-    "separator": {
+    "separator2": {
       "name": "----",
       "command": "----"
     },
@@ -63,19 +77,6 @@
     "test:ios": {
       "name": "Lint Text iOS",
       "command": "pnpm test:ios"
-    },
-    "separator2": {
-      "name": "----",
-      "command": "----",
-      "runAtStart": false
-    },
-    "dev:theme": {
-      "name": "Watch theme",
-      "command": "pnpm dev:theme"
-    },
-    "build:theme": {
-      "name": "Build theme",
-      "command": "pnpm build:theme"
     }
   }
 }
