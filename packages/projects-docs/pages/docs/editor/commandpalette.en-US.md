@@ -4,7 +4,6 @@ description: With the command palette, the CodeSandbox Projects functionality is
 ---
 
 import Callout from 'nextra-theme-docs/callout'
-import Video from '../../../../../shared-components/Video'
 
 # Command Palette
 
