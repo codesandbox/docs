@@ -1,3 +1,13 @@
+---
+title: Command Palette
+description: With the command palette, the CodeSandbox Projects functionality is almost completely accessible from your keyboard
+---
+
+import Callout from 'nextra-theme-docs/callout'
+import Video from '../../../../../shared-components/Video'
+
+# Command Palette
+
 The CodeSandbox Projects functionality is almost completely accessible from your keyboard as well. You can bring up the Command Palette on the Dashboard or in the editor using ⌘ + K. 
 
 ![CodeSandbox Projects Command Palette](../images/command-palette.png)
