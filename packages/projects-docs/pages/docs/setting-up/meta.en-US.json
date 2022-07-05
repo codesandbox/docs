@@ -3,5 +3,6 @@
   "tasks": "Tasks.json",
   "env": "Environment",
   "ssh": "SSH",
-  "secrets": "Environment variables"
+  "secrets": "Environment variables",
+  "limitations": "Workspace limitations"
 }
