@@ -3,7 +3,11 @@
   "setupTasks": [
     {
       "name": "check npmrc",
-      "command": "cat ~/.npmrc"
+      "command": "node --version && npm --version && pnpm --version && cat ~/.npmrc"
+    },
+    {
+      "name": "temp npmrc",
+      "command": "echo 'auto-install-peers=true' >> ~/.npmrc"
     },
     {
       "name": "update pnpm",
