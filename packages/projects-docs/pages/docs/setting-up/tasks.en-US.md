@@ -5,6 +5,12 @@ description:
 
 # Tasks.json
 
+TODO: 
+    - Add how create a config file.
+    - Add a table of all props the object can have.
+
+
+
 This is an example of a configuration:
 
 ```json
