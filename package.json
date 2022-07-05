@@ -14,5 +14,8 @@
     "build:theme": "pnpm --filter codesandbox-theme-docs build",
     "test:projects": "pnpm --filter projects-docs test-docs",
     "test:sandbox": "pnpm --filter sandbox-docs test-docs"
+  },
+  "dependencies": {
+    "react-intersection-observer": "^9.3.5"
   }
 }
