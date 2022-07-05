@@ -1,4 +1,9 @@
-<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px'}}>
-</div>
+---
+title: FAQ
+description:
+wip: true
+---
 
-## Overview
+# FAQ
+
+WIP

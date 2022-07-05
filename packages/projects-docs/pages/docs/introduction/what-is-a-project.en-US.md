@@ -1,3 +1,9 @@
+---
+title: Web Editor
+description:
+wip: true
+---
+
 # What is a CodeSandbox Project
 
 Compared to a classic Sandbox that runs on the client, a Project allows you to run large services directly on a server.

@@ -1,6 +1,7 @@
 ---
 title: Terminal
 description: 
+wip: true
 ---
 
 # Terminal

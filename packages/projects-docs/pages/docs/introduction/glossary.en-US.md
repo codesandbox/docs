@@ -1,3 +1,9 @@
+---
+title: Glossary
+description:
+wip: true
+---
+
 # Glossary
 
-TBA
+WIP
