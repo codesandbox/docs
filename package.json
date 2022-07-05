@@ -7,13 +7,16 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:sandbox": "pnpm --filter sandbox-docs dev",
-    "dev:projects": "pnpm --filter projects-docs dev",
-    "dev:ios": "pnpm --filter ios-docs dev",
     "dev:theme": "pnpm --filter codesandbox-theme-docs dev",
     "build:theme": "pnpm --filter codesandbox-theme-docs build",
+    "dev:sandbox": "pnpm --filter sandbox-docs dev",
+    "dev:projects": "pnpm --filter projects-docs dev",
+    "dev:vscode": "pnpm --filter vscode-docs dev",
+    "dev:ios": "pnpm --filter ios-docs dev",
     "test:projects": "pnpm --filter projects-docs test-docs",
-    "test:sandbox": "pnpm --filter sandbox-docs test-docs"
+    "test:sandbox": "pnpm --filter sandbox-docs test-docs",
+    "test:vscode": "pnpm --filter vscode-docs test-docs",
+    "test:ios": "pnpm --filter ios-docs test-docs"
   },
   "dependencies": {
     "react-intersection-observer": "^9.3.5"

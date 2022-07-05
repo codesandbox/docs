@@ -1,9 +1,0 @@
-{ 
-	"serve": {
-    "executor": "@nrwl/workspace:run-commands",
-    "options": {
-      "command": "npx next dev",
-      "cwd": "apps/next-app"
-    },
- }
-}
