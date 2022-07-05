@@ -13,7 +13,8 @@
 ------------------------ */
 
 html,
-body {
+body,
+kbd {
   font-family: "Inter", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
   -webkit-font-smoothing: "antialiased";
 }
@@ -52,6 +53,15 @@ body {
   .nextra-content-container {
     padding: 0;
   }
+}
+
+kbd {
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 6px;
+  padding-bottom: 7px;
+  line-height: 14px;
+  font-weight: bold;
 }
 
 /* Link
@@ -207,4 +217,24 @@ main div.mt-12 {
 /* Pre */
 .dark article pre {
   background-color: #1c1c1c;
+}
+
+.dark .callout {
+  background: rgb(28, 29, 31);
+  border: 1px solid rgb(48, 50, 54);
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  color: #c5c5c5 !important;
+}
+
+.callout .pr-2 {
+  padding-right: 1rem;
+}
+
+.dark kbd {
+  background: rgb(42 42 42);
+  box-shadow: rgb(255 255 255 / 12%) 0px -2px 0px inset;
 }

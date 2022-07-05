@@ -3,7 +3,10 @@ lockfileVersion: 5.4
 importers:
 
   .:
-    specifiers: {}
+    specifiers:
+      react-intersection-observer: ^9.3.5
+    dependencies:
+      react-intersection-observer: 9.3.5
 
   packages/codesandbox-theme-docs:
     specifiers:
@@ -3926,6 +3929,12 @@ packages:
     dependencies:
       '@types/react': 18.0.14
       react: 17.0.2
+    dev: false
+
+  /react-intersection-observer/9.3.5:
+    resolution: {integrity: sha512-TiJXVUapzAaIrZCAMBLjyWvwGYNGm0Xpkcwm3NY23b9PsJEBavul0hRFmrwc/LOmBUA/8TlkjCj7lCvjM0q1Hg==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
     dev: false
 
   /react/17.0.2:
