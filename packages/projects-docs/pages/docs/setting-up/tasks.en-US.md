@@ -10,7 +10,7 @@ import Callout from 'nextra-theme-docs/callout'
 CodeSandox Projects can be configured through the `.codesandbox/tasks.json` configuration file in your project. The contents of this file define a the steps to set up VMs and configure the list of commands to run inside the workspace like webservers, Docker containers, tests etc. 
 
 <Callout>
-In order to leverage the configuration on all VMs in your project you have to commit the config file into your repository. CodeSandbox Projects always picks up the given configuration from the actual VM (branch).
+We also recommend checking these files into version control so that every collaborator on the project has a similar editing experience. This also allows changes to this configuration to be tracked, and for additional changes to be made on specific branches. In addition, once it’s merged to your main branch then you leverage the configuration for every newly created branch.
 </Callout>
 
 This is an example of a configuration:
