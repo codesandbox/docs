@@ -3,7 +3,7 @@
   "setupTasks": [
     {
       "name": "check version",
-      "command" "node --version && npm --version && pnpm --version && cat ~/.npmrc",
+      "command": "node --version && npm --version && pnpm --version && cat ~/.npmrc",
     },
     {
       "name": "update pnpm",
