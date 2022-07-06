@@ -2,7 +2,6 @@
   "overview": "Overview",
   "tasks": "tasks.json",
   "env": "Environment",
-  "ssh": "SSH",
   "secrets": "Environment variables",
   "limitations": "Workspace limitations"
 }
