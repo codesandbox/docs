@@ -1,15 +1,17 @@
 ---
-title: Task.json
+title: task.json
 description:
 ---
 
-# Tasks.json
+import Callout from 'nextra-theme-docs/callout'
 
-TODO: 
-    - Add how create a config file.
-    - Add a table of all props the object can have.
+# .codesandbox/tasks.json
 
+CodeSandox Projects can be configured through the `.codesandbox/tasks.json` configuration file in your project. The contents of this file define a the steps to set up VMs and configure the list of commands to run inside the workspace like webservers, Docker containers, tests etc. 
 
+<Callout>
+We also recommend checking these files into version control so that every collaborator on the project has a similar editing experience. This also allows changes to this configuration to be tracked, and for additional changes to be made on specific branches. In addition, once it’s merged to your main branch then you leverage the configuration for every newly created branch.
+</Callout>
 
 This is an example of a configuration:
 
@@ -29,6 +31,14 @@ This is an example of a configuration:
   }
 }
 ```
+
+TODO link to the references Add a table of all props the object can have.
+
+## Using the default configuration
+
+By default, CodeSandbox Projects tries to infer scripts from the `package.json` file in your project's root folder. In addition, you can always use the terminal devtool to execute any shell script to run your project.
+
+## Create a config file
 
 ## Setup Tasks
 
@@ -51,7 +61,7 @@ Array of commands that will run sequentially before the workspace will be ready 
 
 ## Tasks Configuration
 
-Tasks are  scripts that can be run inside your project. In many cases these will call the scripts in your `package.json`, but they can also be used to run other executables.
+Tasks are scripts that can be run inside your project. In many cases these will call the scripts in your `package.json`, but they can also be used to run other executables.
 
 ```json
 {
@@ -117,3 +127,15 @@ This id does not appear on the UI, since each task has a display name configured
 	}
 }
 ```
+
+
+# .codesandbox/tasks.json reference
+
+* setupTasks
+  * name
+  * command
+* tasks
+  * task-id
+    * name
+    * command
+    * runAtStart
