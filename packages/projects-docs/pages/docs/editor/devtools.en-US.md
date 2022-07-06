@@ -7,7 +7,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 # DevTools - The Basics
  
-![CodeSandbox Projects Preview](../../images/devtools-open.png)
+![CodeSandbox Projects Preview](../images/devtools-open.png)
 
 The Devtools is a collection of tools for developers to work faster and more efficiently. They are useful for debugging, testing, and development. They are all collaborative by default, allowing you to share not the code but the content of the devtools: a terminal output, a preview error, an console log...
 
@@ -19,7 +19,7 @@ You can add many devtools you want it. For one or two devtools, it will adapt to
 
 ## Manage your DevTool 
 
-![CodeSandbox Projects Preview](../../images/devtools-options.png)
+![CodeSandbox Projects Preview](../images/devtools-options.png)
 
 #### Minimize
 

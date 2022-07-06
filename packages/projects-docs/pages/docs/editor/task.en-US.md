@@ -7,7 +7,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 # Task
 
-![CodeSandbox Projects Task](../../images/devtools-cover-tasks.png)
+![CodeSandbox Projects Task](../images/devtools-cover-tasks.png)
 
 Tasks allow you to define commands (like `yarn start`) that you can run in a single click or on setup. These tasks are shared between all the clients connected to that branch.
 

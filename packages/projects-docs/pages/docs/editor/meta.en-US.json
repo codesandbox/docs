@@ -1,8 +1,10 @@
 {
   "overview": "Overview",
   "devtools": "DevTools",
+  "preview": "Preview",
+  "task": "Task",
+  "terminal": "Terminal",
   "source-control": "Source Control",
-  "inspector": "Inspector",
   "interactive-readme": "Interactive Readme",
   "commandpalette": "Command Palette",
   "shortcuts": "Keyboard Shortcuts"
