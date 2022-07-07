@@ -13,8 +13,9 @@ Currently one of our goals with CodeSandbox Projects beta is to understand the t
 
 | Type | Limit |
 |------|-------|
-| CPU  |  2 vCPU     |
+| CPU  |  4 vCPU     |
 |  Memory    |   4Gi    |
+|  Storage    |   8Gi    |
 
 If you hit any limitation during the beta then please [get in touch](mailto:support@codesandbox.io) and the team will adjust the limitations to make sure you can run your project.
 
