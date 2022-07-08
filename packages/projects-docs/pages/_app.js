@@ -11,6 +11,9 @@ export default function Nextra({ Component, pageProps }) {
   // Init Amplitude
   amplitude.getInstance().init("a205ed9b06a7baf5a594bdd30293aa80", null, {
     includeReferrer: true,
+    saveEvents: true,
+    includeUtm: true,
+    saveParamsReferrerOncePerSession: false,
   });
 
   const isBrowser = typeof window !== "undefined";
