@@ -1,5 +1,4 @@
 {
-  "create-team": "Create a team",
-  "edit-team": "Edit teams",
-  "permissions": "Permissions"
+  "team-overview": "Overview",
+  "permissions": "Permissions and access control"
 }
