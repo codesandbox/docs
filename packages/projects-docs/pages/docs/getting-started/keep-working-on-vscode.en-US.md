@@ -1,8 +1,9 @@
 ---
 title: Keep working on VS Code
 description:
-wip: true
 ---
+
+import Video from '../../../../../shared-components/Video'
 
 # Keep working on VS Code
 
@@ -65,7 +66,7 @@ Changes that are made to a file are reflected in the editor of every user.
 Select the name of a collaborator to focus on the file and line that they are working on
 ## Live Following
 
-<Video src="../assets/vscode-following.mp4" />
+<Video src="../../vscode-following.mp4" />
 
 ## DevTools
 
@@ -85,7 +86,7 @@ Right of the ssh connection status is the Pitcher status. If this is disconnecte
 
 If you opt out, you can always click on the un-synced status to be presented with the option to connect again.
 
-![Unsynced Notification](..images/vscode-unsynced.png)
+![Unsynced Notification](../images/vscode-unsynced.png)
 
 # How it works
 
