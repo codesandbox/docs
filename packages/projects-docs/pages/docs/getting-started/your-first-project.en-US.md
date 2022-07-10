@@ -4,6 +4,9 @@ import Callout from 'nextra-theme-docs/callout'
 
 You can start working on a project by importing an existing repository from GitHub or creating from a template.
 
+  ![Your First Project](../images/first-project.png)
+  
+  
 ## Importing a project
 
 1. Go to the new **[Projects Dashboard](https://codesandbox.io/p/dashboard)**.
