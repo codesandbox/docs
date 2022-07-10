@@ -8,7 +8,7 @@ import Video from '../../../../../shared-components/Video'
 
 # Environment variables and secrets
 
-You can pass environment variables and secrets into Project. These are configuration values that depend on the environment such as settings for your project or access tokens for APIs.
+You can pass environment variables and secrets into your project. These are configuration values that depend on the environment, such as settings for your project or access tokens for APIs.
 
 <Video src="../assets/EnvVars.mp4" />
 
