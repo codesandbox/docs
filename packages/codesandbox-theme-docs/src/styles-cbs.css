@@ -41,6 +41,16 @@ body {
   padding: 0 2rem;
 }
 
+.nextra-container .nextra-sidebar ul li.active a {
+    color: var(--docs-accent-color);
+}
+
+.nextra-container .nextra-sidebar ul li.active a:hover {
+        color: var(--docs-accent-color);
+        background-color: rgb(243 244 246 / var(--tw-bg-opacity));;
+}
+
+
 @media (max-width: 1440px) {
   .nextra-nav-container nav,
   .nextra-content-container {
@@ -55,6 +65,7 @@ body {
   }
 }
 
+/* Keyboard Shortcut*/
 p kbd {
   border-radius: 4px;
   font-size: 13px;
@@ -62,7 +73,17 @@ p kbd {
   padding-bottom: 7px;
   line-height: 14px;
   font-weight: bold;
+  color: rgb(75, 85, 99);
+  background: rgb(75 85 99 / 12%);
+  box-shadow: rgb(75 85 99 / 24%) 0px -2px 0px inset;
 }
+
+/*Code Snippet*/
+article pre {
+  border: solid 1px #e5e7eb;
+  background-color: rgb(75 85 99 / 5%);
+}
+
 
 /* Link
 ------------------------ */
@@ -173,6 +194,7 @@ li a:hover {
 
 /* Content
 ------------------------ */
+
 main div.mt-12 {
   display: none;
 }
@@ -188,12 +210,22 @@ main div.mt-12 {
   border: none;
 }
 
+.callout {
+  background-color: rgb(222 222 222 / 24%);
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  color: rgb(65 65 65 /90%) !important;
+}
+
 /* Dark Theme
 ------------------------ */
 
 .dark .dark\:text-gray-400,
 .dark .text-gray-500 {
-  color: #999;
+  color: #999 !important;
 }
 
 .dark .nextra-container .nextra-sidebar ul li a:hover,
@@ -245,7 +277,6 @@ main div.mt-12 {
 
 .dark .callout {
   background: rgb(28, 29, 31);
-  border: 1px solid rgb(48, 50, 54);
   box-sizing: border-box;
   border-radius: 6px;
   padding: 16px;
@@ -261,4 +292,5 @@ main div.mt-12 {
 .dark p kbd {
   background: rgb(42 42 42);
   box-shadow: rgb(255 255 255 / 12%) 0px -2px 0px inset;
+  color: #c5c5c5;
 }
