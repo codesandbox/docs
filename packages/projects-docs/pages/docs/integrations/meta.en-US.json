@@ -1,4 +1,5 @@
 {
   "github-app": "GitHub App",
-  "browser-extension": "Browser extension"
+  "browser-extension": "Browser extension",
+  "vscode": "VSCode"
 }
