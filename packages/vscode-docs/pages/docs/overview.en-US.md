@@ -5,10 +5,10 @@ slug: /
 description: Learn about CodeSandbox Extension in VS Code.
 ---
 
+import Video from '../../../../../shared-components/Video'
+
 <div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px'}}>
 </div>
-
-# CodeSandbox in VS Code
 
 Tap into the power of CodeSandbox within the comfort of VS Code. Our VS Code extension uses Remote - SSH to spin up code that has been imported to your CodeSandbox account and connects to the CodeSandbox API which powers collaboration and DevTools that integrate seamlessly into your workflow.
 
@@ -32,7 +32,7 @@ Tap into the power of CodeSandbox within the comfort of VS Code. Our VS Code ext
 
 You can jump to VS Code at anytime from the browser 
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/26990097-3aeb-4e75-9e7d-b5f6572dd87a/Untitled.png)
+![Open VS Code from Web Editor](../images/vscode-open.png)
 
 Alternatively, you can do all your work in VS Code without accessing CodeSandbox on the web
 
@@ -40,17 +40,17 @@ Alternatively, you can do all your work in VS Code without accessing CodeSandbox
 
 2) Sign in if you haven’t already
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8c424d02-c6eb-42eb-b675-5893e527cd79/Untitled.png)
+![Sign in on VS Code](../images/vscode-signin.png)
 
 2) Select the ‘Projects’ panel and select the project you want to work on. From there you can open a new branch or select an existing branch to open
 
 You will only be able to select from a list of repositories that have been imported to CodeSandbox. If you don’t see your project in the list, check your dashboard on CodeSandbox to make sure everything is set up there first.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3d46c3b8-e889-4fe6-a172-7ec4009450aa/Untitled.png)
+![List of branches in VS Code Extension](../images/vscode-branch-list.png)
 
 If at any point, you want to switch to the CodeSandbox editor, simply click ‘Open in CodeSandbox’ under the ‘Branch Control Panel’
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/79c50a69-3c1d-41ac-88b7-0ad2fa80e036/Untitled.png)
+![Branch Control Panel](../images/vscode-branch-control-panel.png)
 
 ## Live Collaboration
 
@@ -58,21 +58,18 @@ If at any point, you want to switch to the CodeSandbox editor, simply click ‘O
 
 Once you are connected to the branch, you will be able to see a list of teammates that are active on the branch. You can see the list of collaborators as well as the environment they are working from. 
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3c6a5ee5-b815-46c7-9f5b-e2a5fb5b6691/Untitled.png)
+![Participant list](../images/vscode-participants.png)
 
 In this case, I am active in both VS Code and the CodeSandbox editor. 
 
 **See collaborations**
 
-Changes that are made to a file are reflected in the editor of every user
-
-[insert video]
-
-## Live Following
+Changes that are made to a file are reflected in the editor of every user.
 
 Select the name of a collaborator to focus on the file and line that they are working on
+## Live Following
 
-[following.mov](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ba41ec94-f116-4561-b626-a8a022af485c/following.mov)
+<Video src="../../vscode-following.mp4" />
 
 ## DevTools
 
@@ -80,7 +77,7 @@ Just like in the CodeSandbox editor, you have access to running ports to view co
 
 The available ports are listed in the panel. Clicking on a port will open a tab in your default browser
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ebe9404d-be76-4c46-9185-c360e536daa3/Untitled.png)
+![VS Code DevTool Panel](../images/vscode-devtool-panel.png)
 
 ## Connection
 
@@ -88,11 +85,11 @@ You can see the status of the ssh connection in the green box in the footer bar.
 
 Right of the ssh connection status is the Pitcher status. If this is disconnected, it will not interrupt your access to the code. You won’t, however, be able to view the changes of other collaborators. When Pitcher is disconnected, you will see a modal asking you to reconnect. 
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c8f1ccd6-78b7-4f5a-9f82-3796ee086d6a/Untitled.png)
+![Disconntect Modal](../images/vscode-disconnected.png)
 
 If you opt out, you can always click on the un-synced status to be presented with the option to connect again.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a63b53e0-88fe-46ec-bb4f-d3d9a951c639/Untitled.png)
+![Unsynced Notification](../images/vscode-unsynced.png)
 
 # How it works
 
@@ -109,7 +106,7 @@ On top of this we also connect to Pitcher, just like we do in the browser, where
 
 ## What to do about that recurring trust modal?
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2cd18d1a-b838-4005-9002-2bf0090a2657/Untitled.png)
+![Trust Modal](../images/vscode-trust.png)
 
 This modal shows up every time you launch a project folder in a new container. Since every branch will be opened with a unique SSH url, VS Code will ask you to verify that you trust the connection. This is an important security notice used to confirm that the user understands the  connection being established before opening the code. You can read more about the modal [here](https://code.visualstudio.com/blogs/2021/07/06/workspace-trust).
 
