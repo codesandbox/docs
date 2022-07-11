@@ -1,3 +1,9 @@
 {
-  "overview": "Overview"
+  "overview": "Overview",
+  "open-branches": "Open branches",
+  "devtools": "DevTools",
+  "live-collaboration": "Live Collaboration",
+  "review-prs": "Review PRs",
+  "extensions": "Settings & Extensions",
+  "faq": "FAQ"
 }
