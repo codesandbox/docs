@@ -75,16 +75,10 @@ export function locales(request) {
   }
 }
 
-export function withLocales(middleware) {
-  return (...args) => {
-    return locales(args[0]) || middleware(...args);
-  };
-}
+// export const middleware = locales;
 
-export const middleware = locales;
-
-// export const middleware = withLocales((req, ev) => {
-//   console.log(req.nextUrl);
-//   const { pathname } = req.nextUrl;
-//   console.log(pathname);
-// });
+export const middleware = withLocales((req, ev) => {
+  console.log(req.nextUrl);
+  const { pathname } = req.nextUrl;
+  console.log(pathname);
+});
