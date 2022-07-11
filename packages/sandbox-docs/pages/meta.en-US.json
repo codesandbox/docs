@@ -1,4 +1,9 @@
 {
+  "index": "Overview",
+  "api-reference": {
+    "title": "API Reference",
+    "type": "page"
+  },
   "overview": "Overview",
   "workspaces": "Workspace",
   "embedding": "Embedding",
