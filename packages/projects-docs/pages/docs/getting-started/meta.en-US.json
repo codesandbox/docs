@@ -3,5 +3,6 @@
   "start-building": "Start building",
   "collaborate-share": "Collaborate & Share",
   "open-source-collaboration": "For open source",
-  "keep-working-on-vscode-ios": "Continue with VS Code"
+  "keep-working-on-vscode": "Continue with VS Code",
+  "keep-working-on-ios": "Continue with iOS"
 }
