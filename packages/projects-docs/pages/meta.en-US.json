@@ -5,5 +5,9 @@
   "setting-up": "Configuring",
   "integrations": "Integrations",
   "teams": "Manage Teams",
-  "faq": "FAQ"
+  "faq": "FAQ",
+  "tutorial": {
+    "title": "Tutorial",
+    "type": "page"
+  }
 }
