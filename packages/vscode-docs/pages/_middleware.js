@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const PUBLIC_FILE = /\.(.*)$/;
+const BASE_PATH = process.env.BASE_PATH || "";
 
 export function locales(request) {
   const { nextUrl } = request;
@@ -15,12 +16,11 @@ export function locales(request) {
   // Because of the localization the redirect using next.config.js is not working.
   // So we need to redirect manually.
   // -----------------------------------------
-  if (nextUrl.pathname == "/") {
-    return NextResponse.redirect(new URL("/docs", request.url));
-  }
 
-  if (nextUrl.pathname == "/docs") {
-    return NextResponse.redirect(new URL("/docs/overview", request.url));
+  if (nextUrl.pathname == "/") {
+    return NextResponse.redirect(
+      new URL(`${BASE_PATH}/docs/overview`, request.url)
+    );
   }
   // -----------------------------------------
 
