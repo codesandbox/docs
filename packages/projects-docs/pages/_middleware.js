@@ -6,8 +6,6 @@ const BASE_PATH = process.env.BASE_PATH || "";
 export function locales(request) {
   const { nextUrl } = request;
 
-  return;
-
   const shouldHandleLocale =
     !PUBLIC_FILE.test(nextUrl.pathname) &&
     !nextUrl.pathname.includes("/api/") &&
