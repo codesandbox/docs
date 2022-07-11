@@ -14,10 +14,9 @@ const withTM = require("next-transpile-modules")(["../../shared-components"]);
 
 module.exports = withTM(
   withNextra({
-    i18n: {
-      locales: ["en-US"],
-      defaultLocale: "en-US",
-    },
     basePath: BASE_PATH || "",
+    redirects: {
+      "/": "/overview",
+    },
   })
 );

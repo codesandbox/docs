@@ -1,27 +1,29 @@
-import React from 'react'
-import { useRouter } from 'next/router'
+import React from "react";
+import { useRouter } from "next/router";
 
-import Menu from './select'
-import { DocsThemeConfig } from './types'
-import Globe from './icons/globe'
+import Menu from "./select";
+import { DocsThemeConfig } from "./types";
+import Globe from "./icons/globe";
 
 interface LocaleSwitchProps {
-  options: NonNullable<DocsThemeConfig['i18n']>
+  options: NonNullable<DocsThemeConfig["i18n"]>;
 }
 export default function LocaleSwitch({ options }: LocaleSwitchProps) {
-  const router = useRouter()
+  const router = useRouter();
 
-  const { locale, asPath } = router
-  const selected = options.find(l => locale === l.locale)!
+  return null;
+
+  const { locale, asPath } = router;
+  const selected = options.find((l) => locale === l.locale)!;
 
   return (
     <Menu
-      onChange={option => {
-        const date = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
+      onChange={(option) => {
+        const date = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
         document.cookie = `NEXT_LOCALE=${
           option.key
-        }; expires=${date.toUTCString()}; path=/`
-        window.location.href = asPath
+        }; expires=${date.toUTCString()}; path=/`;
+        window.location.href = asPath;
       }}
       selected={{
         key: selected.locale,
@@ -30,12 +32,12 @@ export default function LocaleSwitch({ options }: LocaleSwitchProps) {
             <Globe />
             <span>{selected.text}</span>
           </div>
-        )
+        ),
       }}
-      options={options.map(l => ({
+      options={options.map((l) => ({
         key: l.locale,
-        name: l.text
+        name: l.text,
       }))}
     ></Menu>
-  )
+  );
 }
