@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import Logo from "./components/Logo";
 import BackLink from "../../shared-components/BackLink";
 import defaultConfigs from "codesandbox-theme-docs/shared.config.js";
