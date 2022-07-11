@@ -12,20 +12,6 @@ export function locales(request) {
     nextUrl.locale !== "";
   if (!shouldHandleLocale) return;
 
-  // Because of the localization the redirect using next.config.js is not working.
-  // So we need to redirect manually.
-  // -----------------------------------------
-  if (nextUrl.pathname == "/") {
-    return NextResponse.redirect(new URL("/docs", request.url));
-  }
-
-  if (nextUrl.pathname == "/docs") {
-    return NextResponse.redirect(
-      new URL("docs/introduction/overview", request.url)
-    );
-  }
-  // -----------------------------------------
-
   // The locale code prefixed in the current URL, which can be empty.
   const fullUrl = nextUrl.toString();
   const localeInPath = fullUrl
