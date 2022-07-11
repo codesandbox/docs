@@ -5,7 +5,7 @@ slug: /
 description: Learn what CodeSandbox is and how to use it.
 ---
 
-<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px'}}>
+<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px',  marginBottom: '3rem'}}>
 </div>
 
 ## iOS Docs

@@ -7,7 +7,7 @@ description: Learn about CodeSandbox Extension in VS Code.
 
 import Video from '../../../../shared-components/Video'
 
-<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px'}}>
+<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px',  marginBottom: '3rem' }}>
 </div>
 
 # Codesandbox for VS Code
