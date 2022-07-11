@@ -41,15 +41,13 @@ If you have already a .nvmrc file containing a node version number in your proje
 
 The environment file allows you to specify:
 
-- nodeVersion
+**nodeVersion**
 
 ```json
 {
   "nodeVersion": "14"
 }
 ```
-
-#### Node Version
 
 Single value configuration, type `string`, by default it is set to `"16"` .
 
