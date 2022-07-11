@@ -16,7 +16,7 @@ export function locales(request) {
   // Because of the localization the redirect using next.config.js is not working.
   // So we need to redirect manually.
   // -----------------------------------------
-  if (nextUrl.pathname == BASE_PATH) {
+  if (nextUrl.pathname == "/") {
     return NextResponse.redirect(
       new URL(`${BASE_PATH}/introduction/overview`, request.url)
     );
