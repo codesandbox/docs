@@ -1,20 +1,19 @@
 ---
 title: GitHub App
 description: GitHub integration that adds CodeSandbox links in GitHub pull request descriptions.
-wip: true
 ---
 
 # GitHub App
 
 The integration of CodeSandbox with GitHub makes it possible to automatically add the following links in every PR description to ease the review process.
 
-### Web Client
+**Web Client**<br/>
 This link opens the branch from the PR. Since the branch is a shared environment, you will be able to see any running previews, tests or other DevTools that the PR author left open to assist with the review process.
 
-### VS Code
+**VS Code**<br/>
 If VS Code is your preferred development environment, you can still open the branch directly from this link using [remote-ssh](https://code.visualstudio.com/docs/remote/ssh).
 
-### Preview
+**Preview**<br/>
 This link will start up a stand-alone devtool that spins up the preview link.
 
 ## Requesting vs Installing
@@ -22,8 +21,7 @@ Installation of the GitHub App can only be done by organization admins or reposi
 
 When the installation request is made, the owner of the repos selected or an admin on the organization will be notified on GitHub and via email. 
 
-
- - installation request that appears when importing a repo for the first time.
+- Installation request that appears when importing a repo for the first time.
 - GitHub alls can be installed on an organization level or for individual repositories
 
 ## Privacy and Permission
