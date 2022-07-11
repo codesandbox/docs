@@ -4,7 +4,7 @@ description:
 ---
 
 import Callout from 'nextra-theme-docs/callout'
-import Video from '../../../../../shared-components/Video'
+import Video from '../../../../shared-components/Video'
 
 # Overview
 

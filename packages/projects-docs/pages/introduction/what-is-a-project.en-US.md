@@ -3,7 +3,7 @@ title: Web Editor
 description:
 ---
 
-import Video from '../../../../../shared-components/Video'
+import Video from '../../../../shared-components/Video'
 
 # What is a CodeSandbox Project
 

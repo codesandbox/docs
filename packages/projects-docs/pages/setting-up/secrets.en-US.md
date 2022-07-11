@@ -4,7 +4,7 @@ description: Use configuration values and secrets in CodeSandbox Projects
 ---
 
 import Callout from 'nextra-theme-docs/callout'
-import Video from '../../../../../shared-components/Video'
+import Video from '../../../../shared-components/Video'
 
 # Environment variables and secrets
 
