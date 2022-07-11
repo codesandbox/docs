@@ -1,4 +1,7 @@
-<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px'}}>
-</div>
+---
+title: Edit team
+description:
+wip: true
 
-## Overview
+---
+## Edit team

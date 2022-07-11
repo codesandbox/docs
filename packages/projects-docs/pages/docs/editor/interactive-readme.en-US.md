@@ -1,7 +1,6 @@
 ---
 title: Interactive Readme
 description: Create an interactive readme with CodeSandbox Project
-wip: true
 ---
 
 # Interactive Readme

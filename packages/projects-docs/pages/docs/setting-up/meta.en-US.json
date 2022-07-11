@@ -1,5 +1,4 @@
 {
-  "overview": "Overview",
   "tasks": "tasks.json",
   "env": "Environment",
   "secrets": "Environment variables",
