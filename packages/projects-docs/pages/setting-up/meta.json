@@ -1,0 +1,7 @@
+{
+  "overview": "Overview",
+  "tasks": "tasks.json",
+  "env": "Environment",
+  "secrets": "Environment variables",
+  "limitations": "Workspace limitations"
+}
