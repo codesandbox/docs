@@ -7,7 +7,8 @@
     "dev": "next",
     "debug": "NODE_OPTIONS='--inspect' next",
     "start": "next start",
-    "build": "next build && next-sitemap",
+    "prebuild": "pnpm  --filter 'codesandbox-theme-docs' build",
+    "build": "pnpm prebuild && next build && next-sitemap",
     "test-docs": "alex pages/**/"
   },
   "dependencies": {
