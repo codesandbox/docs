@@ -1,12 +1,18 @@
-# Collaboration and Sharing
+# Collaborate and Share
 
-We want to make it as easy as possible to add people to your team to share the CodeSandbox experience. You can add team members to your current team and they get access to all you projects and branches. 
-You can also share Branches with anonymouns users for reviews and many more things. This page will walk you through all the importent steps.
+CodeSandbox Projects was built to facilitate collaboration. Add team members to your current team and grant access to all projects and branches or share specific branches for more granular permissions.
 
-## Adding people to your team
+## Add or remove people from your team
 
-1. Go to the [CodeSandbox Projects Dashboard](https://codesandbox.io/p/dashboard)
-1. Click on "Go to Sandboxes"
-1. Click on the cog Icon next to the team you would like to update
-1. Add new people through the "Members" section
+1. Go to the **[Sandboxes Dashboard](https://codesandbox.io/dashboard)**
+1. In the top left corner, select the team you'd like to edit in the dropdown. 
+1. Click on the settings icon next to the team.
+1. Add or remove people through the **Members** section
+
+## Share specific branches
+
+1. Open the branch you wish to share in the **Editor**.
+1. In the top right corner, click on `Share` .
+1. Copy the URL to share your workspace.
+
 
