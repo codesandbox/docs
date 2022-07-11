@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 const PUBLIC_FILE = /\.(.*)$/;
+const BASE_PATH = process.env.BASE_PATH || "";
 
 export function locales(request) {
   const { nextUrl } = request;
@@ -16,12 +17,8 @@ export function locales(request) {
   // So we need to redirect manually.
   // -----------------------------------------
   if (nextUrl.pathname == "/") {
-    return NextResponse.redirect(new URL("/docs", request.url));
-  }
-
-  if (nextUrl.pathname == "/docs") {
     return NextResponse.redirect(
-      new URL("/docs/introduction/overview", request.url)
+      new URL(`${BASE_PATH}/introduction/overview`, request.url)
     );
   }
   // -----------------------------------------
@@ -84,10 +81,10 @@ export function withLocales(middleware) {
   };
 }
 
-// export const middleware = locales;
+export const middleware = locales;
 
-export const middleware = withLocales((req, ev) => {
-  console.log(req.nextUrl);
-  const { pathname } = req.nextUrl;
-  console.log(pathname);
-});
+// export const middleware = withLocales((req, ev) => {
+//   console.log(req.nextUrl);
+//   const { pathname } = req.nextUrl;
+//   console.log(pathname);
+// });
