@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const PUBLIC_FILE = /\.(.*)$/;
+const BASE_PATH = process.env.BASE_PATH || "";
 
 export function locales(request) {
   const { nextUrl } = request;
@@ -11,6 +12,20 @@ export function locales(request) {
     !nextUrl.pathname.includes("/_next/") &&
     nextUrl.locale !== "";
   if (!shouldHandleLocale) return;
+
+  // Because of the localization the redirect using next.config.js is not working.
+  // So we need to redirect manually.
+  // -----------------------------------------
+  if (nextUrl.pathname == "/") {
+    return NextResponse.redirect(new URL(BASE_PATH, request.url));
+  }
+
+  if (nextUrl.pathname == BASE_PATH) {
+    return NextResponse.redirect(
+      new URL(`${BASE_PATH}/introduction/overview`, request.url)
+    );
+  }
+  // -----------------------------------------
 
   // The locale code prefixed in the current URL, which can be empty.
   const fullUrl = nextUrl.toString();
