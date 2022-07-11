@@ -3,7 +3,7 @@ title: Keep working on VS Code
 description:
 ---
 
-import Video from '../../../../../shared-components/Video'
+import Video from '../../../../shared-components/Video'
 
 # Keep working on VS Code
 
