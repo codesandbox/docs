@@ -15,8 +15,14 @@ const withTM = require("next-transpile-modules")(["../../shared-components"]);
 module.exports = withTM(
   withNextra({
     basePath: BASE_PATH || "",
-    redirects: {
-      "/": "/overview",
+    async redirects() {
+      return [
+        {
+          source: "/",
+          destination: "/overview",
+          permanent: true,
+        },
+      ];
     },
   })
 );
