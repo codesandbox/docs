@@ -9,7 +9,7 @@ export default function Nextra({ Component, pageProps }) {
   const router = useRouter();
 
   // Init Amplitude
-  amplitude.getInstance().init("a205ed9b06a7baf5a594bdd30293aa80", null, {
+  amplitude.getInstance().init(process.env.NEXT_PUBLIC_AMPLITUDE, null, {
     includeReferrer: true,
     saveEvents: true,
     includeUtm: true,
@@ -20,7 +20,7 @@ export default function Nextra({ Component, pageProps }) {
   const [initialRouteTracked, setInitialRouteTracked] = useState(false);
 
   useEffect(() => {
-    if (isBrowser && !initialRouteTracked && window.location.search === "") {
+    if (isBrowser && !initialRouteTracked) {
       const event = "pageview";
       const eventProperties = {
         source: "docs",
