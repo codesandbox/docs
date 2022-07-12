@@ -4,5 +4,9 @@
   "editor": "Web Editor",
   "setting-up": "Configuring",
   "integrations": "Integrations",
-  "teams": "Team and access management"
+  "teams": "Team and access management",
+  "tutorial": {
+    "title": "Tutorial",
+    "type": "page"
+  }
 }

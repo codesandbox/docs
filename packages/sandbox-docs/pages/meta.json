@@ -15,5 +15,9 @@
   "environment": "Environment",
   "ci": "CodeSandbox CI",
   "explore": "Explore Page & Curators",
-  "faq": "FAQ"
+  "faq": "FAQ",
+  "api-reference": {
+    "title": "API Reference",
+    "type": "page"
+  }
 }
