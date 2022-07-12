@@ -8,21 +8,19 @@ import ButtonDoc from '../../../components/ButtonDoc'
 
 # Keep working on VS Code
 
-CodeSandbox Projects has a first-class integration with the VSCode editor. This means that you can open any branch directly in your VSCode editor, where you can use your own extensions while being connected with the CodeSandbox development environment.
+Install the **Projects VSCode extension** and open any branch directly in your VSCode editor. Work from your local environment with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
 
 <div className="ctaContainer">
-    <ButtonDoc title={<>Go and install the <br/>VS Code Extension</>} cta="Install" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />
-    <ButtonDoc title={<>Learn more about <br/>VS Code and Projects</>} cta="Read documentation" link="https://codesandbox.io/docs/vscode" />
+    <ButtonDoc title={<>Get the <br/>VSCode Extension</>} cta="Install" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />
+    <ButtonDoc title={<>VSCode Extension Documentation </>} cta="Read more" link="https://codesandbox.io/docs/vscode" />
 </div>
 
-## Opening in VSCode
-
-There are multiple ways to open a branch in VSCode. The easiest way is to open the branch in the CodeSandbox editor, and by clicking on "Open in VSCode" in the bottom left.
+## Opening a branch in VSCode
 
 ![Open in vscode button](../images/getting-openvscode.png)
 
-As soon as you click the button, you will be prompted to install the CodeSandbox extension which is responsible for making the connection with the cloud development environment.
+To start working in a branch on VSCode, open the branch in the Editor and to click on `Open in VSCode` button in the bottom left corner. You will be prompted to install the CodeSandbox extension  responsible for making the connection to our cloud development environment.
 
 ### Learn more
 
-To get the most from your local setup [go check the VS Code Extension documentation](https://codesandbox.io/docs/vscode)
+To get the most from your local setup, check our **[VS Code Extension documentation](https://codesandbox.io/docs/vscode).**
