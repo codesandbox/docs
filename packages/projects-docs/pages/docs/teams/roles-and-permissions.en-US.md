@@ -42,6 +42,7 @@ The following table outlines the permissions for each role.
 |   Run existing tasks     |             ✔️                |        ✔️        |      ✔️     |
 |   Create new tasks     |             ✔️                |        ❌         |      ❌     |
 |   Change exiting tasks     |             ✔️                |        ❌         |      ❌     |
+|   Open DevTools    |             ✔️                |        ✔️         |      ✔️     |
 |   Make changes    |             ✔️                |        ❌        |      ❌     |
 |   Open a pull request    |             ✔️                |        ❌        |      ❌     |
 |   Install the GitHub action    |             ✔️                |        ❌        |      ❌     |
