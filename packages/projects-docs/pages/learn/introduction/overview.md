@@ -1,4 +1,5 @@
 import Callout from 'nextra-theme-docs/callout'
+import { VSCODE_DOCS_URL, IOS_DOCS_URL } from "../../../../../shared-components/contants.js"
 
 <div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px', marginBottom: '3rem'}}>
 </div>
@@ -14,8 +15,8 @@ We hope you’re excited about the future of web development and to build projec
 Projects documentation are related to the overall functionalities and the Web Editor. If you are looking for other clients go check the specific documentations:
 
 <div className="ctaContainer">
-    <ButtonDoc title={<>CodeSandbox <br/>for VS Code</>} cta="Check now" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />
-    <ButtonDoc title={<>CodeSandbox <br/>for iOS</>} cta="Check now" link="https://codesandbox.io/docs/vscode" />
+    <ButtonDoc title={<>CodeSandbox <br/>for VS Code</>} cta="Check now" description="" link={VSCODE_DOCS_URL} />
+    <ButtonDoc title={<>CodeSandbox <br/>for iOS</>} cta="Check now" link={IOS_DOCS_URL} />
 </div>
 
 <br/>

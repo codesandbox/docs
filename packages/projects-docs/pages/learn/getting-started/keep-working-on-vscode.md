@@ -5,6 +5,7 @@ description:
 
 import Callout from 'nextra-theme-docs/callout'
 import ButtonDoc from '../../../components/ButtonDoc'
+import { VSCODE_DOCS_URL, IOS_DOCS_URL } from "../../../../../shared-components/contants.js"
 
 # Keep working on VS Code
 
@@ -12,7 +13,7 @@ CodeSandbox Projects has a first-class integration with the VSCode editor. This 
 
 <div className="ctaContainer">
     <ButtonDoc title={<>Go and install the <br/>VS Code Extension</>} cta="Install" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />
-    <ButtonDoc title={<>Learn more about <br/>VS Code and Projects</>} cta="Read documentation" link="https://codesandbox.io/docs/vscode" />
+    <ButtonDoc title={<>Learn more about <br/>VS Code and Projects</>} cta="Read documentation" link={VSCODE_DOCS_URL} />
 </div>
 
 ## Opening in VSCode
@@ -25,4 +26,4 @@ As soon as you click the button, you will be prompted to install the CodeSandbox
 
 ### Learn more
 
-To get the most from your local setup [go check the VS Code Extension documentation](https://codesandbox.io/docs/vscode)
+To get the most from your local setup <a href={VSCODE_DOCS_URL}>go check the VS Code Extension documentation</a>

@@ -21,24 +21,20 @@ You can start working on a project by importing an existing repository from GitH
     
 4. Enter a valid **GitHub URL*** or choose a repository from the pre-loaded **repository list**. 
 
- <Callout emoji="*⃣️">
-    **Valid GitHub URLs**
-    
-    `https://` `github.com/` `:org/` `:repo`
-    - Include the protocol, such as `https`;
-    - Don't include branch name;
-    - for example `https://github.com/facebook/react`.
-  </Callout>
+<Callout emoji="*⃣️">
+**Valid GitHub URLs**
 
-    - If the search does not return any matches, click on the **`Show all`** button under the last repository visible in the list to load more repositories.
+`https://` `github.com/` `:org/` `:repo`
+- Include the protocol, such as `https`;
+- Don't include branch name;
+- for example `https://github.com/facebook/react`.
+</Callout>
 
-    - If not all your GitHub organizations are listed in the dropdown, click on **`Manage GitHub integrations`** and grant the required permissions.
-  
+- If the search does not return any matches, click on the **`Show all`** button under the last repository visible in the list to load more repositories.
+
+- If not all your GitHub organizations are listed in the dropdown, click on **`Manage GitHub integrations`** and grant the required permissions.
  
 6. Click on **Import**. 
-
-
-
 
 ## Creating from a template
 
@@ -53,19 +49,17 @@ You can start working on a project by importing an existing repository from GitH
 1. Click on **`Create project`**.
 
 
-
-
 ## Troubleshooting
    
 #### **Permission errors while importing a project**
     
-    - Check your team's permission to open CodeSandbox Projects.
-    
-    - Check your **repository permission on GitHub**. 
-    You need to have `write` permission on Github to be able to import the project. Currently, we’re working on enabling the import of public repositories where you only have `read` access.
-    
-    - Check your **GitHub permissions**. 
-    CodeSandbox Projects requires full git access to be able to import and commit. If you face any you might face some authentication errors, follow the steps to reset your github permissions.
+- Check your team's permission to open CodeSandbox Projects.
+
+- Check your **repository permission on GitHub**. 
+You need to have `write` permission on Github to be able to import the project. Currently, we’re working on enabling the import of public repositories where you only have `read` access.
+
+- Check your **GitHub permissions**. 
+CodeSandbox Projects requires full git access to be able to import and commit. If you face any you might face some authentication errors, follow the steps to reset your github permissions.
     
     
 #### **Resetting Github permissions**
@@ -76,16 +70,15 @@ You can start working on a project by importing an existing repository from GitH
 
 1. Click on **Preferences**.
 
-  ![Preferences Dropdown Menu Point on CodeSandbox Dashboard](../images/preferences.png)
+![Preferences Dropdown Menu Point on CodeSandbox Dashboard](../images/start-preferences.png)
   
 4. Go to **Integrations**. 
 
 5. **Sign out from GitHub and sign in again** to reconnect your GitHub Account. This will fix all potential permission issues. 
   
-
 #### **Invalid authorization code on Firefox and Safari**
     
-    Safari and Firefox block popups by default. Please make sure you give the domain permission (through browser settings) or refresh the page after you opened the popup and try again.
+Safari and Firefox block popups by default. Please make sure you give the domain permission (through browser settings) or refresh the page after you opened the popup and try again.
 
 
     

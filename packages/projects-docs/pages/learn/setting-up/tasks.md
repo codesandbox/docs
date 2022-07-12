@@ -32,13 +32,9 @@ This is an example of a configuration:
 }
 ```
 
-TODO link to the references Add a table of all props the object can have.
-
 ## Using the default configuration
 
 By default, CodeSandbox Projects tries to infer scripts from the `package.json` file in your project's root folder. In addition, you can always use the terminal devtool to execute any shell script to run your project.
-
-## Create a config file
 
 ## Setup Tasks
 
