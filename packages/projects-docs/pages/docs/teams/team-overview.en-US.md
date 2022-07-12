@@ -23,7 +23,7 @@ Managing your team is possible through the Sandboxes dashboard.
 
 ![Go to sandboxes to manage your team](../images/team-go-to-sandboxes.png)
 
-On the sandboxes dashboard you can change to any of your teams and with clicking the gear icon you can manage your existing team. Would you like to create a new team? You can create a new team on the sandboxes dashboard as well.
+On the sandboxes dashboard you can change to any of your teams and with clicking the gear icon you can manage your existing team. Would you like to create a new team? You can create a new team on the sandboxes dashboard as well. [More about CodeSandbox Teams](https://codesandbox.io/docs/workspaces)
 
 ![Manage your team](../images/team-manage-team.png)
 
