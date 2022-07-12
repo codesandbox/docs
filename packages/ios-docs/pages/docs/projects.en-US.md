@@ -2,13 +2,14 @@
 
 Projects lets you take advantage of the true potential of cloud development and live collaboration. With Projects you can develop web apps of any size, from anywhere, while enjoying the optimized workflows we have designed for peak productivity.
 
-CodeSandbox for iOS support for Sandbox development is powered by the app’s Node.js port, it enables offline development but it is limited by the restrictions imposed by iOS. To work around these limitations we have integrated the iOS app with Pitcher, our development platform. Pitcher allows you to have the same experience across different devices but making the most of each platform’s potential.
+CodeSandbox for iOS support for Sandbox development is powered by the app’s Node.js port, it enables offline development but it is limited by the restrictions imposed by iOS. To unleash the full potential of developing on iOS you can use CodeSandbox Projects. Projects allows you to have the same experience across different devices but making the most of each platform’s potential.
 
 ![pitcher.png](./images/pitcher.png)
 
 ## Getting Started
 
-CodeSandbox Projects requires a CodeSandbox account and it is currently in Private Beta. You can request access to Projects through the waitlist form available [here](https://codesandbox.typeform.com/to/FvKP0ACp?typeform-source=codesandbox.io).
+You can start using CodeSandbox Projects from the web, VSCode, or even iOS so choosing the most convenient platform that fits to your workflow. Furthermore, whenever you want just hop between different clients and continue the work on your project where you left off.
+
 
 ## Importing a project
 

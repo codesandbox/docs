@@ -25,11 +25,11 @@ This feature is specially useful when you’re working on a branch and need to q
 
 ## A running environment in seconds
 
-At Projects, we run the repositories on containers. When you press `Fork`, we create a new branch and development environment with running dev servers within a few seconds.
+At Projects, we run the repositories on containers. When you press `Branch`, we create a new branch and development environment with running dev servers within a few seconds.
 
 <Video src="../../introduction-gitflow.mp4" />
 
-If you are looking at someone’s PR and want to quickly test a suggestion, simply click `Fork`, write the code and share a link to your changes. If you’re happy with the changes, merge that
+If you are looking at someone’s PR and want to quickly test a suggestion, simply click `Branch`, write the code and share a link to your changes. If you’re happy with the changes, merge that
 into the existing PR. All of this in under a minute.
 
 ## Works with VSCode
