@@ -7,7 +7,6 @@ export default {
   ...defaultConfigs,
   docsRepositoryBase: "https://codesandbox.io/p/github/codesandbox/docs/main",
   titleSuffix: " - Sandbox",
-  i18n: [{ locale: "en-US", text: "English" }],
   projectLinkIcon: BackLink,
   logo: () => <Logo />,
 };

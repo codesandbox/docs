@@ -1,10 +1,6 @@
 {
-  "index": {
-    "hidden": true,
-    "type": "page"
-  },
-  "docs": {
-    "title": "Docs",
+  "learn": {
+    "title": "Documentation",
     "type": "page"
   },
   "tutorial": {
