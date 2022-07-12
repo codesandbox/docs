@@ -1,10 +1,8 @@
 {
-  "introduction": "Introduction",
-  "getting-started": "Getting Started",
-  "editor": "Web Editor",
-  "setting-up": "Configuring",
-  "integrations": "Integrations",
-  "teams": "Team and access management",
+  "learn": {
+    "title": "Documentation",
+    "type": "page"
+  },
   "tutorial": {
     "title": "Tutorial",
     "type": "page"

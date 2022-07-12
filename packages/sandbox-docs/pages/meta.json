@@ -1,21 +1,8 @@
 {
-  "overview": "Overview",
-  "workspaces": "Workspace",
-  "embedding": "Embedding",
-  "git": "GitHub Committing and PRs",
-  "uploading": "",
-  "importing": "",
-  "live": "Collaboration with Live",
-  "tests": "",
-  "secrets": "Secrets",
-  "deployment": "Deploying your Sandbox",
-  "configuration": "Configuration",
-  "preferences": "",
-  "templates": "Templates",
-  "environment": "Environment",
-  "ci": "CodeSandbox CI",
-  "explore": "Explore Page & Curators",
-  "faq": "FAQ",
+  "learn": {
+    "title": "Documentation",
+    "type": "page"
+  },
   "api-reference": {
     "title": "API Reference",
     "type": "page"

@@ -4,7 +4,7 @@ description:
 ---
 
 import Callout from 'nextra-theme-docs/callout'
-import ButtonDoc from '../../components/ButtonDoc'
+import ButtonDoc from '../../../components/ButtonDoc'
 
 # Keep working on VS Code
 

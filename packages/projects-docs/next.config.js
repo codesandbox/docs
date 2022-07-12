@@ -19,7 +19,7 @@ module.exports = withTM(
       return [
         {
           source: "/",
-          destination: "/introduction/overview",
+          destination: "/learn/introduction/overview",
           permanent: true,
         },
       ];
