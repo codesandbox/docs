@@ -1,4 +1,4 @@
-import Video from '../../../../shared-components/Video'
+import Video from '../../../shared-components/Video'
 
 # Live Collaboration
 

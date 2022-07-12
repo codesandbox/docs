@@ -3,7 +3,7 @@ import Callout from 'nextra-theme-docs/callout'
 <div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px', marginBottom: '3rem'}}>
 </div>
 
-import ButtonDoc from '../../../components/ButtonDoc'
+import ButtonDoc from '../../components/ButtonDoc'
 
 # About CodeSandbox Projects
 
