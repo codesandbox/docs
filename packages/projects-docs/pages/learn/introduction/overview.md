@@ -1,25 +1,31 @@
+---
+title: Overview
+description: Teste
+---
+
 import Callout from 'nextra-theme-docs/callout'
-
-<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px', marginBottom: '3rem'}}>
-</div>
-
+import { VSCODE_DOCS_URL, IOS_DOCS_URL } from "../../../../../shared-components/contants.js"
 import ButtonDoc from '../../../components/ButtonDoc'
+import Hero from "../../../../../shared-components/Hero.js"
 
-# About CodeSandbox Projects
+<Hero 
+  title={<>Development<br/> reimagined.</>}
+  subtitle="CodeSandbox Projects is a cloud development platform deeply integrated with your favourite tooling and suited for projects of any size."
+/>
 
-**CodeSandbox Projects** is a cloud development platform with the familiar speed and experience of CodeSandbox, but deeply integrated with your favourite tooling and suited for projects of any size.
+![](../images/cover-projects.jpg)
 
-We hope you’re excited about the future of web development and to build projects anywhere and anytime with your team.
+This documentation is under active development as we are still working on many foundational features. Check back often and let us know if something is missing.
+    
+## Related docs
 
-Projects documentation are related to the overall functionalities and the Web Editor. If you are looking for other clients go check the specific documentations:
+If you are looking for other clients go check the specific documentations:
 
 <div className="ctaContainer">
-    <ButtonDoc title={<>CodeSandbox <br/>for VS Code</>} cta="Check now" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />
-    <ButtonDoc title={<>CodeSandbox <br/>for iOS</>} cta="Check now" link="https://codesandbox.io/docs/vscode" />
+    <ButtonDoc title={<>CodeSandbox <br/>for VS Code</>} cta="Check now" description="" link={VSCODE_DOCS_URL} />
+    <ButtonDoc title={<>CodeSandbox <br/>for iOS</>} cta="Check now" link={IOS_DOCS_URL} />
 </div>
 
 <br/>
 
-<Callout emoji="🛠️">
-    This documentation is under active development as we are still working on many foundational features. Check back often and let us know if something is missing.
-</Callout>
+

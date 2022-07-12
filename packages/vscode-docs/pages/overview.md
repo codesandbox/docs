@@ -6,13 +6,17 @@ description: Learn about CodeSandbox Extension in VS Code.
 ---
 
 import Video from '../../../shared-components/Video'
+import Hero from "../../../shared-components/Hero.js"
 
-<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px',  marginBottom: '3rem' }}>
-</div>
 
-# Codesandbox for VS Code
+<Hero t
+  title={<>VS Code with<br/>superpowers.</>}
+  subtitle="The VS Code extension uses Remote - SSH to bring the best of CodeSandbox Projects to your local tool."
+/>
 
-Tap into the power of CodeSandbox within the comfort of VS Code. Our VS Code extension uses Remote - SSH to spin up code that has been imported to your CodeSandbox account and connects to the CodeSandbox API which powers collaboration and DevTools that integrate seamlessly into your workflow.
+
+
+![](./images/cover-vscode.jpg)
 
 ## Getting Started
 

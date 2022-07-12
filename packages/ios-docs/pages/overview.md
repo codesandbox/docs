@@ -5,12 +5,16 @@ slug: /
 description: Learn what CodeSandbox is and how to use it.
 ---
 
-<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px',  marginBottom: '3rem'}}>
-</div>
+import Hero from "../../../shared-components/Hero.js"
 
-# iOS Docs
+<Hero t
+  title={<>Anywhere, <br/>anytime.</>}
+  subtitle="CodeSandbox for iOS offers a full-fledged development environment with all the tools you need to develop projects of any size."
+/>
 
-CodeSandbox for iOS offers a full-fledged development environment with all the tools you need to develop projects of any size. Create a sandbox to quickly prototype your ideas or work on a large codebase with CodeSandbox Projects: whatever your needs are we have you covered.
+![](./images/cover-ios.jpg)
+
+Create a sandbox to quickly prototype your ideas or work on a large codebase with CodeSandbox Projects: whatever your needs are we have you covered.
 
 ## Getting Started
 

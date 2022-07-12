@@ -5,7 +5,7 @@ description:
 
 import Video from '../../../../../shared-components/Video'
 
-# What is CodeSandbox Projects
+# About CodeSandbox Projects
 
 **CodeSandbox Projects** is the next level of development environment tools. It was built with a focus on speed and collaboration and allows you to create a workspace to be experienced by multiple people at the same time. 
 
@@ -38,7 +38,7 @@ Open any branch directly in your local VSCode and use all the extensions and key
 
 <Video src="../../introduction-vscode.mp4" />
 
-## Develop on the go on your iPad/iPhone with a native app
+## Develop on the go with an iOS native app
 
 Pick up where you left off or develop from scratch from an iPad or iPhone with all the functionalities that you would expect from a development environment.
 

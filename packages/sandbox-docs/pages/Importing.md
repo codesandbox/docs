@@ -6,6 +6,8 @@ description:
   programmatically or with a UI.
 ---
 
+# Importing Sandboxes
+
 ## Create Wizard
 
 The most popular way of creating a new sandbox is the Create Sandbox screen.

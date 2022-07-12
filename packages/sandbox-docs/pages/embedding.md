@@ -4,6 +4,8 @@ authors: ['CompuIves']
 description: Embed a sandbox in docs, blog posts, Medium, and other websites.
 ---
 
+# Embedding
+
 ## What is an Embed?
 
 An embed enables you to include a sandbox in your documentation, blog post, or

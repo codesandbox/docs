@@ -5,13 +5,14 @@ slug: /
 description: Learn what CodeSandbox is and how to use it.
 ---
 
-<div style={{height:478,width:'100%',background:'var(--docs-accent-color)', borderRadius: '6px'}}>
-</div>
+import Hero from "../../../shared-components/Hero.js"
 
-## What is CodeSandbox
+<Hero 
+  title={<>Make it fast. <br/> Like an insight.</>}
+  subtitle="CodeSandbox is an online editor for rapid web development. Prototype quickly, experiment easily, and share creations with a click."
+/>
 
-CodeSandbox is an online editor for rapid web development. With CodeSandbox, you
-can prototype quickly, experiment easily, and share creations with a click.
+![](./images/cover-sandbox2.jpg)
 
 Use it to create static sites, full-stack web apps, or components on any device
 with a web browser.

@@ -13,7 +13,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body>
+        <body className="folderAsHeader">
           <Main />
           <NextScript />
         </body>

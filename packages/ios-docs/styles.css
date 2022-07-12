@@ -1,10 +1,17 @@
 :root {
-  --docs-accent-color: #EAFF96;
-  --docs-accent-color-opacity: #EAFF9660;
-  --docs-accent-color-link: #EAFF96;
+  --docs-accent-color: #eaff96;
+  --docs-accent-color-opacity: #eaff9660;
+  --docs-accent-color-link: #eaff96;
 }
 
-.dark {
-  --nextra-primary-hue: 72;
-  --nextra-primary-hue-saturation: 93%;
+.light {
+  --docs-accent-color: #000;
+  --docs-accent-color-link: #000;
+  --docs-accent-color-opacity: #00000060;
+}
+
+.dark,
+.light {
+  --nextra-primary-hue: 100;
+  --nextra-primary-hue-saturation: 0%;
 }

@@ -5,7 +5,7 @@ description:
   Share your CodeSandbox and editor preferences across multiple devices.
 ---
 
-## Preferences Profiles
+# Preferences Profiles
 
 Preferences Profiles allow you to save a snapshot of your current CodeSandbox and editor 
 preferences as a profile, which you can then apply to re-use them when you’re on another
