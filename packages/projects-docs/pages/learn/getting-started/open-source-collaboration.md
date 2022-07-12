@@ -6,8 +6,6 @@ wip: true
 
 # Open Source Collaboration
 
-# Open Source Collaboration
-
 Suggesting changes to your favorite Open Source repositories is made easier with CodeSandbox. Whether you are having a look around a repository that you are using, testing out an idea for a change or formally proposing a feature, CodeSandbox OS contribution branches can elimiate tedious steps in your process and get you working on your ideas faster.
 
 ## Viewing Open Source Repositories
