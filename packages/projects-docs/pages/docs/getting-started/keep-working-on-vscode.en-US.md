@@ -8,7 +8,7 @@ import ButtonDoc from '../../../components/ButtonDoc'
 
 # Keep working on VS Code
 
-CodeSandbox Projects has a first-class integration with the VSCode editor. This means that you can open any branch directly in your VSCode editor, where you can use your own extensions while being connected with the CodeSandbox development environment.
+CodeSandbox Projects has a first-class integration with the VSCode editor. This means that you can open any branch directly in your local VSCode editor, where you can use your own extensions while being connected with the CodeSandbox development environment. In addition, our extension provides you additional collaboration and workspace related features.
 
 <div className="ctaContainer">
     <ButtonDoc title={<>Go and install the <br/>VS Code Extension</>} cta="Install" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />
