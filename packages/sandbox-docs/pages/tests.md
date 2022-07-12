@@ -4,6 +4,8 @@ authors: ['CompuIves', 'christianalfoni']
 description: CodeSandbox has a native integration with a test runner.
 ---
 
+# Tests
+
 ## How does CodeSandbox runs tests?
 
 CodeSandbox uses [Jest](https://jestjs.io) library to run the tests directly in

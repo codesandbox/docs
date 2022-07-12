@@ -5,6 +5,8 @@ description:
   CodeSandbox allows you to store secrets so you don't share your keys
 ---
 
+# Secrets
+
 ## What are secrets?
 
 Secrets are used to hide sensitive information in your application that you

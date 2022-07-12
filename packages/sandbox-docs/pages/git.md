@@ -6,6 +6,8 @@ description:
   repositories.
 ---
 
+# GitHub Committing and PRs
+
 ## Base Concept
 
 With CodeSandbox you can import any GitHub repository as a sandbox (detailed

@@ -174,6 +174,10 @@ li a:hover {
   border: none;
 }
 
+.nextra-sidebar > div {
+  padding-top: 0;
+}
+
 .nextra-toc-meta,
 .nextra-sidebar-menu {
   box-shadow: none !important;
@@ -204,14 +208,72 @@ li a:hover {
 }
 
 .dark .nextra-container .nextra-sidebar ul li.active a,
-.dark .nextra-toc-content ul li a[aria-selected="true"] {
-  color: #fff;
+.dark .nextra-toc-content ul li a[aria-selected="true"],
+.light .nextra-container .nextra-sidebar ul li.active a,
+.light .nextra-toc-content ul li a[aria-selected="true"] {
+  color: var(--docs-accent-color);
   background-color: transparent;
 }
 
 .dark .nextra-container .nextra-sidebar ul li.active a:hover,
 .dark .nextra-toc-content ul li a[aria-selected="true"]:hover {
-  color: #fff;
+  color: var(--docs-accent-color);
+}
+
+/*  Remove lines when you apply `.folderAsHeader` the class in the doc 
+ */
+.folderAsHeader .nextra-container .nextra-sidebar ul ul {
+  padding-left: 0;
+  margin-left: 0;
+  margin: 0.3rem 0 1.2rem 0;
+}
+
+.folderAsHeader .nextra-container .nextra-sidebar ul ul {
+  background-image: none !important;
+}
+
+.folderAsHeader .nextra-container .nextra-sidebar ul li a {
+  font-size: 16px;
+}
+
+/* arrow dropdown */
+.folderAsHeader .nextra-container .nextra-sidebar a svg {
+  transition: opacity 100ms;
+  opacity: 0;
+}
+
+.folderAsHeader .nextra-container .nextra-sidebar a:hover svg {
+  opacity: 1;
+}
+
+svg:hover {
+  background: transparent !important;
+}
+
+/* Bold only on the header */
+.folderAsHeader .nextra-container .nextra-sidebar ul > li > a,
+.folderAsHeader .nextra-container .nextra-sidebar ul > li > a:hover {
+  font-weight: 600;
+  cursor: default;
+  line-height: 1.3;
+}
+
+.folderAsHeader .nextra-container .nextra-sidebar ul > li li a,
+.folderAsHeader .nextra-container .nextra-sidebar ul > li li a:hover {
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.folderAsHeader .nextra-container .nextra-sidebar ul li ul li a {
+  font-size: 14px;
+}
+
+.dark .folderAsHeader .nextra-sidebar ul li a {
+  color: rgb(197, 197, 197);
+}
+
+.dark .nextra-container .nextra-sidebar ul li ul li a {
+  color: #999999;
 }
 
 .wip {
@@ -253,7 +315,10 @@ main div.mt-12 {
 
 .dark article p a,
 .dark article li a,
-.dark .dark\:hover\:text-primary-500:hover {
+.dark .dark\:hover\:text-primary-500:hover,
+.light article p a,
+.light article li a,
+.light .dark\:hover\:text-primary-500:hover {
   color: var(--docs-accent-color-link) !important;
 }
 
@@ -343,4 +408,44 @@ p kbd {
 .ctaContainer {
   display: flex;
   gap: 1.3rem;
+}
+
+/* Headings
+------------------------ */
+
+article h1 {
+  font-size: 3.5rem;
+  margin-top: 0;
+}
+
+article h2 {
+  border: none;
+  font-size: 2rem;
+}
+
+article h1,
+article h2 {
+  letter-spacing: -0.05em;
+  line-height: 120%;
+}
+
+article h1:first-of-type {
+  margin-top: -0.16em;
+}
+
+article h2 {
+  margin-top: 2em;
+}
+
+article h2 + p:not(:first-child),
+article h3 + p:not(:first-child) {
+  margin-top: 0.6rem;
+}
+
+article h3 {
+  margin-top: 1.5em;
+}
+
+article img {
+  border-radius: 4px;
 }

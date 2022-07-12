@@ -4,6 +4,8 @@ authors: ['Saeris']
 description: Use templates to kickstart new projects with no setup.
 ---
 
+# Templates
+
 ## What are Templates?
 
 Templates are project starting points. They're already set up with the

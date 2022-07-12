@@ -6,7 +6,7 @@ description:
   sandbox.
 ---
 
-## Static File Uploading
+# Uploading Static Files
 
 It's sometimes desired to have either images or big files in a sandbox. We allow
 you to upload these within CodeSandbox. As a

@@ -4,6 +4,8 @@ authors: ['CompuIves']
 description: You can configure sandboxes and templates with configuration files.
 ---
 
+# Configuration
+
 ## Configuration Files
 
 There are some advanced use cases where you might need more control over a

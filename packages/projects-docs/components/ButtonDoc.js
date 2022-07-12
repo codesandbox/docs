@@ -13,6 +13,7 @@ export default function ButtonDoc({ type, title, description, cta, link }) {
             padding: 28px;
             overflow: hidden;
             position: relative;
+            transition: background 300ms;
         }
         
         h4 { 
@@ -36,17 +37,12 @@ export default function ButtonDoc({ type, title, description, cta, link }) {
             position:absolute;
             bottom: 24px;
             display: inline-block;
-            // padding: 0 1rem;
-            // text-align: center;
-            // font-weight: bold;
-            // border-radius: 4px;
             font-size: 1rem;
             height: 36px;
             line-height: 36px;
-            // background-color: var(--docs-accent-color);
-            // color: #00000095
             color: var(--docs-accent-color);
         }
+        
         .button:hover {    
             opacity: 0.9
         }

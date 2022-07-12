@@ -6,6 +6,8 @@ description:
   maintainer, and how to set it up for your library.
 ---
 
+# CodeSandbox CI
+
 ## What is CodeSandbox CI?
 
 CodeSandbox CI is a [GitHub app](https://github.com/apps/codesandbox-ci) that you

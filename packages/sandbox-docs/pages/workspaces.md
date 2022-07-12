@@ -7,6 +7,8 @@ description:
   enabling your entire team to work on sandboxes together.
 ---
 
+# Workspaces
+
 ## Creating a Team
 
 You can create and manage teams from the dashboard.

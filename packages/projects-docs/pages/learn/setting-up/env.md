@@ -9,7 +9,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 ## Default resources
 
-Currently one of our goals with CodeSandbox Projects beta is to understand the typical resource needs. Based on our learnings the default resources might change in the future.
+Based on our analysis of usual resource needs, we have defined these resources as default: 
 
 | Type | Limit |
 |------|-------|
@@ -17,11 +17,11 @@ Currently one of our goals with CodeSandbox Projects beta is to understand the t
 |  Memory    |   4Gi    |
 |  Storage    |   8Gi    |
 
-If you hit any limitation during the beta then please [get in touch](mailto:support@codesandbox.io) and the team will adjust the limitations to make sure you can run your project.
+If you hit any limitations while using Projects Beta, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limitations to suit your project.
 
 ## Environment configuration
 
-With the environment file you can configure various aspects of the running VMs. Currently the config allows you to set a specific `nodeVersion` , but more options will be available in the future.
+Configure various aspects of the running VMs. Currently the config allows you to set a specific `nodeVersion` , but more options will be available in the future.
 
 ### Getting started
 

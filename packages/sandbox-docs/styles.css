@@ -4,7 +4,12 @@
   --docs-accent-color-link: #349af9;
 }
 
-.dark {
+.dark { 
+  --docs-accent-color: #349af9;
+}
+
+.dark,
+.light {
   --nextra-primary-hue: 213;
   --nextra-primary-hue-saturation: 93%;
 }

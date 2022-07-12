@@ -6,6 +6,8 @@ description:
   sandbox.
 ---
 
+# Environment
+
 ## What is an Environment?
 
 When using CodeSandbox, your code is evaluated and run by one of our built-in

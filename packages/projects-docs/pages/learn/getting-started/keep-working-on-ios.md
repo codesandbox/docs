@@ -5,11 +5,14 @@ description:
 
 import Callout from 'nextra-theme-docs/callout'
 import ButtonDoc from '../../../components/ButtonDoc'
-import { VSCODE_DOCS_URL, IOS_DOCS_URL } from "../../../../../shared-components/contants.js"
 
 # Keep working on iPad or iPhone
 
+![iOS-App](../images/iOS-App.png)
+
+**CodeSandbox for iOS** is a full-fledged development environment that brings the power of modern JavaScript development to your iOS device. Use your iPhone or iPad to develop and run your Node.js applications or collaborate in real-time with others.
+
 <div className="ctaContainer">
-    <ButtonDoc title={<>Download the at<br/>App Store</>} cta="Download" description="" link="https://apps.apple.com/us/app/codesandbox/id1423330822" />
-    <ButtonDoc title={<>Learn more about <br/>CodeSandbox for iOS</>} cta="Read documentation" link={IOS_DOCS_URL} />
+    <ButtonDoc title={<>Download <br/>the iOS app</>} cta="Go to the App Store" description="" link="https://apps.apple.com/us/app/codesandbox/id1423330822" />
+    <ButtonDoc title={<>CodeSandbox for iOS Documentation</>} cta="Learn more" link="https://codesandbox.io/docs/ios" />
 </div>

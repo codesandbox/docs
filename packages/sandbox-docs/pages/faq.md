@@ -5,6 +5,8 @@ slug: /faqs
 description: Answers to questions about CodeSandbox that come up the most.
 ---
 
+# FAQ
+
 ## Which languages and frameworks are supported?
 
 CodeSandbox works with JavaScript (including TypeScript) and has front-end and

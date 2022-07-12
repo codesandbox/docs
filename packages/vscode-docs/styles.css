@@ -4,7 +4,14 @@
   --docs-accent-color-link: #00b2ff;
 }
 
-.dark {
+.light {
+  --docs-accent-color: #008ecc;
+  --docs-accent-color-link: #006b99;
+  --docs-accent-color-opacity: #006b9960;
+}
+
+.dark,
+.light {
   --nextra-primary-hue: 213;
   --nextra-primary-hue-saturation: 93%;
 }

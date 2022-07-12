@@ -5,18 +5,18 @@ description: Create an interactive readme with CodeSandbox Project
 
 # Interactive Readme
 
-With the interactive readme feature Projects supports running [tasks](https://codesandbox.io/docs/projects/setting-up/overview) directly from Markdown. 
+Projects supports running [tasks](https://codesandbox.io/docs/projects/setting-up/overview) directly from Markdown. 
 
-All you need is to define tasks using the [configuration file](https://codesandbox.io/docs/projects/setting-up/tasks), also see an example below.
+![CodeSandbox Projects Preview](../images/interactive-readme-config.png)
 
-![CodeSandbox Projects Preview](../images/interactive_readme_config.png)
+To configure the interactive Readme:
+1. Define a task using the [configuration file](https://codesandbox.io/docs/projects/setting-up/tasks). Use the same shell command used in the `tasks.json` file in the markdown code block.
 
+![CodeSandbox Projects Code](../images/interactive-readme-syntax.png)
 
-In the Markdown file you have to use the same shell command in a code block that used in the `tasks.json` file. 
+2. If there is a match, Projects will render a play icon next to the command in the interactive view. 
 
-![CodeSandbox Projects Preview](../images/interactive_readme_syntax.png)
+![CodeSandbox Projects Play](../images/interactive-readme-play.png)
 
+Interactive tasks can be run by any user with read access to your project. 
 
-If there is match, Projects will render a play icon next to the command. Interactive tasks can be run by any user with read access to your project. 
-
-![CodeSandbox Projects Preview](../images/interactive_readme_rendered.png)

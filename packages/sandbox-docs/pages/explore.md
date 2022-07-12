@@ -6,6 +6,8 @@ description:
   Find out how to get picked or become a curator.
 ---
 
+# Explore Page & Curators
+
 ## Explore Page
 
 CodeSandbox features an [explore page](/explore). This page highlights some of
