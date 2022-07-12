@@ -5,21 +5,28 @@ description: GitHub integration that adds CodeSandbox links in GitHub pull reque
 
 # GitHub App
 
-The integration of CodeSandbox with GitHub makes it possible to automatically add the following links in every PR description to ease the review process.
 
-**Web Client**<br/>
-This link opens the branch from the PR. Since the branch is a shared environment, you will be able to see any running previews, tests or other DevTools that the PR author left open to assist with the review process.
+The integration of CodeSandbox and GitHub allows you to automatically add links to each PR description to facilitate the review process. 
 
-**VS Code**<br/>
-If VS Code is your preferred development environment, you can still open the branch directly from this link using [remote-ssh](https://code.visualstudio.com/docs/remote/ssh).
 
-**Preview**<br/>
+![GitHub and CodeSandbox Integration](../images/GH-App-integration.png)
+
+
+#### Open Preview
 This link will start up a stand-alone devtool that spins up the preview link.
 
-## Requesting vs Installing
-Installation of the GitHub App can only be done by organization admins or repository owners. However, it is possible to request that a GitHub App be installed in repositories where you don't have the permissions to perform the installation yourself. Organization owners and repository admins will be notified to review and approve or deny these requests.  
+#### Open in Web Editor
+This link opens the branch in the CodeSandbox Projects Web Editor. Because the branch is a shared environment, you will be able to see any running previews, tests or other DevTools that the PR author left open to assist with the review process.
 
-When the installation request is made, the owner of the repos selected or an admin on the organization will be notified on GitHub and via email. 
+#### Open in VS Code Extension
+If VS Code is your preferred development environment, you can still open the branch directly from this link using [remote-ssh](https://code.visualstudio.com/docs/remote/ssh).
+
+
+
+## Installing GitHub Apps
+Installation of the GitHub App can only be done by **organization admins** or **repository owners**. However, it is possible to request that a GitHub App be installed in repositories where you don't have the necessary permissions. Organization owners and repository admins will be notified to approve or deny these requests.  
+
+After the installation request is made, the owner of the repository or an admin on the organization will be notified on GitHub and via email. 
 
 - Installation request that appears when importing a repo for the first time.
 - GitHub alls can be installed on an organization level or for individual repositories
