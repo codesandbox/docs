@@ -21,11 +21,29 @@ Users with read-only access to the given repository can still browse the content
 
 ### Anonymous users
 
-CodeSandbox Projects also provides an option to make a project accessible for users without a CodeSandbox Account. Anonymous users can also open a public repository from GitHub if it's imported to Projects. 
+CodeSandbox Projects also provides an option to make a project accessible for users without a CodeSandbox Account. Anonymous users can also open a public repository from GitHub if it's imported to Projects already. 
 
 
 ## Permissions
 
 The following table outlines the permissions for each role.
 
-
+| Feature | User with write permissions | Read-only access | Anonymous |
+|---------|-----------------------------|------------------|-----------|
+|  Import repository       |               ✔️              |          ❌ - Fork only        |     ❌      |
+|   Visit a public project      |             ✔️                |        ✔️          |      ✔️     |
+|   Browse content in a public project      |             ✔️                |        ✔️          |      ✔️     |
+|   Access previews for a public project      |             ✔️                |        ✔️          |      ✔️     |
+|   Visit a private project      |             ✔️                |        ✔️  - with explicit permissions        |      ❌     |
+|   Create new branch      |             ✔️                |        ❌        |      ❌     |
+|   Perform any git operation      |             ✔️                |        ❌        |      ❌     |
+|   Open the terminal      |             ✔️                |        ❌        |      ❌     |
+|   Manage environment variables and secrets      |             ✔️                |        ❌        |      ❌     |
+|   Run existing tasks     |             ✔️                |        ✔️        |      ✔️     |
+|   Create new tasks     |             ✔️                |        ❌         |      ❌     |
+|   Change exiting tasks     |             ✔️                |        ❌         |      ❌     |
+|   Make changes    |             ✔️                |        ❌        |      ❌     |
+|   Open a pull request    |             ✔️                |        ❌        |      ❌     |
+|   Install the GitHub action    |             ✔️                |        ❌        |      ❌     |
+|   Install the GitHub application    |             ✔️                |        ❌        |      ❌     |
+|   Follow mode   |             ✔️                |        ✔️        |      ✔️     |
