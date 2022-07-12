@@ -408,6 +408,13 @@ p kbd {
 .ctaContainer {
   display: flex;
   gap: 1.3rem;
+  margin: 2rem 0;
+}
+
+@media (max-width: 920px) {
+  .ctaContainer {
+    flex-direction: column;
+  }
 }
 
 /* Headings

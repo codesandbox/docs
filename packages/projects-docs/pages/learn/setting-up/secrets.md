@@ -8,41 +8,47 @@ import Video from '../../../../../shared-components/Video'
 
 # Environment variables and secrets
 
-You can pass environment variables and secrets into your project. These are configuration values that depend on the environment, such as settings for your project or access tokens for APIs.
+Configure environment variables and secrets in your project, such as settings for your project or access tokens for APIs.
 
 <Video src="../assets/EnvVars.mp4" />
 
-## Storing secrets in Projects
+### Project-level environment variables and secrets
 
-The environment variables are stored in our database, AES encrypted. We reroll the encryption key from time to time (on an unannounced schedule) and we store the key separately from the database.
+Currently CodeSandbox Projects only supports **project-level** configuration. The secrets and environment variables are shared across all VMs, but it's necessary to restart your workspace after making changes for them to take effect.
 
-## Exposure
+### Storage and Encription
 
-Keep in mind that everyone with terminal access will be able to access the environment variables. Read-only users don’t have terminal access, but people who can write to the repo will have access. In addition, it’s only available for private repositories to make sure publicly accessible Projects won’t expose any secrets.
+Environment variables are stored in our database, AES encrypted. The encryption key is rerolled from time to time on an unannounced schedule and the key is stored separately from the database.
 
-## Project-level environment variables and secrets
+### Privacy
 
-Currently CodeSandbox Projects only support project-level env vars and secrets. The secrets and environment variables are shared across all VMs but after making changes you have to restart your workspace to take effect. 
+Environment variables are enabled only for **private** repositories and they are only viewable by users with **write access** to the repository.
 
-### Set environment variables and secrets through the UI
 
-**First, click on the open menu on any workspace.**
 
-![CodeSandbox Projects Command Palette](../images/env-vars-open-menu.png)
+## Setting env variables and secrets
+### From the UI
 
-**Then, click on the Env variables menu item.**
+1. Open your project in the Editor.
+2. Open the **Menu** through the icon in the top left corner.
+2. Click on the `Env variables` item.
+1. Add and save your configurations.
+1. From the Editor's menu, press `Restart` to reload the workspace.
 
 ![CodeSandbox Projects Command Palette](../images/env-vars-click-menu-item.png)
 
-### Set environment variables and secrets using the command palette
+### From the command palette
 
-Open the command palette using ⌘ + K. Then start typing `Add environment variables`.
+1. From the Editor, open the command palette using <kbd>⌘</kbd> + <kbd>K</kbd>. 
+2. Type `Add environment variables`.
+1. Add and save your configurations.
+1. From the editor's menu, click to `Restart` the workspace.
 
 ![CodeSandbox Projects Command Palette](../images/env-vars-command-palette.png)
 
 
 ### Manage environment variables and secrets
 
-You can also make changes and view all the existing environment variables and secrets after navigating there from the UI or the command palette.
+You can review and change all the existing environment variables and secrets by acessing them at any time throught the `Environment variables` link in the menu.
 
 ![CodeSandbox Projects Command Palette](../images/env-vars-manage.png)

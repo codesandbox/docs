@@ -6,7 +6,42 @@ export default {
   ...defaultConfigs,
   docsRepositoryBase: "https://codesandbox.io/p/github/codesandbox/docs/main",
   titleSuffix: " - Projects Beta",
-
   projectLinkIcon: BackLink,
+  head: ({ title, meta }) => {
+    const ogImage = "https://codesandbox.io/docs/projects/og-image.jpg";
+
+    return (
+      <>
+        {/* Favicons, meta */}
+        <meta httpEquiv="Content-Language" content="en" />
+        <meta
+          name="description"
+          content={
+            meta.description ||
+            "Experience the future of web development and build projects anywhere and anytime with your team."
+          }
+        />
+        <meta
+          name="og:description"
+          content={
+            meta.description ||
+            "Experience the future of web development and build projects anywhere and anytime with your team."
+          }
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@codesandbox" />
+        <meta name="twitter:image" content={ogImage} />
+        <meta
+          name="og:title"
+          content={
+            title
+              ? title + " – Projects Beta"
+              : "Codesandbox Projects Documentation"
+          }
+        />
+        <meta name="og:image" content={ogImage} />
+      </>
+    );
+  },
   logo: () => <Logo />,
 };

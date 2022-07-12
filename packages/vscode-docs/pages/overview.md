@@ -11,10 +11,10 @@ import Hero from "../../../shared-components/Hero.js"
 
 <Hero t
   title={<>VS Code with<br/>superpowers.</>}
-  subtitle="CodeSandbox for iOS offers a full-fledged development environment with all the tools you need to develop projects of any size."
+  subtitle="The VS Code extension uses Remote - SSH to bring the best of CodeSandbox Projects to your local tool."
 />
 
-Tap into the power of CodeSandbox within the comfort of VS Code. Our VS Code extension uses Remote - SSH to spin up code that has been imported to your CodeSandbox account and connects to the CodeSandbox API which powers collaboration and DevTools that integrate seamlessly into your workflow.
+
 
 ![](./images/cover-vscode.jpg)
 

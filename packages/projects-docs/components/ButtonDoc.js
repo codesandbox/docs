@@ -9,7 +9,7 @@ export default function ButtonDoc({ type, title, description, cta, link }) {
 
       <style jsx>{` 
         .container { 
-            margin: 2rem 0;
+            
             padding: 28px;
             overflow: hidden;
             position: relative;
@@ -46,6 +46,11 @@ export default function ButtonDoc({ type, title, description, cta, link }) {
         .button:hover {    
             opacity: 0.9
         }
+        
+        
+
+
+
       `}</style>
     </a>
   );
