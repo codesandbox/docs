@@ -1,4 +1,5 @@
 {
-  "docker": "Getting started with Docker and NixOS",
-  "cli-tool": "Install CLI tools and global modules"
+  "getting-started-with-docker": "Getting started with Docker and NixOS",
+  "cli-tool": "Install CLI tools and global modules",
+  "install-system-packages": "Install system packages"
 }

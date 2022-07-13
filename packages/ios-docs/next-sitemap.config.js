@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: "https://codesandbox.io/",
+  siteUrl: "https://codesandbox.io/docs/ios/",
   generateRobotsTxt: false,
   sitemapSize: 7000,
   changefreq: "weekly",
