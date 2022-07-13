@@ -5,17 +5,20 @@ description:
 
 import Callout from 'nextra-theme-docs/callout'
 
-# DevTools - The Basics
+# DevTools
  
 ![CodeSandbox Projects Preview](../images/devtools-open.jpg)
 
-The Devtools is a collection of tools for developers to work faster and more efficiently. They are useful for debugging, testing, and development. They are all collaborative by default, allowing you to share not the code but the content of the devtools: a terminal output, a preview error, an console log...
+Devtools are tools for developers to work faster and more efficiently. They are useful for debugging, testing, and developing. They are collaborative by default, allowing you to share their content: a terminal output, a preview error, a console log...
+
+Add as many devtools as you want. For one or two devtools, the layout will adapt to the viewport; more than three items will create a scroll. 
+
 
 ## Start a Devtool
 
-To add a new devtool, click the `+` button in the header or use the shortcut <kbd>Cmd/Clt</kbd> <kbd>shift</kbd> <kbd>o</kbd>.
+You can add a Devtool by clicking in the `+` button on the header or by pressing <kbd>Cmd/Clt</kbd> <kbd>shift</kbd> <kbd>o</kbd> to open the DevTool menu.
 
-You can add many devtools you want it. For one or two devtools, it will adapt to the viewport; more than three items will create a scroll. 
+
 
 ## Manage your DevTool 
 
@@ -23,42 +26,41 @@ You can add many devtools you want it. For one or two devtools, it will adapt to
 
 #### Minimize
 
-You can minimize the devtool by clicking in the top left corner `...` and selecting the option minimize. It's good for saving some viewport space and still tracking some processes. 
+Minimize the Devtool by clicking in the `...` icon in the top left corner and selecting the option `Minimize`. A minimized view is useful when you have limited viewport space and would like to still track some processes. 
 
 #### Close 
 
-Click in the top left corner `...` inside a DevTool and select the option close. You can also close all devtools using command pallete <kbd>Cmd/Clt</kbd> <kbd>K</kbd> and select the option close all.
+Close the Devtool by clicking in the `...` in the top left corner and selecting the option `Close`. You can also close all devtools through the command pallete (<kbd>Cmd/Clt</kbd> <kbd>K</kbd>) and typing `close all devtools`.
 
-<Callout emoji="★">
-Close a devtool will not stop; it will keep running in the background. When you close, you only remove it for the view. If you want to stop the process, you must search for the option close and stop. 
+<Callout emoji="→">
+Closing a devtool will not stop it, it will keep running in the background. If you want to stop the process, you must select option `Close and stop`. 
 </Callout>
 
 #### Reorder
 
-You can drag and drop to reorder, or click on the `...` button inside a DevTool, then choose "Move up" or "Move down."
+Drag and drop to reorder the Devtools, or click on the `...` button in the top right corner, then choose `Move up` or `Move down`.
 
-#### Configuring
+#### Configure
 
-You can control the name, position, and what is the initial devtools when you start the editor. Check the [`task.json`](a) documentation to learn how to configure the devtools.
+You can control the name, position and what Devtools to run when you open the Web Editor. Check the [`task.json`](../setting-up/tasks) documentation for more information on how to configure the Devtools.
 
-<Callout emoji="★">
-It's worth configuring and making it accessible for your entire team. Once you setup it's easy for non-developers to access the editor and run your project.
+<Callout emoji="⭑">
+Setting up the Devtools makes it easier for non-developers to access and run your project.
 </Callout>
 
 ## Available DevTools
 
-At moment, we support three types of Devtools:
 
-- [Preview](./preview)
-- [Task](./task)
-- [Terminal](./terminal)
+- **[Preview](./preview)**
+- **[Task](./task)**
+- **[Terminal](./terminal)**
 
-We are considering support for others in the future. These may include:
+We are working on supporting others DevTools in the future, which may include:
 
-- A test runner UI
-- A way to view / edit [Design Tokens](https://css-tricks.com/what-are-design-tokens/) in a project
-- A way to view components in isolation and change their props from a UI
-- A [Postman](https://www.postman.com/) integration
-- A bundle size analyzer
+- Test runner UI
+- Viewing / editing [Design Tokens](https://css-tricks.com/what-are-design-tokens/) in a project
+- Viewing components in isolation and changing their props from a UI
+- [Postman](https://www.postman.com/) integration
+- Bundle size analyzer
 
-If you have ideas or want to work to itegrate a DevTools, please reach us at [support@codesandbox.io](a)
+If you would like to collaborate on building a DevTool, please reach out to us at [support@codesandbox.io](mailto:support@codesandbox.io).

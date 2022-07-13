@@ -35,7 +35,7 @@ Configure various aspects of the running VMs with the environment file. Currentl
 
 #### NodeJS
 
-<Callout>
+<Callout emoji="⭑">
 If you already have a `.nvmrc` file containing a node version number in your project's root folder it will automatically be picked up by CodeSandbox Projects.
 </Callout>
 
@@ -56,8 +56,8 @@ Single value configuration, type `string`, by default it is set to `"16"` .
 
 CodeSandbox Projects supports running docker containers inside any workspace. Run and build images to run containers inside your project by opening a terminal and running `docker`. If you have a docker-compose file in your root folder, simply run `docker-compose up` and all your services will run within Projects.
 
-<Callout>
-For a step-by-step guide, check out our tutorial: [Getting started with Docker](https://codesandbox.io/docs/projects/tutorial/docker)
+<Callout emoji="⭑">
+For a step-by-step guide, check out our tutorial [Getting started with Docker](https://codesandbox.io/docs/projects/tutorial/docker)
 </Callout>
 
 ## Nix support

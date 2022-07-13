@@ -22,22 +22,23 @@ Environment variables are stored in our database, AES encrypted. The encryption 
 
 ### Privacy
 
-Environment variables are enabled only for **private** repositories and they are only viewable by users with **write access** to the repository.
+Environment variables are enabled only for **private** repositories and they are only viewable by users with write access to the repository.
 
 
 
 ## Setting env variables and secrets
 ### From the UI
 
-1. Open your project in the Editor.
+1. Open your project in the Web Editor.
 2. Open the **Menu** through the icon in the top left corner.
 
 ![CodeSandbox Projects Editor Menu](../images/env-var-menu.jpg)
 
-3. Click on the `Env variables` item.
+3. Click on the **`Env variables`** item.
 4. Add your configurations.
 
 ![CodeSandbox Projects Environment Variables](../images/env-var-modal.jpg)
+
 5. From the Editor's menu, press `Restart` to reload the workspace.
 
 
@@ -47,7 +48,6 @@ Environment variables are enabled only for **private** repositories and they are
 2. Type `Add environment variables`.
 
 ![CodeSandbox Projects Command Palette](../images/env-var-pallette.jpg)
-
 3. Add and your configurations.
 4. From the editor's menu, click to `Restart` the workspace.
 

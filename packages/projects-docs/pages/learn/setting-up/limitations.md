@@ -13,7 +13,7 @@ Typically sudo access allows users to run programs with the privileges of anothe
 
 ### Workarounds
 
-To work around this, we offer two ways to install packages.
+To work around this, there are two ways to install packages.
 
 #### NixOS
 
@@ -40,6 +40,4 @@ This automatically installs Postgres and `htop` the next time you open a termina
 
 #### Docker
 
-We also support running Docker. You can run `docker` directly from the terminal, and within the Docker containers you _do_ have root access.
-
-An example project running Docker can be found here: TODO CREATE DOCKER EXAMPLE OSS REPO.
+We also support running Docker. You can run `docker` directly from the terminal, and within the Docker containers you **do** have root access.

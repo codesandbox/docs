@@ -7,10 +7,10 @@ import Callout from 'nextra-theme-docs/callout'
 
 # .codesandbox/tasks.json
 
-CodeSandox Projects can be configured through the `.codesandbox/tasks.json` configuration file in your project. The contents of this file define a the steps to set up VMs and configure the list of commands to run inside the workspace like webservers, Docker containers, tests etc. 
+CodeSandox Projects can be configured through the `.codesandbox/tasks.json` configuration file in your project. This file defines the steps to set up VMs and configures the running commands inside the workspace (webservers, Docker containers, tests etc.). 
 
-<Callout>
-We also recommend checking these files into version control so that every collaborator on the project has a similar editing experience. This also allows changes to this configuration to be tracked, and for additional changes to be made on specific branches. In addition, once it’s merged to your main branch then you leverage the configuration for every newly created branch.
+<Callout emoji="⭑">
+Checking these files into version control is recommended to ensure that every collaborator has a similar editing experience. This configuration can be tracked and additional changes can be made to specific branches. In addition, once the file is merged to your main branch, every new branch will follow the same configuration.
 </Callout>
 
 This is an example of a configuration:
@@ -32,13 +32,13 @@ This is an example of a configuration:
 }
 ```
 
-## Using the default configuration
+## Default configuration
 
 By default, CodeSandbox Projects tries to infer scripts from the `package.json` file in your project's root folder. In addition, you can always use the terminal devtool to execute any shell script to run your project.
 
 ## Setup Tasks
 
-Array of commands that will run sequentially before the workspace will be ready to start your application. If no value is provided, installing dependencies will be the default task (we will detect which package manager you use).
+Setup tasks are an array of commands that will run sequentially before the workspace is ready to start your application. If no value is provided, `installing dependencies` will be the default task (we will detect which package manager you use).
 
 ```json
 {
@@ -76,11 +76,11 @@ Tasks are scripts that can be run inside your project. In many cases these will 
 }
 ```
 
-This id does not appear on the UI, since each task has a display name configured along side the command it runs.
+This id does not appear on the UI, since each task has a display name configured alongside the command it runs.
 
 ## Examples 
 
-### A single page application
+### Single page application
 
 ```json
 {
@@ -94,7 +94,7 @@ This id does not appear on the UI, since each task has a display name configured
 }
 ```
 
-### A mono-repo with multiple frontends
+### Mono-repo with multiple front-ends
 
 ```json
 {
@@ -130,6 +130,7 @@ This id does not appear on the UI, since each task has a display name configured
 * setupTasks
   * name
   * command
+  
 * tasks
   * task-id
     * name

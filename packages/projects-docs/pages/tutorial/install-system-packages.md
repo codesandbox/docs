@@ -10,14 +10,13 @@ import Callout from 'nextra-theme-docs/callout'
 For many modules or tools probably you'd like to install some packages. Unfortunately, due to security reasons in Projects you can’t run commands using sudo but you can use Nix as a drop in replacement. You can read about this more on the [workspace limitations page](https://codesandbox.io/docs/projects/learn/setting-up/limitations). 
 Actually, most of the packages are available in [Nix](https://nixos.org/) as well so what you have to do is replace the `sudo apt-get install` or `sudo apt install` to `nix-env -i`, and that's all. You can check out the available packages in Nix on [https://search.nixos.org/packages](https://search.nixos.org/packages).
 
-
 For example, you can install Google Chrome as you see below:
 
 On Debian you can run: `sudo apt install chromium`
 
 Inside CodeSandbox Projects just run `nix-env -i chromium`
 
-<Callout>
+<Callout emoji="⭑">
 Tip: Don't forget to add this command as a [setup task](https://codesandbox.io/docs/projects/learn/setting-up/tasks) so you don't have to run this command on every newly created branch, Projects will make it available for you immediately!
 </Callout>
 

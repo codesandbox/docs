@@ -1,34 +1,30 @@
 ---
-title: Permissions
+title: User Permissions
 description: How to manage access control in CodeSandbox Projects
 ---
 
 import Callout from 'nextra-theme-docs/callout'
 
-# Roles and Permissions
+# User Permissions
 
-## User roles
+### Users with write access
 
-You can consider the different user roles below who can interact or visit Projects. Please read more about the permissions [here](https://codesandbox.io/docs/projects/teams/permissions).
+Users with write access to a repository can enjoy the full feature set available at CodeSandbox Projects.
 
-### Users with write access to your repository
+### Users with read-only access 
 
-Users with write access to the given repository can unleash the full potential of CodeSandbox Projects and use it for their development workflow.
-
-### Users with read-only access to your repository
-
-Users with read-only access to the given repository can still browse the content of your project, check the previews, or even execute different tasks. For sure, they can't introduce changes but there is an option for them to create a fork and then run the project by their own without affecting the upstream repository. Furthemore, they can even contribute back to the original projects easily with CodeSandbox Projects. You can read more about this on the [open source contrubution page](https://codesandbox.io/docs/projects/docs/getting-started/open-source-collaboration).
+Users with read-only access to the repository can browse the content of the project, check the previews and even execute a few tasks. To introduce changes, they need to create a contribution branch or fork the repository. For more information, visit the [Open source collaboration](https://codesandbox.io/docs/projects/docs/getting-started/open-source-collaboration) page.
 
 ### Anonymous users
 
-CodeSandbox Projects also provides an option to make a project accessible for users without a CodeSandbox Account. Anonymous users can also open a public repository from GitHub if it's imported to Projects already. 
+Users without a CodeSandbox Account can only browse the content of the project and interact with the previews. 
 
 
-## Permissions
+## Feature comparative guide
 
-The following table outlines the permissions for each role.
+The following table outlines the features available according to each permission.
 
-| Feature | User with write permissions | Read-only access | Anonymous |
+| Feature | Write access | Read-only access | Anonymous |
 |---------|-----------------------------|------------------|-----------|
 |  Import repository       |               ✔️              |          ❌ - Fork only        |     ❌      |
 |   Visit a public project      |             ✔️                |        ✔️          |      ✔️     |
