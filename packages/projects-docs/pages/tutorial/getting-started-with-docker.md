@@ -1,6 +1,6 @@
 ---
 title: Getting started with Docker and NixOS
-description:
+description: Using docker and docker-compose with CodeSandbox Projects
 ---
 
 import Callout from 'nextra-theme-docs/callout'
