@@ -1,14 +1,14 @@
 ---
-title: Keep working on iPad or iPhone
+title: Keep working in the iPad or iPhone
 description:
 ---
 
 import Callout from 'nextra-theme-docs/callout'
 import ButtonDoc from '../../../components/ButtonDoc'
 
-# Keep working on iPad or iPhone
+# Keep working in the iPad or iPhone
 
-![iOS-App](../images/iOS-App.png)
+![iOS-App](../images/iOS-iPad.png)
 
 **CodeSandbox for iOS** is a full-fledged development environment that brings the power of modern JavaScript development to your iOS device. Use your iPhone or iPad to develop and run your Node.js applications or collaborate in real-time with others.
 

@@ -1,13 +1,7 @@
 # Collaborate and Share
 
-CodeSandbox Projects was built to facilitate collaboration. Add team members to your current team and grant access to all projects and branches or share specific branches for more granular permissions.
+CodeSandbox Projects was built to facilitate collaboration. Work in teams to grant access to all projects and branches or share specific branches for more granular permissions.
 
-## Add or remove people from your team
-
-1. Go to the **[Sandboxes Dashboard](https://codesandbox.io/dashboard)**
-1. In the top left corner, select the team you'd like to edit in the dropdown. 
-1. Click on the settings icon next to the team.
-1. Add or remove people through the **Members** section
 
 ## Share specific branches
 
@@ -16,3 +10,6 @@ CodeSandbox Projects was built to facilitate collaboration. Add team members to 
 1. Copy the URL to share your workspace.
 
 
+## Working in teams
+
+Go to the [Team section](https://codesandbox.io/docs/projects/teams/permissions) in this documentation.

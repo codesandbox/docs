@@ -10,7 +10,7 @@ import Video from '../../../../../shared-components/Video'
 
 Configure environment variables and secrets in your project, such as settings for your project or access tokens for APIs.
 
-<Video src="../assets/EnvVars.mp4" />
+![CodeSandbox Projects Environment Variables](../images/env-var.png)
 
 ### Project-level environment variables and secrets
 
@@ -31,24 +31,31 @@ Environment variables are enabled only for **private** repositories and they are
 
 1. Open your project in the Editor.
 2. Open the **Menu** through the icon in the top left corner.
-2. Click on the `Env variables` item.
-1. Add and save your configurations.
-1. From the Editor's menu, press `Restart` to reload the workspace.
 
-![CodeSandbox Projects Command Palette](../images/env-vars-click-menu-item.png)
+![CodeSandbox Projects Editor Menu](../images/env-var-menu.png)
+
+3. Click on the `Env variables` item.
+4. Add your configurations.
+
+![CodeSandbox Projects Environment Variables](../images/env-var-modal.png)
+5. From the Editor's menu, press `Restart` to reload the workspace.
+
 
 ### From the command palette
 
 1. From the Editor, open the command palette using <kbd>⌘</kbd> + <kbd>K</kbd>. 
 2. Type `Add environment variables`.
-1. Add and save your configurations.
-1. From the editor's menu, click to `Restart` the workspace.
 
-![CodeSandbox Projects Command Palette](../images/env-vars-command-palette.png)
+![CodeSandbox Projects Command Palette](../images/env-var-pallette.png)
+
+3. Add and your configurations.
+4. From the editor's menu, click to `Restart` the workspace.
+
+
 
 
 ### Manage environment variables and secrets
 
-You can review and change all the existing environment variables and secrets by acessing them at any time throught the `Environment variables` link in the menu.
+You can review and change the existing environment variables and secrets by acessing them at any time throught the `Environment variables` link at the Editor's menu. For any changes to take effect, don't forget to  restart your workspace.
 
-![CodeSandbox Projects Command Palette](../images/env-vars-manage.png)
+![CodeSandbox Projects Editor Menu](../images/env-var-menu-link.png)

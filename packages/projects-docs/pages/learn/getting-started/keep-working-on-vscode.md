@@ -23,4 +23,4 @@ To start working in a branch on VSCode, open the branch in the Editor and to cli
 
 ### Learn more
 
-To get the most from your local setup, check our **[VS Code Extension documentation](https://codesandbox.io/docs/vscode).**
+To get the most from your local setup, check our [VS Code Extension documentation](https://codesandbox.io/docs/vscode).
