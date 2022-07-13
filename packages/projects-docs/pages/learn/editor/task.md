@@ -13,12 +13,12 @@ Tasks allow you to define commands (like `yarn start`) that you can run in a sin
 
 ## Add new task
 
-To add a new task and make it available, you can go to the [devtools dropdown](a), select `Tasks` and click on `+ New Task.` It will open the command palette. Inside it, you can write the command you want to execute and press enter. 
+To add a new task and make it available from the menu, go to the Devtools dropdown, select `Tasks` and click on `New Task`. It will open the command palette where you can type the desired command and press enter. 
 
-<Callout>
-To make this task available in all branches, you need to commit and merge the `task.json`
+<Callout emoji="⭑">
+To make a task available to all branches, you need to commit and merge the `task.json` to main.
 </Callout>
 
 ## Configure
 
-To have more control over the tasks you can check the documentation about the [`task.json`](a) file
+To have more control over the tasks, check out the documentation about [configuring the `task.json` file](../setting-up/tasks).

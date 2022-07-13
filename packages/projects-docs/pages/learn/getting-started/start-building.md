@@ -7,9 +7,9 @@ import Callout from 'nextra-theme-docs/callout'
   
 # Start building
 
-After you've imported a repository or created a new project from a template, Projects will create a development environment, sync it to GitHub and immediately create a new branch.
+After you've imported a repository or created a project from a template, Projects will set up a development environment, sync it to GitHub and immediately create a new branch.
 
-<Callout emoji="⏰">
+<Callout emoji="→">
     Installing the dependencies and running your project may take some time depending on the project's size. We will create a snapshot immediately after the first load, so the following forks and starts will be instant.
 </Callout>
     
@@ -25,7 +25,7 @@ Ideally, a webserver will run and you will be able to access it using the Previe
     
 1. **Type a Command** and save it as a task.
 
-<Callout>
-To learn more about setup your project go to the [task](../editor/task) and [tasks configuration](../setting-up/tasks) pages.
+<Callout emoji="⭑">
+For more information on project setup, go to the [task](../editor/task) and [tasks configuration](../setting-up/tasks) pages.
 </Callout>
 

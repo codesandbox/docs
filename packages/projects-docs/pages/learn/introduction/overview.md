@@ -10,16 +10,16 @@ import Hero from "../../../../../shared-components/Hero.js"
 
 <Hero 
   title={<>Development<br/> reimagined.</>}
-  subtitle="CodeSandbox Projects is a cloud development platform deeply integrated with your favourite tooling and suited for projects of any size."
+  subtitle="CodeSandbox Projects is a cloud development platform deeply integrated with your favorite tooling and suited for projects of any size."
 />
 
 ![](../images/cover-projects.jpg)
 
-This documentation is under active development as we are still working on many foundational features. Check back often and let us know if something is missing.
+This documentation is under active development as we are still working on many core features. Check back often for the latest updates and let us know if anything is missing.
     
 ## Related docs
 
-If you are looking for other clients go check the specific documentations:
+If you are looking for other clients, you can check the specific documentations:
 
 <div className="ctaContainer">
     <ButtonDoc title={<>CodeSandbox <br/>for VS Code</>} cta="Check now" description="" link={VSCODE_DOCS_URL} />
