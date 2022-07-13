@@ -20,7 +20,7 @@ screen.
 From there navigate to `Preferences Profiles` and you will see a button saying
 `Create new profile`:
 
-![Create a Profile](./images/preferences-create.png)
+![Create a Profile](./images/preferences-create.jpg)
 
 By clicking it we will save your preferences to the cloud so that they can be
 retrieved later and applied when on another computer.
@@ -32,7 +32,7 @@ have a list of your profiles.
 
 From here you can apply all your preferences using the `Apply` button on the menu:
 
-![Apply Profile](./images/preferences-apply.png)
+![Apply Profile](./images/preferences-apply.jpg)
 
 This will apply all the preferences and ask you to reload
 the page to see them in action.
@@ -43,7 +43,7 @@ Yes, you can create a new Profile and download it, this will give
 you a JSON file you can then import on another computer using the 
 `Import existing profile` button.
 
-![Import a Profile](./images/preferences-import.png)
+![Import a Profile](./images/preferences-import.jpg)
 
 After this is done you are also welcome to remove this profile and it will still
 be applied.

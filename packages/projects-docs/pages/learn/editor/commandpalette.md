@@ -9,13 +9,13 @@ import Video from '../../../../../shared-components/Video'
 
 # Command Palette
 
-![CodeSandbox Projects Command Palette](../images/command-cover.png)
+![CodeSandbox Projects Command Palette](../images/command-cover.jpg)
 
 The CodeSandbox Projects functionality is almost completely accessible from your keyboard as well. You can bring up the Command Palette on the Dashboard or in the editor using <kbd>⌘</kbd> + <kbd>K</kbd>. 
 
 From here, you have access to all of the functionality of Projects, including keyboard shortcuts for the most common operations. In addition, Projects related functionality is available in VS Code’s command palette (<kbd>⇧</kbd> <kbd>⌘</kbd> <kbd>P</kbd>) as well.
 
-![CodeSandbox Projects Command Palette](../images/command-vscode.png)
+![CodeSandbox Projects Command Palette](../images/command-vscode.jpg)
 
 With the Command Palette, you can:
 - Search files by path

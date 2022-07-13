@@ -4,7 +4,7 @@ Projects lets you take advantage of the true potential of cloud development and 
 
 CodeSandbox for iOS support for Sandbox development is powered by the app’s Node.js port, it enables offline development but it is limited by the restrictions imposed by iOS. To unleash the full potential of developing on iOS you can use CodeSandbox Projects. Projects allows you to have the same experience across different devices but making the most of each platform’s potential.
 
-![pitcher.png](./images/pitcher.png)
+![pitcher.jpg](./images/pitcher.jpg)
 
 ## Getting Started
 

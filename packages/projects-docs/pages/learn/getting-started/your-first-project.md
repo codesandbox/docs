@@ -9,7 +9,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 You can start working on a project by importing an existing repository from GitHub or creating from a template.
 
-![Your First Project](../images/first-project.png)
+![Your First Project](../images/first-project.jpg)
     
 ## Importing a project
 
@@ -70,7 +70,7 @@ CodeSandbox Projects requires full git access to be able to import and commit. I
 
 1. Click on **Preferences**.
 
-![Preferences Dropdown Menu Point on CodeSandbox Dashboard](../images/start-preferences.png)
+![Preferences Dropdown Menu Point on CodeSandbox Dashboard](../images/start-preferences.jpg)
   
 4. Go to **Integrations**. 
 

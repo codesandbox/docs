@@ -14,14 +14,14 @@ on CodeSandbox has a list of configuration files it supports. You can see the
 supported files under Configuration Files from the left-hand activity bar in the
 editor.
 
-![Configurations File UI](./images/configuration.png)
+![Configurations File UI](./images/configuration.jpg)
 
 ## Configuration UI
 
 Some configuration files can be configured using a UI. This UI will generate a
 configuration file based on its state.
 
-![Configurations File UI](./images/ui-configuration.png)
+![Configurations File UI](./images/ui-configuration.jpg)
 
 ## Sandbox Configuration
 

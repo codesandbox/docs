@@ -6,7 +6,7 @@ import Video from '../../../shared-components/Video'
 
 Once you are connected to the branch, you will be able to see a list of teammates that are active on the branch. You can see the list of collaborators as well as the environment they are working from. 
 
-![Participant list](./images/vscode-participants.png)
+![Participant list](./images/vscode-participants.jpg)
 
 In this case, I am active in both VS Code and the CodeSandbox editor. 
 

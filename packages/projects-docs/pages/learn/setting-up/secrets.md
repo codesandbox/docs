@@ -10,7 +10,7 @@ import Video from '../../../../../shared-components/Video'
 
 Configure environment variables and secrets in your project, such as settings for your project or access tokens for APIs.
 
-![CodeSandbox Projects Environment Variables](../images/env-var.png)
+![CodeSandbox Projects Environment Variables](../images/env-var.jpg)
 
 ### Project-level environment variables and secrets
 
@@ -32,12 +32,12 @@ Environment variables are enabled only for **private** repositories and they are
 1. Open your project in the Editor.
 2. Open the **Menu** through the icon in the top left corner.
 
-![CodeSandbox Projects Editor Menu](../images/env-var-menu.png)
+![CodeSandbox Projects Editor Menu](../images/env-var-menu.jpg)
 
 3. Click on the `Env variables` item.
 4. Add your configurations.
 
-![CodeSandbox Projects Environment Variables](../images/env-var-modal.png)
+![CodeSandbox Projects Environment Variables](../images/env-var-modal.jpg)
 5. From the Editor's menu, press `Restart` to reload the workspace.
 
 
@@ -46,7 +46,7 @@ Environment variables are enabled only for **private** repositories and they are
 1. From the Editor, open the command palette using <kbd>⌘</kbd> + <kbd>K</kbd>. 
 2. Type `Add environment variables`.
 
-![CodeSandbox Projects Command Palette](../images/env-var-pallette.png)
+![CodeSandbox Projects Command Palette](../images/env-var-pallette.jpg)
 
 3. Add and your configurations.
 4. From the editor's menu, click to `Restart` the workspace.
@@ -58,4 +58,4 @@ Environment variables are enabled only for **private** repositories and they are
 
 You can review and change the existing environment variables and secrets by acessing them at any time throught the `Environment variables` link at the Editor's menu. For any changes to take effect, don't forget to  restart your workspace.
 
-![CodeSandbox Projects Editor Menu](../images/env-var-menu-link.png)
+![CodeSandbox Projects Editor Menu](../images/env-var-menu-link.jpg)

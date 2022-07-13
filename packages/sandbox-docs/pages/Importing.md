@@ -12,7 +12,7 @@ description:
 
 The most popular way of creating a new sandbox is the Create Sandbox screen.
 
-![Create Sandbox screen](./images/create-wizard.png)
+![Create Sandbox screen](./images/create-wizard.jpg)
 
 The Create Sandbox screen shows you all of the public templates that are
 currently available, including official templates and those created by the

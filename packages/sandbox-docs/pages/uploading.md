@@ -20,7 +20,7 @@ There are two ways to upload files: by using a wizard or by drag and dropping
 the files in a folder in CodeSandbox. The wizard can be opened by clicking on
 the upload icon in the Files tab.
 
-![Upload Wizard](./images/upload.png)
+![Upload Wizard](./images/upload.jpg)
 
 Dragging and dropping the files in the Files tab works as well.
 
@@ -30,12 +30,12 @@ You can use an uploaded file in multiple sandboxes at the same time. For this
 reason we have a separate 'Storage Management' that allows you to see which
 files you have uploaded. You can find the manager in your user menu.
 
-![Storage Management in User Menu](./images/storage-management-users.png?v2)
+![Storage Management in User Menu](./images/storage-management-users.jpg?v2)
 
 You are able to view your storage usage with the option to either open uploaded
 files, add uploaded files to the opened sandbox or to delete an uploaded file.
 
-![Storage Management](./images/storage-management.png)
+![Storage Management](./images/storage-management.jpg)
 
 ## CLI Integration
 

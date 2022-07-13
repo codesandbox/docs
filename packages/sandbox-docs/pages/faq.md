@@ -33,7 +33,7 @@ dashboard right-click and select make private.
 Note that a [Pro subscription](https://codesandbox.io/pricing) is required to
 make sandboxes private or unlisted.
 
-![Make private in the editor](./images/sandbox-private.png)
+![Make private in the editor](./images/sandbox-private.jpg)
 
 ## I'm getting a 422 error when importing from GitHub, why?
 

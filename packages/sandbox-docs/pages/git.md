@@ -33,7 +33,7 @@ keep a reference to the original branch, and we also track the changes that
 happen. When you create a fork of the GitHub sandbox you will see a new panel in
 the sidebar that looks like this:
 
-![GitHub Sidebar](./images/github-sidebar.png)
+![GitHub Sidebar](./images/github-sidebar.jpg)
 
 This panel will show all the files that have been changed compared to the GitHub
 sandbox you forked from. When you fork a sandbox from your own repository you
@@ -56,13 +56,13 @@ You can do this by going to your application settings on
 [Github](https://github.com/settings/installations) and click on the tab that
 says "Authorized OAuth Apps":
 
-![GitHub Apps](./images/github-apps.png)
+![GitHub Apps](./images/github-apps.jpg)
 
 Click on the CodeSandbox application and you will be taken to the settings.
 
 In here you can check what organizations CodeSandbox has access to and grant it
 access to the organization you want to deploy to.
 
-![GitHub Permissions](./images/github-permissions.png)
+![GitHub Permissions](./images/github-permissions.jpg)
 
 After this you will be able to commit from CodeSandbox to that organization.

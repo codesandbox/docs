@@ -9,7 +9,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 In CodeSandbox Projects, you can organize your work under `Personal Projects` and `Teams`. Your teams are synced across Sandboxes and Projects and every team member can navigate between the imported projects. 
 
-![Teams in Projects](../images/teams-list.png)
+![Teams in Projects](../images/teams-list.jpg)
 
 For the open beta release, Projects is granting visibility of all projects to all team members by replicating the existing privacy settings already in place on GitHub. 
 
@@ -18,7 +18,7 @@ For the open beta release, Projects is granting visibility of all projects to al
 
 Team management is currently handled exclusively through the [Sandboxes dashboard](https://codesandbox.io/dashboard). To access it from Projects, click on `Go to Sandboxes` link at the bottom left corner of the dashboard.
 
-![Go to sandboxes to manage your team](../images/teams-go-to-sandboxes.png)
+![Go to sandboxes to manage your team](../images/teams-go-to-sandboxes.jpg)
 
 ### Creating a new team
 
@@ -27,7 +27,7 @@ Team management is currently handled exclusively through the [Sandboxes dashboar
 1. Choose a **team name**.
 1. Add **team members** by inviting them via email or searching for their CodeSandbox username.
 
-![Manage your team](../images/teams-new.png)
+![Manage your team](../images/teams-new.jpg)
 
 
 ### Add or remove people from your team

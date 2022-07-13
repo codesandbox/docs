@@ -18,27 +18,27 @@ Probably you’d like to install some frameworks that require write access to ma
 
 ## 1. Click on + New task to install new tooling
 
-![https://images.tango.us/public/screenshot_3bdf3563-7a95-4969-b7da-6b96ae07e536.png?crop=focalpoint&fit=crop&fp-x=0.9512&fp-y=0.1775&fp-z=3.0619&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_3bdf3563-7a95-4969-b7da-6b96ae07e536.png?crop=focalpoint&fit=crop&fp-x=0.9512&fp-y=0.1775&fp-z=3.0619&w=1200&ar=3892%3A3008)
+![https://images.tango.us/public/screenshot_3bdf3563-7a95-4969-b7da-6b96ae07e536.jpg?crop=focalpoint&fit=crop&fp-x=0.9512&fp-y=0.1775&fp-z=3.0619&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_3bdf3563-7a95-4969-b7da-6b96ae07e536.jpg?crop=focalpoint&fit=crop&fp-x=0.9512&fp-y=0.1775&fp-z=3.0619&w=1200&ar=3892%3A3008)
 
 ## 2. Drop here the command that installs the global module
 
-![https://images.tango.us/public/screenshot_434878b2-cd08-4b6a-91bf-d03056e07d9f.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.1577&fp-z=1.6881&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_434878b2-cd08-4b6a-91bf-d03056e07d9f.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.1577&fp-z=1.6881&w=1200&ar=3892%3A3008)
+![https://images.tango.us/public/screenshot_434878b2-cd08-4b6a-91bf-d03056e07d9f.jpg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.1577&fp-z=1.6881&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_434878b2-cd08-4b6a-91bf-d03056e07d9f.jpg?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.1577&fp-z=1.6881&w=1200&ar=3892%3A3008)
 
 ## 3. You can see the progress of the installation in a console log.
 
-![https://images.tango.us/public/screenshot_2c94b9c2-a668-427f-b7fa-bfcd60de9f29.png?crop=focalpoint&fit=crop&fp-x=0.7831&fp-y=0.2096&fp-z=2.3839&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_2c94b9c2-a668-427f-b7fa-bfcd60de9f29.png?crop=focalpoint&fit=crop&fp-x=0.7831&fp-y=0.2096&fp-z=2.3839&w=1200&ar=3892%3A3008)
+![https://images.tango.us/public/screenshot_2c94b9c2-a668-427f-b7fa-bfcd60de9f29.jpg?crop=focalpoint&fit=crop&fp-x=0.7831&fp-y=0.2096&fp-z=2.3839&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_2c94b9c2-a668-427f-b7fa-bfcd60de9f29.jpg?crop=focalpoint&fit=crop&fp-x=0.7831&fp-y=0.2096&fp-z=2.3839&w=1200&ar=3892%3A3008)
 
 ## 4. In the meantime a tasks.json file has been created under the .codesandbox folder
 
 With the tasks.json you can automate the creation of your development environment within Projects
 
-![https://images.tango.us/public/screenshot_b1d911c4-953b-4648-a7c7-d72862a272b8.png?crop=focalpoint&fit=crop&fp-x=0.0812&fp-y=0.0938&fp-z=2.2900&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_b1d911c4-953b-4648-a7c7-d72862a272b8.png?crop=focalpoint&fit=crop&fp-x=0.0812&fp-y=0.0938&fp-z=2.2900&w=1200&ar=3892%3A3008)
+![https://images.tango.us/public/screenshot_b1d911c4-953b-4648-a7c7-d72862a272b8.jpg?crop=focalpoint&fit=crop&fp-x=0.0812&fp-y=0.0938&fp-z=2.2900&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_b1d911c4-953b-4648-a7c7-d72862a272b8.jpg?crop=focalpoint&fit=crop&fp-x=0.0812&fp-y=0.0938&fp-z=2.2900&w=1200&ar=3892%3A3008)
 
 ## 5. By default, your tool saved as a simple task
 
 You can run tasks from the UI or the Command Palette but global modules should be installed during setting up your environment.
 
-![https://images.tango.us/public/screenshot_69be5dc2-5bc6-43f2-84c6-be9631c1178a.png?crop=focalpoint&fit=crop&fp-x=0.2885&fp-y=0.5402&fp-z=3.1717&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_69be5dc2-5bc6-43f2-84c6-be9631c1178a.png?crop=focalpoint&fit=crop&fp-x=0.2885&fp-y=0.5402&fp-z=3.1717&w=1200&ar=3892%3A3008)
+![https://images.tango.us/public/screenshot_69be5dc2-5bc6-43f2-84c6-be9631c1178a.jpg?crop=focalpoint&fit=crop&fp-x=0.2885&fp-y=0.5402&fp-z=3.1717&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_69be5dc2-5bc6-43f2-84c6-be9631c1178a.jpg?crop=focalpoint&fit=crop&fp-x=0.2885&fp-y=0.5402&fp-z=3.1717&w=1200&ar=3892%3A3008)
 
 ## 6. Let's move it under the setupTasks
 
@@ -48,4 +48,4 @@ So setupTasks will run every time Projects is setting up your workspace. What yo
 Tip: Make sure you commit back this file to your main branch. Only this way tasks will be picked up next time you create a new branch!
 </Callout>
 
-![https://images.tango.us/public/screenshot_4f27ab2c-2911-4294-924f-67a13e3139e1.png?crop=focalpoint&fit=crop&fp-x=0.3009&fp-y=0.2304&fp-z=2.1571&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_4f27ab2c-2911-4294-924f-67a13e3139e1.png?crop=focalpoint&fit=crop&fp-x=0.3009&fp-y=0.2304&fp-z=2.1571&w=1200&ar=3892%3A3008)
+![https://images.tango.us/public/screenshot_4f27ab2c-2911-4294-924f-67a13e3139e1.jpg?crop=focalpoint&fit=crop&fp-x=0.3009&fp-y=0.2304&fp-z=2.1571&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_4f27ab2c-2911-4294-924f-67a13e3139e1.jpg?crop=focalpoint&fit=crop&fp-x=0.3009&fp-y=0.2304&fp-z=2.1571&w=1200&ar=3892%3A3008)

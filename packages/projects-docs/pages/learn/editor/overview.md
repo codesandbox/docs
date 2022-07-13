@@ -8,7 +8,7 @@ import Video from '../../../../../shared-components/Video'
 
 # Overview
 
-![The web editor](../images/overview-web.png)
+![The web editor](../images/overview-web.jpg)
 
 CodeSandbox has [many alternatives for you to code](linktoiosandvscode). One of the tools is the unique and opinionated Web Editor, built from scratch and optimized to help the developer focus on what matters: being creative and doing their activities without friction. 
 
@@ -18,7 +18,7 @@ Here is an overview of the web editor structure:
 
 ## Header
 
-![The web editor](../images/overview-header.png)
+![The web editor](../images/overview-header.jpg)
 
 The header is where you perform general operations on your project.
 
@@ -31,7 +31,7 @@ The header is where you perform general operations on your project.
 
 ## Sidebar
 
-![The web editor](../images/overview-sidebar.png)
+![The web editor](../images/overview-sidebar.jpg)
 
 The sidebar is a quick way to operate and navigate your codebase. It allows you to:
 
@@ -47,7 +47,7 @@ You can change the sidebar view using the icons in the top.
 
 ## Code Editor
 
-![The web editor](../images/overview-editor.png)
+![The web editor](../images/overview-editor.jpg)
 
 The code editor is where your magic happens ✨. We provide a common experience for all developers. With the support of:
 

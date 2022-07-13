@@ -21,11 +21,11 @@ sandboxes**.
 You can add secrets in a container sandbox from the Server Control Panel. Before
 adding any, it should look like this:
 
-![No Secrets](./images/secrets-1.png)
+![No Secrets](./images/secrets-1.jpg)
 
 Let's say you want to add a Google Maps API key. You can do it like so:
 
-![Map Secrets](./images/secrets-2.png)
+![Map Secrets](./images/secrets-2.jpg)
 
 Pro tip: It's good practice to name your secrets all in uppercase.
 

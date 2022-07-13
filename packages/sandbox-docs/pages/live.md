@@ -14,7 +14,7 @@ others for real time collaboration on code. You can simultaneously create,
 delete, edit and move files and code with others in a sandbox, as well as chat
 about your changes. It's like Google Docs, but for coding.
 
-![Live mode](./images/live-screenshot.png?v1)
+![Live mode](./images/live-screenshot.jpg?v1)
 
 ## Going Live
 
@@ -29,7 +29,7 @@ Invited editors can simultaneously edit, create, rename and update files and
 code, as well as add and remove dependencies. You can also see which file other
 collaborators are looking at and what their current selections are.
 
-![Going Live](./images/live-live.png)
+![Going Live](./images/live-live.jpg)
 
 ## Classroom Mode
 
@@ -39,7 +39,7 @@ users that are 'editor'.
 
 You can enable Classroom Mode from the Live Mode drop-down menu.
 
-![Classroom mode](./images/live-classroom.png)
+![Classroom mode](./images/live-classroom.jpg)
 
 You can give someone editor rights by pressing the '+' icon next to their name,
 or you can make someone a spectator by clicking the '-' icon next to their name.

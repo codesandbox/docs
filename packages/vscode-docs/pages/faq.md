@@ -2,7 +2,7 @@
 
 ## What to do about that recurring trust modal?
 
-![Trust Modal](./images/vscode-trust.png)
+![Trust Modal](./images/vscode-trust.jpg)
 
 This modal shows up every time you launch a project folder in a new container. Since every branch will be opened with a unique SSH url, VS Code will ask you to verify that you trust the connection. This is an important security notice used to confirm that the user understands the  connection being established before opening the code. You can read more about the modal [here](https://code.visualstudio.com/blogs/2021/07/06/workspace-trust).
 

@@ -5,7 +5,7 @@ description:
 
 # Preview
 
-![CodeSandbox Projects Preview](../images/devtools-cover-preview.png)
+![CodeSandbox Projects Preview](../images/devtools-cover-preview.jpg)
 
 When a running task opens a server on a port, that port will be attached to the task, turning it into a Preview type DevTool. Previews appear at the beginning of the list when you toggle the DevTools dropdown. 
 

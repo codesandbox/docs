@@ -30,7 +30,7 @@ you'll see a button at the bottom of the "Sandbox Info" panel that says
 `Save as template`. Clicking this will convert the sandbox to a template, which
 will freeze it and make it available from the "Create New Sandbox" modal.
 
-![Make Template from Sandbox](./images/templates/1.png)
+![Make Template from Sandbox](./images/templates/1.jpg)
 
 Optionally, from the dashboard, you can either drag and drop a sandbox from
 "Overview" or one of your folders under "My Sandboxes" to the new "My Templates"
@@ -54,7 +54,7 @@ you can access and use them. First, inside of the "Create New Sandbox" modal,
 you will see a list of your templates under `My Templates`. Clicking on one of
 these will fork the template and open it in the editor.
 
-![Sandbox Modal](./images/templates/4.png)
+![Sandbox Modal](./images/templates/4.jpg)
 
 You can also find all of your templates under the `Templates` folder within the
 Dashboard. Clicking on any of the templates shown inside this folder will open
@@ -83,4 +83,4 @@ back to the "Overview" and "My Sandboxes" folders inside the dashboard.
 Alternatively, you can use a template's options menu inside the "My Templates"
 folder to select `Convert to Sandbox`.
 
-![Delete template from dashboard](./images/templates/6.png)
+![Delete template from dashboard](./images/templates/6.jpg)

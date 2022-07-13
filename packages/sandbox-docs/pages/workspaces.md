@@ -13,11 +13,11 @@ description:
 
 You can create and manage teams from the dashboard.
 
-![Create Team](./images/workspace-create.png)
+![Create Team](./images/workspace-create.jpg)
 
 As soon as you've created a team, you will be shown the team overview.
 
-![Team Overview](./images/workspace-overview.png)
+![Team Overview](./images/workspace-overview.jpg)
 
 ## Inviting People to a Team
 

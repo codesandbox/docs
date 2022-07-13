@@ -9,7 +9,7 @@ description: Deploy your app to production from CodeSandbox
 It's possible to deploy your app directly from CodeSandbox through one of our
 integrated services. To deploy your app, you need to own the sandbox.
 
-![Deployment Sidebar](./images/deployment-sidebar.png)
+![Deployment Sidebar](./images/deployment-sidebar.jpg)
 
 ## Vercel
 

@@ -9,7 +9,7 @@ description: GitHub integration that adds CodeSandbox links in GitHub pull reque
 The integration of CodeSandbox and GitHub allows you to automatically add links to each PR description to facilitate the review process. 
 
 
-![GitHub and CodeSandbox Integration](../images/GH-App-integration.png)
+![GitHub and CodeSandbox Integration](../images/GH-App-integration.jpg)
 
 
 #### Open Preview
@@ -25,7 +25,7 @@ If VS Code is your preferred development environment, you can still open the bra
 
 ## Installing GitHub Apps
 
-![Installing GitHub Apps](../images/GH-App-standalone.png)
+![Installing GitHub Apps](../images/GH-App-standalone.jpg)
 The installation of the GitHub App can only be done by **organization admins** or **repository owners**. However, it is possible to request that a GitHub App be installed in repositories where you don't have the necessary permissions. Organization owners and repository admins will be notified to approve or deny these requests.  
 
 After the installation request is made, the owner of the repository or an admin on the organization will be notified on GitHub and via email. 

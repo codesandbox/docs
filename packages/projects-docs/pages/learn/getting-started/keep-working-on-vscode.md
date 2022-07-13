@@ -17,7 +17,7 @@ Install the **Projects VSCode extension** and open any branch directly in your V
 
 ## Opening a branch in VSCode
 
-![Open in vscode button](../images/getting-openvscode.png)
+![Open in vscode button](../images/getting-openvscode.jpg)
 
 To start working in a branch on VSCode, open the branch in the Editor and to click on `Open in VSCode` button in the bottom left corner. You will be prompted to install the CodeSandbox extension  responsible for making the connection to our cloud development environment.
 
