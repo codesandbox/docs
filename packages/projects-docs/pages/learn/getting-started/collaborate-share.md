@@ -4,10 +4,10 @@ CodeSandbox Projects was built to facilitate collaboration. Add team members to 
 
 ## Add or remove people from your team
 
-1. Go to the **[Sandboxes Dashboard](https://codesandbox.io/dashboard)**
+1. Go to the [Sandboxes Dashboard](https://codesandbox.io/dashboard).
 1. In the top left corner, select the team you'd like to edit in the dropdown. 
 1. Click on the settings icon next to the team.
-1. Add or remove people through the **Members** section
+1. Add or remove people through the **Members** section.
 
 ## Share specific branches
 

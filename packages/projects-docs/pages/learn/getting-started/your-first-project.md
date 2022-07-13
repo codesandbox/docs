@@ -13,7 +13,7 @@ You can start working on a project by importing an existing repository from GitH
     
 ## Importing a project
 
-1. Go to the new **[Projects Dashboard](https://codesandbox.io/p/dashboard)**.
+1. Go to the new [Projects Dashboard](https://codesandbox.io/p/dashboard).
 
 2. From the left sidebar, click on the **team** (personal or another) you want to import your project into. New teams can be created through the [Sandbox Dashboard](https://codesandbox.io/dashboard).
   
@@ -32,7 +32,7 @@ You can start working on a project by importing an existing repository from GitH
 
 - If the search does not return any matches, click on the **`Show all`** button under the last repository visible in the list to load more repositories.
 
-- If not all your GitHub organizations are listed in the dropdown, click on **`Manage GitHub integrations`** and grant the required permissions.
+- If not all your GitHub organizations are listed in the dropdown, click on `Manage GitHub integrations` and grant the required permissions.
  
 6. Click on **Import**. 
 

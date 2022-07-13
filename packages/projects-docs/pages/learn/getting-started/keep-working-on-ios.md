@@ -1,12 +1,12 @@
 ---
-title: Keep working on iPad or iPhone
+title: Keep working in the iPad or iPhone
 description:
 ---
 
 import Callout from 'nextra-theme-docs/callout'
 import ButtonDoc from '../../../components/ButtonDoc'
 
-# Keep working on iPad or iPhone
+# Keep working in the iPad or iPhone
 
 ![iOS-App](../images/iOS-App.png)
 
