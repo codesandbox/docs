@@ -1,6 +1,6 @@
 # Collaborate and Share
 
-CodeSandbox Projects was built to facilitate collaboration. Add team members to your current team and grant access to all projects and branches or share specific branches for more granular permissions.
+CodeSandbox Projects was built to facilitate collaboration. Work in teams to grant access to all projects and branches or share specific branches for more granular permissions.
 
 
 ## Share specific branches
@@ -10,3 +10,6 @@ CodeSandbox Projects was built to facilitate collaboration. Add team members to 
 1. Copy the URL to share your workspace.
 
 
+## Working in teams
+
+Go to the [Team section](https://codesandbox.io/docs/projects/teams/permissions) in this documentation.
