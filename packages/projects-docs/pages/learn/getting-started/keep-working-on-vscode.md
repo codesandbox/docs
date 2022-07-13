@@ -19,7 +19,7 @@ import ButtonDoc from '../../../components/ButtonDoc'
 
 ![Open in vscode button](../images/getting-openvscode.jpg)
 
-To start working in a branch on VSCode, open the branch in the Editor and click in the `Open in VSCode` button positioned in the bottom left corner. This will prompt you to install the CodeSandbox extension  responsible for making the connection to our cloud development environment.
+To start working in a branch on VSCode, open the branch in the Editor and click on the `Open in VSCode` button positioned in the bottom left corner. This will prompt you to install the CodeSandbox extension  responsible for making the connection to our cloud development environment.
 
 ### Learn more
 

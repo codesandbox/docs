@@ -38,7 +38,7 @@ Easier and faster than forking repositories, contribution branches allow you to 
 
 Contribution branches are standalone branches designed to simplify the contributing process. PRs created from them will always target the parent repository, showing up in the maintainers' list like any regular PR. 
 
-To create a contribution branch, open the repository in the editor and click in the `Branch` button in top right corner. By default, the option `New contribution branch` will be selected.
+To create a contribution branch, open the repository in the editor and click on the `Branch` button in top right corner. By default, the option `New contribution branch` will be selected.
 
 ![Crate a Contribution Branch](../images/contribution-from-editor.jpg)
 

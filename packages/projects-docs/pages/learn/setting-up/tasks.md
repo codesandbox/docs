@@ -32,7 +32,7 @@ This is an example of a configuration:
 }
 ```
 
-## Using the default configuration
+## Default configuration
 
 By default, CodeSandbox Projects tries to infer scripts from the `package.json` file in your project's root folder. In addition, you can always use the terminal devtool to execute any shell script to run your project.
 
@@ -130,6 +130,7 @@ This id does not appear on the UI, since each task has a display name configured
 * setupTasks
   * name
   * command
+  
 * tasks
   * task-id
     * name
