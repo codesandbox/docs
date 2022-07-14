@@ -235,12 +235,13 @@ function File({ item, anchors, topLevel }: FileProps) {
 }
 
 interface MenuProps {
+  name?: string;
   directories: PageItem[] | Item[];
   anchors: string[];
   base?: string;
   submenu?: boolean;
 }
-function Menu({ directories, anchors, submenu }: MenuProps) {
+function Menu({ directories, anchors, submenu, name }: MenuProps) {
   return (
     <ul>
       {directories.map((item) => {
@@ -288,6 +289,8 @@ export default function Sidebar({
         .filter(Boolean),
     [headings]
   );
+
+  console.log({ directories, flatDirectories, fullDirectories, anchors });
 
   const { menu } = useMenuContext();
   useEffect(() => {
