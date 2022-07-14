@@ -33,7 +33,8 @@ const Item = ({
           {page}
         </div>
       ) : null}
-      <Link href={"/" + Router.basePath + href}>
+      {/* "/" + Router.basePath + href */}
+      <Link href={"/" + href}>
         <a
           className="block no-underline"
           onMouseMove={onHover}
