@@ -14,7 +14,7 @@ By default `npm install -g` installs global modules into `/usr/local/lib/node_
 
 Probably you’d like to install some frameworks that require write access to many more folders. So in cases like this, we recommend using Docker or NixOS 
 
-[Getting started with Docker and NixOS in Projects](https://www.notion.so/Getting-started-with-Docker-and-NixOS-in-Projects-2e02214259114e0e9a3e863804af4025)
+# Getting started with Docker and NixOS in Projects
 
 ### 1. Click on + New task to install new tooling
 
