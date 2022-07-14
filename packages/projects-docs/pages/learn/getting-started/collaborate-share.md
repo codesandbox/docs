@@ -11,4 +11,4 @@ CodeSandbox Projects was built to facilitate collaboration. Work in teams to gra
 
 ## Working in teams
 
-For more information on managing and creating teams, go to the [Team](https://codesandbox.io/docs/projects/teams/permissions) page.
+For more information on managing and creating teams, go to the [Team](../teams/permissions) page.
