@@ -423,17 +423,21 @@ p kbd {
 article h1 {
   font-size: 3.5rem;
   margin-top: 0;
+  line-height: 100%;
+  letter-spacing: -0.05em;
+}
+
+@media (max-width: 640px) {
+  article h1 {
+    font-size: 3rem;
+  }
 }
 
 article h2 {
   border: none;
   font-size: 2rem;
-}
-
-article h1,
-article h2 {
-  letter-spacing: -0.05em;
   line-height: 120%;
+  letter-spacing: -0.025em;
 }
 
 article h1:first-of-type {
