@@ -290,8 +290,6 @@ export default function Sidebar({
     [headings]
   );
 
-  console.log({ directories, flatDirectories, fullDirectories, anchors });
-
   const { menu } = useMenuContext();
   useEffect(() => {
     if (menu) {
