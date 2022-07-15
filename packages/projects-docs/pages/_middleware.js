@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 
-export function middleware() {
+export function middleware(request) {
+  const { nextUrl } = request;
+
   console.log(nextUrl.pathname);
   if (nextUrl.pathname == "/") {
     return NextResponse.redirect(
