@@ -22,6 +22,11 @@ module.exports = withTM(
           destination: "/overview",
           permanent: true,
         },
+        {
+          source: "/start",
+          destination: "/overview",
+          permanent: false,
+        },
       ];
     },
   })
