@@ -57,7 +57,7 @@ Single value configuration, type `string`, by default it is set to `"16"` .
 CodeSandbox Projects supports running docker containers inside any workspace. Run and build images to run containers inside your project by opening a terminal and running `docker`. If you have a docker-compose file in your root folder, simply run `docker-compose up` and all your services will run within Projects.
 
 <Callout emoji="⭑">
-For a step-by-step guide, check out our tutorial [Getting started with Docker](https://codesandbox.io/docs/projects/tutorial/docker)
+For a step-by-step guide, check out our tutorial [Getting started with Docker](https://codesandbox.io/docs/projects/tutorial/getting-started-with-docker)
 </Callout>
 
 ## Nix support

@@ -22,6 +22,6 @@ Besides opening a fresh instance, you can also see other people's terminals. Thi
 Because each branch is a new environment, commands you run in the terminal will not affect other branches.
 
 <Callout emoji="⭑">
-If you need to run commands that depend on sudo/root access, <br/>check out our [tutorial about using nix](/tutorial/docker)
+If you need to run commands that depend on sudo/root access, <br/>check out our [tutorial about using nix](/tutorial/getting-started-with-docker)
 </Callout>
 
