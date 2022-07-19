@@ -22,6 +22,11 @@ module.exports = withTM(
           destination: "/learn/introduction/overview",
           permanent: true,
         },
+        {
+          source: "/tutorial/docker",
+          destination: "/tutorial/getting-started-with-docker",
+          permanent: true,
+        },
       ];
     },
   })
