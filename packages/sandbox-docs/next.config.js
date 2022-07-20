@@ -27,6 +27,11 @@ module.exports = withTM(
           destination: "/overview",
           permanent: false,
         },
+        {
+          source: "/api",
+          destination: "/api-reference",
+          permanent: false,
+        },
       ];
     },
   })
