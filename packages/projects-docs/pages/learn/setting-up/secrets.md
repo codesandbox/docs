@@ -16,7 +16,7 @@ Configure environment variables and secrets in your project, such as settings fo
 
 Currently CodeSandbox Projects only supports **project-level** configuration. The secrets and environment variables are shared across all VMs, but it's necessary to restart your workspace after making changes for them to take effect.
 
-### Storage and Encription
+### Storage and Encryption
 
 Environment variables are stored in our database, AES encrypted. The encryption key is rerolled from time to time on an unannounced schedule and the key is stored separately from the database.
 
