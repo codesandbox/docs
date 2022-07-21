@@ -52,7 +52,7 @@ recommend using a container sandbox.
 
 ## Can I change the Node version used in a container sandbox?
 
-Yes. Container sandboxes run Node v10.20.1 (LTS) by default. However, you can
+Yes. Container sandboxes run [Node (LTS)](https://nodejs.org/en/about/releases/) by [default](https://codesandbox.io/docs/configuration#sandbox-configuration). However, you can
 specify a `node` value to alter the version in `sandbox.config.json`, which will
 be used instead. For further details, see [configuration](/docs/configuration).
 
