@@ -63,3 +63,16 @@ For a step-by-step guide, check out our tutorial [Getting started with Docker](h
 ## Nix support
 
 [Nix](https://nixos.org/) is a tool that takes a unique approach to package management and system configuration. Use it to install any additional tools, like go, java, or system packages, inside your workspace.
+
+You can put a file called `csb.nix` in the root of the project. This is an example configuration file for installing Python:
+
+```nix
+with import <nixpkgs> {};
+
+stdenv.mkDerivation {
+    name = "csb";
+    buildInputs = [
+        python10
+    ];
+}
+```
