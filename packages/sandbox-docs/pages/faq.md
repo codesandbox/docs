@@ -79,7 +79,7 @@ from File > Preferences > Settings in the editor.
 - Imported sandboxes must contain a package.json file.
 - The maximum file size that can be opened in the editor is 2MB. Files uploaded
   that are larger than that still exist but are linked as a static asset.
-- The maximum file upload size is 7MB.
+- The maximum file upload size is 30MB (60MB for Pro users).
 - In container sandboxes, there is a sync limit of 10 files per second and only
   files up to 2MB are synced with the editor. Files larger than that still exist
   but are not shown in the editor's file tree. You're still able to write and
