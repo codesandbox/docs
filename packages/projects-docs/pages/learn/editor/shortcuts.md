@@ -24,7 +24,7 @@ description:
 ⌃ `     |   Open new terminal
 ⌘ K     |   Open command palette
 ⌘ B     |   Toggle Sidebar
-⌘ .     |   Toogle Sidekick
+⌘ .     |   Toggle Sidekick
 ⌘ ⌥ N       |   New file
 
 
@@ -71,7 +71,7 @@ Enter       |       Find next
 ⌘ D     |       Add selection no next find match
 ⇧ ⌘ L       |       Select all occurrences of find match
 ⌃ Space     |       Trigger suggestion
-⌘ /     |       Toogle line comment
+⌘ /     |       Toggle line comment
 ⇧ ⌥ F8      |       Go to previous problem
 ⇧ ⌘ Enter       |       Insert line above
 F8      |       Go to next problem in files
