@@ -136,3 +136,6 @@ This id does not appear on the UI, since each task has a display name configured
     * name
     * command
     * runAtStart
+    * preview
+      * port
+      * pr-link
