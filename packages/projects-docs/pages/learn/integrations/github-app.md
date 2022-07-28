@@ -33,6 +33,58 @@ After the installation request is made, the owner of the repository or an admin 
 - Installation request that appears when importing a repo for the first time.
 - GitHub alls can be installed on an organization level or for individual repositories
 
+## Setting up preview links
+The GitHub App reads `tasks.json` for preview links. You can add links to the PR description by adding the following fields to the tasks that you want run as a preview:
+
+```
+"preview": {
+  "port": 3000,
+  "pr-link": "direct" | "redirect" | "devtool"
+  }
+```
+
+In the list of tasks it would look something like this
+```
+"dev": {
+  "name": "dev",
+  "command": "yarn dev",
+  "runAtStart": true,
+  "preview": {
+    "port": 4000,
+    "pr-link": "direct"
+  }
+},
+"build": {
+  ...
+}
+  ```
+  
+Note: If you do not have a `tasks.json` file, you can see instructions [here](../setting-up/tasks#opening-configuration) on how to open the tasks configuration.
+
+### port: Optional
+This field allows you to determine which port will be used for the preview. This is great for ensuring that the preview url is always the same. If this is not listed as a field, the preview will open on any available port which my be different each time.
+
+### pr-link: Required
+
+**devtool**
+This options wraps preview with preview devtools. This means that the link will open the preview from the process running the branch.
+It's recommended to use this options for previews that show changes that would get immediate attention from a team member. 
+For example, you have been working on a change and want a quick review from a designer that will open the PR and click on the preview link and provide you feedback.
+
+**redirect:**
+This option will check to see if the preview devtool is running and then directs you to the devtool or the redirect to the direct link if it is not.
+It's recommended to use this option if you want to rely on the running devtool when possible, but need the preview to be available at anytime regardless of the whether or not the branch is up and running. For example, this is great for team reviews that are happening over the course of a few hours or days.
+
+**direct:** 
+This will point directly to a process that is running independent of the branch.
+It's recommended to use this options if it is unlikely that the branch is up and running when the preview is being opened. For example, you might want to have a preview available on a parent branch that a team member or stakeholder checks periodically to see the latest updates.
+
+
+
+
+
+
+
 ## Privacy and Permissions
 The GitHub App allows CodeSandbox to retrieve some information about your GitHub account and, in some circumstances, to make changes on GitHub on your behalf. 
 

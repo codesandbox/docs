@@ -36,6 +36,12 @@ This is an example of a configuration:
 
 By default, CodeSandbox Projects tries to infer scripts from the `package.json` file in your project's root folder. In addition, you can always use the terminal devtool to execute any shell script to run your project.
 
+## Opening configuration
+At anytime you can open the `tasks.json` file to adjust the tasks to your liking. 
+1. Open the command terminal `cmd K`
+2. Search for and select "Open Tasks Configuration"
+3. Open the `tasks.json` under the `.codesandbox` directory
+
 ## Setup Tasks
 
 Setup tasks are an array of commands that will run sequentially before the workspace is ready to start your application. If no value is provided, `installing dependencies` will be the default task (we will detect which package manager you use).
