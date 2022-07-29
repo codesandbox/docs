@@ -9,7 +9,7 @@ description:
 
 | Shortcut      | Description |
 | ----------- | ----------- |
-⌘ ⇧ G or ⌃ O then G     |   Open git panel
+⌃ ⇧ G     |   Open git panel
 ⌃ ⌥ X       |   Close other files
 ⌘ ⌥ M       |   New folder
 ⌘ ⇧ E or ⌃ O then A     |   Open file system panel
