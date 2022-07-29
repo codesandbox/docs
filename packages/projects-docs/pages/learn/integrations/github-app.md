@@ -50,7 +50,7 @@ In the list of tasks it would look something like this
   "command": "yarn dev",
   "runAtStart": true,
   "preview": {
-    "port": 4000,
+    "port": 3000,
     "pr-link": "direct"
   }
 },
