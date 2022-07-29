@@ -66,7 +66,11 @@ Tasks are scripts that can be run inside your project. In many cases these will 
     // keep track of the task even if the command changes
     "<task-id>": {
       "name": "Install Dependencies", // this is shown in the UI
-      "command": "yarn" // the command to run in a shell
+      "command": "yarn", // the command to run in a shell
+      "restartOn": {
+        "files": ["yarn.lock", "**/package.json"], // File globs that trigger this task to restart
+        "branch": true, // restart this task when creating a new branch/fork
+      }
     },
     "<other-task-id>": {
       "name": "Build Project",
@@ -98,29 +102,29 @@ This id does not appear on the UI, since each task has a display name configured
 
 ```json
 {
-	"tasks": {
-		"build": {
-			"name": "Build Workspace",
-			"command": "yarn build:workspace"
-		},
-    "homepage": {
-      "name": "Homepage",
-      "command": "yarn workspace homepage dev",
-			"runAtStart": true
+  "tasks":{
+    "build":{
+      "name":"Build Workspace",
+      "command":"yarn build:workspace"
     },
-		"docs": {
-      "name": "Docs",
-      "command": "yarn workspace docs dev"
+    "homepage":{
+      "name":"Homepage",
+      "command":"yarn workspace homepage dev",
+      "runAtStart":true
     },
-		"admin": {
-      "name": "Admin",
-      "command": "yarn workspace admin dev"
+    "docs":{
+      "name":"Docs",
+      "command":"yarn workspace docs dev"
     },
-		"dashboard": {
-      "name": "Dashboard",
-      "command": "yarn workspace dashboard dev"
+    "admin":{
+      "name":"Admin",
+      "command":"yarn workspace admin dev"
+    },
+    "dashboard":{
+      "name":"Dashboard",
+      "command":"yarn workspace dashboard dev"
     }
-	}
+  }
 }
 ```
 
@@ -136,3 +140,6 @@ This id does not appear on the UI, since each task has a display name configured
     * name
     * command
     * runAtStart
+    * restartOn
+      * files
+      * branch
