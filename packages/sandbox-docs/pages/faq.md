@@ -52,7 +52,8 @@ recommend using a container sandbox.
 
 ## Can I change the Node version used in a container sandbox?
 
-Yes. Container sandboxes run Node v10.20.1 (LTS) by default. However, you can
+Yes. Container sandboxes that are created after May 10 2021 run Node v14.18.1 (LTS) by default.
+For backwards compatibility the older sandboxes are on Node v10. However, you can
 specify a `node` value to alter the version in `sandbox.config.json`, which will
 be used instead. For further details, see [configuration](/docs/configuration).
 
@@ -79,9 +80,7 @@ from File > Preferences > Settings in the editor.
 - Imported sandboxes must contain a package.json file.
 - The maximum file size that can be opened in the editor is 2MB. Files uploaded
   that are larger than that still exist but are linked as a static asset.
-- The maximum file upload size is 7MB. If you need this raised, please
-  [email us](mailto:support@codesandbox.io) with your username and the typical
-  type and size of files you want to upload.
+- The maximum file upload size is 30MB (60MB for Pro users).
 - In container sandboxes, there is a sync limit of 10 files per second and only
   files up to 2MB are synced with the editor. Files larger than that still exist
   but are not shown in the editor's file tree. You're still able to write and
