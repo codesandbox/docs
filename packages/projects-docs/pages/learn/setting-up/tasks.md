@@ -1,5 +1,5 @@
 ---
-title: task.json
+title: tasks.json
 description:
 ---
 
