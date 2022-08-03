@@ -30,7 +30,7 @@
       "runAtStart": true,
       "preview": {
         "port": 3001,
-        "pr-link": "direct"
+        "prLink": "redirect"
       }
     },
     "dev:projects": {
@@ -39,7 +39,7 @@
       "runAtStart": true,
       "preview": {
         "port": 3000,
-        "pr-link": "direct"
+        "prLink": "redirect"
       }
     },
     "dev:vscode": {
