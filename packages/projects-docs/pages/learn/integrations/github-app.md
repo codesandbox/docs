@@ -39,7 +39,7 @@ The GitHub App reads `tasks.json` for preview links. You can add links to the PR
 ```
 "preview": {
   "port": 3000,
-  "pr-link": "direct" | "redirect" | "devtool"
+  "prLink": "direct" | "redirect" | "devtool"
   }
 ```
 
@@ -51,7 +51,7 @@ In the list of tasks it would look something like this
   "runAtStart": true,
   "preview": {
     "port": 3000,
-    "pr-link": "direct"
+    "prLink": "direct"
   }
 },
 "build": {
@@ -64,12 +64,12 @@ Note: If you do not have a `tasks.json` file, you can see instructions [here](..
 ### port: Optional
 This field allows you to determine which port will be used for the preview. This is great for ensuring that the preview url is always the same. If this is not listed as a field, the preview will open on any available port which my be different each time.
 
-### pr-link: Required
+### prLink: Required
 
 **devtool**
-This options wraps preview with preview devtools. This means that the link will open the preview from the process running the branch.
-It's recommended to use this options for previews that show changes that would get immediate attention from a team member. 
-For example, you have been working on a change and want a quick review from a designer that will open the PR and click on the preview link and provide you feedback.
+This options wraps preview with preview devtools. This means that the link will open the preview from the process running the branch
+It's recommended to use this option when getting reviews from team memebers since they can easily jump into the code from the preview. 
+For example, you have been working on a change and want a review from a designer that will open the PR, click on the preview link and provide you feedback.
 
 **redirect:**
 This option will check to see if the preview devtool is running and then directs you to the devtool or the redirect to the direct link if it is not.
