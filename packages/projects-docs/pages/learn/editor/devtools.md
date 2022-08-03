@@ -42,7 +42,7 @@ Drag and drop to reorder the Devtools, or click on the `...` button in the top r
 
 #### Configure
 
-You can control the name, position and what Devtools to run when you open the Web Editor. Check the [`task.json`](../setting-up/tasks) documentation for more information on how to configure the Devtools.
+You can control the name, position and what Devtools to run when you open the Web Editor. Check the [`tasks.json`](../setting-up/tasks) documentation for more information on how to configure the Devtools.
 
 <Callout emoji="⭑">
 Setting up the Devtools makes it easier for non-developers to access and run your project.
