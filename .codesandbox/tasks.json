@@ -1,14 +1,5 @@
 {
-  // These tasks will run in order when initializing your CodeSandbox project.
   "setupTasks": [
-    // {
-    //   "name": "check npmrc",
-    //   "command": "node --version && npm --version && pnpm --version && cat ~/.npmrc"
-    // },
-    // {
-    //   "name": "temp npmrc",
-    //   "command": "echo 'auto-install-peers=true' >> ~/.npmrc"
-    // },
     {
       "name": "update pnpm",
       "command": "npm install -g pnpm --force"
@@ -17,12 +8,7 @@
       "name": "Install Dependencies",
       "command": "pnpm install"
     }
-    // {
-    //   "name": "Build theme",
-    //   "command": "pnpm build:theme"
-    // }
   ],
-  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
     "dev:theme": {
       "name": "Watch theme",
@@ -41,12 +27,20 @@
     "dev:sandbox": {
       "name": "Dev Sandbox",
       "command": "pnpm dev:sandbox",
-      "runAtStart": true
+      "runAtStart": true,
+      "preview": {
+        "port": 3001,
+        "prLink": "redirect"
+      }
     },
     "dev:projects": {
       "name": "Dev Projects",
       "command": "pnpm dev:projects",
-      "runAtStart": true
+      "runAtStart": true,
+      "preview": {
+        "port": 3000,
+        "prLink": "redirect"
+      }
     },
     "dev:vscode": {
       "name": "Dev VS code",
