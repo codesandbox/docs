@@ -1,4 +1,5 @@
 {
+  // These tasks will run in order when initializing your CodeSandbox project.
   "setupTasks": [
     {
       "name": "update pnpm",
@@ -9,6 +10,8 @@
       "command": "pnpm install"
     }
   ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
     "dev:theme": {
       "name": "Watch theme",
@@ -27,20 +30,12 @@
     "dev:sandbox": {
       "name": "Dev Sandbox",
       "command": "pnpm dev:sandbox",
-      "runAtStart": true,
-      "preview": {
-        "port": 3001,
-        "prLink": "redirect"
-      }
+      "runAtStart": true
     },
     "dev:projects": {
       "name": "Dev Projects",
       "command": "pnpm dev:projects",
-      "runAtStart": true,
-      "preview": {
-        "port": 3000,
-        "prLink": "redirect"
-      }
+      "runAtStart": true
     },
     "dev:vscode": {
       "name": "Dev VS code",
@@ -71,6 +66,14 @@
     "test:ios": {
       "name": "Lint Text iOS",
       "command": "pnpm test:ios"
+    },
+    "yarn dev": {
+      "name": "yarn dev",
+      "command": "yarn dev"
+    },
+    "yarn install pnp": {
+      "name": "yarn install pnp",
+      "command": "yarn install pnp"
     }
   }
 }
