@@ -41,12 +41,20 @@
     "dev:sandbox": {
       "name": "Dev Sandbox",
       "command": "pnpm dev:sandbox",
-      "runAtStart": true
+      "runAtStart": true,
+      "preview": {
+        "port": 3000,
+        "prLink": "devtool"
+      }
     },
     "dev:projects": {
       "name": "Dev Projects",
       "command": "pnpm dev:projects",
-      "runAtStart": true
+      "runAtStart": true,
+      "preview": {
+        "port": 3001,
+        "prLink": "devtool"
+      }
     },
     "dev:vscode": {
       "name": "Dev VS code",
