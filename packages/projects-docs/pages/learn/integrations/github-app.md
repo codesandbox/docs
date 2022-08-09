@@ -12,6 +12,7 @@ The integration of CodeSandbox and GitHub allows you to automatically add links 
 ![GitHub and CodeSandbox Integration](../images/GH-App-integration.jpg)
 
 
+
 #### Open Preview
 This link will start up a stand-alone devtool that spins up the preview link.
 
@@ -32,6 +33,8 @@ After the installation request is made, the owner of the repository or an admin 
 
 - Installation request that appears when importing a repo for the first time.
 - GitHub alls can be installed on an organization level or for individual repositories
+
+Alternatively, you can also configure the app through it's official [GitHub App Page](https://github.com/apps/codesandbox)
 
 ## Privacy and Permissions
 The GitHub App allows CodeSandbox to retrieve some information about your GitHub account and, in some circumstances, to make changes on GitHub on your behalf. 
