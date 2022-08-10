@@ -39,7 +39,7 @@
       "runAtStart": false
     },
     "dev:sandbox": {
-      "name": "Dev Sandbox",
+      "name": "Dev Altearcao",
       "command": "pnpm dev:sandbox",
       "runAtStart": true,
       "preview": {
