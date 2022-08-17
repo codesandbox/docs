@@ -15,7 +15,7 @@ Once you open the branch, follow these steps:
 
 1. Open the command palette: MacOS: <kbd>SHIFT+CMD+P</kbd>; Windows: <kbd>SHIFT+CTRL+P</kbd>;
 1. Type "insiders" into the command palette prompt;
-1. Under the "Integration" section, click on the "Open in VS Code Insiders" option.
+1. Under the "Integrations" section, click on the "Open in VS Code Insiders" option.
 
 ![Choosing Open in VS Code Insiders from the command palette](./images/vscode-insiders-command-palette.jpg)
 
