@@ -59,7 +59,11 @@
     "dev:vscode": {
       "name": "Dev VS code",
       "command": "pnpm dev:vscode",
-      "runAtStart": false
+      "runAtStart": true,
+      "preview": {
+        "port": 3002,
+        "prLink": "devtool"
+      }
     },
     "dev:ios": {
       "name": "Dev iOS",
