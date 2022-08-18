@@ -1,14 +1,16 @@
 # Open your branch in VS Code
 
-You can jump to VS Code at anytime from the browser 
+You can jump to VS Code at anytime from the browser
 
 ![Open VS Code from Web Editor](./images/vscode-open.jpg)
 
+> We also support opening the branch [Using Visual Studio Insiders](./insiders).
+
 Alternatively, you can do all your work in VS Code without accessing CodeSandbox on the web
 
-1) Open the extension
-2) Sign in if you haven’t already
-3) Select the ‘Projects’ panel and select the project you want to work on. From there you can open a new branch or select an existing branch to open
+1. Open the extension
+2. Sign in if you haven’t already
+3. Select the ‘Projects’ panel and select the project you want to work on. From there you can open a new branch or select an existing branch to open
 
 ![Sign in on VS Code](./images/vscode-projects.jpg)
 
