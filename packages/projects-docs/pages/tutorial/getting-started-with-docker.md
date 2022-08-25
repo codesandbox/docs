@@ -27,7 +27,7 @@ In addition, [Nix](https://nixos.org/) is also supported. Nix is a tool that tak
 
 If you run a development server for example inside the container and it opens up a port then Projects will detect that automatically and make the preview available. You can open the preview from the Other Previews in this case.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3a225439-9c75-4f67-a1f6-5946a097e3d8/Untitled.png)
+![The devtools have an option with other previews. Selecting this option will shows a submenu with ports running the previews.](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F3a225439-9c75-4f67-a1f6-5946a097e3d8%2FUntitled.png?table=block&id=2c4272cf-8620-4bd5-a722-c5aaa5ddc2e4)
 
 ### 5. If you would like to start the given container every time you create a new branch or even restart your projects then you can persist it as a task
 
