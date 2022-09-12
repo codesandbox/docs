@@ -162,3 +162,6 @@ With `devtool`, you will open the preview URL with an experimental devtool insid
     - restartOn
       - files
       - branch
+    - preview
+      - port
+      - prLink
