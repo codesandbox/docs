@@ -44,7 +44,7 @@
       "runAtStart": true,
       "preview": {
         "port": 3000,
-        "pr-link": "devtool"
+        "prLink": "devtool"
       }
     },
     "dev:projects": {
@@ -53,7 +53,7 @@
       "runAtStart": true,
       "preview": {
         "port": 3001,
-        "pr-link": "devtool"
+        "prLink": "devtool"
       }
     },
     "dev:vscode": {
@@ -62,7 +62,7 @@
       "runAtStart": true,
       "preview": {
         "port": 3002,
-        "pr-link": "devtool"
+        "prLink": "devtool"
       }
     },
     "dev:ios": {
