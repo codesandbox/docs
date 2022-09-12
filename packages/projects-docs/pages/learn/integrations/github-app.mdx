@@ -14,25 +14,28 @@ This [higher level of integration](#i-approved-a-github-oauth-app-when-i-created
 
 We're always looking for ways to make CodeSandbox a seamless part of your development workflow, and our GitHub App is the best way to take advantage.
 
-
 ### Pull Request Links
 
 The integration of CodeSandbox and GitHub allows you to automatically add links to each pull request to facilitate the review process.
+
 {/* NOTE: Project settings not yet available in the client */}
+
 {/* This functionality can be enabled or disabled in your project settings. */}
 
 ![GitHub and CodeSandbox Integration](../images/GH-App-integration.jpg)
 
 #### Open in Web Editor
+
 This link opens the branch in the CodeSandbox Projects Web Editor.
 Because the branch is a shared environment, you will be able to see any running previews, tests, or other DevTools that the PR author left open to assist with the review process.
 
 #### Open in VS Code Extension
+
 If VS Code (or VS Code Insiders) is your preferred development environment, you can open the branch directly from this link using [remote-ssh](https://code.visualstudio.com/docs/remote/ssh).
 
 #### Open Preview(s)
-These links will take you directly to a preview environment — or a standalone devtool of a running preview task — depending on your task configuration.
 
+These links will take you directly to a preview environment — or a standalone devtool of a running preview task — depending on your task configuration.
 
 ### Deployments
 
@@ -58,10 +61,10 @@ Look for entries like the following:
 Don't worry if you have other services creating deployments for your project; CodeSandbox will only manage deployments with `"provider": "CodeSandbox"` in the payload.
 For more complicated projects, CodeSandbox will create one deployment for each task configured with a preview.
 
-{/* NOTE: Project settings not yet available in the client */}
+Make sure to [configure the `preview` field](/learn/setting-up/tasks#preview-field) in your tasks for them to show up in the deployments.
+
+{/* NOTE: Project settings not yet available in the client. */}
 {/* This functionality is disabled by default, and can be enabled in your project settings. */}
-
-
 
 ## Installing the GitHub App
 
@@ -77,22 +80,19 @@ However, it is possible to request installation of a GitHub App in repositories 
 Organization owners and repository admins will receive a notification on GitHub and via email asking them to approve or deny the request.
 Alternatively, you can configure the App through its official [GitHub App Page](https://github.com/apps/codesandbox).
 
-
-
 ## Privacy and Permissions
 
-The GitHub App allows CodeSandbox to retrieve some information about your GitHub account and, in some circumstances, to make changes on GitHub on your behalf. 
+The GitHub App allows CodeSandbox to retrieve some information about your GitHub account and, in some circumstances, to make changes on GitHub on your behalf.
 
 Users can select specific repositories or grant access to all repositories in an organization.
 This selection can be changed at any time in the [GitHub Settings](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/authorizing-github-apps).
 
 For more information, check out the [GitHub App documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/authorizing-github-apps).
 
-
-
 ## FAQs
 
 #### I approved a GitHub OAuth App when I created my CodeSandbox account. Why do I need another GitHub integration?
+
 This GitHub App is different from the OAuth integration required by Sandboxes and Projects. The [OAuth integration](https://gitHub.com/settings/connections/applications/c07a89833b557afc7be2) allows CodeSandbox to import repositories from GitHub, while the GitHub App allows CodeSandbox to provide the features listed above.
 
 #### Why is the GitHub App asking for additional permissions after I've already installed it?
@@ -102,6 +102,6 @@ GitHub requires users to approve the new permissions before they take effect.
 Following are some additional details about changes we've made:
 
 - **31 August 2022**: Added `deployments` permission in order to add a deployment to the GitHub UI for each preview task.
-This feature will only be active if (1) branch deployments are enabled for the project, and (2) task previews are configured in `.codesandbox/tasks.json`.
+  This feature will only be active if (1) branch deployments are enabled for the project, and (2) task previews are configured in `.codesandbox/tasks.json`.
 
 You can review the App's permissions at any time by choosing **Configure** from the official [GitHub App Page](https://github.com/apps/codesandbox).
