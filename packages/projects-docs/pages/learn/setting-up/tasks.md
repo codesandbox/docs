@@ -103,6 +103,26 @@ With `direct`, you will directly open the preview URL from the PR.
 
 With `devtool`, you will open the preview URL with an experimental devtool inside the preview.
 
+Here's an example:
+
+```json
+{
+  "tasks": {
+    "dev-server": {
+      "name": "Start Dev Server",
+      "command": "yarn dev",
+      // With the `preview` field set, the GitHub App will also add a link
+      // to that preview to PRs, and it will become part of a GitHub
+      // deployment:
+      "preview": {
+        "port": 4000,
+        "prLink": "direct"
+      }
+    }
+  }
+}
+```
+
 ## Examples
 
 ### Single page application
