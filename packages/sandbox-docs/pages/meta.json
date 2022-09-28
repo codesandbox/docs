@@ -1,6 +1,7 @@
 {
   "overview": "Overview",
   "workspaces": "Workspace",
+  "editors": "Editors",
   "embedding": "Embedding",
   "git": "GitHub Committing and PRs",
   "uploading": "",
