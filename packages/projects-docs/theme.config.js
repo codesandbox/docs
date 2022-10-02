@@ -5,7 +5,7 @@ import defaultConfigs from "codesandbox-theme-docs/shared.config.js";
 export default {
   ...defaultConfigs,
   docsRepositoryBase: "https://codesandbox.io/p/github/codesandbox/docs/main",
-  titleSuffix: " - Projects Beta",
+  titleSuffix: " - CodeSandbox",
   projectLinkIcon: BackLink,
   head: ({ title, meta }) => {
     const ogImage = "https://codesandbox.io/docs/projects/og-image.jpg";
@@ -34,9 +34,7 @@ export default {
         <meta
           name="og:title"
           content={
-            title
-              ? title + " – Projects Beta"
-              : "Codesandbox Projects Documentation"
+            title ? title + " – CodeSandbox" : "CodeSandbox Documentation"
           }
         />
         <meta name="og:image" content={ogImage} />

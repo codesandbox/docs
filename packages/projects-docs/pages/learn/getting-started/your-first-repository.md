@@ -1,17 +1,17 @@
 ---
-title: Setup your first project
+title: Setup your first repository
 description:
 ---
 
 import Callout from 'nextra-theme-docs/callout'
 
-# Your first project
+# Your First Repository
 
 Start working on a project by importing an existing repository from GitHub or creating from a template.
 
 ![Your First Project](../images/first-project.jpg)
     
-## Importing a project
+## Importing a Repository
 
 1. Go to the new **[Projects Dashboard](https://codesandbox.io/p/dashboard)**.
 

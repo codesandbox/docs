@@ -9,9 +9,11 @@ import ButtonDoc from '../../../components/ButtonDoc'
 import Hero from "../../../../../shared-components/Hero.js"
 
 <Hero 
-  title={<>Development<br/> reimagined.</>}
-  subtitle="CodeSandbox Projects is a cloud development platform deeply integrated with your favorite tooling and suited for projects of any size."
+  title={<>Code anything from idea to production.</>}
+  subtitle="CodeSandbox is a cloud development platform that empowers anyone to code, collaborate, and ship projects of any size from any device in record time."
 />
+
+CodeSandbox has **plug-and-play integration** with your current workflow. This means you can get all the benefits of cloud development and still use the editor of your choice ([VS Code](/learn/getting-started/keep-working-on-vscode), our [web editor](/learn/editor/overview) or our [iOS app](/learn/getting-started/keep-working-on-ios)), [integrate it with GitHub](/learn/integrations/github-app) and with your CI/CD pipeline using [tasks](/learn/editor/task).
 
 ![](../images/cover-projects.jpg)
 

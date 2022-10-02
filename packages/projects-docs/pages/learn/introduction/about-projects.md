@@ -5,21 +5,21 @@ description:
 
 import Video from '../../../../../shared-components/Video'
 
-# About CodeSandbox Projects
+# About CodeSandbox Repositories
 
-**CodeSandbox Projects** is the next level of development environment tools. It was built with a focus on speed and collaboration and allows you to create a workspace to be experienced by multiple people at the same time. 
+**CodeSandbox Repositories** is the next level of development environment tools. It was built with a focus on speed and collaboration and allows you to create a workspace to be experienced by multiple people at the same time. 
 
 
 ## Tailored for your project
 
-Just like with CodeSandbox, Projects was built to integrate directly with your project in an opinionated way.  
+Just like with CodeSandbox, Repositories was built to integrate directly with your project in an opinionated way.  
 
 Hosted in the cloud, it runs on microVMs technology that is configurable to the size of your project. Not only does this make you faster as a developer, but it makes overall development more accessible for developers of all levels.
 
 
-## Integrated with repositories
+## Integrated with source control
 
-In Projects, **every branch is its own development environment, backed by a unique URL**. This means that you can share your branch and it will always be running, even if you’re offline.
+In Repositories, **every branch is its own development environment, backed by a unique URL**. This means that you can share your branch and it will always be running, even if you’re offline.
 
 This feature is specially useful when you’re working on a branch and need to quickly review a PR. Don't worry about stashing, running `yarn install`, or rolling back migrations on your current branch. Just open the PR in a new window and start reviewing!
 
