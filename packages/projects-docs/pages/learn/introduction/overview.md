@@ -16,7 +16,7 @@ import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 
 ![](../images/cover-projects.jpg)
 
-CodeSandbox has [many alternatives for you to code](../introduction/overview). Each option is built to help you focus on what matters: getting the work done  without friction. 
+CodeSandbox has many alternatives for you to code. Each option is built to help you focus on what matters: getting the work done  without friction. 
 
 <Tabs tabs={["Web Editor", "VS Code", "iOS"]}>
     <WrapContent>
