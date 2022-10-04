@@ -3,8 +3,6 @@ title: Overview
 description:
 ---
 
-import Callout from 'nextra-theme-docs/callout'
-import { VSCODE_DOCS_URL, IOS_DOCS_URL } from "../../../../../shared-components/contants.js"
 import ButtonDoc from '../../../components/ButtonDoc'
 import Hero from "../../../../../shared-components/Hero.js"
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
@@ -21,10 +19,15 @@ CodeSandbox provides many alternatives for you to code. Each option is built to 
 <Tabs tabs={["Web Editor", "VS Code", "iOS"]}>
     <WrapContent>
     ## Browser Sandbox Editor
-      Known and loved for years, this online editor is built for rapid web development. Use this editor to prototype quickly, experiment easily, and share creations with a click.
+      Known and loved for years, this online editor is built for rapid web development. Use this editor to prototype quickly, experiment easily, and share creations with a click. 
+      <br/>
+      [Learn more](/learn/sandboxes/editors) 
       <br/>
     ## Cloud Web Editor
        Our new web editor is part of a larger effort at CodeSandbox to increase the accessibility of complex tools like git, setup, review flows, contributions, and visualizing components. 
+       <br/>
+      [Learn more](/learn/repositories/editors) 
+       
     </WrapContent>
      <WrapContent>
 ## Keep working on VS Code
