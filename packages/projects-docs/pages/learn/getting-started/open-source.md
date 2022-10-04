@@ -45,4 +45,4 @@ To create a contribution branch, open the repository in the editor and click on 
 If you try to import a repository you don't have write permission to, a new fork will be automatically created. However, during the import process you can select the option to `Create a Contribution Branch` to start working immediately.
 
 
-Your contribution branches are acessible anytime through the  `Personal projects` section in the [Projects Dashboard](https://codesandbox.io/p/dashboard).
+Your contribution branches are accessible anytime through on your personal account in the [Dashboard](https://codesandbox.io/dashboard).

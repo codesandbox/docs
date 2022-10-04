@@ -101,7 +101,7 @@ code examples. You can call the endpoint
 ### Supported Parameters
 
 We currently support three extra parameters. The query accepts the same options
-as the [embed options](https://codesandbox.io/docs/embedding/#embed-options).
+as the [embed options](/learn/sandboxes/embedding).
 
 | Query Parameter | Description                                                                           | Example Input               |
 | --------------- | ------------------------------------------------------------------------------------- | --------------------------- |
@@ -228,7 +228,7 @@ sandbox.
 
 This is useful, for instance, if you need to create a new sandbox
 programmatically, so you can then embed it on your site (See
-[Embed documentation](/docs/embedding)).
+[Embed documentation](/learn/sandboxes/embedding)).
 
 Both `get` and `post` requests are supported.
 <br/>

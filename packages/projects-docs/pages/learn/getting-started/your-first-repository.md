@@ -48,18 +48,18 @@ For valid GitHub URLs, follow this format:
    
 #### **Permission errors while importing a project**
     
-- Verify your team's permission to open CodeSandbox Projects.
+- Verify your team's permission to open CodeSandbox Repositories.
 
 - Verify your **repository permissions on GitHub**. 
 You need to have `write` permission on Github to be able to import the project. Repositories where you only have `read` access can only be forked.
 
 - Verify your **GitHub permissions**. 
-CodeSandbox Projects requires full git access to be able to import and commit. If you face any  authentication errors, follow the steps to reset your github permissions listed below.
+CodeSandbox Repositories requires full git access to be able to import and commit. If you face any  authentication errors, follow the steps to reset your github permissions listed below.
     
     
 #### **Resetting Github permissions**
 
-1. Go to the **[Sandboxes Dashboard](https://codesandbox.io/dashboard)**.
+1. Go to the **[Dashboard](https://codesandbox.io/dashboard)**.
 
 1. Click on the **Menu icon** at the top right of the screen.
 
