@@ -20,9 +20,11 @@ Start working on a Repository by importing an existing repository from GitHub or
 
 1. Go to the **[Dashboard](https://codesandbox.io/dashboard)**.
 
-2. From the left sidebar, click on the **team** (personal or another) you want to import your project into. New teams can be created through the [Sandbox Dashboard](https://codesandbox.io/dashboard).
+2. From the left sidebar, click on the **team** (personal or another) you want to import your project into. New teams can be created through the [Dashboard](https://codesandbox.io/dashboard).
   
-3. Click on the **`New Project`** button.
+3. Click on the **`New`** button in the top right corner.
+
+4. Select **`Import from GitHub`**
     
 4. Enter a valid **GitHub URL** or choose a repository from the pre-loaded repository list. 
 
@@ -41,19 +43,7 @@ For valid GitHub URLs, follow this format:
  
 6. Click on **Import**. 
 
-## Creating from a template
-
-1. Go to your team's page and click on the **`New Project`** button.
-    
-1. Choose a template from our curated list displayed in the right column.
- 
-1. Select the **GitHub organization** to create this repository in.
-
-1. Choose a **Repository name**. This name will be the same one used in Projects and GitHub.
-
-1. Click on **`Create project`**.
-
-
+<br/>
 ## Troubleshooting
    
 #### **Permission errors while importing a project**

@@ -3,7 +3,6 @@ title: Overview
 description:
 ---
 
-import Callout from 'nextra-theme-docs/callout'
 import { VSCODE_DOCS_URL, IOS_DOCS_URL } from "../../../../../shared-components/contants.js"
 import ButtonDoc from '../../../components/ButtonDoc'
 import Hero from "../../../../../shared-components/Hero.js"
