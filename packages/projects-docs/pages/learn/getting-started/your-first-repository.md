@@ -57,7 +57,7 @@ For valid GitHub URLs, follow this format:
 You need to have `write` permission on Github to be able to import the project. Repositories where you only have `read` access can only be forked.
 
 - Verify your **GitHub permissions**. 
-CodeSandbox Projects requires full git access to be able to import and commit. If you face any  authentication errors, follow the steps to reset your github permissions listed below.
+CodeSandbox Repositories requires full git access to be able to import and commit. If you face any  authentication errors, follow the steps to reset your github permissions listed below.
     
     
 #### **Resetting Github permissions**
