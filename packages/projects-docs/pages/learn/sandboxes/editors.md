@@ -15,21 +15,6 @@ Sandboxes are the environment for rapid web development.
 
 <Tabs tabs={["Browser", "Cloud", "iOS"]}>
     <WrapContent>
-    ## Environment
-When using Browser Sandboxes, your code is evaluated and run our built-in
-execution environment. These client environments run entirely inside of your browser and will continue to
-bundle your code even when you lose your connection to our servers. 
-
-Browser Sandboxes each have their own bundler attached to them which are
-configured to support a specific framework and emulate their official CLI tools.
-They are not one-to-one implementations and thus do not support advanced
-configuration like custom webpack configurations or ejecting. However, they are
-designed to mirror the default behavior of the framework. 
-
-If your project requires advanced configuration, try using a Cloud Sandbox instead.
-<br/>
-<br/>
-
 ## Synced Sandboxes
 #### (previously called Repositories)
 
