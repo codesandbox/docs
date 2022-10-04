@@ -12,78 +12,77 @@ Sandboxes are the environment for rapid web development.
 
 <Tabs tabs={["Browser", "Cloud", "iOS"]}>
     <WrapContent>
-## Environment
+    ## Environment
+When using Browser Sandboxes, your code is evaluated and run our built-in
+execution environment. These client environments run entirely inside of your browser and will continue to
+bundle your code even when you lose your connection to our servers. 
 
-When using CodeSandbox, your code is evaluated and run by one of our built-in
-execution environments. These execution environments come in one of two types:
-Client and Container.
-
-Client environments run entirely inside of your browser and will continue to
-bundle your code even when you lose your connection to our servers. Containers
-on the other hand are executed server-side inside of a Docker container
-instance.
-
-While Client Sandboxes have faster previews and offline availability, they don't
-offer many configuration capabilities. Container Sandboxes take longer to start
-up, but effectively behave much like a local development environment, allowing
-you to customize your build tools, set up servers to listen to incoming
-requests, etc.
-
-### Client Environments
-
-Client Sandboxes each have their own bundler attached to them which are
+Browser Sandboxes each have their own bundler attached to them which are
 configured to support a specific framework and emulate their official CLI tools.
 They are not one-to-one implementations and thus do not support advanced
 configuration like custom webpack configurations or ejecting. However, they are
-designed to mirror the default behavior of the framework. If your project
-requires advanced configuration, try using a Container Sandbox instead.
+designed to mirror the default behavior of the framework. 
 
-Currently it is not possible to convert a Client Sandbox to a Container Sandbox.
+If your project requires advanced configuration, try using a Cloud Sandbox instead.
+<br/>
+<br/>
 
-### Container Environment
+## Synced Sandboxes
+#### (previously called Repositories)
 
-Container Sandboxes run by connecting to a Docker instance running on our
-servers. We use the [official Node docker image](https://hub.docker.com/_/node)
-in our container instances, meaning most Node packages should be supported out
-of the box. With Containers, you can run your own bundlers such as Webpack and
-retain full control over its configuration.
+With CodeSandbox you can import any GitHub repository as a sandbox. An imported sandbox will
+automatically stay in sync with the GitHub repository; if you make a commit to
+GitHub it will reflect immediately in the sandbox.
 
-Containers also support running NPM scripts defined in your `package.json`. We
-run a few of these scripts automatically to start up your server. See the list
-below for which scripts we run automatically and what their priority is:
-
-- `dev`
-- `develop`
-- `serve`
-- `start`
-
-While you can also lint your code using ESLint via the command line in
-containers, we don't currently support custom ESLint configs in the editor
-itself.
-
-Unlike Client Sandboxes, Containers also expose access to the Terminal. This
-allows you to run most commands you'd normally expect to be able to run in the
-command line. However, you don't have root access. Also, keep in mind that
-running certain commands which alter the filesystem of the container instance
-will cause the files shown in the Editor to become out of sync, such as manually
-running `yarn add` or running `git` commands. We don't sync files and
-directories that are ignored via `.gitignore`, and there is a sync limit of 10
-files per second and a maximum file size of 2mb.
-
-## How can I tell if I am in a container sandbox?
-
-When you are in a container sandbox, an environment variable called
-`CODESANDBOX_SSE` will be available and you can always use it to check what your
-current environment is.
-
-https://codesandbox.io/s/codesandboxsse-example-spgyv
+For that reason we've made GitHub sandboxes immutable, this means that you
+cannot make direct changes to the sandbox itself. They are treated as
+[templates](/docs/templates), so you can fork from them. When you create a fork
+of a GitHub sandbox we will still keep a reference to the original GitHub
+repository. 
 
 
+<br/>
+## Uploading Static Files
 
+It's sometimes desired to have either images or big files in a sandbox. We allow
+you to upload these within CodeSandbox. As a
+[patron](https://codesandbox.io/patron) you are allowed to upload a maximum of
+500MB, otherwise you are able to upload 20MB. Remember that all uploaded files
+are public, regardless of the privacy of the sandbox
 
+<br/>
+### Ways to upload
+There are two ways to upload files: by using a wizard or by drag and dropping
+the files in a folder in CodeSandbox. The wizard can be opened by clicking on
+the upload icon in the Files tab.
+
+![Upload Wizard](../images/upload.jpg)
+
+Dragging and dropping the files in the Files tab works as well.
+
+<br/>
+### Storage Management
+
+You can use an uploaded file in multiple sandboxes at the same time. For this
+reason we have a separate 'Storage Management' that allows you to see which
+files you have uploaded. You can find the manager in your user menu.
+
+![Storage Management in User Menu](../images/storage-management-users.jpg?v2)
+
+You are able to view your storage usage with the option to either open uploaded
+files, add uploaded files to the opened sandbox or to delete an uploaded file.
+
+![Storage Management](../images/storage-management.jpg)
+
+<br/>
+### CLI Integration
+
+When you deploy a sandbox using the CLI we automatically detect the binary files
+and upload them to the CodeSandbox Storage Management after getting
+confirmation.
     </WrapContent>
     <WrapContent>
-       content tab 2
+       Cloud Sandboxes use the same editor as Repositories. Check out the [Repository Overview](TODO: Neco add new link) for more details.
     </WrapContent>
      <WrapContent>
         ## Sandboxes on iOS
@@ -92,10 +91,12 @@ Sandboxes are the perfect kind of project for the times you have an idea you wan
 
 Sandboxes on CodeSandbox for web are bundled inside your web browser using web technologies, whereas sandboxes running on the iOS app are run inside a Node.js 12 port. This can cause compatibility issues between iOS and web clients, but we are working hard to narrow this gap down.
 
+<br/>
 ## Getting Started
 
 Upon launching the app you will first come across the Dashboard. This is the screen where all projects live and where you can create new ones.
 
+<br/>
 ### Local Sandboxes
 
 In the “Local Sandboxes” section you can find those sandboxes whose files live locally on your device and that don’t require an internet connection for you to develop and execute them. 
@@ -115,8 +116,8 @@ If you complete the “Sign in” flow using your CodeSandbox account you will g
 ![ios sandboxes](../images/ios-sandboxes.jpg)
 
 Creating a Sandbox inside the “Sandboxes” section of your team will create a Sandbox remotely on CodeSandbox inside the Collection you were browsing upon tapping on “New Sandbox”. These Sandboxes require internet connection and any changes you make to them will get automatically persisted on the cloud. In addition, any team member visiting that Sandbox will be able to participate on a live coding session.
-<br/>
 
+<br/>
 ### Creating a Sandbox
 
 You can create a Sandbox from multiple sources and various types:
@@ -134,15 +135,15 @@ Creating a Local Sandbox
 ![Creating a CodeSandbox Sandbox](../images/ios-new-sandbox.jpg)
 
 Creating a CodeSandbox Sandbox
-<br/>
 
+<br/>
 ## Development Environment
 
 Once you have selected or created your Sandbox it is time to code and get your creativity flowing. In this section we will explain the different parts of the IDE and how they work.
 
 ![ios dev environment](../images/ios-dev-env.jpg)
-<br/>
 
+<br/>
 ### Sidebar
 
 **Files Browser**
