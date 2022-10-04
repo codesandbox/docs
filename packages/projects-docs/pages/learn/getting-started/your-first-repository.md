@@ -43,7 +43,6 @@ For valid GitHub URLs, follow this format:
  
 6. Click on **Import**. 
 
-
 ## Troubleshooting
    
 #### **Permission errors while importing a project**
