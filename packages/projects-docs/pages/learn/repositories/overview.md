@@ -5,7 +5,7 @@ description:
 
 import Video from '../../../../../shared-components/Video'
 
-# About CodeSandbox Repositories
+# CodeSandbox Repositories
 
 **CodeSandbox Repositories** is the next level of development environment tools. It was built with a focus on speed and collaboration and allows you to create a workspace to be experienced by multiple people at the same time. 
 
@@ -43,5 +43,3 @@ Open any branch directly in your local VSCode and use all the extensions and key
 Pick up where you left off or develop from scratch from an iPad or iPhone with all the functionalities that you would expect from a development environment.
 
 <Video src="../../introduction-ios.mp4" />
-
-

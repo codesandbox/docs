@@ -1,6 +1,0 @@
-{
-  "tasks": "tasks.json",
-  "env": "Environment",
-  "secrets": "Environment variables",
-  "limitations": "Workspace limitations"
-}

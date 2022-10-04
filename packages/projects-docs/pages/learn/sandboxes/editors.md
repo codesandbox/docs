@@ -4,6 +4,9 @@ description:
 ---
 
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
+import Callout from 'nextra-theme-docs/callout'
+import Video from '../../../../../shared-components/Video'
+
 
 # Sandbox Editors
 ![three editors](TODO: Lena create an image to represent various sandbox options)
@@ -82,7 +85,79 @@ and upload them to the CodeSandbox Storage Management after getting
 confirmation.
     </WrapContent>
     <WrapContent>
-       Cloud Sandboxes use the same editor as Repositories. Check out the [Repository Overview](TODO: Neco add new link) for more details.
+       The Cloud Sandbox Editor contains a set of features to increase the accessibility of complex tools like git, setup, review flows, contributions, and visualizing components. 
+
+Here is an overview of the editor structure:
+
+### Header
+
+![The web editor](../images/overview-header.jpg)
+
+The header is where you perform general operations on your Sandbox.
+
+**1. Navigation**
+    - **Sandbox**: Click to return to the dashboard.
+
+**2. Devtool menu**
+    - **Add Devtools**: Set up devtools to facilitate your work and automatize repetitive tasks.
+
+**3. Connections**
+    - **Avatars**: See who's currently online and click to follow their steps.
+
+**4. Collaborate**
+    - **Share**: Invite friends to work together.
+
+
+### Sidebar
+
+![The web editor](../images/overview-sidebar.jpg)
+
+The sidebar is a quick way to operate and navigate your codebase. It allows you to:
+
+- View and manipulate your files
+- Search inside your project
+- Interact with source control
+
+You can change the sidebar view using the icons in the top. 
+
+<Callout emoji="⭑">
+    You can drag and drop elements and shift or command click to select multiple itens in the lists. 
+</Callout>
+
+### Code Editor
+
+![The web editor](../images/overview-editor.jpg)
+
+The code editor is where the magic happens ✨. We provide a base experience for all developers, with support for:
+
+- Code formatting (Prettier or ESLint)
+- LSP
+- Intellisense
+- Code completion
+- Optimized syntax highlight
+- Ligatures
+- Multiple Editors
+- Diff view
+
+ If you want more advanced features, you can scale the Sandbox to a Repository so you can access our [VSCode extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the project inyour local IDE](../getting-started/keep-working-on-vscode) with your own customizations.
+
+### DevTool
+
+CodeSandbox signature layout with three columns and a runnable preview is back with superpowers. The new panel on the right supports useful tools to help you complete your work faster and more efficiently. Read more about it [here](devtools).
+
+### Layout
+
+<Video src="../../overview-resize.mp4" />
+
+Cloud Sandbox Editor allows you to customize the three-panel layout to maximize the space for the task you are working on. Hover the mouse near the edge of each column to see the resize cursor; click and hold to change the layout. 
+
+After reaching the proportional limit, keep dragging to hide the entire column. 
+
+**Keyboard Shortcuts**
+
+Press <kbd>Cmd/Ctrl</kbd> <kbd>B</kbd> to hide the Sidebar.
+
+Press <kbd>Cmd/Ctrl</kbd> <kbd>.</kbd> to hide the DevTools. 
     </WrapContent>
      <WrapContent>
         ## Sandboxes on iOS
