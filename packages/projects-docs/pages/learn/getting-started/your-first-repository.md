@@ -20,7 +20,11 @@ Start working on a Repository by importing an existing repository from GitHub or
 
 1. Go to the **[Dashboard](https://codesandbox.io/dashboard)**.
 
+<<<<<<< HEAD
 2. From the left sidebar, click on the **team** (personal or another) you want to import your project into. New teams can be created from the same menu.
+=======
+2. From the left sidebar, click on the **team** (personal or another) you want to import your project into. New teams can be created through the dashboard.
+>>>>>>> ba935cb (Update Getting Started Content)
   
 3. Click on the **`New`** button. In the top right corner.
 
