@@ -60,7 +60,7 @@ CodeSandbox Repositories was built to facilitate collaboration. Work in teams to
 
 ### Working in teams
 
-For more information on managing and creating teams, go to the [Team](TODO: Neco link to team permissions) page.
+For more information on managing and creating teams, go to the [Team](/learn/teams/permissions) page.
 
 ### Working on other IDEs
 

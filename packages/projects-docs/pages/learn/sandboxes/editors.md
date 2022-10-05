@@ -9,9 +9,11 @@ import Video from '../../../../../shared-components/Video'
 
 
 # Sandbox Editors
-![three editors](TODO: Lena create an image to represent various sandbox options)
 
-Sandboxes are the environment for rapid web development.
+
+CodeSandbox offers two web editors and an iOS editor. A Sandbox is either a Browser Sandbox or a Cloud Sandbox (read more [here](/learn/sandboxes/overview)). All Sandboxes are available on the iOS app. 
+
+CodeSandbox also supports VS Code for [Repositories](/learn/repositories/overview)
 
 <Tabs tabs={["Browser", "Cloud", "iOS"]}>
     <WrapContent>
@@ -24,7 +26,7 @@ GitHub it will reflect immediately in the sandbox.
 
 For that reason we've made GitHub sandboxes immutable, this means that you
 cannot make direct changes to the sandbox itself. They are treated as
-[templates](/docs/templates), so you can fork from them. When you create a fork
+[templates](/learn/sandboxes/templates), so you can fork from them. When you create a fork
 of a GitHub sandbox we will still keep a reference to the original GitHub
 repository. 
 
@@ -128,7 +130,7 @@ The code editor is where the magic happens ✨. We provide a base experience for
 
 ### DevTool
 
-CodeSandbox signature layout with three columns and a runnable preview is back with superpowers. The new panel on the right supports useful tools to help you complete your work faster and more efficiently. Read more about it [here](devtools).
+CodeSandbox signature layout with three columns and a runnable preview is back with superpowers. The new panel on the right supports useful tools to help you complete your work faster and more efficiently. Read more about it [here](/learn/repositories/devtools).
 
 ### Layout
 

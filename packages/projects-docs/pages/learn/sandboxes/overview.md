@@ -6,7 +6,6 @@ description:
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 
 # CodeSandbox Sandboxes
-![sandbox-general](TODO: Lena create an image to represent sandbox prototyping)
 
 Sandboxes are the environment for rapid web development.
 

@@ -55,7 +55,7 @@ sure we use the new value.
 To delete you can click on the `x` icon. This will also restart your sandbox.
     </WrapContent>
     <WrapContent>
-       Secrets on Cloud Sandboxes are handled in the same way as Repositories. [Read more here](TODO: Neco add link)
+       Secrets on Cloud Sandboxes are handled in the same way as Repositories. [Read more here](/learn/repositories/secrets)
     </WrapContent>
 </Tabs>
 
