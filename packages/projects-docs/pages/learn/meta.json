@@ -4,5 +4,8 @@
   "sandboxes": "Sandboxes",
   "repositories": "Repositories",
   "integrations": "Integrations",
-  "teams": "Team and access"
+  "teams": "Team and access",
+  "ci": "CodeSandbox CI",
+  "explore": "Explore Page & Curators",
+  "faq": "FAQs"
 }
