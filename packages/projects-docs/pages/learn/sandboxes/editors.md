@@ -9,27 +9,14 @@ import Video from '../../../../../shared-components/Video'
 
 
 # Sandbox Editors
-![three editors](TODO: Lena create an image to represent various sandbox options)
 
-Sandboxes are the environment for rapid web development.
+
+CodeSandbox offers two web editors and an iOS editor. A Sandbox is either a Browser Sandbox or a Cloud Sandbox (read more [here](/learn/sandboxes/overview)). All Sandboxes are available on the iOS app. 
+
+CodeSandbox also supports VS Code for [Repositories](/learn/repositories/overview)
 
 <Tabs tabs={["Browser", "Cloud", "iOS"]}>
     <WrapContent>
-    ## Environment
-When using Browser Sandboxes, your code is evaluated and run our built-in
-execution environment. These client environments run entirely inside of your browser and will continue to
-bundle your code even when you lose your connection to our servers. 
-
-Browser Sandboxes each have their own bundler attached to them which are
-configured to support a specific framework and emulate their official CLI tools.
-They are not one-to-one implementations and thus do not support advanced
-configuration like custom webpack configurations or ejecting. However, they are
-designed to mirror the default behavior of the framework. 
-
-If your project requires advanced configuration, try using a Cloud Sandbox instead.
-<br/>
-<br/>
-
 ## Synced Sandboxes
 #### (previously called Repositories)
 
@@ -39,7 +26,7 @@ GitHub it will reflect immediately in the sandbox.
 
 For that reason we've made GitHub sandboxes immutable, this means that you
 cannot make direct changes to the sandbox itself. They are treated as
-[templates](/docs/templates), so you can fork from them. When you create a fork
+[templates](/learn/sandboxes/templates), so you can fork from them. When you create a fork
 of a GitHub sandbox we will still keep a reference to the original GitHub
 repository. 
 
@@ -143,7 +130,7 @@ The code editor is where the magic happens ✨. We provide a base experience for
 
 ### DevTool
 
-CodeSandbox signature layout with three columns and a runnable preview is back with superpowers. The new panel on the right supports useful tools to help you complete your work faster and more efficiently. Read more about it [here](devtools).
+CodeSandbox signature layout with three columns and a runnable preview is back with superpowers. The new panel on the right supports useful tools to help you complete your work faster and more efficiently. Read more about it [here](/learn/repositories/devtools).
 
 ### Layout
 

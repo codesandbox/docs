@@ -79,7 +79,7 @@ Safari and Firefox block popups by default. Please make sure you give the domain
 
 ## Getting Started
 
-1. If needed, install [Visual Studio Code](https://code.visualstudio.com/) for Windows *(7+)*, macOS *(10.11 +)*, or Linux.
+1. If needed, install [Visual Studio Code](https://code.visualstudio.com/) for Windows *(7+)*, macOS *(10.11 +)*, or Linux.
 2. Download and install the [CodeSandbox extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) for Visual Studio Code.
 3. Wait for the extension to finish downloading and then reload VS Code when prompted.
 4. Click on CodeSandbox icon in the side menu and login 

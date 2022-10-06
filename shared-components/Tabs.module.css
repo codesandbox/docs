@@ -40,13 +40,13 @@
   padding: 1rem 0 0 0;
 }
 
-.tabContent > h1,
-.tabContent > h2,
-.tabContent > h3,
-.tabContent > h4,
-.tabContent > ul,
-.tabContent > ol {
-  margin-top: 0;
+.tabContent > h1:first-child,
+.tabContent > h2:first-child,
+.tabContent > h3:first-child,
+.tabContent > h4:first-child,
+.tabContent > ul:first-child,
+.tabContent > ol:first-child {
+  margin-top: 1rem;
 }
 
 .light .tabTrigger[data-state="active"] {

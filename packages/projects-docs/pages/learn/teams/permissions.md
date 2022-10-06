@@ -1,6 +1,6 @@
 ---
 title: User Permissions
-description: How to manage access control in CodeSandbox Projects
+description: How to manage access control in CodeSandbox Repositories
 ---
 
 import Callout from 'nextra-theme-docs/callout'
@@ -9,7 +9,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 ### Users with write access
 
-Users with write access to a repository can enjoy the full feature set available at CodeSandbox Projects.
+Users with write access to a repository can enjoy the full feature set available on CodeSandbox Repositories.
 
 ### Users with read-only access 
 

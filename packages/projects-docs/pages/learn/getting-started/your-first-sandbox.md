@@ -10,19 +10,15 @@ Sandboxes are a great way to get working on your idea with zero startup costs.
 
 <Tabs tabs={["Browser", "Cloud", "iOS"]}>
     <WrapContent>
-
-## Importing Sandboxes
-<br/>
-
-### Finding Sandbox Templates
+## Finding Sandbox Templates
 
 The most popular way of creating a new Sandbox is the 'New' modal.
 
-![Create Sandbox screen](TODO: Lena add new modal image)
+![new modal](../images/dashboard-new.jpg)
 
-The Create Sandbox screen shows you all of the public templates that are
-currently available, including official templates and those created by the
-community. These are automatically forked when you select them, so you can edit
+The **`New`** modal shows you collections of templates grouped first by relevance and then by broad category. This list is not comprehensive of all the Sandboxes that have been made by the community, however. If you want to browse other Sandboxes and Templates, you can explore everything in through the discover button at the bottom of the dashboard sidebar.
+
+Templates are automatically forked when you select them, so you can edit
 and begin creating your own sandbox.
 <br/>
 
@@ -105,7 +101,7 @@ code examples. You can call the endpoint
 ### Supported Parameters
 
 We currently support three extra parameters. The query accepts the same options
-as the [embed options](https://codesandbox.io/docs/embedding/#embed-options).
+as the [embed options](/learn/sandboxes/embedding).
 
 | Query Parameter | Description                                                                           | Example Input               |
 | --------------- | ------------------------------------------------------------------------------------- | --------------------------- |
@@ -232,7 +228,7 @@ sandbox.
 
 This is useful, for instance, if you need to create a new sandbox
 programmatically, so you can then embed it on your site (See
-[Embed documentation](/docs/embedding)).
+[Embed documentation](/learn/sandboxes/embedding)).
 
 Both `get` and `post` requests are supported.
 <br/>
@@ -312,17 +308,12 @@ including MDX, Gatsby, Storybook Docs, docz etc. Learn more about it in their
 [documentation](https://github.com/kevin940726/remark-codesandbox#remark-codesandbox).
     </WrapContent>
     <WrapContent>
-    ## What is a Cloud Sandbox
-       Unlike Browser Sandboxes that run on your browser. Cloud Sandboxes run on a virtual machine. Cloud Sandboxes are great for any protoytyping needs, but they really shine when working on projects that require the use of the server. 
-       You can learn more about the editor and the unique functionalities of the cloud developer environment in [Repositories](TODO: Neco insert link). Cloud Sandboxes and Repositories run on the same infrastructure and use the same editor. The main distinctions between the two is that Sandboxes are built for prototyping while Repositories are built for full scale development. Once you scale a Sandbox to a Repository, you will have 
-       - Integration with VS Code
-       - Branching
-       - Git Tooling 
-       - Full integration with GitHub
-       <br/>  
-    ## Start with a Template
-    Open the 'New' Modal to search through our new selection of Cloud Sandbox Templates. 
-    ![Cloud Sandbox Templates](TODO: Lena add an image of Cloud Sandbox Templates)
+    ## Using Cloud Templates
+    This new Sandbox experience is currently in Beta. We will be adding more features in the coming months to offer more prototyping tools. That said, this Sandbox is already a great option for anyone looking to run server-side code. 
+    
+    To get started, open the 'New' Modal to search through our new selection of Cloud Sandbox Templates. You can recognize a Cloud Sandbox by their special badges.
+    <br/> 
+    ![Cloud Sandbox Templates](../images/dashboard-cloud-template.jpg)
        
     </WrapContent>
      <WrapContent>
@@ -356,4 +347,3 @@ If you complete the “Sign in” flow using your CodeSandbox account you will g
 Creating a Sandbox inside the “Sandboxes” section of your team will create a Sandbox remotely on CodeSandbox inside the Collection you were browsing upon tapping on “New Sandbox”. These Sandboxes require internet connection and any changes you make to them will get automatically persisted on the cloud. In addition, any team member visiting that Sandbox will be able to participate on a live coding session.
     </WrapContent>
 </Tabs>
-

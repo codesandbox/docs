@@ -8,7 +8,6 @@
   "interactive-readme": "Interactive Readme",
   "commandpalette": "Command Palette",
   "shortcuts": "Keyboard Shortcuts",
-  "tasks": "Configuring tasks.json",
   "env": "Environment",
   "secrets": "Environment variables",
   "limitations": "Workspace limitations"

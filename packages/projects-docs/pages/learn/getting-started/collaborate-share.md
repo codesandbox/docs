@@ -8,10 +8,8 @@ import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 # Collaborate & Share
 At CodeSandbox, we believe that collaborating on code should be as easy as possible. As we have grown and evolved our tools, we have also expanded our options for working together. 
 
-<Tabs tabs={["Browser Sandboxes", "Cloud Sandboxes", "Repositories"]}>
+<Tabs tabs={["Sandboxes", "Repositories"]}>
     <WrapContent>
-      ## Browser Sandboxes
-      <br/>
       ### Collaboration with Live
 #### What is Live?
 All sandboxes on CodeSandbox are live, meaning you can share your sandbox with
@@ -49,10 +47,6 @@ You can enable Classroom Mode from the Live Mode drop-down menu.
 You can give someone editor rights by pressing the '+' icon next to their name,
 or you can make someone a spectator by clicking the '-' icon next to their name.
     </WrapContent>
-    <WrapContent>
-    ## Cloud Sandboxes
-    TODO: Tamas add overview of collaboration on Cloud SBs here
-    </WrapContent>
     <WrapContent>    
 ## Repositories
  
@@ -66,7 +60,7 @@ CodeSandbox Repositories was built to facilitate collaboration. Work in teams to
 
 ### Working in teams
 
-For more information on managing and creating teams, go to the [Team](TODO: Neco link to team permissions) page.
+For more information on managing and creating teams, go to the [Team](/learn/teams/permissions) page.
 
 ### Working on other IDEs
 
@@ -74,5 +68,4 @@ Collaboration works on VS Code and the iOS in a very similar fashion. Simply fin
 
     </WrapContent>
 </Tabs>
-
 
