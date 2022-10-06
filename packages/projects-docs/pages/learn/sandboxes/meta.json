@@ -7,6 +7,6 @@
   "configuration": "Configuration",
   "templates": "Templates",
   "deployment": "Deployment Options",
-  "npm": "Custom NPM Registry",
+  "custom-npm-registry": "Custom NPM Registry",
   "ci": "CodeSandbox CI"
 }
