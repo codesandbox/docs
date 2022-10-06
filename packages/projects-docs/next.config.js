@@ -188,11 +188,6 @@ module.exports = withTM(
           destination: "/learn/introduction/overview",
           permanent: true,
         },
-        {
-          source: `${PREFIX_PATH}/ios/faq`,
-          destination: "/learn/introduction/overview",
-          permanent: true,
-        },
         // TODO: Redirect to open the right tab
         {
           source: `${PREFIX_PATH}/ios/sandbox`,
@@ -217,11 +212,6 @@ module.exports = withTM(
 
         // Projects
         // ---------------------------
-        {
-          source: `${PREFIX_PATH}/projects/:path*`,
-          destination: "/:path*",
-          permanent: true,
-        },
         {
           source: `${PREFIX_PATH}/projects/learn/introduction/about-projects`,
           destination: "/learn/repositories/overview",
@@ -305,6 +295,12 @@ module.exports = withTM(
         {
           source: `${PREFIX_PATH}/projects/learn/setting-up/limitations`,
           destination: "/learn/repositories/limitations",
+          permanent: true,
+        },
+        // Fallback should be the last one to avoid conflicts
+        {
+          source: `${PREFIX_PATH}/projects/:path*`,
+          destination: "/:path*",
           permanent: true,
         },
       ];
