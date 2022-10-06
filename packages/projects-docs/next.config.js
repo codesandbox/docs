@@ -1,5 +1,5 @@
 const BASE_PATH = process.env.BASE_PATH;
-const PREFIX_PATH = "/docs";
+const PREFIX_PATH = "";
 
 const withNextra = require("nextra")({
   theme: "codesandbox-theme-docs",
