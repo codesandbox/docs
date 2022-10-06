@@ -1,5 +1,5 @@
 const BASE_PATH = process.env.BASE_PATH;
-const OLD_BASE_PATH = "";
+const PREFIX_PATH = "";
 
 const withNextra = require("nextra")({
   theme: "codesandbox-theme-docs",
@@ -44,97 +44,97 @@ module.exports = withTM(
         // Sandbox
         // ---------------------------
         {
-          source: `${OLD_BASE_PATH}/overview`,
+          source: `${PREFIX_PATH}/overview`,
           destination: "/learn/introduction/overview",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/workspaces`,
+          source: `${PREFIX_PATH}/workspaces`,
           destination: "/learn/introduction/workspace",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/embedding`,
+          source: `${PREFIX_PATH}/embedding`,
           destination: "/learn/sandboxes/embedding",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/git`,
+          source: `${PREFIX_PATH}/git`,
           destination: "/learn/repositories/overview",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/uploading`,
+          source: `${PREFIX_PATH}/uploading`,
           destination: "/learn/sandboxes/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/importing`,
+          source: `${PREFIX_PATH}/importing`,
           destination: "/learn/getting-started/your-first-sandbox",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/importing`,
+          source: `${PREFIX_PATH}/importing`,
           destination: "/learn/getting-started/collaborate-share",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/tests`,
+          source: `${PREFIX_PATH}/tests`,
           destination: "/learn/sandboxes/tests",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/secrets`,
+          source: `${PREFIX_PATH}/secrets`,
           destination: "/learn/sandboxes/secrets",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/deployment`,
+          source: `${PREFIX_PATH}/deployment`,
           destination: "/learn/sandboxes/deployment",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/configuration`,
+          source: `${PREFIX_PATH}/configuration`,
           destination: "/learn/sandboxes/configuration",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/preferences`,
+          source: `${PREFIX_PATH}/preferences`,
           destination: "/learn/teams/preferences",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/templates`,
+          source: `${PREFIX_PATH}/templates`,
           destination: "/learn/sandboxes/templates",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/environment`,
+          source: `${PREFIX_PATH}/environment`,
           destination: "/learn/repositories/env",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/ci`,
+          source: `${PREFIX_PATH}/ci`,
           destination: "/learn/sandboxes/ci",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/custom-npm-registry`,
+          source: `${PREFIX_PATH}/custom-npm-registry`,
           destination: "/learn/sandboxes/npm",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/custom-npm-registry`,
+          source: `${PREFIX_PATH}/custom-npm-registry`,
           destination: "/learn/sandboxes/custom-npm-registry",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/explore`,
+          source: `${PREFIX_PATH}/explore`,
           destination: "/learn/integrations/explore",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/api-reference`,
+          source: `${PREFIX_PATH}/api-reference`,
           destination: "/learn/getting-started/your-first-sandbox",
           permanent: true,
         },
@@ -142,76 +142,75 @@ module.exports = withTM(
         // VS Code
         // ---------------------------
         {
-          source: `${OLD_BASE_PATH}/vscode/overview`,
+          source: `${PREFIX_PATH}/vscode/overview`,
           destination: "/learn/introduction/overview",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/vscode/devtools`,
+          source: `${PREFIX_PATH}/vscode/devtools`,
           destination: "/learn/repositories/devtools",
           permanent: true,
         },
         // TODO: Redirect to open the right tab
         {
-          source: `${OLD_BASE_PATH}/vscode/open-branches`,
+          source: `${PREFIX_PATH}/vscode/open-branches`,
           destination: "/learn/repositories/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/vscode/live-collaboration`,
+          source: `${PREFIX_PATH}/vscode/live-collaboration`,
           destination: "/learn/repositories/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/vscode/review-prs`,
+          source: `${PREFIX_PATH}/vscode/review-prs`,
           destination: "/learn/repositories/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/vscode/extensions`,
+          source: `${PREFIX_PATH}/vscode/extensions`,
           destination: "/learn/repositories/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/vscode/insiders`,
+          source: `${PREFIX_PATH}/vscode/insiders`,
           destination: "/learn/repositories/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/vscode/faq`,
+          source: `${PREFIX_PATH}/vscode/faq`,
           destination: "/faq",
           permanent: true,
         },
-
         // iOS
         {
-          source: `${OLD_BASE_PATH}/ios/overview`,
-          destination: "/faq",
+          source: `${PREFIX_PATH}/ios/overview`,
+          destination: "/learn/introduction/overview",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/ios/faq`,
+          source: `${PREFIX_PATH}/ios/faq`,
           destination: "/learn/introduction/overview",
           permanent: true,
         },
         // TODO: Redirect to open the right tab
         {
-          source: `${OLD_BASE_PATH}/ios/sandbox`,
+          source: `${PREFIX_PATH}/ios/sandbox`,
           destination: "/learn/getting-started/your-first-sandbox",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/ios/projects`,
+          source: `${PREFIX_PATH}/ios/projects`,
           destination: "/learn/getting-started/your-first-repository",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/ios/shortcuts`,
+          source: `${PREFIX_PATH}/ios/shortcuts`,
           destination: "/learn/repositories/shortcuts",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/ios/faq`,
+          source: `${PREFIX_PATH}/ios/faq`,
           destination: "/faq",
           permanent: true,
         },
@@ -219,92 +218,92 @@ module.exports = withTM(
         // Projects
         // ---------------------------
         {
-          source: `${OLD_BASE_PATH}/projects/:path*'`,
-          destination: "/:path*'",
+          source: `${PREFIX_PATH}/projects/:path*`,
+          destination: "/:path*",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/introduction/about-projects`,
-          destination: "/learn/editor/overview",
+          source: `${PREFIX_PATH}/projects/learn/introduction/about-projects`,
+          destination: "/learn/repositories/overview",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/getting-started/your-first-project`,
+          source: `${PREFIX_PATH}/projects/learn/getting-started/your-first-project`,
           destination: "/learn/getting-started/your-first-repository",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/getting-started/start-building`,
+          source: `${PREFIX_PATH}/projects/learn/getting-started/start-building`,
           destination: "/learn/getting-started/your-first-repository",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/getting-started/keep-working-on-vscode`,
+          source: `${PREFIX_PATH}/projects/learn/getting-started/keep-working-on-vscode`,
           destination: "/learn/repositories/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/getting-started/keep-working-on-ios`,
+          source: `${PREFIX_PATH}/projects/learn/getting-started/keep-working-on-ios`,
           destination: "/learn/repositories/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/editor`,
+          source: `${PREFIX_PATH}/projects/learn/editor`,
           destination: "/learn/repositories/editors",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/editor/devtools`,
+          source: `${PREFIX_PATH}/projects/learn/editor/devtools`,
           destination: "/learn/repositories/devtools",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/editor/preview`,
+          source: `${PREFIX_PATH}/projects/learn/editor/preview`,
           destination: "/learn/repositories/preview",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/editor/task`,
+          source: `${PREFIX_PATH}/projects/learn/editor/task`,
           destination: "/learn/repositories/task",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/editor/terminal`,
+          source: `${PREFIX_PATH}/projects/learn/editor/terminal`,
           destination: "/learn/repositories/terminal",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/editor/interactive-readme`,
+          source: `${PREFIX_PATH}/projects/learn/editor/interactive-readme`,
           destination: "/learn/repositories/interactive-readme",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/editor/commandpalette`,
+          source: `${PREFIX_PATH}/projects/learn/editor/commandpalette`,
           destination: "/learn/repositories/commandpalette",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/editor/shortcuts`,
+          source: `${PREFIX_PATH}/projects/learn/editor/shortcuts`,
           destination: "/learn/repositories/shortcuts",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/setting-up/tasks`,
+          source: `${PREFIX_PATH}/projects/learn/setting-up/tasks`,
           destination: "/learn/repositories/tasks",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/setting-up/env`,
+          source: `${PREFIX_PATH}/projects/learn/setting-up/env`,
           destination: "/learn/repositories/env",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/setting-up/secrets`,
+          source: `${PREFIX_PATH}/projects/learn/setting-up/secrets`,
           destination: "/learn/repositories/secrets",
           permanent: true,
         },
         {
-          source: `${OLD_BASE_PATH}/projects/learn/setting-up/limitations`,
+          source: `${PREFIX_PATH}/projects/learn/setting-up/limitations`,
           destination: "/learn/repositories/limitations",
           permanent: true,
         },
