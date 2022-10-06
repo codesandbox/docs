@@ -17,7 +17,6 @@ import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 CodeSandbox provides many alternatives for you to code. Each option is built to help you focus on what matters: getting the work done without friction. 
 
 <Tabs tabs={["Web Editor", "VS Code", "iOS"]}>
-
 <WrapContent>
 ## Browser Sandbox Editor
   Known and loved for years, this online editor is built for rapid web development. Use this editor to prototype quickly, experiment easily, and share creations with a click. 
