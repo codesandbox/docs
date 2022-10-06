@@ -9,6 +9,7 @@
   "commandpalette": "Command Palette",
   "shortcuts": "Keyboard Shortcuts",
   "env": "Environment",
+  "tasks": "Task Configuration",
   "secrets": "Environment variables",
   "limitations": "Workspace limitations"
 }

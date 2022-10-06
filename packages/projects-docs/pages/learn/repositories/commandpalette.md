@@ -6,7 +6,6 @@ description: With the command palette, the CodeSandbox Projects functionality is
 import Callout from 'nextra-theme-docs/callout'
 import Video from '../../../../../shared-components/Video'
 
-
 # Command Palette
 
 ![CodeSandbox Projects Command Palette](../images/command-cover.jpg)
@@ -26,7 +25,7 @@ You can also run commands in the terminal directly from the Command Palette. Jus
 <Video src="../../command-runscript.mp4" />
 
 
-If you use the [VSCode extension](../getting-started/keep-working-on-vscode), Projects related functionality is also available in VS Code’s command palette (<kbd>⇧</kbd> <kbd>⌘</kbd> <kbd>P</kbd>).
+If you use the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects), Projects related functionality is also available in VS Code’s command palette (<kbd>⇧</kbd> <kbd>⌘</kbd> <kbd>P</kbd>).
 
 ![CodeSandbox Projects Command Palette](../images/command-vscode.jpg)
 
