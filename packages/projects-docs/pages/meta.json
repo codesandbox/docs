@@ -6,5 +6,9 @@
   "tutorial": {
     "title": "Tutorial",
     "type": "page"
+  },
+  "faq": {
+    "title": "FAQ",
+    "type": "page"
   }
 }

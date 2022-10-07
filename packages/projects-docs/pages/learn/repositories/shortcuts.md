@@ -1,0 +1,145 @@
+---
+title: Keyboard Shortcuts
+description:
+---
+
+import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
+
+# Keyboard Shortcuts
+
+<Tabs tabs={["Web", "iOS"]}>
+    <WrapContent>
+      ## Global
+
+| Shortcut      | Description |
+| ----------- | ----------- |
+⌃ ⇧ G     |   Open git panel
+⌃ ⌥ X       |   Close other files
+⌘ ⌥ M       |   New folder
+⌘ ⇧ E or ⌃ O then A     |   Open file system panel
+⌃ ⇧ X       |   Close all files
+⌘ P or ⌘ /      |   Open file quick picker
+⌘ ⇧ O       |   Open devtool menu
+⌘ ⇧ F or ⌃ O then F     |   Open search panel
+⌘ ⇧ L       |   Reset Layout
+⌃ X     |   Close current file
+⌘ ⇧ B       |   Change Branch
+⌃ ⇧ `       |   Create new task
+⌃ `     |   Open new terminal
+⌘ K     |   Open command palette
+⌘ B     |   Toggle Sidebar
+⌘ .     |   Toggle Sidekick
+⌘ ⌥ N       |   New file
+
+<br/>
+## Code editor
+
+| Shortcut      | Description |
+| ----------- | ----------- |
+⌘ U     |       Cursor Undo
+⇧ ⌘ O       |       Go to symbol
+⌃ G     |       Go to line/column
+⇧ ⌘ .       |       Replace with next value
+⇧ ⌘ Space       |       Trigger parameter hints
+Enter       |       Find next 
+⌃ ⇧ ⌘ →     |       Expand selection
+⇧ F12       |       Go to references
+⇧ ⌘ ,       |       Replace with previous value
+⌘ ]     |       Indent line
+⇧ ⌥ ↑       |       Copy line up
+⇧ ⌘ F3      |       Find previous selection
+⌥ ↓     |       Move Line down
+⌃ ⇧ ⌘ ←     |       Shrink selection
+⇧ ⌘ K       |       Delete Line
+⌃ T     |       Transpose letters
+⇧ F8        |       Go to previous problem in files
+⌥ ⌘ ↑       |       Add cursor above
+⇧ Enter     |       Find previous
+⌥ F1        |       Show accessibility help
+⌘ F     |       Find
+⌘ Enter     |       Insert line below
+⌘ I     |       Show Hover
+⌥ F8        |       Go to next problem
+⌃ J     |       Join lines
+⌘ S     |       Save File
+⌘ [     |       Outdent line
+⌥ ⌘ F       |       Replace
+⌘ F3        |       Find next selection
+⌥ ⌘ ↓       |       Add cursor below
+⌥ ⌘ [       |       Fold
+⇧ F10       |       Show editor context menu
+⌥ F12       |       Peek definition
+⌥ ⌘ ]       |       Unfold
+⌥ ↑     |       Move Line up
+⇧ ⌥ F       |       Format document
+⌘ D     |       Add selection no next find match
+⇧ ⌘ L       |       Select all occurrences of find match
+⌃ Space     |       Trigger suggestion
+⌘ /     |       Toggle line comment
+⇧ ⌥ F8      |       Go to previous problem
+⇧ ⌘ Enter       |       Insert line above
+F8      |       Go to next problem in files
+⇧ ⌥ ↓       |       Copy line down
+F1      |       Open command menu
+    </WrapContent>
+    <WrapContent>
+       ## Global
+
+| Shortcut      | Description |
+| ----------- | ----------- |
+⌘ K | Open command palette
+
+<br/>
+## Code editor
+
+| Shortcut      | Description |
+| ----------- | ----------- |
+⌘ B | Show/hide sidebar
+⌘ T | Show/hide devtools
+⌘ M | Show/hide sidebar and devtools area
+⌘ ⇧ Enter | Focus editor
+⌘ L | Change syntax highlighting language
+⌘ F | Show find and replace
+⌘ W | Close current tab
+⌘ ⌥ ← | Navigate to previous file tab
+⌘ ⌥ → | Navigate to next file tab
+⌘ P | Search file
+⌘ ⇧ P | Change branch
+⌘ ] | Increase text selection indent
+⌘ [ | Decrease text selection indent
+⌘ \ | Comment text selection
+
+<br/>
+## Devtools
+
+| Shortcut      | Description |
+| ----------- | ----------- |
+⌘ I | Open preview
+⌘ O | Run task
+⌘ ⇧ O | Open terminal
+⌘ ⇧ T | Create new terminal
+⌘ ⌃ ← | Navigate to previous task/terminal
+⌘ ⌃ → | Navigate to next task/terminal
+
+<br/>
+## Sidebar
+
+| Shortcut      | Description |
+| ----------- | ----------- |
+⌘ 1 | Select first sidebar tab
+⌘ 2 | Select second sidebar tab
+⌘ 3 | Select third sidebar tab
+⌘ n | Select nth sidebar tab
+
+<br/>
+## Dashboard
+
+| Shortcut      | Description |
+| ----------- | ----------- |
+⌘ P | Show local sandboxes
+⌘ O | Show recent branches, projects and sandboxes
+⌘ 1 | Show sandboxes and projects for team at index 1
+⌘ 2 | Show sandboxes and projects for team at index 2
+⌘ n | Show sandboxes and projects for team at index n
+    </WrapContent>
+</Tabs>

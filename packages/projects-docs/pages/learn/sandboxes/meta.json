@@ -1,0 +1,12 @@
+{
+  "overview": "Overview",
+  "editors": "Editors",
+  "embedding": "Embedding",
+  "tests": "Tests",
+  "secrets": "Secrets",
+  "configuration": "Configuration",
+  "templates": "Templates",
+  "deployment": "Deployment Options",
+  "custom-npm-registry": "Custom NPM Registry",
+  "ci": "CodeSandbox CI"
+}

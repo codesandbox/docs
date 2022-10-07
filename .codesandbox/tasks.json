@@ -38,15 +38,6 @@
       "command": "----",
       "runAtStart": false
     },
-    "dev:sandbox": {
-      "name": "Dev Sandbox",
-      "command": "pnpm dev:sandbox",
-      "runAtStart": true,
-      "preview": {
-        "port": 3000,
-        "prLink": "devtool"
-      }
-    },
     "dev:projects": {
       "name": "Dev Projects",
       "command": "pnpm dev:projects",
@@ -56,39 +47,13 @@
         "prLink": "devtool"
       }
     },
-    "dev:vscode": {
-      "name": "Dev VS code",
-      "command": "pnpm dev:vscode",
-      "runAtStart": true,
-      "preview": {
-        "port": 3002,
-        "prLink": "devtool"
-      }
-    },
-    "dev:ios": {
-      "name": "Dev iOS",
-      "command": "pnpm dev:ios",
-      "runAtStart": false
-    },
     "separator2": {
       "name": "----",
       "command": "----"
     },
-    "test:sandbox": {
-      "name": "Lint Text Sandbox",
-      "command": "pnpm test:sandbox"
-    },
     "test:projects": {
       "name": "Lint Text Project",
       "command": "pnpm test:projects"
-    },
-    "test:vscode": {
-      "name": "Lint Text VS Code",
-      "command": "pnpm test:vscode"
-    },
-    "test:ios": {
-      "name": "Lint Text iOS",
-      "command": "pnpm test:ios"
     }
   }
 }

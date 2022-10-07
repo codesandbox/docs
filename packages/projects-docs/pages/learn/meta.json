@@ -1,8 +1,8 @@
 {
   "introduction": "Introduction",
   "getting-started": "Getting Started",
-  "editor": "Web Editor",
-  "setting-up": "Configuring",
+  "sandboxes": "Sandboxes",
+  "repositories": "Repositories",
   "integrations": "Integrations",
   "teams": "Team and access"
 }
