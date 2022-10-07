@@ -11,14 +11,7 @@ In CodeSandbox Repositories, you can organize your work under Personal Repositor
 
 ![Teams in Projects](../images/teams-list.jpg)
 
-For the open beta release, Repositories is granting visibility of all repositories to all team members by replicating the existing privacy settings already in place on GitHub. 
-
-
-## Managing your teams
-
-Team management is currently handled exclusively through the [Sandboxes dashboard](https://codesandbox.io/dashboard). To access it from Repositories, click on the `Go to Sandboxes` link at the bottom left corner of the dashboard.
-
-![Go to sandboxes to manage your team](../images/teams-go-to-sandboxes.jpg)
+For repositories is granting visibility of all repositories to all team members by replicating the existing privacy settings already in place on GitHub. 
 
 ### Creating a new team
 
