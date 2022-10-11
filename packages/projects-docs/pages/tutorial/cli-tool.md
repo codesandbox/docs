@@ -5,7 +5,7 @@ description: Install cli tools and global modules inside CodeSandbox Projects
 
 import Callout from 'nextra-theme-docs/callout'
 
-# Install CLI tools and global modules
+# Install CLI tools and global modules (testing)
 
 Please note due to security reasons in Projects you can’t run commands using sudo. On the other hand, we know it’s really important to set up your workspace as you wish and install additional tooling.
 
