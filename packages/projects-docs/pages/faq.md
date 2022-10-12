@@ -67,7 +67,7 @@ re-order those items by dragging them in that bar. Whichever is 1st from left to
 right in the list of tabs is what opens first when other folks view the sandbox.
 The ordering is maintained within the sandbox. You can also achieve this change
 by setting a value for "view" in a
-[sandbox config file](/docs/configuration#sandbox-configuration).
+[sandbox config file](/configuration#sandbox-configuration).
 
 ## How do I change the font used in the editor?
 

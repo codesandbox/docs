@@ -40,4 +40,4 @@ and only the original creator of the sandbox can delete it.
 
 You and other members can open a sandbox at the same time and see each other's
 cursor to work together. You can still invite other people who aren't members of
-the team to the sandbox or [live session](/docs/live).
+the team to the sandbox or [live session](/learn/getting-started/collaborate-share).
