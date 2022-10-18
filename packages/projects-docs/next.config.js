@@ -142,6 +142,11 @@ module.exports = withTM(
         // VS Code
         // ---------------------------
         {
+          source: `${PREFIX_PATH}/vscode`,
+          destination: "/learn/introduction/overview",
+          permanent: true,
+        },
+        {
           source: `${PREFIX_PATH}/vscode/overview`,
           destination: "/learn/introduction/overview",
           permanent: true,
@@ -184,6 +189,11 @@ module.exports = withTM(
         },
         // iOS
         {
+          source: `${PREFIX_PATH}/ios`,
+          destination: "/learn/introduction/overview",
+          permanent: true,
+        },
+        {
           source: `${PREFIX_PATH}/ios/overview`,
           destination: "/learn/introduction/overview",
           permanent: true,
@@ -212,6 +222,11 @@ module.exports = withTM(
 
         // Projects
         // ---------------------------
+        {
+          source: `${PREFIX_PATH}/projects`,
+          destination: "/learn/repositories/overview",
+          permanent: true,
+        },
         {
           source: `${PREFIX_PATH}/projects/learn/introduction/about-projects`,
           destination: "/learn/repositories/overview",
