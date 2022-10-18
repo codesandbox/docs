@@ -211,7 +211,7 @@ const A = ({
   const isExternal = href && href.startsWith("https://");
   if (isExternal) {
     return (
-      <a target="_blank" rel="noreferrer" {...props}>
+      <a target="_blank" rel="noreferrer" href={href} {...props}>
         {children}
       </a>
     );
