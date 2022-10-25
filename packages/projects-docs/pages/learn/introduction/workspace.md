@@ -3,30 +3,92 @@ title: Teams
 authors: ['CompuIves']
 description:
   A team makes it easier to collaborate on code with others. In a team you share
-  ownership of sandboxes and templates, and can keep organized with folders,
-  enabling your entire team to work on sandboxes together.
+  ownership of repositories, sandboxes and templates.
 ---
 
 # Workspaces
+TODO: Lena add an image conveying workspace concept (optional)
+## Personal Workspace
 
-## Creating a Team
+By default, when you set up an account, you will get a free personal workspace. This is a private space to create, prototype and build anything you like. You can think of this workspace as your local development transfered to the cloud. 
+TODO: Lena add image of workspace dropdown
 
-You can create and manage teams from the dashboard.
+The personal workspace contains any public sandboxes and repositories you added while active in your workspace.
+TODO: Lena add image of open create modal with active personal workspace 
 
-![Create Team](../images/workspace-create.jpg)
+It also contains a section for [open source contributions](/getting-started/open-source#introducing-contribution-branches). 
+TODO: Lena add image of My Contributions page
 
-As soon as you've created a team, you will be shown the team overview.
+### Personal Pro
+By upgrading to Personal Pro, you can expand your personal development experience in a number of ways: 
 
-![Team Overview](../images/workspace-overview.jpg)
+**Add Private Sandboxes and Repositories**
 
-## Inviting People to a Team
+Personal Pro allows you to import your private repositories or mark your sandboxes as private and accelerate your personal and professional work by extending access to your work beyond your local machine while keeping the code secure.
 
-There's no limit on how many members a team can have. You can invite others by
-entering their username or email address and selecting 'Add Member.' They will
+TODO Lena add image of private repository next to a public repo on the dashboard
+
+**Access more VM Specs**
+Depending on the size of your projects, you may need an increase in memory and processing power. Personal Pro provides this increase so that you can work without a friction.
+
+Learn more about subscription differences on our [pricing page](https://codesandbox.io/pricing) 
+
+## Team Workspace 
+
+Team workspaces are where collaboration happens. 
+If you want to work together with a friend or colleague on a Sandbox or Repository, create a team and invite them to join you. 
+
+### Creating a Team
+
+Creating a team is free and simple. You can create a team when you sign up
+
+TODO: Lena add image of the create team modal
+
+Or create a team from the workspace selector
+
+TODO: Lena add image of the button on the dropdown
+
+
+### Inviting People to a Team
+
+Team size varies depending on the subscription. Free teams may have up to 5 editors while Team Pro can have up to 20 editors. If you need more than 20 editors, you can contact us for a customized plan that fits your needs. 
+
+TODO: Lena add image to show team member invite modal with sample emails in the text input
+
+You can invite others by entering their email address that is connected to their account. They will
 get a notification (the bell icon in the header) in CodeSandbox and email when
 invited to a new team. From there, they can accept or decline the invitation.
 
-## Sharing Sandboxes
+Team member invites can be sent during the team creation flow or anytime after through the team settings page
+
+TODO: Lena show image of team setting page
+
+### Managing Teams and Subscriptions
+
+You can create and manage teams from the dashboard setting page.
+To find this, select your workspace
+TODO: Lena show workspace selector again
+
+Open Subscription page 
+TODO: Lena show menu with subscription option highlighted
+
+Here you can see the team overview with subscription details, team members and roles.
+Admins can edit team member access and roles here as well as edit the subscription. 
+
+**Free Team**
+Free Teams are a great way to get started with collboration and test out team features. Free teams can work with public Sandboxes and Repositories, access the team workspace dashboard and sychronously work on branches together.
+
+
+**Team Pro**
+Team Pro opens the doors to full-scale team development by allowing access to private repositories and sandboxes and increasing VM specs for a smooth experience on large or complex codebases.
+
+**Team Pro Trials**
+If you aren't sure if Team Pro is for you, trials allow teams to try out Team Pro for free before making the jump.
+
+
+### Collaboration on Teams
+
+#### Sharing Sandboxes
 
 You can choose which team you're in from the team drop-down at the top-left on
 the dashboard. You can create new sandboxes directly from here or from a
@@ -36,8 +98,15 @@ All sandboxes in a team can be seen or edited by other team members, depending
 on their permission levels. We keep track of who created the sandbox, though,
 and only the original creator of the sandbox can delete it.
 
-## Collaborating on Sandboxes
+#### Collaborating on Sandboxes
 
 You and other members can open a sandbox at the same time and see each other's
 cursor to work together. You can still invite other people who aren't members of
 the team to the sandbox or [live session](/learn/getting-started/collaborate-share).
+
+#### Collaborating on Repositories
+
+While Sandboxes are directly tied to a team, Repositories have the ability to exist in multiple workspaces at once. This means that users with write access to a repository may import it to their Personal Pro account while another team may import the same repository to work on it together. 
+Collaboration on branches will be isolated to the users that are accessing the Repository on their team account, but they will be able to read all branches connected to the repository regardless of the workspace they are accessing it through.
+
+ 
