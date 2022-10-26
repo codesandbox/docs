@@ -34,17 +34,17 @@ CodeSandbox provides many alternatives for you to code. Each option is built to 
 <WrapContent>
 ## Keep working on VS Code
 
-**Install the CodeSandbox Projects VS Code extension and open any branch directly in your VSCode editor.** Work from your local environment with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
+**Install the CodeSandbox Projects VS Code extension and open any branch directly in your VS Code editor.** Work from your local environment with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
 
 <div className="ctaContainer">
-    <ButtonDoc title={<>Get the <br/>VSCode Extension</>} cta="Install" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />
+    <ButtonDoc title={<>Get the <br/>VS Code Extension</>} cta="Install" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />
 </div>
 
-## Opening a branch in VSCode
+## Opening a branch in VS Code
 
 ![Open in vscode button](../images/getting-openvscode.jpg)
 
-To start working in a branch on VSCode, open the branch in the Editor and click on the `Open in VSCode` button positioned in the bottom left corner. This will prompt you to install the CodeSandbox extension  responsible for making the connection to our cloud development environment.
+To start working in a branch on VS Code, open the branch in the Editor and click on the `Open in VS Code` button positioned in the bottom left corner. This will prompt you to install the CodeSandbox extension  responsible for making the connection to our cloud development environment.
 
 ### Learn more
 

@@ -32,9 +32,9 @@ Repositories are run on containers. When you press `Branch`, we automatically cr
 If you are looking at someone’s PR and want to quickly test a suggestion, simply click `Branch`, write the code and share a link to your changes. If you’re happy with the changes, merge that
 into the existing PR. All of this in under a minute.
 
-## Works with VSCode
+## Works with VS Code
 
-Open any branch directly in your local VSCode and use all the extensions and keybindings that you’ve already configured. On top of this, all editors can collaborate seamlessly, so your team members can follow your steps on VSCode without leaving the Web Editor.
+Open any branch directly in your local VS Code and use all the extensions and keybindings that you’ve already configured. On top of this, all editors can collaborate seamlessly, so your team members can follow your steps on VS Code without leaving the Web Editor.
 
 <Video src="../../introduction-vscode.mp4" />
 

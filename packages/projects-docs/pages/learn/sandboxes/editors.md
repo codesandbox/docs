@@ -126,7 +126,7 @@ The code editor is where the magic happens ✨. We provide a base experience for
 - Multiple Editors
 - Diff view
 
- If you want more advanced features, you can scale the Sandbox to a Repository so you can access our [VSCode extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the project inyour local IDE](../getting-started/keep-working-on-vscode) with your own customizations.
+ If you want more advanced features, you can scale the Sandbox to a Repository so you can access our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the project inyour local IDE](../getting-started/keep-working-on-vscode) with your own customizations.
 
 ### DevTool
 

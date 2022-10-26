@@ -71,7 +71,7 @@ The code editor is where the magic happens ✨. We provide a base experience for
 - Multiple Editors
 - Diff view
 
- If you want more advanced features, you can download our [VSCode extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the Repository inyour local IDE](../getting-started/keep-working-on-vscode) with your own customizations.
+ If you want more advanced features, you can download our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the Repository inyour local IDE](../getting-started/keep-working-on-vscode) with your own customizations.
 
 ### DevTool
 
@@ -93,7 +93,7 @@ Press <kbd>Cmd/Ctrl</kbd> <kbd>.</kbd> to hide the DevTools.
     </WrapContent>
     <WrapContent>
        ![](../images/cover-vscode.jpg)
-       Open any branch directly in your local VSCode and use all the extensions and keybindings that you’ve already configured. On top of this, all editors can collaborate seamlessly, so your team members can follow your steps on VSCode without leaving the Web Editor.
+       Open any branch directly in your local VS Code and use all the extensions and keybindings that you’ve already configured. On top of this, all editors can collaborate seamlessly, so your team members can follow your steps on VS Code without leaving the Web Editor.
        
 <br/>
        ## Open your branch in VS Code
@@ -141,9 +141,9 @@ Changes that are made to a file are reflected in the editor of every user. Selec
 
 <Video src="../../vscode-following.mp4" />
 <br/>
-## Reviewing PRs in VSCode
+## Reviewing PRs in VS Code
 
-You can review PRs directly from VSCode while connected to CodeSandbox. To do this, you should install the [GitHub App of CodeSandbox](/learn/integrations/github-app). With this app, every PR will have a link to open the branch in VSCode.
+You can review PRs directly from VS Code while connected to CodeSandbox. To do this, you should install the [GitHub App of CodeSandbox](/learn/integrations/github-app). With this app, every PR will have a link to open the branch in VS Code.
 
 We also recommend to install the [GitHub Pull Request](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) extension, and configure it as a default extension in your user settings (as outlined [here](#default-user-extensions)). With this extension you can put comments on GitHub directly from your editor.
 
@@ -160,17 +160,17 @@ You can create the file `.vscode/extensions.json` in your repository to define t
 }
 ```
 
-This will make sure that Prettier and ESLint are installed whenever someone opens the branch in VSCode.
+This will make sure that Prettier and ESLint are installed whenever someone opens the branch in VS Code.
 
 ### Default User Extensions
 
-In case you have any personal extensions that you want to have in every branch, you can define those in your VSCode settings under the setting id `remote.SSH.defaultExtensions`. To change this setting, you can open VSCode settings (`CMD/Ctrl + ,`) and search for `remote.SSH.defaultExtensions`.
+In case you have any personal extensions that you want to have in every branch, you can define those in your VS Code settings under the setting id `remote.SSH.defaultExtensions`. To change this setting, you can open VS Code settings (`CMD/Ctrl + ,`) and search for `remote.SSH.defaultExtensions`.
 
-You can copy your favourite VSCode extension ids, and put them in that setting. From then on, these extensions will be automatically installed in your branches.
+You can copy your favourite VS Code extension ids, and put them in that setting. From then on, these extensions will be automatically installed in your branches.
 
-### VSCode Setting Sync
+### VS Code Setting Sync
 
-To sync your settings and keybindings between branches, you can enable VSCode Setting Sync. To learn more about how to set this up, you can check [here](https://code.visualstudio.com/docs/editor/settings-sync).
+To sync your settings and keybindings between branches, you can enable VS Code Setting Sync. To learn more about how to set this up, you can check [here](https://code.visualstudio.com/docs/editor/settings-sync).
 
 <br/>
 ## FAQs
