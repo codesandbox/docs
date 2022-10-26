@@ -7,7 +7,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 # DevTools
  
-![CodeSandbox Projects Preview](../images/devtools-open.jpg)
+![CodeSandbox Preview](../images/devtools-open.jpg)
 
 Devtools are tools for developers to work faster and more efficiently. They are useful for debugging, testing, and developing. They are collaborative by default, allowing you to share their content: a terminal output, a preview error, a console log...
 
@@ -16,24 +16,24 @@ Add as many devtools as you want. For one or two devtools, the layout will adapt
 
 ## Start a Devtool
 
-You can add a Devtool by clicking in the `+` button on the header or by pressing <kbd>Cmd/Clt</kbd> <kbd>shift</kbd> <kbd>o</kbd> to open the DevTool menu.
+You can add a Devtool by clicking on the `+` button on the header or by pressing <kbd>Cmd/Clt</kbd> <kbd>shift</kbd> <kbd>o</kbd> to open the DevTool menu.
 
 
 
 ## Manage your DevTool 
 
-![CodeSandbox Projects Preview](../images/devtools-options.jpg)
+![CodeSandbox Preview](../images/devtools-options.jpg)
 
 #### Minimize
 
-Minimize the Devtool by clicking in the `...` icon in the top left corner and selecting the option `Minimize`. A minimized view is useful when you have limited viewport space and would like to still track some processes. 
+Minimize the Devtool by clicking on the `...` icon in the top left corner and selecting the option `Minimize`. A minimized view is useful when you have limited viewport space and would like to still track some processes. 
 
 #### Close 
 
-Close the Devtool by clicking in the `...` in the top left corner and selecting the option `Close`. You can also close all devtools through the command pallete (<kbd>Cmd/Clt</kbd> <kbd>K</kbd>) and typing `close all devtools`.
+Close the Devtool by clicking on the `...` in the top left corner and selecting the option `Close`. You can also close all devtools through the command palette (<kbd>Cmd/Clt</kbd> <kbd>K</kbd>) by typing `close all devtools`.
 
 <Callout emoji="→">
-Closing a devtool will not stop it, it will keep running in the background. If you want to stop the process, you must select option `Close and stop`. 
+Closing a devtool will not stop it, it will keep running in the background. If you want to stop the process, you must select the option `Close and stop`. 
 </Callout>
 
 #### Reorder
@@ -55,7 +55,7 @@ Setting up the Devtools makes it easier for non-developers to access and run you
 - **[Task](./task)**
 - **[Terminal](./terminal)**
 
-We are working on supporting others DevTools in the future, which may include:
+We are working on supporting other DevTools in the future, which may include:
 
 - Test runner UI
 - Viewing / editing [Design Tokens](https://css-tricks.com/what-are-design-tokens/) in a project

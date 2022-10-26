@@ -34,7 +34,7 @@ CodeSandbox provides many alternatives for you to code. Each option is built to 
 <WrapContent>
 ## Keep working on VS Code
 
-**Install the Projects VSCode extension and open any branch directly in your VSCode editor.** Work from your local environment with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
+**Install the CodeSandbox Projects VS Code extension and open any branch directly in your VSCode editor.** Work from your local environment with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
 
 <div className="ctaContainer">
     <ButtonDoc title={<>Get the <br/>VSCode Extension</>} cta="Install" description="" link="https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects" />

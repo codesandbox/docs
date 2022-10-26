@@ -1,6 +1,6 @@
 ---
 title: Limitations
-description: Current limitations in CodeSandbox Projects
+description: Current limitations of Repositories in CodeSandbox.
 ---
 
 import Callout from 'nextra-theme-docs/callout'
@@ -9,7 +9,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 ## sudo access
 
-Typically sudo access allows users to run programs with the privileges of another user, by default, the superuser. Currently, due to security reasons CodeSandbox projects doesn't provide an option to run sudo commands. This is necessary to provide you collaboration features on the top of the ephemeral developer environment experience.
+Typically, sudo access allows users to run programs with the privileges of another user - by default, the superuser. Currently, due to security reasons, CodeSandbox repositories don't provide an option to run sudo commands. This is necessary to provide you with collaboration features on top of the ephemeral developer environment experience.
 
 ### Workarounds
 
@@ -19,7 +19,7 @@ To work around this, there are two ways to install packages.
 
 CodeSandbox natively supports the [Nix](https://nixos.org/) package manager. To install a package, you can define a file in the root of your project called `csb.nix` and configure which packages should be automatically installed from the [nix package store](https://search.nixos.org/packages).
 
-An example configuration is this:
+See an example configuration below:
 
 ```nix
 with import <nixpkgs> {};
@@ -40,4 +40,4 @@ This automatically installs Postgres and `htop` the next time you open a termina
 
 #### Docker
 
-We also support running Docker. You can run `docker` directly from the terminal, and within the Docker containers you **do** have root access.
+We also support running Docker. You can run `docker` directly from the terminal, and within the Docker containers to which you **do** have root access.

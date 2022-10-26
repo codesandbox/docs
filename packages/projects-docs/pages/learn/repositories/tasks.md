@@ -7,7 +7,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 # .codesandbox/tasks.json
 
-CodeSandox Projects can be configured through the `.codesandbox/tasks.json` configuration file in your project. This file defines the steps to set up VMs and configures the running commands inside the workspace (webservers, Docker containers, tests etc.).
+CodeSandbox Repositories can be configured through the `.codesandbox/tasks.json` configuration file in your project. This file defines the steps to set up VMs and configures the running commands inside the workspace (webservers, Docker containers, tests etc.).
 
 <Callout emoji="⭑">
 Checking these files into version control is recommended to ensure that every collaborator has a similar editing experience. This configuration can be tracked and additional changes can be made to specific branches. In addition, once the file is merged to your main branch, every new branch will follow the same configuration.
@@ -34,7 +34,7 @@ This is an example of a configuration:
 
 ## Default configuration
 
-By default, CodeSandbox Projects tries to infer scripts from the `package.json` file in your project's root folder. In addition, you can always use the terminal devtool to execute any shell script to run your project.
+By default, CodeSandbox tries to infer scripts from the `package.json` file in your project's root folder. In addition, you can always use the terminal devtool to execute any shell script to run your project.
 
 ## Setup Tasks
 

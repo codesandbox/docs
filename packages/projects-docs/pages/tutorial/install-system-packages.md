@@ -1,28 +1,25 @@
 ---
 title: Install system packages
-description: Install system packages inside CodeSandbox Projects as you're used to do on linux or mac
+description: Install system packages inside CodeSandbox Repositories as you're used to do on Linux or Mac.
 ---
 
 import Callout from 'nextra-theme-docs/callout'
 
 # Install system packages
 
-For many modules or tools probably you'd like to install some packages. Unfortunately, due to security reasons in Projects you can’t run commands using sudo but you can use Nix as a drop in replacement. You can read about this more on the [workspace limitations page](../../learn/setting-up/limitations). 
-Actually, most of the packages are available in [Nix](https://nixos.org/) as well so what you have to do is replace the `sudo apt-get install` or `sudo apt install` to `nix-env -i`, and that's all. You can check out the available packages in Nix on [https://search.nixos.org/packages](https://search.nixos.org/packages).
+When using some modules or tools, you may want to install some packages. Unfortunately, due to security reasons, you can’t run commands using `sudo` in CodeSandbox Repositories - but you can use Nix as a drop-in replacement. You can read about this more on the [workspace limitations page](../../learn/setting-up/limitations).
 
-For example, you can install Google Chrome as you see below:
+Fortunately, [Nix](https://nixos.org/) provides most of the packages that you will likely need. You just have to replace the commands for `sudo apt-get install` or `sudo apt install` with `nix-env -i` - that's all. You can check out the available packages in Nix on [https://search.nixos.org/packages](https://search.nixos.org/packages).
 
-On Debian you can run: `sudo apt install chromium`
-
-Inside CodeSandbox Projects just run `nix-env -i chromium`
+For example, to install Google Chrome on Debian, you would use `sudo apt install chromium`. In CodeSandbox Repositories, just run `nix-env -i chromium` and you will get the same result.
 
 <Callout emoji="⭑">
-Tip: Don't forget to add this command as a [setup task](../../learn/setting-up/tasks) so you don't have to run this command on every newly created branch, Projects will make it available for you immediately!
+Tip: Don't forget to add this command as a [setup task](../../learn/setting-up/tasks) so that you don't have to run this command on every newly created branch. CodeSandbox Repositories will make it available for you immediately!
 </Callout>
 
-As an alternative apporach to install packages, you can define a file in the root of your project called `csb.nix` and configure which packages should be automatically installed from the [nix package store](https://search.nixos.org/packages). In order to use this configuration on every branch you have to commit this file back to your main branch.
+As an alternative approach to installing packages, you can define a file in the root of your project called `csb.nix` and configure which packages should be automatically installed from the [Nix package store](https://search.nixos.org/packages). To use this configuration on every branch, you have to commit this file back to your main branch.
 
-An example configuration is this:
+Se an example configuration below:
 
 ```nix
 with import <nixpkgs> {};

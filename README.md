@@ -7,7 +7,7 @@ This repository is hosting all product documentation pages of CodeSandbox.
 - iOS Documentation
 - CodeSandbox Documentation
 - CodeSandbox Projects Documentation
-- VScode Documentation
+- VS Code Documentation
 
 ## About this repository
 

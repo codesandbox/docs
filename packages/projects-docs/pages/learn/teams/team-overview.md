@@ -9,7 +9,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 In CodeSandbox Repositories, you can organize your work under Personal Repositories or Teams. Your teams are synced across Sandboxes and Repositories and every team member can navigate between the imported repositories. 
 
-![Teams in Projects](../images/teams-list.jpg)
+![Teams in Repositories](../images/teams-list.jpg)
 
 For repositories is granting visibility of all repositories to all team members by replicating the existing privacy settings already in place on GitHub. 
 
