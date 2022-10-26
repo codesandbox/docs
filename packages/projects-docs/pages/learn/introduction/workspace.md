@@ -11,11 +11,11 @@ description:
 
 ## Personal Workspace
 
-By default, when you set up an account, you will get a free personal workspace. This is a private space to create, prototype and build anything you like. You can think of this workspace as your local development transferred to the cloud. The personal workspace contains any public sandboxes and repositories you added while active in your workspace.
+By default, when you set up an account, you will get a free personal workspace. This is a private space to create, prototype and build anything you like. You can think of this workspace as your local development transferred to the cloud. The personal workspace contains any public Sandboxes and Repositories you added while active in your workspace.
 
 ![Personal workspace](../images/workspace-personal-team.png)
 
-It also contains a section for [open source contributions](/getting-started/open-source#introducing-contribution-branches). 
+It also contains a section for your [open source contributions](/getting-started/open-source#introducing-contribution-branches).
 
 ![My contribution branches](../images/workspace-my-contributions.png)
 
@@ -24,7 +24,7 @@ By upgrading to Personal Pro, you can expand your personal development experienc
 
 **Add Private Sandboxes and Repositories**
 
-Personal Pro allows you to import your private repositories or mark your sandboxes as private. This accelerates your personal and professional work by extending access to your work beyond your local machine while keeping the code secure.
+Personal Pro allows you to import your private Repositories or mark your Sandboxes as private. This accelerates your personal and professional endevours by extending access to your work beyond your local machine while keeping the code secure.
 
 ![Private sandbox](../images/private-sandbox.png)
 
@@ -59,6 +59,8 @@ You can invite others by entering the email address that is connected to their a
 get a notification (the bell icon in the header) in CodeSandbox and an email when
 invited to a new team. From there, they can accept or decline the invitation.
 
+You can also invite team members that do not have a CodeSandbox account. They will be sent an email inviting them to create an account where they will have access to the team.
+
 Team member invites can be sent during the team creation flow or anytime after through the team settings page.
 
 
@@ -76,12 +78,15 @@ Admins can edit team member access and roles here as well as edit the subscripti
 
 
 **Free Team**
+
 Free Teams are a great way to get started with collaboration and test out team features. Free teams can work with public Sandboxes and Repositories, access the team workspace dashboard and synchronously work on branches together.
 
 **Team Pro**
+
 Team Pro opens the doors to full-scale team development by allowing access to private repositories and sandboxes. It also has better VM specs for a smooth experience working with large or complex codebases.
 
 **Team Pro Trials**
+
 If you aren't sure if Team Pro is right for you, you can start a free trial, allowing you and your team to try out Team Pro for free before making the jump.
 
 ![Team settings](../images/workspace-start-trial.png)
