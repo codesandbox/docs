@@ -7,17 +7,17 @@ description:
 ---
 
 # Workspaces
-TODO: Lena add an image conveying workspace concept (optional)
+![Workspaces](../images/workspace-selector.png)
+
 ## Personal Workspace
 
-By default, when you set up an account, you will get a free personal workspace. This is a private space to create, prototype and build anything you like. You can think of this workspace as your local development transferred to the cloud. 
-TODO: Lena add image of workspace dropdown
+By default, when you set up an account, you will get a free personal workspace. This is a private space to create, prototype and build anything you like. You can think of this workspace as your local development transferred to the cloud. The personal workspace contains any public sandboxes and repositories you added while active in your workspace.
 
-The personal workspace contains any public sandboxes and repositories you added while active in your workspace.
-TODO: Lena add image of open create modal with active personal workspace 
+![Personal workspace](../images/workspace-personal-team.png)
 
 It also contains a section for [open source contributions](/getting-started/open-source#introducing-contribution-branches). 
-TODO: Lena add image of My Contributions page
+
+![My contribution branches](../images/workspace-my-contributions.png)
 
 ### Personal Pro
 By upgrading to Personal Pro, you can expand your personal development experience in a number of ways: 
@@ -26,7 +26,7 @@ By upgrading to Personal Pro, you can expand your personal development experienc
 
 Personal Pro allows you to import your private repositories or mark your sandboxes as private. This accelerates your personal and professional work by extending access to your work beyond your local machine while keeping the code secure.
 
-TODO Lena add image of private repository next to a public repo on the dashboard
+![Private sandbox](../images/private-sandbox.png)
 
 **Access more VM Specs**
 Depending on the size of your projects, you may need an increase in memory and processing power. Personal Pro provides this increase so that you can work without friction.
@@ -42,38 +42,38 @@ If you want to work together with a friend or colleague on a Sandbox or Reposito
 
 Creating a team is free and simple. You can create a team when you sign up:
 
-TODO: Lena add image of the create team modal
+![Create a team](../images/workspace-create-team.png)
 
 Or create a team from the workspace selector:
 
-TODO: Lena add image of the button on the dropdown
+![Create a team](../images/workspace-selector-newteam.png)
 
 
 ### Inviting People to a Team
 
 Team size varies depending on the subscription. Free teams may have up to 5 editors while Team Pro can have up to 20 editors. If you need more than 20 editors, please contact us for a customized plan that fits your needs. 
 
-TODO: Lena add image to show team member invite modal with sample emails in the text input
+![Invite team members](../images/workspace-invite-members.png)
 
 You can invite others by entering the email address that is connected to their account. They will
 get a notification (the bell icon in the header) in CodeSandbox and an email when
 invited to a new team. From there, they can accept or decline the invitation.
 
-Team member invites can be sent during the team creation flow or anytime after through the team settings page:
+Team member invites can be sent during the team creation flow or anytime after through the team settings page.
 
-TODO: Lena show image of team setting page
 
 ### Managing Teams and Subscriptions
 
 You can create and manage teams from the dashboard Settings page.
-To find this, select your workspace:
-TODO: Lena show workspace selector again
+To find this, select your workspace and open the Subscription page.
 
-And open the Subscription page: 
-TODO: Lena show menu with subscription option highlighted
+![Team settings](../images/workspace-team-settings.png)
 
 Here you can see the team overview with subscription details, team members and roles.
 Admins can edit team member access and roles here as well as edit the subscription. 
+
+![Team settings](../images/workspace-team-settings-free.png)
+
 
 **Free Team**
 Free Teams are a great way to get started with collaboration and test out team features. Free teams can work with public Sandboxes and Repositories, access the team workspace dashboard and synchronously work on branches together.
@@ -83,6 +83,9 @@ Team Pro opens the doors to full-scale team development by allowing access to pr
 
 **Team Pro Trials**
 If you aren't sure if Team Pro is right for you, you can start a free trial, allowing you and your team to try out Team Pro for free before making the jump.
+
+![Team settings](../images/workspace-start-trial.png)
+
 
 ### Collaboration on Teams
 
