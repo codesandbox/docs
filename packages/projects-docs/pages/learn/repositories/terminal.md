@@ -1,21 +1,21 @@
 ---
 title: Terminal
-description: 
+description: Use a terminal right from CodeSandbox, just like your local terminal.
 ---
 
 import Callout from 'nextra-theme-docs/callout'
 
 # Terminal
 
-![CodeSandbox Projects Terminal](../images/devtools-cover-terminal.jpg)
+![CodeSandbox Repositories Terminal](../images/devtools-cover-terminal.jpg)
  
-One of the benefits of working on CodeSandbox Projects is running the terminal without ever leaving the Web Editor. The Terminal Devtool is connected to a Virtual Machine and behaves like your local terminal, accepting any commands you are used to running, such as:
+One of the benefits of working on CodeSandbox Repositories is running the terminal without ever leaving the Web Editor. The Terminal DevTool is connected to a Virtual Machine and behaves like your local terminal, accepting any commands you are used to running, such as:
 - git operations
 - bash scripts
 - package-management commands
 - start servers
 
-Besides opening a fresh instance, you can also see other people's terminals. This is specially useful when someone on your team encounters errors or has a hard time fixing a problem. You can quickly jump in and instantly understand what is going on.
+Besides opening a fresh instance, you can also see other people's terminals. This is especially useful when someone on your team encounters errors or has a hard time fixing a problem. You can quickly jump in and instantly understand what is going on.
 
 ![Collaborative Terminal](../images/devtools-terminalcolab.jpg)
 

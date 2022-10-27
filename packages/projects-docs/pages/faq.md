@@ -155,7 +155,7 @@ It is possible to work in an “un-synced” state. In order for CodeSandbox fea
 
 ## Who can access my code?
 
-Only people on your CodeSandbox team with permissions to the repository may join as a collaborator. Repository permissions are carried over from Github. To add someone new to the team, provide access on Github and add them to the CodeSandbox. From there, they can access the code in the browser or follow the steps above to use VS Code.
+Only people on your CodeSandbox team with permissions to the repository may join as a collaborator. Repository permissions are carried over from GitHub. To add someone new to the team, provide access on GitHub and add them to the CodeSandbox. From there, they can access the code in the browser or follow the steps above to use VS Code.
 
 ## More Questions?
 
@@ -165,7 +165,7 @@ For questions and support please use the community [discord server](https://disc
        ## Sandboxes
 
 ### I'm getting a Git error resolving a dependency. Why is that?
-CodeSandbox for iOS is only compatible with dependencies hosted and accessible via HTTP or HTTPS. This is because the app doesn't provide local shell environments where you can run arbitrary commands, like git. Use CodeSandbox Projects instead.
+CodeSandbox for iOS is only compatible with dependencies hosted and accessible via HTTP or HTTPS. This is because the app doesn't provide local shell environments where you can run arbitrary commands, like git. Use the [CodeSandbox web editor](/learn/sandboxes/editors) instead.
 
 You may find some of the following answers helpful if you have gone through the sections in this documentation but you still haven’t cleared your doubts:
     
@@ -185,7 +185,7 @@ The runtime provides a `WEB_PORT` environment variable matching the port used by
 This is because iOS suspends the process while the application is in background and with it all its activity.
 
 ### My sandbox requires Node.js 14 but the app uses Node.js 12. How can I change the Node.js version?
-The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating CodeSandbox Projects instead. We will be making changes in this front so please stay tuned.
+The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating the new CodeSandbox experience instead. We will be making changes in this front, so please stay tuned.
 
 ## Repositories
 

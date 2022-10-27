@@ -1,6 +1,6 @@
 ---
 title: Environment
-description: Configure your environment in CodeSandbox Projects
+description: Configure your environment in CodeSandbox.
 ---
 
 import Callout from 'nextra-theme-docs/callout'
@@ -17,7 +17,7 @@ Based on our analysis of usual resource needs, we have defined these resources a
 | Memory  | 4Gi    |
 | Storage | 8Gi    |
 
-But we can go higher, up to 12vCPUs, 16Gi memory and 30Gi storage. If you hit any limitations while using Projects Beta, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limitations to suit your project.
+But we can go higher, up to 12vCPUs, 16GB memory and 30GB storage. If you hit any limitations while using CodeSandbox, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limits to suit your project.
 
 ## Persistence
 
@@ -48,7 +48,7 @@ Configure various aspects of the running VMs with the environment file. Currentl
 #### NodeJS
 
 <Callout emoji="⭑">
-If you already have a `.nvmrc` file containing a node version number in your project's root folder it will automatically be picked up by CodeSandbox Projects.
+If you already have a `.nvmrc` file containing a Node version number in your project's root folder it will automatically be picked up by CodeSandbox.
 </Callout>
 
 The environment file allows you to specify:
@@ -65,10 +65,10 @@ Single value configuration, type `string`, by default it is set to `"16"` .
 
 ## Docker support
 
-CodeSandbox Projects supports running docker containers inside any workspace. Run and build images to run containers inside your project by opening a terminal and running `docker`. If you have a docker-compose file in your root folder, simply run `docker-compose up` and all your services will run within Projects.
+CodeSandbox supports running Docker containers inside any workspace. Run and build images to run containers inside your project by opening a terminal and running `docker`. If you have a docker-compose file in your root folder, simply run `docker-compose up` and all your services will run within CodeSandbox.
 
 <Callout emoji="⭑">
-For a step-by-step guide, check out our tutorial [Getting started with Docker](https://codesandbox.io/docs/projects/tutorial/getting-started-with-docker)
+For a step-by-step guide, check out our tutorial [Getting started with Docker](/tutorial/getting-started-with-docker)
 </Callout>
 
 ## Nix support

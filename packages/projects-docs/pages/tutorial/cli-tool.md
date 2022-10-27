@@ -1,20 +1,23 @@
 ---
 title: Install CLI tools and global modules
-description: Install cli tools and global modules inside CodeSandbox Projects
+description: Install CLI tools and global modules inside CodeSandbox Repositories.
 ---
 
 import Callout from 'nextra-theme-docs/callout'
 
 # Install CLI tools and global modules
 
-Please note due to security reasons in Projects you can’t run commands using sudo. On the other hand, we know it’s really important to set up your workspace as you wish and install additional tooling.
+Please note that, due to security reasons, you can’t run commands using `sudo` in CodeSandbox Repositories. On the other hand, we know it’s really important to set up your workspace as you wish and install additional tooling.
 
-By default `npm install -g` installs global modules into `/usr/local/lib/node_modules`
- and links executables into `/usr/local/bin`. So in Projects for these folders you have write access and you can install additional tools.
+By default, `npm install -g` installs global modules into `/usr/local/lib/node_modules`
+ and links executables into `/usr/local/bin`. So in Repositories, you have write access to these folders and you can install additional tools.
 
-Probably you’d like to install some frameworks that require write access to many more folders. So in cases like this, we recommend using Docker or NixOS 
+It is likely that at some point you will want to install some frameworks that require write access to several other folders. In cases like this, we recommend using Docker or NixOS.
 
-# Getting started with Docker and NixOS in Projects
+<br />
+<br />
+
+# Getting started with Docker and NixOS in Repositories
 
 ### 1. Click on + New task to install new tooling
 
@@ -24,28 +27,28 @@ Probably you’d like to install some frameworks that require write access to ma
 
 ![https://images.tango.us/public/screenshot_434878b2-cd08-4b6a-91bf-d03056e07d9f.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.1577&fp-z=1.6881&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_434878b2-cd08-4b6a-91bf-d03056e07d9f.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.1577&fp-z=1.6881&w=1200&ar=3892%3A3008)
 
-### 3. You can see the progress of the installation in a console log.
+### 3. You can see the progress of the installation in a console log
 
 ![https://images.tango.us/public/screenshot_2c94b9c2-a668-427f-b7fa-bfcd60de9f29.png?crop=focalpoint&fit=crop&fp-x=0.7831&fp-y=0.2096&fp-z=2.3839&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_2c94b9c2-a668-427f-b7fa-bfcd60de9f29.png?crop=focalpoint&fit=crop&fp-x=0.7831&fp-y=0.2096&fp-z=2.3839&w=1200&ar=3892%3A3008)
 
-### 4. In the meantime a tasks.json file has been created under the .codesandbox folder
+### 4. In the meantime, a `tasks.json` file has been created in the `.codesandbox` folder
 
-With the tasks.json you can automate the creation of your development environment within Projects
+With `tasks.json`, you can automate the creation of your development environment within Repositories.
 
 ![https://images.tango.us/public/screenshot_b1d911c4-953b-4648-a7c7-d72862a272b8.png?crop=focalpoint&fit=crop&fp-x=0.0812&fp-y=0.0938&fp-z=2.2900&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_b1d911c4-953b-4648-a7c7-d72862a272b8.png?crop=focalpoint&fit=crop&fp-x=0.0812&fp-y=0.0938&fp-z=2.2900&w=1200&ar=3892%3A3008)
 
-### 5. By default, your tool saved as a simple task
+### 5. By default, your tool is saved as a simple task
 
-You can run tasks from the UI or the Command Palette but global modules should be installed during setting up your environment.
+You can run [tasks](/learn/repositories/task) from the UI or the Command Palette but global modules should be installed during the setup of your environment.
 
 ![https://images.tango.us/public/screenshot_69be5dc2-5bc6-43f2-84c6-be9631c1178a.png?crop=focalpoint&fit=crop&fp-x=0.2885&fp-y=0.5402&fp-z=3.1717&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_69be5dc2-5bc6-43f2-84c6-be9631c1178a.png?crop=focalpoint&fit=crop&fp-x=0.2885&fp-y=0.5402&fp-z=3.1717&w=1200&ar=3892%3A3008)
 
-### 6. Let's move it under the setupTasks
+### 6. Move it under `setupTasks`
 
-So setupTasks will run every time Projects is setting up your workspace. What you have to do now is move the command up to under setupTasks. Also, don't forget to clean up tasks as you don't have to move every part of that entry created there.
+`setupTasks` will run every time Repositories is setting up your workspace. So now you have to move the command up to under `setupTasks`. Also, don't forget to clean up tasks as you don't have to move every part of that entry created there.
 
 <Callout emoji="⭑">
-Tip: Commit this file to your main branch. Only this way tasks will be picked up next time you create a new branch!
+Tip: Commit this file to your main branch. This is the only to ensure that tasks will be picked up next time you create a new branch!
 </Callout>
 
 ![https://images.tango.us/public/screenshot_4f27ab2c-2911-4294-924f-67a13e3139e1.png?crop=focalpoint&fit=crop&fp-x=0.3009&fp-y=0.2304&fp-z=2.1571&w=1200&ar=3892%3A3008](https://images.tango.us/public/screenshot_4f27ab2c-2911-4294-924f-67a13e3139e1.png?crop=focalpoint&fit=crop&fp-x=0.3009&fp-y=0.2304&fp-z=2.1571&w=1200&ar=3892%3A3008)
