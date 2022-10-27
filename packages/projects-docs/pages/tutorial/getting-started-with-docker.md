@@ -7,7 +7,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 # Getting started with Docker and NixOS
 
-Docker and Nix are available within CodeSandbox Repositories as an experimental feature. You can run and build images to run containers inside your project by opening a terminal and running `docker`. If you have a `docker-compose` file in your root folder, you only have to run `docker-compose up` - all your services will run within CodeSandbox Repositories.
+Docker and Nix are available within CodeSandbox Repositories as an experimental feature. You can run and build images to run containers inside your project by opening a terminal and running `docker`. If you have a `docker-compose` file in your root folder, you only have to run `docker-compose up`. Then, all your services will run within CodeSandbox Repositories.
 
 In addition, [Nix](https://nixos.org/) is also supported. Nix is a tool that takes a unique approach to package management and system configuration. Basically, you can install any additional tool, like Java or Node v16, in your OS.
 

@@ -9,7 +9,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 ## sudo access
 
-Typically, sudo access allows users to run programs with the privileges of another user - by default, the superuser. Currently, due to security reasons, CodeSandbox repositories don't provide an option to run sudo commands. This is necessary to provide you with collaboration features on top of the ephemeral developer environment experience.
+Typically, sudo access allows users to run programs with the privileges of another user (the superuser) by default. Currently, due to security reasons, CodeSandbox Repositories don't provide an option to run sudo commands. This is necessary to provide you with collaboration features on top of the ephemeral developer environment experience.
 
 ### Workarounds
 

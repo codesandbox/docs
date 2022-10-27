@@ -7,7 +7,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 # Install system packages
 
-When using some modules or tools, you may want to install some packages. Unfortunately, due to security reasons, you can’t run commands using `sudo` in CodeSandbox Repositories - but you can use Nix as a drop-in replacement. You can read about this more on the [workspace limitations page](../../learn/setting-up/limitations).
+When using some modules or tools, you may want to install some packages. Unfortunately, due to security reasons, you can't run commands using `sudo` in CodeSandbox Repositories - but you can use Nix as a drop-in replacement. You can read about this more on the [workspace limitations page](../../learn/setting-up/limitations).
 
 Fortunately, [Nix](https://nixos.org/) provides most of the packages that you will likely need. You just have to replace the commands for `sudo apt-get install` or `sudo apt install` with `nix-env -i` - that's all. You can check out the available packages in Nix on [https://search.nixos.org/packages](https://search.nixos.org/packages).
 
@@ -19,7 +19,7 @@ Tip: Don't forget to add this command as a [setup task](../../learn/setting-up/t
 
 As an alternative approach to installing packages, you can define a file in the root of your project called `csb.nix` and configure which packages should be automatically installed from the [Nix package store](https://search.nixos.org/packages). To use this configuration on every branch, you have to commit this file back to your main branch.
 
-Se an example configuration below:
+See an example configuration below:
 
 ```nix
 with import <nixpkgs> {};
