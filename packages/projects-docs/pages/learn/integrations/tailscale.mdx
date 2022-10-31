@@ -1,0 +1,116 @@
+---
+title: Tailscale
+description: Tailscale VPN integration that allows access to private resources from your Repositories.
+---
+
+import Callout from 'nextra-theme-docs/callout'
+
+# Tailscale
+
+At CodeSandbox, we use [Tailscale](https://tailscale.com/) to manage network access for private resources, including some of the services that make up CodeSandbox.
+As you work on an application in CodeSandbox Repositories, you might want to grant it access to private resources on your network.
+Tailscale can help.
+
+<Callout emoji="⭑">
+You can try Tailscale for free by following their [Quickstart guide](https://tailscale.com/kb/1017/install/#step-2-add-a-machine-to-your-network).
+Throughout this documentation, we'll assume you have a tailnet called `example-tailnet.ts.net` (which you should replace with your [name](https://tailscale.com/kb/1217/tailnet-name/)).
+</Callout>
+
+## Motivation
+
+Many applications exist as part of a collection of services.
+While things like mocks can help isolate a single application during development, this isn't always possible.
+Just because you develop in CodeSandbox, however, doesn't mean you can't connect your application to private services running in your organization's network.
+
+Integrating with Tailscale provides containers running in a CodeSandbox Repository environment with access to your private resources.
+Combined with Tailscale's Magic DNS and ACLs, you can develop your application as if it were hosted in the same network as your other services — without compromising security.
+
+## Creating an Auth Key
+
+Integrating a CodeSandbox Repository with Tailscale requires an [auth key](https://tailscale.com/kb/1085/auth-keys/), a secret you embed in the CodeSandbox environment to allow registration on your network.
+Network admins can create them on the [auth key page](https://login.tailscale.com/admin/settings/keys).
+
+The auth key you give to CodeSandbox should be:
+
+* **Reusable**, so you don't encounter issues when forking a new branch,
+* **Ephemeral**, so you don't have to clean up old branches from your tailnet, and
+* **Pre-authorized**, so you don't have to wait for someone to approve a new branch before you start developing.
+
+Depending on your tailnet setup, you may also want it to be:
+
+* **Tagged**, so CodeSandbox environments are automatically labeled and access-controlled via Tailscale's ACLs.
+
+## Setting up your Repository
+
+Tailscale currently works in CodeSandbox Repository environments by adding a container to a Dockerized application setup (for example, using `docker-compose`).
+The additional container runs the Tailscale client and provides networking for the other containers.
+
+### Environment Variables
+
+Before launching the new container, it is necessary to add the Tailscale auth key as an environment variable.
+With a branch open in the Repository editor, go to the CodeSandbox menu, and choose **Env variables**.
+Throughout the rest of this documentation, we will assume you named the variable `TS_AUTH_KEY`.
+Restart any existing branches to update the running environment.
+
+### Docker Container
+
+In a setup using Docker Compose, we can add the `tailscale` image as an additional service beside our application.
+Here's an example `docker-compose.yml` file with the Tailscale service:
+
+```yaml
+services:
+  tailscale:
+    image: tailscale/tailscale
+    cap_add:
+      - net_admin
+      - net_raw
+      - sys_module
+    command: "tailscaled --state=mem:"
+    volumes:
+      - "/dev/net/tun:/dev/net/tun"
+
+  myapp:
+    # ...
+    network_mode: service:tailscale
+```
+
+This runs the latest `tailscale/tailscale` image with a few customizations.
+Then, it instructs the application container to use the Tailscale container's network using `network_mode`.
+
+After this setup, `docker-compose up` will start the application and Tailscale containers, but it will not immediately initiate a connection.
+For this, a separate command is necessary:
+
+```sh
+docker-compose exec tailscale tailscale up --authkey=${TS_AUTH_KEY} --accept-routes --hostname=csb-${HOSTNAME}
+```
+
+Luckily, both of these steps can be automated.
+The following example `.codesandbox/tasks.json` runs each of these commands as tasks every time a new branch is created:
+
+```json
+{
+  "tasks": {
+    "docker-compose up": {
+      "name": "Docker Compose",
+      "command": "docker-compose up",
+      "restartOn": {
+        "branch": true
+      },
+      "runAtStart": true
+    },
+    "tailscale": {
+      "name": "Connect Tailscale",
+      "command": "docker-compose exec tailscale tailscale up --accept-routes --authkey=${TS_AUTH_KEY} --hostname=csb-${HOSTNAME}",
+      "restartOn": {
+        "branch": true
+      },
+      "runAtStart": true
+    }
+  }
+}
+```
+
+Putting all of this together, CodeSandbox will automatically start your application using Docker Compose, include a Tailscale container, and initiate a connection based on your Auth Key.
+The running application will have access to private resources on your tailnet.
+
+If you enjoy using CodeSandbox and Tailscale, and would like to see deeper integration between these products in the future, please [reach out to us](mailto:support@codesandbox.io).
