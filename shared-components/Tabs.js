@@ -25,8 +25,8 @@ export function Tabs({ children, tabs }) {
 
   // Check the content inside tabs with the url and activate the right tab
   useEffect(() => {
-    const onHashChanged = (event) => {
-      const match = event.newURL.split("#")[1];
+    const checkContentMatch = (url, pushURL) => {
+      const match = url.split("#")[1];
       const checkMatch = false;
       for (let i = 0; i < children.length; i++) {
         const content = ReactDOMServer.renderToString(children[i]);
@@ -38,25 +38,34 @@ export function Tabs({ children, tabs }) {
       }
 
       if (checkMatch !== false) {
-        router.push(
-          {
-            query: { tab: slugify(tabs[checkMatch]) },
-          },
-          undefined,
-          {
+        if (pushURL) {
+          let newurl = url.replace(
+            /tab=(.*?)(\#|\s)/,
+            `tab=${slugify(tabs[checkMatch])}#`
+          );
+
+          router.push(newurl, undefined, {
             shallow: true,
-          }
-        );
+          });
+        }
         setTab(slugify(tabs[checkMatch]));
       }
     };
 
+    const onHashChanged = (event) => {
+      checkContentMatch(event.newURL, true);
+    };
+
     window.addEventListener("hashchange", onHashChanged);
+
+    if (router.asPath.includes("#")) {
+      checkContentMatch(router.asPath, false);
+    }
 
     return () => {
       window.removeEventListener("hashchange", onHashChanged);
     };
-  }, []);
+  }, [router]);
 
   return (
     <TabsContainer
