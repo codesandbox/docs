@@ -1,53 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import * as ReactDOMServer from "react-dom/server";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 import styles from "./Tabs.module.css";
-
-// const StyledTabs = styled(TabsPrimitive.Root, {
-//   display: "flex",
-//   flexDirection: "column",
-//   width: 300,
-//   boxShadow: `0 2px 10px ${blackA.blackA4}`,
-// });
-
-// const StyledList = styled(TabsPrimitive.List, {
-//   flexShrink: 0,
-//   display: "flex",
-//   borderBottom: `1px solid ${mauve.mauve6}`,
-// });
-
-// const StyledTrigger = styled(TabsPrimitive.Trigger, {
-//   all: "unset",
-//   fontFamily: "inherit",
-//   backgroundColor: "white",
-//   padding: "0 20px",
-//   height: 45,
-//   flex: 1,
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-//   fontSize: 15,
-//   lineHeight: 1,
-//   color: mauve.mauve11,
-//   userSelect: "none",
-//   "&:first-child": { borderTopLeftRadius: 6 },
-//   "&:last-child": { borderTopRightRadius: 6 },
-//   "&:hover": { color: violet.violet11 },
-//   '&[data-state="active"]': {
-//     color: violet.violet11,
-//     boxShadow: "inset 0 -1px 0 0 currentColor, 0 1px 0 0 currentColor",
-//   },
-//   "&:focus": { position: "relative", boxShadow: `0 0 0 2px black` },
-// });
-
-// const StyledContent = styled(TabsPrimitive.Content, {
-//   flexGrow: 1,
-//   padding: 20,
-//   backgroundColor: "white",
-//   borderBottomLeftRadius: 6,
-//   borderBottomRightRadius: 6,
-//   outline: "none",
-//   "&:focus": { boxShadow: `0 0 0 2px black` },
-// });
+import { useRouter } from "next/router";
 
 // Exports
 export const TabsContainer = TabsPrimitive.Root;
@@ -60,14 +15,74 @@ export function WrapContent({ children }) {
 }
 
 export function Tabs({ children, tabs }) {
+  const router = useRouter();
+  const [tab, setTab] = useState(undefined);
+
+  useEffect(() => {
+    console.log("query", router.query.tab);
+    setTab(router.query.tab);
+  }, [router.query]);
+
+  // Check the content inside tabs with the url and activate the right tab
+  useEffect(() => {
+    const onHashChanged = (event) => {
+      const match = event.newURL.split("#")[1];
+      const checkMatch = false;
+      for (let i = 0; i < children.length; i++) {
+        const content = ReactDOMServer.renderToString(children[i]);
+
+        if (content.includes(match)) {
+          checkMatch = i;
+          break;
+        }
+      }
+
+      if (checkMatch !== false) {
+        router.push(
+          {
+            query: { tab: slugify(tabs[checkMatch]) },
+          },
+          undefined,
+          {
+            shallow: true,
+          }
+        );
+        setTab(slugify(tabs[checkMatch]));
+      }
+    };
+
+    window.addEventListener("hashchange", onHashChanged);
+
+    return () => {
+      window.removeEventListener("hashchange", onHashChanged);
+    };
+  }, []);
+
   return (
-    <TabsContainer defaultValue="tab1" className={styles.container}>
+    <TabsContainer
+      defaultValue={slugify(tabs[0])}
+      value={tab}
+      className={styles.container}
+      onValueChange={(value) => {
+        router.push(
+          {
+            query: { tab: value },
+          },
+          undefined,
+          {
+            scroll: false,
+            shallow: true,
+          }
+        );
+      }}
+    >
       <TabsList className={styles.tabList}>
         {tabs.map((title, index) => {
           return (
             <TabsTrigger
-              value={`tab${index + 1}`}
+              value={slugify(title)}
               className={styles.tabTrigger}
+              key={`tab-${slugify(title)}-${index}`}
             >
               {title}
             </TabsTrigger>
@@ -75,9 +90,12 @@ export function Tabs({ children, tabs }) {
         })}
       </TabsList>
       {children.map((child, index) => {
-        console.log(`tab${index + 1}`);
         return (
-          <TabsContent value={`tab${index + 1}`} className={styles.tabContent}>
+          <TabsContent
+            value={slugify(tabs[index])}
+            className={styles.tabContent}
+            key={`content-${slugify(tabs[index])}-${index}`}
+          >
             {child}
           </TabsContent>
         );
@@ -85,3 +103,14 @@ export function Tabs({ children, tabs }) {
     </TabsContainer>
   );
 }
+
+const slugify = (text) =>
+  text
+    .toString()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-");
