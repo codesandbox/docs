@@ -460,3 +460,7 @@ article h3 {
 article img {
   border-radius: 4px;
 }
+
+article .subheading-anchor {
+  margin-top: -110px;
+}
