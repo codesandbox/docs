@@ -1,0 +1,14 @@
+{
+  "learn": {
+    "title": "Documentation",
+    "type": "page"
+  },
+  "tutorial": {
+    "title": "Tutorial",
+    "type": "page"
+  },
+  "faq": {
+    "title": "FAQ",
+    "type": "page"
+  }
+}
