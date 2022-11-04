@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { cnPageMap, usPageMap } from './__fixture__/pageMap'
-import normalizePages from '../src/utils/normalize-pages'
+import { normalizePages } from '../src/utils'
+
 const defaultLocale = 'en-US'
 
 describe('normalize-page', () => {
@@ -44,6 +45,68 @@ describe('normalize-page', () => {
       locale: locale,
       defaultLocale,
       route: '/docs/getting-started'
+    })
+    expect(result).toMatchSnapshot()
+  })
+
+  it('/404 page', () => {
+    const result = normalizePages({
+      list: [
+        { kind: 'MdxPage', name: '404', route: '/404' },
+        { kind: 'MdxPage', name: 'get-started', route: '/get-started' },
+        { kind: 'MdxPage', name: 'index', route: '/' },
+        {
+          kind: 'Meta',
+          data: {
+            '404': {
+              type: 'page',
+              theme: {
+                layout: 'full'
+              }
+            },
+            index: {
+              title: 'Introduction'
+            },
+            'get-started': {
+              title: 'Get Started'
+            }
+          }
+        }
+      ],
+      locale: 'en-US',
+      defaultLocale: 'en-US',
+      route: '/500ddd'
+    })
+    expect(result).toMatchSnapshot()
+  })
+
+  it('/500 page', () => {
+    const result = normalizePages({
+      list: [
+        { kind: 'MdxPage',name: '500', route: '/500' },
+        { kind: 'MdxPage',name: 'get-started', route: '/get-started' },
+        { kind: 'MdxPage',name: 'index', route: '/' },
+        {
+          kind: 'Meta',
+          data: {
+            '500': {
+              type: 'page',
+              theme: {
+                layout: 'raw'
+              }
+            },
+            index: {
+              title: 'Introduction'
+            },
+            'get-started': {
+              title: 'Get Started'
+            }
+          }
+        }
+      ],
+      locale: 'en-US',
+      defaultLocale: 'en-US',
+      route: '/500'
     })
     expect(result).toMatchSnapshot()
   })

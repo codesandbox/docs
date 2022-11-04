@@ -1,14 +1,16 @@
 import Logo from "./components/Logo";
 import BackLink from "../../shared-components/BackLink";
 import defaultConfigs from "codesandbox-theme-docs/shared.config.js";
+import { useConfig } from "nextra-theme-docs";
 
 export default {
   ...defaultConfigs,
   docsRepositoryBase: "https://codesandbox.io/p/github/codesandbox/docs/main",
   titleSuffix: " - CodeSandbox",
   projectLinkIcon: BackLink,
-  head: ({ title, meta }) => {
+  getNextSeoProps() {
     const ogImage = "https://codesandbox.io/docs/projects/og-image.jpg";
+    const { frontMatter } = useConfig();
 
     return (
       <>
@@ -17,14 +19,14 @@ export default {
         <meta
           name="description"
           content={
-            meta.description ||
+            frontMatter.description ||
             "Experience the future of web development and build projects anywhere and anytime with your team."
           }
         />
         <meta
           name="og:description"
           content={
-            meta.description ||
+            frontMatter.description ||
             "Experience the future of web development and build projects anywhere and anytime with your team."
           }
         />
@@ -34,7 +36,9 @@ export default {
         <meta
           name="og:title"
           content={
-            title ? title + " – CodeSandbox" : "CodeSandbox Documentation"
+            frontMatter.title
+              ? frontMatter.title + " – CodeSandbox"
+              : "CodeSandbox Documentation"
           }
         />
         <meta name="og:image" content={ogImage} />

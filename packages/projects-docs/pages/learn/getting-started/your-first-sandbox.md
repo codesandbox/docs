@@ -2,7 +2,7 @@
 title: Setup your first sandbox
 description:
 ---
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 
 # Getting Started with Sandboxes

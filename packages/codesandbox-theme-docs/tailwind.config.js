@@ -1,44 +1,49 @@
-const colors = require("tailwindcss/colors");
+const colors = require('tailwindcss/colors')
 
 const makePrimaryColor =
-  (l) =>
+  l =>
   ({ opacityValue }) => {
     if (opacityValue === undefined) {
-      return `hsl(var(--nextra-primary-hue) var(--nextra-primary-hue-saturation) ${l}%)`;
+      return `hsl(var(--nextra-primary-hue) 100% ${l}%)`
     }
-    return `hsl(var(--nextra-primary-hue) var(--nextra-primary-hue-saturation) ${l}% / ${opacityValue})`;
-  };
+    return `hsl(var(--nextra-primary-hue) 100% ${l}% / ${opacityValue})`
+  }
 
 module.exports = {
-  content: ["./src/**/*.{js,css,tsx}"],
+  prefix: 'nx-',
+  content: [
+    './src/**/*.tsx',
+    '../nextra/src/icons/*.tsx',
+    '../nextra/src/components/*.tsx'
+  ],
   theme: {
     screens: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px'
     },
     fontSize: {
-      xs: ".75rem",
-      sm: ".875rem",
-      base: "1rem",
-      lg: "1.125rem",
-      xl: "1.25rem",
-      "2xl": "1.5rem",
-      "3xl": "1.875rem",
-      "4xl": "2.25rem",
-      "5xl": "3rem",
-      "6xl": "4rem",
+      xs: '.75rem',
+      sm: '.875rem',
+      base: '1rem',
+      lg: '1.125rem',
+      xl: '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '4rem'
     },
     letterSpacing: {
-      tight: "-0.015em",
+      tight: '-0.015em'
     },
     colors: {
-      transparent: "transparent",
-      current: "currentColor",
-      black: "#000",
-      white: "#fff",
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: '#000',
+      white: '#fff',
       gray: colors.gray,
       slate: colors.slate,
       neutral: colors.neutral,
@@ -58,14 +63,14 @@ module.exports = {
         750: makePrimaryColor(35),
         800: makePrimaryColor(32),
         900: makePrimaryColor(24),
-        1000: makePrimaryColor(12),
-      },
+        1000: makePrimaryColor(12)
+      }
     },
     extend: {
       colors: {
-        dark: "#0E0E0E",
-      },
-    },
+        dark: '#111'
+      }
+    }
   },
-  darkMode: "class",
-};
+  darkMode: ['class', 'html[class~="dark"]']
+}

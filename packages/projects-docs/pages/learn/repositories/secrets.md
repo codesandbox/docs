@@ -3,7 +3,7 @@ title: Environment variables and secrets
 description: Use configuration values and secrets in CodeSandbox
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 import Video from '../../../../../shared-components/Video'
 
 # Environment variables and secrets

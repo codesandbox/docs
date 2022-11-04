@@ -5,7 +5,7 @@ slug: /custom-npm-registry
 description: You can use your own private npm registry if you have Team Pro.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Using a Custom NPM Registry
 

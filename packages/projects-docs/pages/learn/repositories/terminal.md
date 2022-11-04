@@ -3,7 +3,7 @@ title: Terminal
 description: Use a terminal right from CodeSandbox, just like your local terminal.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Terminal
 

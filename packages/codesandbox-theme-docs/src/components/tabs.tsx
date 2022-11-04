@@ -1,10 +1,22 @@
-import React from 'react'
-import cn from 'classnames'
+import React, { ComponentProps, ReactElement, ReactNode } from 'react'
+import cn from 'clsx'
 import { Tab as HeadlessTab } from '@headlessui/react'
 
 type TabItem = {
-  label: React.ReactElement
+  label: ReactElement
   disabled?: boolean
+}
+
+function isTabItem(item: unknown): item is TabItem {
+  if (item && typeof item === 'object' && 'label' in item) return true
+  return false
+}
+
+const renderTab = (item: ReactNode | TabItem) => {
+  if (isTabItem(item)) {
+    return item.label
+  }
+  return item
 }
 
 export function Tabs({
@@ -14,20 +26,20 @@ export function Tabs({
   onChange,
   children
 }: {
-  items: React.ReactNode[] | TabItem[]
+  items: ReactNode[] | ReadonlyArray<ReactNode> | TabItem[]
   selectedIndex?: number
   defaultIndex?: number
   onChange?: (index: number) => void
-  children: React.ReactNode
-}) {
+  children: ReactNode
+}): ReactElement {
   return (
     <HeadlessTab.Group
       selectedIndex={selectedIndex}
       defaultIndex={defaultIndex}
       onChange={onChange}
     >
-      <div className="p-2 -m-2 overscroll-x-contain overflow-x-auto overflow-y-hidden no-scrollbar">
-        <HeadlessTab.List className="flex mt-4 pb-[1px] border-b border-gray-200 dark:border-neutral-800 w-max min-w-full">
+      <div className="no-scrollbar -nx-m-2 nx-overflow-x-auto nx-overflow-y-hidden nx-overscroll-x-contain nx-p-2">
+        <HeadlessTab.List className="nx-mt-4 nx-flex nx-w-max nx-min-w-full nx-border-b nx-border-gray-200 nx-pb-px dark:nx-border-neutral-800">
           {items.map((item, index) => {
             const disabled = !!(
               item &&
@@ -42,20 +54,17 @@ export function Tabs({
                 disabled={disabled}
                 className={({ selected }) =>
                   cn(
-                    'p-2 mr-2 leading-5 font-medium text-md transition-colors',
-                    'select-none border-b-2 mb-[-2px] focus:outline-none focus-visible:ring ring-offset-2 rounded-[1px]',
+                    'nx-mr-2 nx-rounded-t nx-p-2 nx-font-medium nx-leading-5 nx-transition-colors',
+                    '-nx-mb-0.5 nx-select-none nx-border-b-2',
                     selected
-                      ? 'text-primary-500 border-primary-500'
-                      : 'text-gray-600 dark:text-gray-200 hover:border-gray-200 dark:hover:border-neutral-800 border-transparent hover:text-black dark:hover:text-white',
-                    disabled
-                      ? 'pointer-events-none text-gray-400 dark:text-neutral-600'
-                      : ''
+                      ? 'nx-border-primary-500 nx-text-primary-500'
+                      : 'nx-border-transparent nx-text-gray-600 hover:nx-border-gray-200 hover:nx-text-black dark:nx-text-gray-200 dark:hover:nx-border-neutral-800 dark:hover:nx-text-white',
+                    disabled &&
+                      'nx-pointer-events-none nx-text-gray-400 dark:nx-text-neutral-600'
                   )
                 }
               >
-                {item && typeof item === 'object' && 'label' in item
-                  ? item.label
-                  : item}
+                {renderTab(item)}
               </HeadlessTab>
             )
           })}
@@ -66,9 +75,12 @@ export function Tabs({
   )
 }
 
-export function Tab({ children }: { children: React.ReactNode }) {
+export function Tab({
+  children,
+  ...props
+}: ComponentProps<'div'>): ReactElement {
   return (
-    <HeadlessTab.Panel className="focus:outline-none focus-visible:ring">
+    <HeadlessTab.Panel {...props} className="nx-rounded nx-pt-6">
       {children}
     </HeadlessTab.Panel>
   )

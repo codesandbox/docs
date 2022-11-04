@@ -3,7 +3,7 @@ title: User Permissions
 description: How to manage access control in CodeSandbox Repositories
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # User Permissions
 
