@@ -18,6 +18,8 @@ export function Tabs({ children, tabs }) {
   const router = useRouter();
   const [tab, setTab] = useState(undefined);
 
+  console.log(slugify(tabs[0]));
+
   useEffect(() => {
     setTab(router.query.tab);
   }, [router.query]);
@@ -69,6 +71,7 @@ export function Tabs({ children, tabs }) {
   return (
     <TabsContainer
       value={tab}
+      defaultValue={slugify(tabs[0])}
       className={styles.container}
       onValueChange={(value) => {
         router.push(

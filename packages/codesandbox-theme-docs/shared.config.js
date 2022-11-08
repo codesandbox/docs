@@ -6,22 +6,15 @@ const FEEDBACK_LINK_WITH_TRANSLATIONS = {
 
 export default {
   project: "https://codesandbox.io",
-  unstable_flexsearch: true,
+  unstable_flexsearch: {
+    codeblocks: true,
+  },
+  unstable_defaultShowCopyCodeButton: true,
   float: true,
   footer: { component: null },
-  feedback: false,
-  //   feedbackLabels: "feedback",
-  //   feedbackLink: () => {
-  //     const { locale } = useRouter();
-  //     return (
-  //       FEEDBACK_LINK_WITH_TRANSLATIONS[locale] ||
-  //       FEEDBACK_LINK_WITH_TRANSLATIONS["en-US"]
-  //     );
-  //   },
-  editLink: ({ locale }) => {
-    switch (locale) {
-      default:
-        return "Edit this page on CodeSandbox →";
-    }
-  },
+  feedback: { component: null },
+  navigation: false,
+  chat: false,
+  project: { icon: null },
+  editLink: { text: "Edit this page on CodeSandbox →" },
 };

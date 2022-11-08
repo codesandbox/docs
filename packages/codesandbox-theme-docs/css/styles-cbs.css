@@ -29,7 +29,7 @@ body {
   height: 6rem;
 } */
 
-/* .nextra-sidebar-container,
+/* .nextra-sidebar-container { 
 .nextra-toc,
 article {
   padding-top: 1.5rem;
@@ -165,79 +165,83 @@ html[class~="dark"] .nextra-search input::placeholder {
 
 /* Sidebar
   ------------------------ */
-.nextra-sidebar-menu {
+.nextra-sidebar-container-menu {
   border: none;
 }
 
-.nextra-sidebar > div {
+.nextra-sidebar-container > div {
   padding-top: 0;
 }
 
 .nextra-toc-meta,
-.nextra-sidebar-menu {
+.nextra-sidebar-container-menu {
   box-shadow: none !important;
 }
 
 .nextra-toc-content ul li a,
-.nextra-sidebar ul li.active a,
-.nextra-sidebar ul li.active a:hover {
+.nextra-sidebar-container ul li.active a,
+.nextra-sidebar-container ul li.active a:hover {
   font-weight: normal;
 }
 
-html[class~="light"] .nextra-sidebar ul li a {
+html[class~="light"] .nextra-sidebar-container ul li a {
   color: #0e0e0e;
 }
 
-html[class~="light"] .nextra-sidebar ul li.active a {
+html[class~="light"] .nextra-sidebar-container ul li.active a {
   color: var(--docs-accent-color);
 }
 
-html[class~="light"] .nextra-sidebar ul li a:hover,
-html[class~="light"] .nextra-sidebar ul li.active a:hover {
+html[class~="light"] .nextra-sidebar-container ul li a:hover,
+html[class~="light"] .nextra-sidebar-container ul li.active a:hover {
   background-color: var(--docs-light-bg);
 }
 
-html[class~="dark"] .nextra-sidebar ul li a:hover,
-html[class~="dark"] .nextra-sidebar ul li.active a:hover {
+html[class~="dark"] .nextra-sidebar-container ul li a:hover,
+html[class~="dark"] .nextra-sidebar-container ul li.active a:hover {
   background-color: var(--docs-dark-bg);
 }
 
-html[class~="dark"] .nextra-sidebar ul li.active a,
+html[class~="dark"] .nextra-sidebar-container ul li.active a,
 html[class~="dark"] .nextra-toc-content ul li a[aria-selected="true"],
-html[class~="light"] .nextra-sidebar ul li.active a,
+html[class~="light"] .nextra-sidebar-container ul li.active a,
 html[class~="light"] .nextra-toc-content ul li a[aria-selected="true"] {
   color: var(--docs-accent-color);
   background-color: transparent;
 }
 
-html[class~="dark"] .nextra-sidebar ul li.active a:hover,
+html[class~="dark"] .nextra-sidebar-container ul li.active a:hover,
 html[class~="dark"] .nextra-toc-content ul li a[aria-selected="true"]:hover {
   color: var(--docs-accent-color);
 }
 
 /*  Remove lines when you apply `.folderAsHeader` the class in the doc 
    */
-.folderAsHeader .nextra-sidebar ul ul {
+.folderAsHeader .nextra-sidebar-container ul ul {
   padding-left: 0;
   margin-left: 0;
   margin: 0.3rem 0 1.2rem 0;
 }
 
-.folderAsHeader .nextra-sidebar ul ul {
-  background-image: none !important;
+.folderAsHeader .nextra-sidebar-container ul div {
+  padding-left: 0;
 }
 
-.folderAsHeader .nextra-sidebar ul li a {
+.folderAsHeader .nextra-sidebar-container ul ul::before {
+  content: none;
+}
+
+.folderAsHeader .nextra-sidebar-container ul li a {
   font-size: 16px;
 }
 
 /* arrow dropdown */
-.folderAsHeader .nextra-sidebar a svg {
+.folderAsHeader .nextra-sidebar-container a svg {
   transition: opacity 100ms;
   opacity: 0;
 }
 
-.folderAsHeader .nextra-sidebar a:hover svg {
+.folderAsHeader .nextra-sidebar-container a:hover svg {
   opacity: 1;
 }
 
@@ -246,28 +250,28 @@ svg:hover {
 }
 
 /* Bold only on the header */
-.folderAsHeader .nextra-sidebar ul > li > a,
-.folderAsHeader .nextra-sidebar ul > li > a:hover {
+.folderAsHeader .nextra-sidebar-container ul > li > a,
+.folderAsHeader .nextra-sidebar-container ul > li > a:hover {
   font-weight: 600;
   cursor: default;
   line-height: 1.3;
 }
 
-.folderAsHeader .nextra-sidebar ul > li li a,
-.folderAsHeader .nextra-sidebar ul > li li a:hover {
+.folderAsHeader .nextra-sidebar-container ul > li li a,
+.folderAsHeader .nextra-sidebar-container ul > li li a:hover {
   font-weight: normal;
   cursor: pointer;
 }
 
-.folderAsHeader .nextra-sidebar ul li ul li a {
+.folderAsHeader .nextra-sidebar-container ul li ul li a {
   font-size: 14px;
 }
 
-html[class~="dark"] .folderAsHeader .nextra-sidebar ul li a {
+html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li a {
   color: rgb(197, 197, 197);
 }
 
-html[class~="dark"] .nextra-sidebar ul li ul li a {
+html[class~="dark"] .nextra-sidebar-container ul li ul li a {
   color: #999999;
 }
 
@@ -369,7 +373,7 @@ html[class~="dark"] p code {
 /* Callout
   ------------------------ */
 
-.callout {
+.nextra-callout {
   box-sizing: border-box;
   border-radius: 6px;
   padding: 16px;
@@ -377,24 +381,25 @@ html[class~="dark"] p code {
   align-items: flex-start;
 }
 
-.callout .pr-2 {
+.nextra-callout .pr-2 {
   padding-right: 1rem;
 }
 
-html[class~="light"] .callout {
+html[class~="light"] .nextra-callout {
   color: rgb(65 65 65 / 90%);
   background-color: var(--docs-light-bg);
 }
-html[class~="dark"] .callout {
-  background: var(--docs-dark-bg);
+html[class~="dark"] .nextra-callout {
+  border: none !important;
+  background: var(--docs-dark-bg) !important;
   color: #999999 !important;
 }
 
-html[class~="dark"] .callout h4 {
+html[class~="dark"] .nextra-callout h4 {
   color: #fff;
 }
 
-html[class~="light"] .callout h4 {
+html[class~="light"] .nextra-callout h4 {
   color: #000;
 }
 
@@ -415,47 +420,49 @@ html[class~="light"] .callout h4 {
 /* Headings
   ------------------------ */
 
-article h1 {
+.cbs article h1 {
   font-size: 3.5rem;
   margin-top: 0;
   line-height: 100%;
   letter-spacing: -0.05em;
+  font-weight: bold;
 }
 
 @media (max-width: 640px) {
-  article h1 {
+  .cbs article h1 {
     font-size: 3rem;
   }
 }
 
-article h2 {
+.cbs article h2 {
   border: none;
   font-size: 2rem;
   line-height: 120%;
   letter-spacing: -0.025em;
+  font-weight: bold;
 }
 
-article h1:first-of-type {
+.cbs article h1:first-of-type {
   margin-top: -0.16em;
 }
 
-article h2 {
+.cbs article h2 {
   margin-top: 2em;
 }
 
-article h2 + p:not(:first-child),
-article h3 + p:not(:first-child) {
+.cbs article h2 + p:not(:first-child),
+.cbs article h3 + p:not(:first-child) {
   margin-top: 0.6rem;
 }
 
-article h3 {
+.cbs article h3 {
   margin-top: 1.5em;
 }
 
-article img {
+.cbs article img {
   border-radius: 4px;
 }
 
-article .subheading-anchor {
+.cbs article .subheading-anchor {
   margin-top: -110px;
 }
