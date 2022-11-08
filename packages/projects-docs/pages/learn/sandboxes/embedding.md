@@ -87,7 +87,7 @@ Use this code to embed:
 ```
 
 That will give to a result like this:
-
+<br/>
 <iframe
     src="https://codesandbox.io/s/new?codemirror=1"
     width="100%"
@@ -117,7 +117,7 @@ Use this code to embed:
 ```
 
 That will give to a result like this:
-
+<br/>
 <iframe
     src="https://codesandbox.io/embed/new?codemirror=1&highlights=11,12,13,14
 "
