@@ -90,6 +90,13 @@ That will give to a result like this:
 
 https://codesandbox.io/s/new?codemirror=1
 
+<iframe
+    src="https://codesandbox.io/embed/swr-states-4une7"
+    width="100%"
+    height="500px"
+    title="SWR-States"
+  ></iframe>
+
 ### Code Example Embed
 
 You can also use CodeSandbox to show code examples, with highlighted lines. This
