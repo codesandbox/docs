@@ -5,11 +5,11 @@ const FEEDBACK_LINK_WITH_TRANSLATIONS = {
 };
 
 export default {
-  projectLink: "https://codesandbox.io",
+  project: "https://codesandbox.io",
   unstable_flexsearch: true,
-  floatTOC: true,
-  footer: false,
-  feedbackLink: false,
+  float: true,
+  footer: { component: null },
+  feedback: false,
   //   feedbackLabels: "feedback",
   //   feedbackLink: () => {
   //     const { locale } = useRouter();
@@ -18,7 +18,7 @@ export default {
   //       FEEDBACK_LINK_WITH_TRANSLATIONS["en-US"]
   //     );
   //   },
-  footerEditLink: ({ locale }) => {
+  editLink: ({ locale }) => {
     switch (locale) {
       default:
         return "Edit this page on CodeSandbox →";

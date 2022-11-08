@@ -7,7 +7,7 @@ export default {
   ...defaultConfigs,
   docsRepositoryBase: "https://codesandbox.io/p/github/codesandbox/docs/main",
   titleSuffix: " - CodeSandbox",
-  projectLinkIcon: BackLink,
+  project: { icon: BackLink },
   getNextSeoProps() {
     const ogImage = "https://codesandbox.io/docs/projects/og-image.jpg";
     const { frontMatter } = useConfig();
