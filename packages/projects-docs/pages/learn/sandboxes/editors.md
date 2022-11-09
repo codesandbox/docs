@@ -13,7 +13,7 @@ import Video from '../../../../../shared-components/Video'
 
 CodeSandbox offers two web editors and an iOS editor. A Sandbox is either a Browser Sandbox or a Cloud Sandbox (read more [here](/learn/sandboxes/overview)). All Sandboxes are available on the iOS app. 
 
-CodeSandbox also supports VS Code for [Repositories](/learn/repositories/overview)
+CodeSandbox supports VS Code for Cloud Sandboxes and [Repositories](/learn/repositories/overview).
 
 <Tabs tabs={["Browser", "Cloud", "iOS"]}>
     <WrapContent>
@@ -105,10 +105,10 @@ The sidebar is a quick way to operate and navigate your codebase. It allows you 
 - Search inside your project
 - Interact with source control
 
-You can change the sidebar view using the icons in the top. 
+You can change the sidebar view using the icons at the top. 
 
 <Callout emoji="⭑">
-    You can drag and drop elements and shift or command click to select multiple itens in the lists. 
+    You can drag and drop elements and shift or command click to select multiple items in the lists. 
 </Callout>
 
 ### Code Editor
@@ -126,7 +126,7 @@ The code editor is where the magic happens ✨. We provide a base experience for
 - Multiple Editors
 - Diff view
 
- If you want more advanced features, you can scale the Sandbox to a Repository so you can access our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the project inyour local IDE](../getting-started/keep-working-on-vscode) with your own customizations.
+ If you want more advanced features, you can download our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the Cloud Sandbox in your local IDE](../introduction/overview?tab=vs-code#keep-working-on-vs-code) with your own customizations.
 
 ### DevTool
 
