@@ -4,5 +4,6 @@
   "sandboxes": "Sandboxes",
   "repositories": "Repositories",
   "integrations": "Integrations",
-  "teams": "Team and access"
+  "teams": "Team and access",
+  "plans-billing": "Plans and Billing"
 }
