@@ -13,7 +13,7 @@ import Video from '../../../../../shared-components/Video'
 
 CodeSandbox offers two web editors and an iOS editor. A Sandbox is either a Browser Sandbox or a Cloud Sandbox (read more [here](/learn/sandboxes/overview)). All Sandboxes are available on the iOS app. 
 
-CodeSandbox supports VS Code for Cloud Sandboxes and [Repositories](/learn/repositories/overview).
+CodeSandbox supports VS Code for [Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) and [Repositories](/learn/repositories/overview).
 
 <Tabs tabs={["Browser", "Cloud", "iOS"]}>
     <WrapContent>
