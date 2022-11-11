@@ -26,11 +26,12 @@ If your project requires advanced configuration, try using a Cloud Sandbox inste
     </WrapContent>
     <WrapContent>
        ## What is a Cloud Sandbox
-       Unlike Browser Sandboxes that run on your browser. Cloud Sandboxes run on a virtual machine. Cloud Sandboxes are great for any protoytyping needs, but they really shine when working on projects that require the use of the server. 
-       You can learn more about the editor and the unique functionalities of the cloud developer environment in [Repositories](/learn/repositories/overview). Cloud Sandboxes and Repositories run on the same infrastructure and use the same editor. The main distinctions between the two is that Sandboxes are built for prototyping while Repositories are built for full scale development. Once you scale a Sandbox to a Repository, you will have 
-       - Integration with VS Code
+       Unlike Browser Sandboxes that run on your browser, Cloud Sandboxes run on our microVMs. Cloud Sandboxes are great for any prototyping needs, but they really shine when working on projects that require the use of the server. 
+       You can learn more about the editor and the unique functionalities of the cloud developer environment in [Repositories](/learn/repositories/overview).
+       
+       Cloud Sandboxes and Repositories run on the same infrastructure and use the same editor. The main distinction between the two is that Sandboxes are built for prototyping while Repositories are built for full-scale development. Once you scale a Sandbox to a Repository, you will have:
        - Branching
-       - Git Tooling 
+       - Git tooling 
        - Full integration with GitHub
     </WrapContent>
      <WrapContent>

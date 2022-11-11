@@ -50,10 +50,10 @@ The sidebar is a quick way to operate and navigate your codebase. It allows you 
 - Search inside your Repository
 - Interact with source control
 
-You can change the sidebar view using the icons in the top. 
+You can change the sidebar view using the icons at the top. 
 
 <Callout emoji="⭑">
-    You can drag and drop elements and shift or command click to select multiple itens in the lists. 
+    You can drag and drop elements and shift or command click to select multiple items in the lists. 
 </Callout>
 
 ### Code Editor
@@ -71,7 +71,7 @@ The code editor is where the magic happens ✨. We provide a base experience for
 - Multiple Editors
 - Diff view
 
- If you want more advanced features, you can download our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the Repository inyour local IDE](../getting-started/keep-working-on-vscode) with your own customizations.
+ If you want more advanced features, you can download our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and [open the Repository in your local IDE](../introduction/overview?tab=vs-code#keep-working-on-vs-code) with your own customizations.
 
 ### DevTool
 
@@ -191,7 +191,7 @@ Only people on your CodeSandbox team with permissions to the repository may join
 
 ### More Questions?
 
-For questions and support please use the community [discord server](https://discord.gg/R32XxEGp4s).
+For questions and support, please use the community [Discord server](https://discord.gg/R32XxEGp4s).
     </WrapContent>
      <WrapContent>
      CodeSandbox for iOS support for Sandbox development is powered by the app’s Node.js port, it enables offline development but it is limited by the restrictions imposed by iOS. To unleash the full potential of developing on iOS you can use CodeSandbox Repositories. Repositories allows you to have the same experience across different devices but making the most of each platform’s potential.
