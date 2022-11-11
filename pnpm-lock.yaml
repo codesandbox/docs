@@ -26,7 +26,7 @@ importers:
       autoprefixer: ^10.4.8
       clsx: ^1.2.1
       concurrently: ^7.3.0
-      flexsearch: 0.7.0
+      flexsearch: 0.7.1
       focus-visible: ^5.2.0
       git-url-parse: ^13.1.0
       github-slugger: ^1.4.0
@@ -53,7 +53,7 @@ importers:
       '@popperjs/core': 2.11.6
       '@reach/skip-nav': 0.17.0_biqbaboplfbrettd7655fr4n2y
       clsx: 1.2.1
-      flexsearch: 0.7.0
+      flexsearch: 0.7.1
       focus-visible: 5.2.0
       git-url-parse: 13.1.0
       github-slugger: 1.5.0
@@ -82,7 +82,7 @@ importers:
       postcss-import: 14.1.0_postcss@8.4.18
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      tailwindcss: 3.2.1
+      tailwindcss: 3.2.1_postcss@8.4.18
       vitest: 0.21.1
 
   packages/projects-docs:
@@ -116,7 +116,7 @@ importers:
       autoprefixer: 10.4.13_postcss@8.4.18
       next-transpile-modules: 9.1.0
       postcss: 8.4.18
-      tailwindcss: 3.2.1
+      tailwindcss: 3.2.1_postcss@8.4.18
 
 packages:
 
@@ -692,7 +692,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.2.1
+      tailwindcss: 3.2.1_postcss@8.4.18
     dev: true
 
   /@types/acorn/4.0.6:
@@ -1868,8 +1868,8 @@ packages:
       path-exists: 4.0.0
     dev: false
 
-  /flexsearch/0.7.0:
-    resolution: {integrity: sha512-Ejr7vz2f66F9TQwmj2Tv6wZcFWoDvJZK9hbkrWjo1lmMYh2RYoCimBi6p39wkQyuuOS7PI5vnNepTtI5+WTtKw==}
+  /flexsearch/0.7.1:
+    resolution: {integrity: sha512-+nuTYgqWMA8JawcReboPniMuvy0ClxqU66oMh4YzNiQQrbzH6VdJZMF/kzAEPnpL64FiZfbGRixv+cz5YponhA==}
     dev: false
 
   /flexsearch/0.7.31:
@@ -4605,10 +4605,12 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /tailwindcss/3.2.1:
+  /tailwindcss/3.2.1_postcss@8.4.18:
     resolution: {integrity: sha512-Uw+GVSxp5CM48krnjHObqoOwlCt5Qo6nw1jlCRwfGy68dSYb/LwS9ZFidYGRiM+w6rMawkZiu1mEMAsHYAfoLg==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3

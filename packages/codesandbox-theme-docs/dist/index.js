@@ -1744,9 +1744,13 @@ import cn12 from "clsx";
 import { useRouter as useRouter4 } from "next/router";
 import { Menu, Transition as Transition3 } from "@headlessui/react";
 var classes3 = {
-  link: cn12("nx-text-sm contrast-more:nx-text-gray-700 contrast-more:dark:nx-text-gray-100"),
+  link: cn12(
+    "nx-text-sm contrast-more:nx-text-gray-700 contrast-more:dark:nx-text-gray-100"
+  ),
   active: cn12("nx-subpixel-antialiased contrast-more:nx-font-bold"),
-  inactive: cn12("nx-text-gray-600 hover:nx-text-gray-800 dark:nx-text-gray-400 dark:hover:nx-text-gray-200")
+  inactive: cn12(
+    "nx-text-gray-600 hover:nx-text-gray-800 dark:nx-text-gray-400 dark:hover:nx-text-gray-200"
+  )
 };
 function NavbarMenu({
   className,
@@ -1806,7 +1810,11 @@ function Navbar({ flatDirectories, items }) {
     className: "nx-flex nx-items-center hover:nx-opacity-75 ltr:nx-mr-auto rtl:nx-ml-auto"
   }, renderComponent(config.logo)) : /* @__PURE__ */ React31.createElement("div", {
     className: "nx-flex nx-items-center ltr:nx-mr-auto rtl:nx-ml-auto"
-  }, renderComponent(config.logo)), items.map((pageOrMenu) => {
+  }, renderComponent(config.logo)), /* @__PURE__ */ React31.createElement("div", {
+    className: "cbs-menu-container"
+  }, /* @__PURE__ */ React31.createElement("div", {
+    className: "cbs-menu"
+  }, items.map((pageOrMenu) => {
     if (pageOrMenu.display === "hidden")
       return null;
     if (pageOrMenu.type === "menu") {
@@ -1842,10 +1850,10 @@ function Navbar({ flatDirectories, items }) {
       newWindow: page.newWindow,
       "aria-current": !page.newWindow && isActive
     }, page.title);
-  }), renderComponent(config.search.component, {
+  })), renderComponent(config.search.component, {
     directories: flatDirectories,
     className: "nx-hidden md:nx-inline-block mx-min-w-[200px]"
-  }), config.project.link ? /* @__PURE__ */ React31.createElement(Anchor, {
+  })), config.project.link ? /* @__PURE__ */ React31.createElement(Anchor, {
     className: "nx-p-2 nx-text-current",
     href: config.project.link,
     newWindow: true

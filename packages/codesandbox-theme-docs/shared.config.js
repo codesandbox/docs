@@ -13,7 +13,7 @@ export default {
   float: true,
   footer: { component: null },
   feedback: { component: null },
-  navigation: false,
+
   chat: false,
   project: { icon: null },
   editLink: { text: "Edit this page on CodeSandbox →" },

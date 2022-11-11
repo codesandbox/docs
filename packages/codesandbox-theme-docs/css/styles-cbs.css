@@ -4,6 +4,7 @@
   --docs-accent-color-link: #9580ff;
   --docs-light-bg: #e5e5e560;
   --docs-dark-bg: #2a2a2a90;
+  --nextra-navbar-height: 7rem;
 }
 
 html[class~="dark"] {
@@ -21,43 +22,49 @@ kbd {
   -webkit-font-smoothing: "antialiased";
 }
 
-body {
-  overflow-y: scroll;
+html {
   font-size: 17px;
 }
 
-/* .nextra-nav-container nav {
-  height: 6rem;
-} */
+.nextra-nav-container nav {
+  height: 7rem;
+}
 
-/* .nextra-sidebar-container { 
-.nextra-toc,
-article {
-  padding-top: 1.5rem;
-} */
+aside {
+  height: calc(100vh - 7rem);
+  top: calc(7rem + 4px) !important;
+}
 
-/* .nextra-sidebar-container,
-.nextra-toc {
-  height: calc(100vh - 6rem);
-} */
-
-/* .nextra-nav-container nav,
-.nextra-content-container {
+.nextra-nav-container nav {
   box-sizing: border-box;
-  padding: 0 2rem;
-} */
+  padding: 0 2.5rem;
+}
 
-@media (max-width: 1440px) {
-  .nextra-nav-container nav,
-  .nextra-content-container {
-    padding: 0 1rem;
-  }
+.nextra-sidebar-container {
+  box-sizing: border-box;
+  padding-left: 1rem;
+}
+
+.nextra-toc {
+  padding-right: 1rem;
 }
 
 @media (max-width: 640px) {
-  .nextra-nav-container nav,
-  .nextra-content-container {
+  .nextra-nav-container {
     padding: 0;
+  }
+
+  .nextra-nav-container nav {
+    padding: 0 2rem;
+  }
+
+  aside {
+    top: 0;
+    height: 100%;
+  }
+
+  .nextra-sidebar-container {
+    padding-top: 0;
   }
 }
 
@@ -107,6 +114,36 @@ p li a:hover {
 /* Nav
   ------------------------ */
 
+.nextra-nav-container {
+  border-top: 4px solid var(--docs-accent-color);
+}
+
+.nextra-nav-container nav {
+  justify-content: space-between;
+}
+
+.nextra-nav-container nav > a {
+  margin: 0 !important;
+}
+
+.nextra-nav-container .cbs-menu-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 56rem;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.nextra-nav-container .cbs-menu-container .cbs-menu {
+  display: flex;
+  gap: 0.4rem;
+}
+.nextra-nav-container .cbs-menu-container .cbs-menu a {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
 .nextra-nav-container .nextra-nav-container-blur {
   border: none;
   box-shadow: none !important;
@@ -138,10 +175,6 @@ html[class~="dark"] .nextra-nav-container .nextra-nav-container-blur {
   padding-left: 4px;
 }
 
-.nextra-nav-container {
-  border-top: 4px solid var(--docs-accent-color);
-}
-
 @media (max-width: 640px) {
   .logo {
     flex-shrink: 1;
@@ -171,12 +204,18 @@ html[class~="dark"] .nextra-search input::placeholder {
 }
 
 .nextra-sidebar-container > div {
+  margin-top: 10px;
   padding-top: 0;
 }
 
 .nextra-toc-meta,
 .nextra-sidebar-container-menu {
   box-shadow: none !important;
+}
+
+.nextra-sidebar-container .nextra-scrollbar + div {
+  border-width: 0;
+  height: 4rem;
 }
 
 .nextra-toc ul li a,
@@ -189,10 +228,6 @@ html[class~="light"] .nextra-sidebar-container ul li a {
   color: #0e0e0e;
 }
 
-html[class~="light"] .nextra-sidebar-container ul li.active a {
-  color: var(--docs-accent-color);
-}
-
 html[class~="light"] .nextra-sidebar-container ul li a:hover,
 html[class~="light"] .nextra-sidebar-container ul li.active a:hover {
   background-color: var(--docs-light-bg);
@@ -203,9 +238,19 @@ html[class~="dark"] .nextra-sidebar-container ul li.active a:hover {
   background-color: var(--docs-dark-bg);
 }
 
-html[class~="dark"] .nextra-sidebar-container ul li.active a,
+html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li a {
+  color: rgb(197, 197, 197);
+  font-size: 1.05rem;
+}
+
+html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li ul li a {
+  color: #999999;
+  font-size: 0.875rem;
+}
+
+html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li.active a,
 html[class~="dark"] .nextra-toc ul li a[aria-selected="true"],
-html[class~="light"] .nextra-sidebar-container ul li.active a,
+html[class~="light"] .folderAsHeader .nextra-sidebar-container ul li.active a,
 html[class~="light"] .nextra-toc ul li a[aria-selected="true"] {
   color: var(--docs-accent-color);
   background-color: transparent;
@@ -214,6 +259,12 @@ html[class~="light"] .nextra-toc ul li a[aria-selected="true"] {
 html[class~="dark"] .nextra-sidebar-container ul li.active a:hover,
 html[class~="dark"] .nextra-toc ul li a[aria-selected="true"]:hover {
   color: var(--docs-accent-color);
+}
+
+@media (max-width: 640px) {
+  html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li.active a {
+    color: currentColor;
+  }
 }
 
 /*  Remove lines when you apply `.folderAsHeader` the class in the doc 
@@ -266,14 +317,6 @@ svg:hover {
 
 .folderAsHeader .nextra-sidebar-container ul li ul li a {
   font-size: 14px;
-}
-
-html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li a {
-  color: rgb(197, 197, 197);
-}
-
-html[class~="dark"] .nextra-sidebar-container ul li ul li a {
-  color: #999999;
 }
 
 .wip {
@@ -441,6 +484,11 @@ html[class~="light"] .nextra-callout h4 {
   line-height: 120%;
   letter-spacing: -0.025em;
   font-weight: bold;
+}
+
+.cbs article h2 .nx-absolute,
+.cbs article h3 .nx-absolute {
+  margin-top: -7rem;
 }
 
 .cbs article h1:first-of-type {
