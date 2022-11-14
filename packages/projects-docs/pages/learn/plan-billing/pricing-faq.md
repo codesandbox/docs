@@ -7,7 +7,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 # Pricing FAQs
 
-## Can I try a Pro Subscription before I commit
+## Can I try a Pro Subscription before I commit?
 Yes. Trials are available for Team Pro. You can learn more [here](/learn/plan-billing/trials)
 
 ## Can I switch my billing to be annual or monthly after I subscribe?
