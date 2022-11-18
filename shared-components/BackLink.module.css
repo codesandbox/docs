@@ -11,7 +11,7 @@
   opacity: 1;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1280px) {
   .link {
     display: none;
   }
