@@ -1879,13 +1879,20 @@ p li a:hover {
 }
 .nextra-nav-container nav > a {
   margin: 0 !important;
+  width: 15.3rem;
+  flex-shrink: 0;
+}
+@media (max-width: 650px) {
+  .nextra-nav-container nav > a {
+    width: auto;
+    flex-shrink: 1;
+  }
 }
 .nextra-nav-container .cbs-menu-container {
   display: flex;
   justify-content: space-between;
-  max-width: 56rem;
+  max-width: 59rem;
   width: 100%;
-  padding-left: 2rem;
   padding-right: 2rem;
 }
 .nextra-nav-container .cbs-menu-container .cbs-menu {
@@ -1993,6 +2000,9 @@ html[class~="light"] .nextra-toc ul li a[aria-selected="true"] {
 html[class~="dark"] .nextra-sidebar-container ul li.active a:hover,
 html[class~="dark"] .nextra-toc ul li a[aria-selected="true"]:hover {
   color: var(--docs-accent-color);
+}
+html[class~="light"] .nx-text-primary-500 {
+  color: #000;
 }
 @media (max-width: 640px) {
   html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li.active a {
