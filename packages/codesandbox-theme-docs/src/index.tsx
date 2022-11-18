@@ -1,292 +1,253 @@
-import React, { useMemo, useState } from "react";
-import { useRouter } from "next/router";
-import "focus-visible";
-import { SkipNavContent } from "@reach/skip-nav";
-import { ThemeProvider } from "next-themes";
-import { Heading, PageMapItem, PageOpt } from "nextra";
-import cn from "classnames";
-import Head from "./head";
-import Navbar from "./navbar";
-import Footer, { NavLinks } from "./footer";
-import { MDXTheme } from "./misc/theme";
-import Sidebar from "./sidebar";
-import ToC from "./toc";
-import { ThemeConfigContext, useConfig } from "./config";
-import { ActiveAnchor } from "./misc/active-anchor";
-import defaultConfig from "./misc/default.config";
-import { getFSRoute } from "./utils/get-fs-route";
-import { MenuContext } from "./utils/menu-context";
-import normalizePages from "./utils/normalize-pages";
-import { DocsThemeConfig } from "./types";
-import "./polyfill";
-import Breadcrumb from "./breadcrumb";
-import renderComponent from "./utils/render-component";
-import { PageTheme } from "./misc/theme-context";
-import "./styles-cbs.css";
+import type { PageMapItem, PageOpts } from 'nextra'
+import type { ReactElement, ReactNode } from 'react'
 
-const isProduction = process.env.NODE_ENV === "production";
+import React, { useMemo } from 'react'
+import { useRouter } from 'next/router'
+import 'focus-visible'
+import { SkipNavContent } from '@reach/skip-nav'
+import cn from 'clsx'
+import { MDXProvider } from '@mdx-js/react'
+
+import './polyfill'
+import { Head, NavLinks, Sidebar, Breadcrumb, Banner } from './components'
+import { getComponents } from './mdx-components'
+import { ActiveAnchorProvider, ConfigProvider, useConfig } from './contexts'
+import { DEFAULT_LOCALE } from './constants'
+import { getFSRoute, normalizePages, renderComponent } from './utils'
+import { DocsThemeConfig, PageTheme, RecursivePartial } from './types'
 
 function useDirectoryInfo(pageMap: PageMapItem[]) {
-  const { locale, defaultLocale, asPath } = useRouter();
+  const { locale = DEFAULT_LOCALE, defaultLocale, route } = useRouter()
 
   return useMemo(() => {
-    const fsPath = getFSRoute(asPath, locale);
+    // asPath can return redirected url
+    const fsPath = getFSRoute(route, locale)
     return normalizePages({
       list: pageMap,
       locale,
       defaultLocale,
-      route: fsPath,
-    });
-  }, [pageMap, locale, defaultLocale, asPath]);
+      route: fsPath
+    })
+  }, [pageMap, locale, defaultLocale, route])
 }
 
 interface BodyProps {
-  themeContext: PageTheme;
-  breadcrumb?: React.ReactNode;
-  toc?: React.ReactNode;
-  timestamp?: number;
-  navLinks: React.ReactNode;
+  themeContext: PageTheme
+  breadcrumb: ReactNode
+  timestamp?: number
+  navigation: ReactNode
+  children: ReactNode
 }
 
-const Body: React.FC<BodyProps> = ({
+const Body = ({
   themeContext,
   breadcrumb,
-  navLinks,
   timestamp,
-  children,
-}) => {
-  const config = useConfig();
-  const { locale } = useRouter();
-  const date = timestamp ? new Date(timestamp) : null;
+  navigation,
+  children
+}: BodyProps): ReactElement => {
+  const config = useConfig()
+
+  if (themeContext.layout === 'raw') {
+    return <div className="nx-w-full nx-overflow-x-hidden">{children}</div>
+  }
+
+  const date =
+    themeContext.timestamp && config.gitTimestamp && timestamp
+      ? new Date(timestamp)
+      : null
+
+  const gitTimestampEl = date ? (
+    <div className="nx-mt-12 nx-mb-8 nx-block nx-text-xs nx-text-gray-500 ltr:nx-text-right rtl:nx-text-left dark:nx-text-gray-400">
+      {renderComponent(config.gitTimestamp, { timestamp: date })}
+    </div>
+  ) : (
+    <div className="nx-mt-16" />
+  )
+
+  const content = (
+    <>
+      {children}
+      {gitTimestampEl}
+      {navigation}
+    </>
+  )
+
+  const body = config.main?.({ children: content }) || content
+
+  if (themeContext.layout === 'full') {
+    return (
+      <article className="nx-min-h-[calc(100vh-4rem)] nx-w-full nx-overflow-x-hidden nx-pl-[max(env(safe-area-inset-left),1.5rem)] nx-pr-[max(env(safe-area-inset-right),1.5rem)]">
+        {body}
+      </article>
+    )
+  }
 
   return (
-    <React.Fragment>
-      <SkipNavContent />
-      {themeContext.layout === "full" ? (
-        <article className="nextra-body full relative justify-center overflow-x-hidden pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]">
-          <MDXTheme>{children}</MDXTheme>
-          {date && config.gitTimestamp ? (
-            <div className="text-xs text-right block text-gray-500 mt-12 mb-8 dark:text-gray-400 pointer-default">
-              {typeof config.gitTimestamp === "string"
-                ? config.gitTimestamp +
-                  " " +
-                  date.toLocaleDateString(locale, {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
-                : renderComponent(config.gitTimestamp, {
-                    timestamp: date,
-                    locale,
-                  })}
-            </div>
-          ) : (
-            <div className="mt-16" />
-          )}
-          {navLinks}
-        </article>
-      ) : themeContext.layout === "raw" ? (
-        <div className="nextra-body full relative overflow-x-hidden expand">
-          {children}
-        </div>
-      ) : (
-        <article
-          className={cn(
-            "nextra-body relative pb-8 w-full justify-center max-w-full flex min-w-0 pr-[calc(env(safe-area-inset-right)-1.5rem)]",
-            themeContext.typesetting
-              ? "nextra-body-typesetting-" + themeContext.typesetting
-              : ""
-          )}
-        >
-          <main className="max-w-4xl px-6 md:px-8 pt-4 z-10 min-w-0 w-full">
-            {breadcrumb}
-            <MDXTheme>{children}</MDXTheme>
-            {date && config.gitTimestamp ? (
-              <div className="text-xs text-right block text-gray-500 mt-12 mb-8 dark:text-gray-400 pointer-default">
-                {typeof config.gitTimestamp === "string"
-                  ? config.gitTimestamp +
-                    " " +
-                    date.toLocaleDateString(locale, {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
-                  : renderComponent(config.gitTimestamp, {
-                      timestamp: date,
-                      locale,
-                    })}
-              </div>
-            ) : (
-              <div className="mt-16" />
-            )}
-            {navLinks}
-          </main>
-        </article>
+    <article
+      className={cn(
+        'nx-flex nx-min-h-[calc(100vh-4rem)] nx-w-full nx-min-w-0 nx-max-w-full nx-justify-center nx-pb-8 nx-pr-[calc(env(safe-area-inset-right)-1.5rem)]',
+        themeContext.typesetting === 'article' &&
+          'nextra-body-typesetting-article'
       )}
-    </React.Fragment>
-  );
-};
-
-interface LayoutProps {
-  filename: string;
-  pageMap: PageMapItem[];
-  meta: Record<string, any>;
-  titleText: string | null;
-  headings?: Heading[];
-  timestamp?: number;
+    >
+      <main className="nx-w-full nx-min-w-0 nx-max-w-4xl nx-px-6 nx-pt-4 md:nx-px-8">
+        {breadcrumb}
+        {body}
+      </main>
+    </article>
+  )
 }
 
-const Content: React.FC<LayoutProps> = ({
-  filename,
+const InnerLayout = ({
+  filePath,
   pageMap,
-  meta,
-  titleText,
+  frontMatter,
   headings,
   timestamp,
-  children,
-}) => {
-  const { route, locale } = useRouter();
-  const config = useConfig();
-
+  children
+}: PageOpts & { children: ReactNode }): ReactElement => {
+  const config = useConfig()
   const {
     activeType,
     activeIndex,
     activeThemeContext,
     activePath,
-    // pageDirectories,
-    topLevelPageItems,
+    topLevelNavbarItems,
     docsDirectories,
     flatDirectories,
     flatDocsDirectories,
-    directories,
-  } = useDirectoryInfo(pageMap);
+    directories
+  } = useDirectoryInfo(pageMap)
 
-  const filepath = route.slice(0, route.lastIndexOf("/") + 1);
-  const filepathWithName = filepath + filename;
-  const title = meta.title || titleText || "Untitled";
-  const isRTL = useMemo(() => {
-    if (!config.i18n) return config.direction === "rtl";
-    const localeConfig = config.i18n.find((l) => l.locale === locale);
-    return localeConfig && localeConfig.direction === "rtl";
-  }, [config.i18n, locale]);
+  const themeContext = { ...activeThemeContext, ...frontMatter }
+  const hideSidebar =
+    !themeContext.sidebar ||
+    themeContext.layout === 'raw' ||
+    activeType === 'page'
 
-  const [menu, setMenu] = useState(false);
-  const themeContext = { ...activeThemeContext, ...meta };
+  const tocClassName =
+    'nextra-toc nx-order-last nx-hidden nx-w-64 nx-shrink-0 xl:nx-block'
 
-  const hideSidebar = !themeContext.sidebar || themeContext.layout === "raw";
-  const hideToc = !themeContext.toc || themeContext.layout === "raw";
+  const tocEl =
+    activeType === 'page' ||
+    !themeContext.toc ||
+    themeContext.layout !== 'default' ? (
+      themeContext.layout !== 'full' &&
+      themeContext.layout !== 'raw' && <div className={tocClassName} />
+    ) : (
+      <div className={cn(tocClassName, 'nx-px-4')}>
+        {renderComponent(config.toc.component, {
+          headings: config.toc.float ? headings : [],
+          filePath
+        })}
+      </div>
+    )
 
-  const headingArr = headings ?? [];
+  const { locale = DEFAULT_LOCALE } = useRouter()
+  const localeConfig = config.i18n.find(l => l.locale === locale)
+  const isRTL = localeConfig
+    ? localeConfig.direction === 'rtl'
+    : config.direction === 'rtl'
+
+  const direction = isRTL ? 'rtl' : 'ltr'
+
   return (
-    <React.Fragment>
-      <Head title={title} locale={locale} meta={meta} />
-      <MenuContext.Provider
-        value={{
-          menu,
-          setMenu,
-          defaultMenuCollapsed: !!config.defaultMenuCollapsed,
+    // This makes sure that selectors like `[dir=ltr] .nextra-container` work
+    // before hydration as Tailwind expects the `dir` attribute to exist on the
+    // `html` element.
+    <div dir={direction}>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.setAttribute('dir','${direction}')`
         }}
+      />
+      <Head />
+      <Banner />
+      {themeContext.navbar &&
+        renderComponent(config.navbar, {
+          flatDirectories,
+          items: topLevelNavbarItems
+        })}
+      <div
+        className={cn(
+          'nx-mx-auto nx-flex',
+          themeContext.layout !== 'raw' && 'nx-max-w-[90rem]'
+        )}
       >
-        <div
-          className={cn("nextra-container main-container flex flex-col", {
-            rtl: isRTL,
-            "menu-active": menu,
-          })}
-        >
-          {themeContext.navbar ? (
-            <Navbar
-              isRTL={isRTL}
-              flatDirectories={flatDirectories}
-              items={topLevelPageItems}
-            />
-          ) : null}
-          <ActiveAnchor>
-            <div className="nextra-content-container max-w-[90rem] w-full mx-auto flex flex-1 items-stretch">
-              <div className="flex flex-1 w-full">
-                <Sidebar
-                  directories={docsDirectories}
-                  flatDirectories={flatDirectories}
-                  fullDirectories={directories}
-                  headings={headings}
-                  isRTL={isRTL}
-                  asPopover={activeType === "page" || hideSidebar}
-                  includePlaceholder={themeContext.layout === "default"}
+        <ActiveAnchorProvider>
+          <Sidebar
+            docsDirectories={docsDirectories}
+            flatDirectories={flatDirectories}
+            fullDirectories={directories}
+            headings={headings}
+            asPopover={hideSidebar}
+            includePlaceholder={themeContext.layout === 'default'}
+          />
+          {tocEl}
+          <SkipNavContent />
+          <Body
+            themeContext={themeContext}
+            breadcrumb={
+              activeType !== 'page' && themeContext.breadcrumb ? (
+                <Breadcrumb activePath={activePath} />
+              ) : null
+            }
+            timestamp={timestamp}
+            navigation={
+              activeType !== 'page' && themeContext.pagination ? (
+                <NavLinks
+                  flatDirectories={flatDocsDirectories}
+                  currentIndex={activeIndex}
                 />
-                {activeType === "page" ||
-                hideToc ||
-                themeContext.layout !== "default" ? (
-                  themeContext.layout === "full" ||
-                  themeContext.layout === "raw" ? null : (
-                    <div className="nextra-toc w-64 hidden xl:block text-sm px-4 order-last flex-shrink-0" />
-                  )
-                ) : (
-                  <ToC
-                    headings={config.floatTOC ? headingArr : null}
-                    filepathWithName={filepathWithName}
-                  />
-                )}
-                <Body
-                  themeContext={themeContext}
-                  breadcrumb={
-                    activeType === "page" ? null : themeContext.breadcrumb ? (
-                      <Breadcrumb activePath={activePath} />
-                    ) : null
-                  }
-                  navLinks={
-                    activeType === "page" ? null : themeContext.pagination ? (
-                      <NavLinks
-                        flatDirectories={flatDocsDirectories}
-                        currentIndex={activeIndex}
-                        isRTL={isRTL}
-                      />
-                    ) : null
-                  }
-                  timestamp={timestamp}
-                >
-                  {children}
-                </Body>
-              </div>
-            </div>
-          </ActiveAnchor>
-          {themeContext.footer && config.footer ? (
-            <Footer menu={activeType === "page" || hideSidebar} />
-          ) : null}
-        </div>
-      </MenuContext.Provider>
-    </React.Fragment>
-  );
-};
+              ) : null
+            }
+          >
+            <MDXProvider
+              components={getComponents({
+                isRawLayout: themeContext.layout === 'raw',
+                components: config.components
+              })}
+            >
+              {children}
+            </MDXProvider>
+          </Body>
+        </ActiveAnchorProvider>
+      </div>
+      {themeContext.footer &&
+        renderComponent(config.footer.component, { menu: hideSidebar })}
+    </div>
+  )
+}
 
-const createLayout = (opts: PageOpt, _config: DocsThemeConfig) => {
-  const extendedConfig = Object.assign({}, defaultConfig, _config);
-  let layoutUsed = false;
-  const Page = ({ children }: { children: React.ReactChildren }) => {
-    if (!layoutUsed && isProduction) {
-      throw new Error(
-        "[Nextra] Please add the `getLayout` logic to your _app.js, see https://nextjs.org/docs/basic-features/layouts#per-page-layouts."
-      );
-    }
-    return children;
-  };
-  Page.getLayout = (page: any) => {
-    layoutUsed = true;
-    return (
-      <ThemeConfigContext.Provider value={extendedConfig}>
-        <ThemeProvider
-          attribute="class"
-          disableTransitionOnChange={true}
-          {...{
-            defaultTheme: extendedConfig.nextThemes.defaultTheme,
-            storageKey: extendedConfig.nextThemes.storageKey,
-            forcedTheme: extendedConfig.nextThemes.forcedTheme,
-          }}
-        >
-          <Content {...opts}>{page}</Content>
-        </ThemeProvider>
-      </ThemeConfigContext.Provider>
-    );
-  };
-  return Page;
-};
+export default function Layout(props: any): ReactElement {
+  const { route } = useRouter()
+  const context = globalThis.__nextra_pageContext__[route]
+  if (!context) throw new Error(`No content found for ${route}.`)
 
-export default createLayout;
+  const { pageOpts, Content } = context
+  return (
+    <ConfigProvider value={context}>
+      <InnerLayout {...pageOpts}>
+        <Content {...props} />
+      </InnerLayout>
+    </ConfigProvider>
+  )
+}
+
+type PartialDocsThemeConfig = RecursivePartial<DocsThemeConfig>
+
+export { useConfig, PartialDocsThemeConfig as DocsThemeConfig }
+export { useMDXComponents } from '@mdx-js/react'
+export { useTheme } from 'next-themes'
+export {
+  Bleed,
+  Callout,
+  Collapse,
+  NotFoundPage,
+  ServerSideErrorPage,
+  Tabs,
+  Tab,
+  Navbar,
+  ThemeSwitch
+} from './components'

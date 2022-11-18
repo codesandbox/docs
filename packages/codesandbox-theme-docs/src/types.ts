@@ -1,63 +1,134 @@
+/* eslint typescript-sort-keys/interface: error */
+import { FC, ReactNode } from 'react'
+import { ThemeProviderProps } from 'next-themes/dist/types'
+import { PageOpts } from 'nextra'
+import { NextSeoProps } from 'next-seo'
+import { Item } from './utils'
+import { TOCProps } from './components/toc'
+import { NavBarProps } from './components/navbar'
+
+export type RecursivePartial<T> = {
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? RecursivePartial<U>[]
+    : T[P] extends FC // do not change properties for optional in FC type
+    ? T[P]
+    : T[P] extends object
+    ? RecursivePartial<T[P]>
+    : T[P]
+}
+
 export interface DocsThemeConfig {
-  docsRepositoryBase?: string
-  titleSuffix?:
-    | string
-    | React.FC<{
-        locale: string
-        config: DocsThemeConfig
-        title: string
-        meta: Record<string, any>
-      }>
-  nextLinks?: boolean
-  prevLinks?: boolean
-  search?: boolean
-  darkMode?: boolean
-  /**
-   * A subset of configurations for https://github.com/pacocoursey/next-themes#themeprovider
-   * - defaultTheme
-   * - storageKey
-   * - forcedTheme
-   */
-  nextThemes?: object
-  defaultMenuCollapsed?: boolean
-  font?: boolean
-  footer?: boolean
-  footerText?: string
-  footerEditLink?: string
-  feedbackLink?: string
-  feedbackLabels?: string
-  head?:
-    | React.ReactNode
-    | React.FC<{
-        locale: string
-        config: DocsThemeConfig
-        title: string
-        meta: Record<string, any>
-      }>
-  logo?: React.ReactNode
-  direction?: string
-  i18n?: { locale: string; text: string; direction: string }[]
-  customSearch?: boolean
-  searchPlaceholder?: string | ((props: { locale?: string }) => string)
-  projectLink?: string
-  github?: string
-  projectLinkIcon?: React.FC<{ locale: string }>
-  projectChatLink?: string
-  projectChatLinkIcon?: React.FC<{ locale: string }>
-  sidebarSubtitle?: React.FC<{ title: string }>
-  floatTOC?: boolean
-  banner?: React.FC<{ locale: string }>
-  bannerKey?: string
-  gitTimestamp?: string | React.FC<{ locale: string; timestamp: Date }>
-  tocExtraContent?: React.FC<{ locale: string }>
-  unstable_faviconGlyph?: string
-  unstable_flexsearch?: boolean
-  unstable_searchResultEmpty?:
-    | React.ReactNode
-    | React.FC<{
-        locale: string
-        config: DocsThemeConfig
-        title: string
-        meta: Record<string, any>
-      }>
+  banner: {
+    dismissible: boolean
+    key: string
+    text?: ReactNode | FC
+  }
+  chat: {
+    icon: ReactNode | FC
+    link?: string
+  }
+  components?: Record<string, FC>
+  darkMode: boolean
+  direction: 'ltr' | 'rtl'
+  docsRepositoryBase: string
+  editLink: {
+    component: FC<{
+      children: ReactNode
+      className?: string
+      filePath?: string
+    }>
+    text: ReactNode | FC
+  }
+  faviconGlyph?: string
+  feedback: {
+    content?: ReactNode | FC
+    labels?: string
+  }
+  footer: {
+    component: ReactNode | FC<{ menu: boolean }>
+    text: ReactNode | FC
+  }
+  getNextSeoProps?: () => NextSeoProps
+  gitTimestamp: ReactNode | FC<{ timestamp: Date }>
+  head: ReactNode | FC
+  i18n: { direction?: string; locale: string; text: string }[]
+  logo: ReactNode | FC
+  logoLink?: boolean | string
+  main?: FC<{ children: ReactNode }>
+  navbar: ReactNode | FC<NavBarProps>
+  navigation:
+    | boolean
+    | {
+        next: boolean
+        prev: boolean
+      }
+  nextThemes: Pick<
+    ThemeProviderProps,
+    'defaultTheme' | 'storageKey' | 'forcedTheme'
+  >
+  notFound: {
+    content: ReactNode | FC
+    labels: string
+  }
+  primaryHue:
+    | number
+    | {
+        dark: number
+        light: number
+      }
+  project: {
+    icon: ReactNode | FC
+    link?: string
+  }
+  search: {
+    component:
+      | ReactNode
+      | FC<{
+          className?: string
+          directories: Item[]
+        }>
+    emptyResult: ReactNode | FC
+    // Can't be React component
+    placeholder: string | (() => string)
+  }
+  serverSideError: {
+    content: ReactNode | FC
+    labels: string
+  }
+  sidebar: {
+    defaultMenuCollapseLevel: number,
+    titleComponent: ReactNode | FC<{ title: string; type: string }>
+  }
+  toc: {
+    component: ReactNode | FC<TOCProps>
+    extraContent?: ReactNode | FC
+    float: boolean
+    title: ReactNode | FC
+  }
+}
+
+export type PageTheme = {
+  breadcrumb: boolean
+  collapsed: boolean
+  footer: boolean
+  layout: 'default' | 'full' | 'raw'
+  navbar: boolean
+  pagination: boolean
+  sidebar: boolean
+  timestamp: boolean
+  toc: boolean
+  typesetting: 'default' | 'article'
+}
+
+export type Context = {
+  Content: FC
+  pageOpts: PageOpts
+  themeConfig: DocsThemeConfig
+}
+
+export type SearchResult = {
+  children: ReactNode
+  id: string
+  prefix?: ReactNode
+  route: string
 }

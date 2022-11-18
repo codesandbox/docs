@@ -3,7 +3,7 @@ title: Install system packages
 description: Install system packages inside CodeSandbox Repositories as you're used to do on Linux or Mac.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Install system packages
 

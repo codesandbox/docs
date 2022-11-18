@@ -3,7 +3,7 @@ title: Install CLI tools and global modules
 description: Install CLI tools and global modules inside CodeSandbox Repositories.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Install CLI tools and global modules
 

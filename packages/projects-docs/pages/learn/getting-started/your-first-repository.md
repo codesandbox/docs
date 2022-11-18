@@ -3,7 +3,7 @@ title: Setup your first repository
 description:
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 import Video from '../../../../../shared-components/Video'
 import Hero from '../../../../../shared-components/Hero.js'

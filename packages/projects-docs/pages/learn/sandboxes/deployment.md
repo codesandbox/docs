@@ -4,7 +4,7 @@ authors: ['arthurdenner', 'CompuIves']
 description: Deploy your app to production from CodeSandbox
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Deployment Options
 <Callout>

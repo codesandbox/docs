@@ -1,16 +1,6 @@
-declare module 'github-slugger' {
-  export default class Slugger {
-    slug(data: string): string
+declare module globalThis {
+  import { Context } from './types'
+  var __nextra_pageContext__: {
+    [route: string]: Context
   }
-}
-
-declare module 'match-sorter'
-
-declare module 'title' {
-  export default function title(
-    title: string,
-    special?: {
-      special: string[]
-    }
-  )
 }

@@ -3,7 +3,7 @@ title: Open Source Collaboration
 description:
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 
 # Open Source Collaboration

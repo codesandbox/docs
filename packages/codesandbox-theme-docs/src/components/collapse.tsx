@@ -1,15 +1,18 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, ReactElement } from 'react'
+import cn from 'clsx'
 
-export default function Collapse({
+export function Collapse({
   children,
+  className,
   open
 }: {
   children: React.ReactNode
+  className?: string
   open: boolean
-}) {
+}): ReactElement {
   const containerRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
-  const animationRef = useRef<NodeJS.Timeout>()
+  const animationRef = useRef<any>()
   const initialRender = useRef(true)
   const initialState = useRef(open)
 
@@ -25,13 +28,14 @@ export default function Collapse({
       if (container && inner) {
         const contentHeight = innerRef.current.clientHeight
         container.style.maxHeight = contentHeight + 'px'
-        container.classList.remove('duration-500')
-        container.classList.add('duration-300')
+        container.classList.remove('nx-duration-500')
+        container.classList.add('nx-duration-300')
 
         inner.style.opacity = '1'
         animationRef.current = setTimeout(() => {
           const container = containerRef.current
           if (container) {
+            // should be style property in kebab-case, not css class name
             container.style.removeProperty('max-height')
           }
         }, 300)
@@ -42,8 +46,8 @@ export default function Collapse({
       if (container && inner) {
         const contentHeight = innerRef.current.clientHeight
         container.style.maxHeight = contentHeight + 'px'
-        container.classList.remove('duration-300')
-        container.classList.add('duration-500')
+        container.classList.remove('nx-duration-300')
+        container.classList.add('nx-duration-500')
 
         inner.style.opacity = '0'
         setTimeout(() => {
@@ -51,7 +55,7 @@ export default function Collapse({
           if (container) {
             container.style.maxHeight = '0px'
           }
-        })
+        }, 0)
       }
     }
   }, [open])
@@ -63,14 +67,17 @@ export default function Collapse({
   return (
     <div
       ref={containerRef}
-      className="transition-all ease-in-out duration-300 overflow-hidden transform-gpu motion-reduce:transition-none"
+      className="nx-transform-gpu nx-overflow-hidden nx-transition-all nx-duration-300 nx-ease-in-out motion-reduce:nx-transition-none"
       style={{
         maxHeight: initialState.current ? undefined : 0
       }}
     >
       <div
         ref={innerRef}
-        className="nextra-collapse-content transition-opacity ease-in-out duration-500 overflow-hidden transform-gpu motion-reduce:transition-none"
+        className={cn(
+          'nx-transform-gpu nx-overflow-hidden nx-p-2 nx-transition-opacity nx-duration-500 nx-ease-in-out motion-reduce:nx-transition-none',
+          className
+        )}
         style={{
           opacity: initialState.current ? 1 : 0
         }}

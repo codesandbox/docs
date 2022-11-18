@@ -3,7 +3,7 @@ title: Environment
 description: Configure your environment in CodeSandbox.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Environment
 

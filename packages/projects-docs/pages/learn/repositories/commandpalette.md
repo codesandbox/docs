@@ -3,7 +3,7 @@ title: Command Palette
 description: With the command palette, you can access nearly all the functionalities of CodeSandbox from your keyboard.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 import Video from '../../../../../shared-components/Video'
 
 # Command Palette

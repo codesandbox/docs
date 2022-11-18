@@ -4,7 +4,7 @@ authors: ['CompuIves']
 description: Embed a sandbox in docs, blog posts, Medium, and other websites.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Embedding
 <Callout>

@@ -48,5 +48,6 @@ export default function Nextra({ Component, pageProps }) {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, []);
+
   return getLayout(<Component {...pageProps} />);
 }

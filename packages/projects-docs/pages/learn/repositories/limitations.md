@@ -3,7 +3,7 @@ title: Limitations
 description: Current limitations of Repositories in CodeSandbox.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Limitations
 

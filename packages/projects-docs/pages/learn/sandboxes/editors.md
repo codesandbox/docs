@@ -4,7 +4,7 @@ description:
 ---
 
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 import Video from '../../../../../shared-components/Video'
 
 

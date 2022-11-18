@@ -3,7 +3,7 @@ title: tasks.json
 description:
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # .codesandbox/tasks.json
 

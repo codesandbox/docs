@@ -25,6 +25,12 @@
   transition: border-color 80ms ease, color 80ms ease;
 }
 
+@media (max-width: 640px) {
+  .tabTrigger {
+    padding: 10px 5px;
+  }
+}
+
 .tabTrigger:hover,
 .tabTrigger:focus {
   opacity: 1;

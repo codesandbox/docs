@@ -3,7 +3,7 @@ title: Team and access management
 description: Manage your teams and control access to your workspace inside CodeSandbox Repositories
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Teams
 

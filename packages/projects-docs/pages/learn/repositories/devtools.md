@@ -3,7 +3,7 @@ title: DevTools - The Basics
 description: 
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # DevTools
  

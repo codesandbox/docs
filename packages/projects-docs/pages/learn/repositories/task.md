@@ -3,7 +3,7 @@ title: Task
 description: Learn how you can use tasks to run commands with a click or on setup.
 ---
 
-import Callout from 'nextra-theme-docs/callout'
+import { Callout } from 'nextra-theme-docs'
 
 # Task
 

@@ -6,8 +6,9 @@
 
 .dark,
 .light {
-  --nextra-primary-hue: 270;
-  --nextra-primary-hue-saturation: 60%;
+  --nextra-primary-hue: 250;
+  --nextra-primary-hue-saturation: 100%;
+  --nextra-primary-hue-lightness: 75%;
 }
 
 .light {
