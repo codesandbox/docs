@@ -226,8 +226,8 @@ html[class~="dark"] .nextra-search input::placeholder {
 }
 
 .nextra-toc ul li a,
-.nextra-sidebar-container ul li.active a,
-.nextra-sidebar-container ul li.active a:hover {
+.nextra-sidebar-container ul li.active > a,
+.nextra-sidebar-container ul li.active > a:hover {
   font-weight: normal;
 }
 
@@ -236,12 +236,12 @@ html[class~="light"] .nextra-sidebar-container ul li a {
 }
 
 html[class~="light"] .nextra-sidebar-container ul li a:hover,
-html[class~="light"] .nextra-sidebar-container ul li.active a:hover {
+html[class~="light"] .nextra-sidebar-container ul li.active > a:hover {
   background-color: var(--docs-light-bg);
 }
 
 html[class~="dark"] .nextra-sidebar-container ul li a:hover,
-html[class~="dark"] .nextra-sidebar-container ul li.active a:hover {
+html[class~="dark"] .nextra-sidebar-container ul li.active > a:hover {
   background-color: var(--docs-dark-bg);
 }
 
@@ -255,26 +255,36 @@ html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li ul li a {
   font-size: 0.875rem;
 }
 
-html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li.active a,
+html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li.active > a,
 html[class~="dark"] .nextra-toc ul li a[aria-selected="true"],
-html[class~="light"] .folderAsHeader .nextra-sidebar-container ul li.active a,
+html[class~="light"] .folderAsHeader .nextra-sidebar-container ul li.active > a,
 html[class~="light"] .nextra-toc ul li a[aria-selected="true"] {
   color: var(--docs-accent-color);
   background-color: transparent;
 }
 
-html[class~="dark"] .nextra-sidebar-container ul li.active a:hover,
+html[class~="dark"] .nextra-sidebar-container ul li.active > a:hover,
 html[class~="dark"] .nextra-toc ul li a[aria-selected="true"]:hover {
   color: var(--docs-accent-color);
 }
 
 html[class~="light"] .nx-text-primary-500 {
-  color: #000;
+  color: var(--docs-accent-color);
 }
 
 @media (max-width: 640px) {
-  html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li.active a {
+  html[class~="dark"]
+    .folderAsHeader
+    .nextra-sidebar-container
+    ul
+    li.active
+    > a {
     color: currentColor;
+    text-align: left;
+  }
+
+  .folderAsHeader .nextra-sidebar-container ul ul li a {
+    justify-content: normal;
   }
 }
 
@@ -399,18 +409,6 @@ html[class~="dark"] p kbd {
   color: #c5c5c5;
 }
 
-/* Code Snippet
-  ------------------------ */
-html[class~="light"] article pre {
-  background-color: var(--docs-light-bg);
-  border: solid 1px #e5e7eb;
-}
-
-html[class~="dark"] article pre {
-  background-color: var(--docs-dark-bg);
-  border: solid 1px #2a2a2a;
-}
-
 /* Inline Code Snippet
   ------------------------ */
 
@@ -443,6 +441,7 @@ html[class~="dark"] p code {
 html[class~="light"] .nextra-callout {
   color: rgb(65 65 65 / 90%);
   background-color: var(--docs-light-bg);
+  border: none !important;
 }
 html[class~="dark"] .nextra-callout {
   border: none !important;

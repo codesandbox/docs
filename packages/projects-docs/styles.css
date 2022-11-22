@@ -15,3 +15,15 @@
   --docs-accent-color: #644ed7;
   --docs-accent-color-link: #644ed7;
 }
+
+/* Code Snippet
+  ------------------------ */
+html[class~="light"] article pre {
+  background-color: var(--docs-light-bg);
+  border: solid 1px #e5e7eb;
+}
+
+html[class~="dark"] article pre {
+  background-color: var(--docs-dark-bg);
+  border: solid 1px #2a2a2a;
+}
