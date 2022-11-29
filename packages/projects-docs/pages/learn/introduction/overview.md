@@ -42,7 +42,7 @@ CodeSandbox provides many alternatives for you to code. Each option is built to 
 
 ## Opening a branch in VS Code
 
-![Open in vscode button](../images/getting-openvscode.jpg)
+![Open in vscode button](../images/getting-openvscode.png)
 
 To start working in a branch on VS Code, open the branch in the Editor and click on the `Open in VS Code` button positioned in the bottom left corner. This will prompt you to install the CodeSandbox extension  responsible for making the connection to our cloud development environment.
 

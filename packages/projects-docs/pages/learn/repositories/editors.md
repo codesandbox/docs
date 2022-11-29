@@ -100,7 +100,7 @@ Press <kbd>Cmd/Ctrl</kbd> <kbd>.</kbd> to hide the DevTools.
 
 You can jump to VS Code at anytime from the browser
 
-![Open VS Code from Web Editor](../images/vscode-open.jpg)
+![Open VS Code from Web Editor](../images/vscode-open.png)
 
 > We also support opening the branch [Using Visual Studio Insiders](./insiders).
 
