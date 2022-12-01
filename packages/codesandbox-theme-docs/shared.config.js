@@ -1,9 +1,3 @@
-import { useRouter } from "next/router";
-
-const FEEDBACK_LINK_WITH_TRANSLATIONS = {
-  "en-US": "Question? Give us feedback →",
-};
-
 export default {
   project: "https://codesandbox.io",
   unstable_flexsearch: {
