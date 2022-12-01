@@ -27,7 +27,7 @@ export const DEFAULT_THEME: DocsThemeConfig = {
   },
   darkMode: true,
   direction: 'ltr',
-  docsRepositoryBase: 'https://github.com/shuding/nextra',
+  docsRepositoryBase: 'https://github.com/codesandbox/docs',
   editLink: {
     component({ className, filePath, children }) {
       const editUrl = getGitEditUrl(filePath)
@@ -45,9 +45,9 @@ export const DEFAULT_THEME: DocsThemeConfig = {
   feedback: {},
   footer: {
     component: Footer,
-    text: `MIT ${new Date().getFullYear()} © Nextra.`
+    text: `MIT ${new Date().getFullYear()} © CodeSandbox.`
   },
-  getNextSeoProps: () => ({ titleTemplate: '%s – Nextra' }),
+  getNextSeoProps: () => ({ titleTemplate: '%s – CodeSandbox' }),
   gitTimestamp({ timestamp }) {
     const { locale = DEFAULT_LOCALE } = useRouter()
     return (
@@ -65,20 +65,20 @@ export const DEFAULT_THEME: DocsThemeConfig = {
     <>
       <meta name="msapplication-TileColor" content="#fff" />
       <meta httpEquiv="Content-Language" content="en" />
-      <meta name="description" content="Nextra: the next docs builder" />
+      <meta name="description" content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@shuding_" />
-      <meta property="og:title" content="Nextra: the next docs builder" />
-      <meta property="og:description" content="Nextra: the next docs builder" />
-      <meta name="apple-mobile-web-app-title" content="Nextra" />
+      <meta property="og:title" content="CodeSandbox" />
+      <meta property="og:description" content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster" />
+      <meta name="apple-mobile-web-app-title" content="CodeSandbox" />
     </>
   ),
   i18n: [],
   logo: (
     <>
-      <span className="nx-font-extrabold">Nextra</span>
+      <span className="nx-font-extrabold">CodeSandbox</span>
       <span className="nx-ml-2 nx-hidden nx-font-normal nx-text-gray-600 md:nx-inline">
-        The Next Docs Builder
+        CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster
       </span>
     </>
   ),
