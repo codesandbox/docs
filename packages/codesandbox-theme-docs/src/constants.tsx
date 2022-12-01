@@ -67,7 +67,7 @@ export const DEFAULT_THEME: DocsThemeConfig = {
       <meta httpEquiv="Content-Language" content="en" />
       <meta name="description" content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@shuding_" />
+      <meta name="twitter:site" content="@codesandbox" />
       <meta property="og:title" content="CodeSandbox" />
       <meta property="og:description" content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster" />
       <meta name="apple-mobile-web-app-title" content="CodeSandbox" />
