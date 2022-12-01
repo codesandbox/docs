@@ -6,6 +6,12 @@ export const getGitEditUrl = (filePath?: string): string => {
   const repo = gitUrlParse(config.docsRepositoryBase || '')
 
   if (!repo) throw new Error('Invalid `docsRepositoryBase` URL!')
+  console.log(repo.href);
 
-  return `${repo.href}/${filePath}`
+  const url = new URL(repo.href);
+  if (filePath) {
+    url.searchParams.append('file', filePath);
+  }
+
+  return url.toString();
 }
