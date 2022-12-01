@@ -1,21 +1,21 @@
 /* eslint sort-keys: error */
-import React, { isValidElement } from 'react'
-import { DocsThemeConfig, PageTheme } from './types'
-import { useRouter } from 'next/router'
-import { Anchor, Flexsearch, Footer, Navbar, TOC } from './components'
-import { DiscordIcon, GitHubIcon } from 'nextra/icons'
-import { MatchSorterSearch } from './components/match-sorter-search'
-import { useConfig } from './contexts'
-import { getGitEditUrl } from './utils'
+import React, { isValidElement } from "react";
+import { DocsThemeConfig, PageTheme } from "./types";
+import { useRouter } from "next/router";
+import { Anchor, Flexsearch, Footer, Navbar, TOC } from "./components";
+import { DiscordIcon, GitHubIcon } from "nextra/icons";
+import { MatchSorterSearch } from "./components/match-sorter-search";
+import { useConfig } from "./contexts";
+import { getGitEditUrl } from "./utils";
 
-export const DEFAULT_LOCALE = 'en-US'
+export const DEFAULT_LOCALE = "en-US";
 
-export const IS_BROWSER = typeof window !== 'undefined'
+export const IS_BROWSER = typeof window !== "undefined";
 
 export const DEFAULT_THEME: DocsThemeConfig = {
   banner: {
     dismissible: true,
-    key: 'nextra-banner'
+    key: "nextra-banner",
   },
   chat: {
     icon: (
@@ -23,54 +23,66 @@ export const DEFAULT_THEME: DocsThemeConfig = {
         <DiscordIcon />
         <span className="nx-sr-only">Discord</span>
       </>
-    )
+    ),
   },
   darkMode: true,
-  direction: 'ltr',
-  docsRepositoryBase: 'https://github.com/codesandbox/docs',
+  direction: "ltr",
+  docsRepositoryBase: "https://github.com/codesandbox/docs",
   editLink: {
     component({ className, filePath, children }) {
-      const editUrl = getGitEditUrl(filePath)
+      const editUrl = getGitEditUrl(filePath);
       if (!editUrl) {
-        return null
+        return null;
       }
       return (
         <Anchor className={className} href={editUrl} target="_blank">
           {children}
         </Anchor>
-      )
+      );
     },
-    text: 'Edit this page'
+    text: "Edit this page",
   },
   feedback: {},
   footer: {
     component: Footer,
-    text: `MIT ${new Date().getFullYear()} © CodeSandbox.`
+    text: `MIT ${new Date().getFullYear()} © CodeSandbox.`,
   },
-  getNextSeoProps: () => ({ titleTemplate: '%s – CodeSandbox' }),
+  getNextSeoProps: () => ({ titleTemplate: "%s – CodeSandbox" }),
   gitTimestamp({ timestamp }) {
-    const { locale = DEFAULT_LOCALE } = useRouter()
+    const { locale = DEFAULT_LOCALE } = useRouter();
     return (
       <>
-        Last updated on{' '}
+        Last updated on{" "}
         {timestamp.toLocaleDateString(locale, {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
+          day: "numeric",
+          month: "long",
+          year: "numeric",
         })}
       </>
-    )
+    );
   },
   head: (
     <>
       <meta name="msapplication-TileColor" content="#fff" />
       <meta httpEquiv="Content-Language" content="en" />
-      <meta name="description" content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster" />
+      <meta
+        name="description"
+        content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster"
+      />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@codesandbox" />
-      <meta property="og:title" content="CodeSandbox" />
-      <meta property="og:description" content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster" />
-      <meta name="apple-mobile-web-app-title" content="CodeSandbox" />
+      <meta
+        property="og:title"
+        content="CodeSandbox: Online Code Editor and IDE for Rapid Web Development"
+      />
+      <meta
+        property="og:description"
+        content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster"
+      />
+      <meta
+        name="apple-mobile-web-app-title"
+        content="CodeSandbox: Online Code Editor and IDE for Rapid Web Development"
+      />
     </>
   ),
   i18n: [],
@@ -78,7 +90,8 @@ export const DEFAULT_THEME: DocsThemeConfig = {
     <>
       <span className="nx-font-extrabold">CodeSandbox</span>
       <span className="nx-ml-2 nx-hidden nx-font-normal nx-text-gray-600 md:nx-inline">
-        CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster
+        CodeSandbox is an online code editor and prototyping tool that makes
+        creating and sharing web apps faster
       </span>
     </>
   ),
@@ -86,19 +99,19 @@ export const DEFAULT_THEME: DocsThemeConfig = {
   navbar: Navbar,
   navigation: {
     next: true,
-    prev: true
+    prev: true,
   },
   nextThemes: {
-    defaultTheme: 'system',
-    storageKey: 'theme'
+    defaultTheme: "system",
+    storageKey: "theme",
   },
   notFound: {
-    content: 'Submit an issue about broken link →',
-    labels: 'bug'
+    content: "Submit an issue about broken link →",
+    labels: "bug",
   },
   primaryHue: {
     dark: 204,
-    light: 212
+    light: 212,
   },
   project: {
     icon: (
@@ -106,16 +119,16 @@ export const DEFAULT_THEME: DocsThemeConfig = {
         <GitHubIcon />
         <span className="nx-sr-only">GitHub</span>
       </>
-    )
+    ),
   },
   search: {
     component({ className, directories }) {
-      const config = useConfig()
+      const config = useConfig();
       return config.unstable_flexsearch ? (
         <Flexsearch className={className} />
       ) : (
         <MatchSorterSearch className={className} directories={directories} />
-      )
+      );
     },
     emptyResult: (
       <span className="nx-block nx-select-none nx-p-8 nx-text-center nx-text-sm nx-text-gray-400">
@@ -123,78 +136,78 @@ export const DEFAULT_THEME: DocsThemeConfig = {
       </span>
     ),
     placeholder() {
-      const { locale } = useRouter()
-      if (locale === 'zh-CN') return '搜索文档…'
-      if (locale === 'ru-RU') return 'Поиск документации…'
-      if (locale === 'fr-FR') return 'Rechercher de la documentation…'
-      return 'Search documentation…'
-    }
+      const { locale } = useRouter();
+      if (locale === "zh-CN") return "搜索文档…";
+      if (locale === "ru-RU") return "Поиск документации…";
+      if (locale === "fr-FR") return "Rechercher de la documentation…";
+      return "Search documentation…";
+    },
   },
   serverSideError: {
-    content: 'Submit an issue about error in url →',
-    labels: 'bug'
+    content: "Submit an issue about error in url →",
+    labels: "bug",
   },
   sidebar: {
     defaultMenuCollapseLevel: 2,
-    titleComponent: ({ title }) => <>{title}</>
+    titleComponent: ({ title }) => <>{title}</>,
   },
   toc: {
     component: TOC,
     float: true,
-    title: 'On This Page'
-  }
-}
+    title: "On This Page",
+  },
+};
 
 export const DEEP_OBJECT_KEYS = Object.entries(DEFAULT_THEME)
   .map(([key, value]) => {
     const isObject =
       value &&
-      typeof value === 'object' &&
+      typeof value === "object" &&
       !Array.isArray(value) &&
-      !isValidElement(value)
+      !isValidElement(value);
     if (isObject) {
-      return key
+      return key;
     }
   })
-  .filter(Boolean) as (keyof DocsThemeConfig)[]
+  .filter(Boolean) as (keyof DocsThemeConfig)[];
 
 export const LEGACY_CONFIG_OPTIONS: Record<string, string> = {
-  bannerKey: 'banner.key',
-  bodyExtraContent: 'main',
-  customSearch: 'search.component',
-  defaultMenuCollapsed: 'sidebar.defaultMenuCollapseLevel',
-  feedbackLabels: 'feedback.labels',
-  feedbackLink: 'feedback.content',
-  floatTOC: 'toc.float',
-  footerEditLink: 'editLink.text',
-  footerText: 'footer.text',
-  github: 'project.link',
-  nextLinks: 'navigation.next',
-  notFoundLabels: 'notFound.labels',
-  notFoundLink: 'notFound.content',
-  prevLinks: 'navigation.prev',
-  projectChat: 'chat',
-  projectChatLink: 'chat.link',
-  projectChatLinkIcon: 'chat.icon',
-  projectLink: 'project.link',
-  projectLinkIcon: 'project.icon',
-  searchPlaceholder: 'search.placeholder',
-  serverSideErrorLabels: 'serverSideError.labels',
-  serverSideErrorLink: 'serverSideError.content',
-  sidebarSubtitle: 'sidebar.titleComponent',
-  tocExtraContent: 'toc.extraContent',
-  unstable_searchResultEmpty: 'search.emptyResult'
-}
+  bannerKey: "banner.key",
+  bodyExtraContent: "main",
+  customSearch: "search.component",
+  defaultMenuCollapsed: "sidebar.defaultMenuCollapseLevel",
+  feedbackLabels: "feedback.labels",
+  feedbackLink: "feedback.content",
+  floatTOC: "toc.float",
+  footerEditLink: "editLink.text",
+  footerText: "footer.text",
+  github: "project.link",
+  nextLinks: "navigation.next",
+  notFoundLabels: "notFound.labels",
+  notFoundLink: "notFound.content",
+  prevLinks: "navigation.prev",
+  projectChat: "chat",
+  projectChatLink: "chat.link",
+  projectChatLinkIcon: "chat.icon",
+  projectLink: "project.link",
+  projectLinkIcon: "project.icon",
+  searchPlaceholder: "search.placeholder",
+  serverSideErrorLabels: "serverSideError.labels",
+  serverSideErrorLink: "serverSideError.content",
+  sidebarSubtitle: "sidebar.titleComponent",
+  tocExtraContent: "toc.extraContent",
+  unstable_searchResultEmpty: "search.emptyResult",
+};
 
 export const DEFAULT_PAGE_THEME: PageTheme = {
   breadcrumb: true,
   collapsed: false,
   footer: true,
-  layout: 'default',
+  layout: "default",
   navbar: true,
   pagination: true,
   sidebar: true,
   timestamp: true,
   toc: true,
-  typesetting: 'default'
-}
+  typesetting: "default",
+};
