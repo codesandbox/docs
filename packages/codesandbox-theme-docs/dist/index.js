@@ -2439,7 +2439,8 @@ var DEFAULT_THEME = {
       }
       return /* @__PURE__ */ React39.createElement(Anchor, {
         className,
-        href: editUrl
+        href: editUrl,
+        target: "_blank"
       }, children);
     },
     text: "Edit this page"
@@ -2475,13 +2476,13 @@ var DEFAULT_THEME = {
     content: "@codesandbox"
   }), /* @__PURE__ */ React39.createElement("meta", {
     property: "og:title",
-    content: "CodeSandbox"
+    content: "CodeSandbox: Online Code Editor and IDE for Rapid Web Development"
   }), /* @__PURE__ */ React39.createElement("meta", {
     property: "og:description",
     content: "CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster"
   }), /* @__PURE__ */ React39.createElement("meta", {
     name: "apple-mobile-web-app-title",
-    content: "CodeSandbox"
+    content: "CodeSandbox: Online Code Editor and IDE for Rapid Web Development"
   })),
   i18n: [],
   logo: /* @__PURE__ */ React39.createElement(React39.Fragment, null, /* @__PURE__ */ React39.createElement("span", {
