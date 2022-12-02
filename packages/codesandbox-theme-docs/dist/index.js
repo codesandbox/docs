@@ -495,7 +495,11 @@ var getGitEditUrl = (filePath) => {
   const repo = gitUrlParse(config.docsRepositoryBase || "");
   if (!repo)
     throw new Error("Invalid `docsRepositoryBase` URL!");
-  return `${repo.href}/${filePath}`;
+  const url = new URL(repo.href);
+  if (filePath) {
+    url.searchParams.append("file", filePath);
+  }
+  return url.toString();
 };
 
 // src/utils/get-git-issue-url.ts
@@ -2425,7 +2429,7 @@ var DEFAULT_THEME = {
   },
   darkMode: true,
   direction: "ltr",
-  docsRepositoryBase: "https://github.com/shuding/nextra",
+  docsRepositoryBase: "https://github.com/codesandbox/docs",
   editLink: {
     component({ className, filePath, children }) {
       const editUrl = getGitEditUrl(filePath);
@@ -2434,7 +2438,8 @@ var DEFAULT_THEME = {
       }
       return /* @__PURE__ */ React39.createElement(Anchor, {
         className,
-        href: editUrl
+        href: editUrl,
+        target: "_blank"
       }, children);
     },
     text: "Edit this page"
@@ -2442,9 +2447,9 @@ var DEFAULT_THEME = {
   feedback: {},
   footer: {
     component: Footer,
-    text: `MIT ${new Date().getFullYear()} \xA9 Nextra.`
+    text: `MIT ${new Date().getFullYear()} \xA9 CodeSandbox.`
   },
-  getNextSeoProps: () => ({ titleTemplate: "%s \u2013 Nextra" }),
+  getNextSeoProps: () => ({ titleTemplate: "%s \u2013 CodeSandbox" }),
   gitTimestamp({ timestamp }) {
     const { locale = DEFAULT_LOCALE } = useRouter8();
     return /* @__PURE__ */ React39.createElement(React39.Fragment, null, "Last updated on", " ", timestamp.toLocaleDateString(locale, {
@@ -2453,37 +2458,13 @@ var DEFAULT_THEME = {
       year: "numeric"
     }));
   },
-  head: /* @__PURE__ */ React39.createElement(React39.Fragment, null, /* @__PURE__ */ React39.createElement("meta", {
-    name: "msapplication-TileColor",
-    content: "#fff"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    httpEquiv: "Content-Language",
-    content: "en"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    name: "description",
-    content: "Nextra: the next docs builder"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    name: "twitter:card",
-    content: "summary_large_image"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    name: "twitter:site",
-    content: "@shuding_"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    property: "og:title",
-    content: "Nextra: the next docs builder"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    property: "og:description",
-    content: "Nextra: the next docs builder"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    name: "apple-mobile-web-app-title",
-    content: "Nextra"
-  })),
   i18n: [],
+  head: null,
   logo: /* @__PURE__ */ React39.createElement(React39.Fragment, null, /* @__PURE__ */ React39.createElement("span", {
     className: "nx-font-extrabold"
-  }, "Nextra"), /* @__PURE__ */ React39.createElement("span", {
+  }, "CodeSandbox"), /* @__PURE__ */ React39.createElement("span", {
     className: "nx-ml-2 nx-hidden nx-font-normal nx-text-gray-600 md:nx-inline"
-  }, "The Next Docs Builder")),
+  }, "CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster")),
   logoLink: true,
   navbar: Navbar,
   navigation: {

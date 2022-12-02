@@ -3,14 +3,15 @@ import BackLink from "../../shared-components/BackLink";
 import defaultConfigs from "codesandbox-theme-docs/shared.config.js";
 import { useConfig } from "nextra-theme-docs";
 
+const OG_IMAGE_URL = "https://codesandbox.io/docs/projects/og-image.jpg";
+
 export default {
   ...defaultConfigs,
   docsRepositoryBase: "https://codesandbox.io/p/github/codesandbox/docs/main",
   titleSuffix: " - CodeSandbox",
   project: { icon: BackLink },
   gitTimestamp: null,
-  getNextSeoProps() {
-    const ogImage = "https://codesandbox.io/docs/projects/og-image.jpg";
+  head() {
     const { frontMatter } = useConfig();
 
     return (
@@ -33,7 +34,7 @@ export default {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@codesandbox" />
-        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image" content={OG_IMAGE_URL} />
         <meta
           name="og:title"
           content={
@@ -42,7 +43,7 @@ export default {
               : "CodeSandbox Documentation"
           }
         />
-        <meta name="og:image" content={ogImage} />
+        <meta name="og:image" content={OG_IMAGE_URL} />
       </>
     );
   },
