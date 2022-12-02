@@ -12,8 +12,6 @@ export const DEFAULT_LOCALE = "en-US";
 
 export const IS_BROWSER = typeof window !== "undefined";
 
-const OG_IMAGE_URL = "https://codesandbox.io/docs/projects/og-image.jpg";
-
 export const DEFAULT_THEME: DocsThemeConfig = {
   banner: {
     dismissible: true,
@@ -63,33 +61,8 @@ export const DEFAULT_THEME: DocsThemeConfig = {
       </>
     );
   },
-  head: (
-    <>
-      <meta name="msapplication-TileColor" content="#fff" />
-      <meta httpEquiv="Content-Language" content="en" />
-      <meta
-        name="description"
-        content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster"
-      />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@codesandbox" />
-      <meta name="twitter:image" content={OG_IMAGE_URL} />
-      <meta
-        property="og:title"
-        content="CodeSandbox: Online Code Editor and IDE for Rapid Web Development"
-      />
-      <meta
-        property="og:description"
-        content="CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster"
-      />
-      <meta name="og:image" content={OG_IMAGE_URL} />
-      <meta
-        name="apple-mobile-web-app-title"
-        content="CodeSandbox: Online Code Editor and IDE for Rapid Web Development"
-      />
-    </>
-  ),
   i18n: [],
+  head: null,
   logo: (
     <>
       <span className="nx-font-extrabold">CodeSandbox</span>

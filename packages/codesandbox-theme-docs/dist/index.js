@@ -2458,32 +2458,8 @@ var DEFAULT_THEME = {
       year: "numeric"
     }));
   },
-  head: /* @__PURE__ */ React39.createElement(React39.Fragment, null, /* @__PURE__ */ React39.createElement("meta", {
-    name: "msapplication-TileColor",
-    content: "#fff"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    httpEquiv: "Content-Language",
-    content: "en"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    name: "description",
-    content: "CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    name: "twitter:card",
-    content: "summary_large_image"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    name: "twitter:site",
-    content: "@codesandbox"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    property: "og:title",
-    content: "CodeSandbox: Online Code Editor and IDE for Rapid Web Development"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    property: "og:description",
-    content: "CodeSandbox is an online code editor and prototyping tool that makes creating and sharing web apps faster"
-  }), /* @__PURE__ */ React39.createElement("meta", {
-    name: "apple-mobile-web-app-title",
-    content: "CodeSandbox: Online Code Editor and IDE for Rapid Web Development"
-  })),
   i18n: [],
+  head: null,
   logo: /* @__PURE__ */ React39.createElement(React39.Fragment, null, /* @__PURE__ */ React39.createElement("span", {
     className: "nx-font-extrabold"
   }, "CodeSandbox"), /* @__PURE__ */ React39.createElement("span", {
