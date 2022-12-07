@@ -31,6 +31,10 @@ For any uncommitted work we make a backup. This backup is never deleted. All you
 
 Memory snapshots (which allow instant resume of VMs) will be cleaned up after 7 to 31 days of inactivity. There is no lost work from cleaning up memory snapshots.
 
+## Node Modules
+
+The `node_modules` folder is globally ignored. You can override this behaviour by adding `!node_modules` in your own project `.gitignore` file.
+
 ## Environment configuration
 
 Configure various aspects of the running VMs with the environment file. Currently the config allows you to set a specific `nodeVersion`, but more options will be available in the future.
