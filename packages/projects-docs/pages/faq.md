@@ -77,24 +77,28 @@ from File > Preferences > Settings in the editor.
 
 ## Are there any limitations with sandboxes?
 
-- A sandbox cannot use more than 500 modules (files). Note though that
-  `node_modules` and dependencies are not counted towards this limit.
-- Imported sandboxes must contain a package.json file.
+We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-browser-sandbox) and [Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox). Browser Sandboxes have the following limitations:
+
+- The maximum file upload size is 7MB for Free users and 30MB for Pro users.
+- Imported sandboxes must contain a `package.json` file.
+- Cannot use more than 500 modules (files). Note though that
+  `node_modules` and dependencies are not counted toward this limit.
 - The maximum file size that can be opened in the editor is 2MB. Files uploaded
   that are larger than that still exist but are linked as a static asset.
-- The maximum file upload size is 30MB (60MB for Pro users).
-- In container sandboxes, there is a sync limit of 10 files per second and only
+- Terminal commands which alter the filesystem of the container instance aren't
+  synced with files shown in the editor. You'll need to refresh to see files
+  updated this way.
+- When using a container, there is a sync limit of 10 files per second and only
   files up to 2MB are synced with the editor. Files larger than that still exist
   but are not shown in the editor's file tree. You're still able to write and
   read to and from them in your code and they can be seen and edited via the
   terminal.
-- Terminal commands which alter the filesystem of the container instance aren't
-  synced with files shown in the editor. You'll need to refresh to see files
-  updated this way.
-- Container sandboxes sleep after around 10 minutes and can be woken by opening
+- When using a container, the sandbox sleeps after around 10 minutes and can be woken by opening
   the sandbox or preview in a web browser.
-- Container sandboxes have a 1GB persistent storage limit, a 1GB vCPU soft
+- When using a container, the sandbox has a 1GB persistent storage limit, a 1GB vCPU soft
   limit, and a hard memory limit of 2GB.
+  
+Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you use them to avoid encountering these limitations.
 
 ## I'm getting a 'Request Entity too Large' error, what should I do?
 
