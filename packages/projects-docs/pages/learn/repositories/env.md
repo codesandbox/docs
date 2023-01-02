@@ -33,7 +33,7 @@ Memory snapshots (which allow instant resume of VMs) will be cleaned up after 7 
 
 ## Node Modules
 
-The `node_modules` folder is globally ignored. You can override this behaviour by adding `!node_modules` in your own project `.gitignore` file.
+The `node_modules` folder is globally ignored. You can override this behaviour by adding `!node_modules` in your own project `.gitignore` file. While this will add `node_modules` folders to git, they won't be displayed in the UI.
 
 ## Environment configuration
 
