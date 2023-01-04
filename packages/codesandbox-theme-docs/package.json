@@ -22,7 +22,7 @@
   },
   "types": "./dist/index.d.ts",
   "exports": {
-    "./style.css": "./style.css",
+    "./style.css": "./dist/style.css",
     "./shared.config.js": "./shared.config.js",
     ".": {
       "import": "./dist/index.js",
@@ -33,15 +33,15 @@
     "dev": "concurrently \"pnpm dev:layout\" \"pnpm dev:tailwind\"",
     "build": "tsup",
     "build:all": "pnpm build && pnpm build:tailwind && pnpm minify:css",
-    "build:tailwind": "NODE_ENV=production pnpm postcss css/styles.css -o style.css --verbose",
-    "minify:css": "lightningcss --minify --nesting --bundle --targets '>= 0.25%' style.css -o style.css",
+    "build:tailwind": "NODE_ENV=production pnpm postcss css/styles.css -o dist/style.css --verbose",
+    "minify:css": "lightningcss --minify --nesting --bundle --targets '>= 0.25%' dist/style.css -o dist/style.css",
     "types": "tsup --dts-only",
     "types:check": "tsc --noEmit",
     "dev:layout": "tsup --watch",
-    "dev:tailwind": "TAILWIND_MODE=watch pnpm postcss css/styles.css -o style.css --watch",
+    "dev:tailwind": "TAILWIND_MODE=watch pnpm postcss css/styles.css -o dist/style.css --watch",
     "prepublishOnly": "pnpm build:all",
     "test": "vitest --run",
-    "clean": "rimraf ./dist ./style.css",
+    "clean": "rimraf ./dist",
     "format": "prettier --ignore-path ../../.gitignore --write --list-different ."
   },
   "dependencies": {
