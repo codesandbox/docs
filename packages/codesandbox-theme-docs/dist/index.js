@@ -2320,7 +2320,9 @@ function TOC({ headings, filePath }) {
     var _a2;
     if (!activeSlug)
       return;
-    const anchor = (_a2 = tocRef.current) == null ? void 0 : _a2.querySelector(`li > a[href="#${activeSlug}"`);
+    const anchor = (_a2 = tocRef.current) == null ? void 0 : _a2.querySelector(
+      `li > a[href="#${activeSlug}"`
+    );
     if (anchor) {
       scrollIntoView2(anchor, {
         behavior: "smooth",
@@ -2338,7 +2340,7 @@ function TOC({ headings, filePath }) {
   return /* @__PURE__ */ React37.createElement("div", {
     ref: tocRef,
     className: cn15(
-      "nextra-scrollbar nx-sticky nx-top-16 nx-overflow-y-auto nx-pr-4 nx-pt-8 nx-text-sm [hyphens:auto]",
+      "nextra-scrollbar nx-sticky nx-top-[8em] nx-overflow-y-auto nx-pr-4 nx-pt-8 nx-text-sm [hyphens:auto]",
       "nx-max-h-[calc(100vh-var(--nextra-navbar-height)-env(safe-area-inset-bottom))] ltr:-nx-mr-4 rtl:-nx-ml-4"
     )
   }, hasHeadings && /* @__PURE__ */ React37.createElement(React37.Fragment, null, /* @__PURE__ */ React37.createElement("p", {
