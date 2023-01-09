@@ -40,4 +40,4 @@ This automatically installs Postgres and `htop` the next time you open a termina
 
 #### Docker
 
-We also support running Docker. You can run `docker` directly from the terminal, and within the Docker containers to which you **do** have root access.
+We also support running Docker. You can find more information about our Docker integration [here](/learn/environment/docker).
