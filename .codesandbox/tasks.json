@@ -30,7 +30,7 @@
     },
     "build:theme": {
       "name": "Build theme",
-      "command": "pnpm build:theme",
+      "command": "pnpm build",
       "runAtStart": true
     },
     "separator": {
