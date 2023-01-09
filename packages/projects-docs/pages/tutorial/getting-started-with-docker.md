@@ -15,6 +15,10 @@ Docker is available for Cloud Sandboxes and Repositories. With Docker, you can g
 
 To get started with Docker, you need to create a new file called `Dockerfile` inside the `.codesandbox` folder. As an example, you could put these contents in:
 
+<Callout>
+This Dockerfile is intended for development, not for deployment. This means that you probably don't need to `COPY` or `ADD`. We handle that for you by mounting the project directory at `/workspace` in the container.
+</Callout>
+
 ```docker
 FROM ubuntu
 
