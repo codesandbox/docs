@@ -1,6 +1,6 @@
 ---
-title: Environment
-description: Configure your environment in CodeSandbox.
+title: VM Configuration & Persistence
+description: The specs of our VMs and how we persist files
 ---
 
 import { Callout } from 'nextra-theme-docs'
@@ -69,7 +69,7 @@ Single value configuration, type `string`, by default it is set to `"16"` .
 
 ## Docker support
 
-CodeSandbox supports running Docker containers inside any workspace. Run and build images to run containers inside your project by opening a terminal and running `docker`. If you have a docker-compose file in your root folder, simply run `docker-compose up` and all your services will run within CodeSandbox.
+CodeSandbox supports running Docker containers inside any workspace. You can learn more about our Docker support in our [Docker documentation](./docker.md).
 
 <Callout emoji="⭑">
 For a step-by-step guide, check out our tutorial [Getting started with Docker](/tutorial/getting-started-with-docker)
