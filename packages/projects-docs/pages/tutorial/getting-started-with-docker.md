@@ -26,6 +26,10 @@ RUN apt update -y && apt install -y htop
 This Dockerfile is intended for development, not for deployment. This means that you probably don't need to `COPY` or `ADD`. We handle that for you by mounting the project directory at `/workspace` in the container.
 </Callout>
 
+<Callout>
+At this time, CodeSandbox currently only supports Debian and Ubuntu based images, for the best compatibility and user experience.
+</Callout>
+
 ### 2. Rebuild the container
 
 Now that you've created a Dockerfile and saved it, you should see a notification pop up, asking you to rebuild the container. Whenever the Dockerfile changes, we need to rebuild the container from that Dockerfile.
