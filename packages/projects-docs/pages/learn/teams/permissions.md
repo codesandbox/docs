@@ -13,7 +13,7 @@ Users with write access to a repository can enjoy the full feature set available
 
 ### Users with read-only access 
 
-Users with read-only access to the repository can browse the content of the project, check the previews and even execute a few tasks. To introduce changes, they need to create a contribution branch or fork the repository. For more information, visit the [Open source collaboration](../getting-started/open-source-collaboration) page.
+Users with read-only access to the repository can browse the content of the project, check the previews and even execute a few tasks. To introduce changes, they need to create a contribution branch or fork the repository. For more information, visit the [open source collaboration](/learn/getting-started/open-source) page.
 
 ### Anonymous users
 

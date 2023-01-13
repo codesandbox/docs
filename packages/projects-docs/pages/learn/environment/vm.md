@@ -69,7 +69,7 @@ Single value configuration, type `string`, by default it is set to `"16"` .
 
 ## Docker support
 
-CodeSandbox supports running Docker containers inside any workspace. You can learn more about our Docker support in our [Docker documentation](./docker.md).
+CodeSandbox supports running Docker containers inside any workspace. You can learn more about our Docker support in our [Docker documentation](/learn/environment/docker).
 
 <Callout emoji="⭑">
 For a step-by-step guide, check out our tutorial [Getting started with Docker](/tutorial/getting-started-with-docker)
