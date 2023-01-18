@@ -31,7 +31,8 @@
   },
   "scripts": {
     "dev": "concurrently \"pnpm dev:layout\" \"pnpm dev:tailwind\"",
-    "build": "pnpm tsup && pnpm build:tailwind && pnpm minify:css",
+    "build": "tsup",
+    "build:all": "pnpm build && pnpm build:tailwind",
     "build:tailwind": "NODE_ENV=production pnpm postcss css/styles.css -o dist/style.css --verbose",
     "minify:css": "lightningcss --minify --nesting --bundle --targets '>= 0.25%' dist/style.css -o dist/style.css",
     "types": "tsup --dts-only",
