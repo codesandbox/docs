@@ -31,14 +31,15 @@
   },
   "scripts": {
     "dev": "concurrently \"pnpm dev:layout\" \"pnpm dev:tailwind\"",
-    "build": "pnpm tsup && pnpm build:tailwind && pnpm minify:css",
+    "bundle": "tsup",
+    "build": "pnpm bundle && pnpm build:tailwind",
     "build:tailwind": "NODE_ENV=production pnpm postcss css/styles.css -o dist/style.css --verbose",
     "minify:css": "lightningcss --minify --nesting --bundle --targets '>= 0.25%' dist/style.css -o dist/style.css",
     "types": "tsup --dts-only",
     "types:check": "tsc --noEmit",
     "dev:layout": "tsup --watch",
     "dev:tailwind": "TAILWIND_MODE=watch pnpm postcss css/styles.css -o dist/style.css --watch",
-    "prepublishOnly": "pnpm build:all",
+    "prepublishOnly": "pnpm build",
     "test": "vitest --run",
     "clean": "rimraf ./dist",
     "format": "prettier --ignore-path ../../.gitignore --write --list-different ."
