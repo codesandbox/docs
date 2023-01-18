@@ -15,7 +15,7 @@ By default, when you set up an account, you will get a free personal workspace. 
 
 ![Personal workspace](../images/workspace-personal-team.png)
 
-It also contains a section for your [open source contributions](/getting-started/open-source#introducing-contribution-branches).
+It also contains a section for your [open source contributions](/learn/getting-started/open-source#introducing-contribution-branches).
 
 ![My contribution branches](../images/workspace-my-contributions.png)
 
