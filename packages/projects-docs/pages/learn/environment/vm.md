@@ -73,7 +73,7 @@ Single value configuration, type `string`, by default it is set to `"16"` .
 If your package.json uses [engines](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#engines) field then you need any `.nvmrc` or `environment.json` files. 
 </Callout>
 
-**Note:** This works only if you are using `pitcherv-v0.206.0` or higher. You can restart your vm anytime to load the latest version.
+**Note:** This works only if you are using `pitcherv-v0.236.0` or higher. You can restart your vm anytime to load the latest version.
 
 
 If your project has all three ways of configuring node version. Then `.nvmrc` and `environment.json` gets the priority. If both of the files are missing then the node version that is specified in `package.json` file is used.
