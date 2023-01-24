@@ -70,7 +70,7 @@ The environment file allows you to specify:
 Single value configuration, type `string`, by default it is set to `"16"` .
 
 <Callout emoji="*">
-If your package.json uses [engines](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#engines) field then you need any `.nvmrc` or `environment.json` files. 
+If your package.json uses [engines](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#engines) field then a `.nvmrc` or `environment.json` file is not needed. 
 </Callout>
 
 **Note:** This works only if you are using `pitcherv-v0.236.0` or higher. You can restart your vm anytime to load the latest version.
