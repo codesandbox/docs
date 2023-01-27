@@ -11,76 +11,76 @@ import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
     <WrapContent>
       ## Global
 
-| Shortcut      | Description |
-| ----------- | ----------- |
-⌃ ⇧ G     |   Open git panel
-⌃ ⌥ X       |   Close other files
-⌘ ⌥ M       |   New folder
-⌘ ⇧ E or ⌃ O then A     |   Open file system panel
-⌃ ⇧ X       |   Close all files
-⌘ P or ⌘ /      |   Open file quick picker
-⌘ ⇧ O       |   Open devtool menu
-⌘ ⇧ F or ⌃ O then F     |   Open search panel
-⌘ ⇧ L       |   Reset Layout
-⌃ X     |   Close current file
-⌘ ⇧ B       |   Change Branch
-⌃ ⇧ `       |   Create new task
-⌃ `     |   Open new terminal
-⌘ K     |   Open command palette
-⌘ B     |   Toggle Sidebar
-⌘ .     |   Toggle Sidekick
-⌘ ⌥ N       |   New file
+| Mac Shortcut      | Windows Shortcut      | Description |
+| ----------- | ----------- | ----------- |
+⌃ ⇧ G     |Ctrl ⇧ G     | Open git panel
+⌃ ⌥ X       |Ctrl Alt X       |   Close other files
+⌘ ⌥ M       |??? Alt M       |   New folder
+⌘ ⇧ E or ⌃ O then A     |Ctr ⇧ E     |   Open file system panel
+⌃ ⇧ X       |Ctrl ⇧ X       |   Close all files
+⌘ P or ⌘ /      |Ctrl P or Ctrl /      |   Open file quick picker
+⌘ ⇧ O       |Ctrl ⇧ O       |   Open devtool menu
+⌘ ⇧ F or ⌃ O then F     |Ctrl ⇧ F     |   Open search panel
+⌘ ⇧ L       |Ctrl ⇧ L       |   Reset Layout
+⌃ X     |Alt X     |   Close current file
+⌘ ⇧ B       |Ctrl ⇧ B       |   Change Branch
+⌃ ⇧ `       |Ctrl ⇧ `       |   Create new task
+⌃ `     |Ctrl ` (???)     |   Open new terminal
+⌘ K     |Ctrl K     |   Open command palette
+⌘ B     |Ctrl B     |   Toggle Sidebar
+⌘ '     |Ctrl '     |   Toggle Sidekick
+⌘ ⌥ N       |Ctrl Alt N       |   New file
 
 <br/>
 ## Code editor
 
-| Shortcut      | Description |
-| ----------- | ----------- |
-⌘ U     |       Cursor Undo
-⇧ ⌘ O       |       Go to symbol
-⌃ G     |       Go to line/column
-⇧ ⌘ .       |       Replace with next value
-⇧ ⌘ Space       |       Trigger parameter hints
-Enter       |       Find next 
-⌃ ⇧ ⌘ →     |       Expand selection
-⇧ F12       |       Go to references
-⇧ ⌘ ,       |       Replace with previous value
-⌘ ]     |       Indent line
-⇧ ⌥ ↑       |       Copy line up
-⇧ ⌘ F3      |       Find previous selection
-⌥ ↓     |       Move Line down
-⌃ ⇧ ⌘ ←     |       Shrink selection
-⇧ ⌘ K       |       Delete Line
-⌃ T     |       Transpose letters
-⇧ F8        |       Go to previous problem in files
-⌥ ⌘ ↑       |       Add cursor above
-⇧ Enter     |       Find previous
-⌥ F1        |       Show accessibility help
-⌘ F     |       Find
-⌘ Enter     |       Insert line below
-⌘ I     |       Show Hover
-⌥ F8        |       Go to next problem
-⌃ J     |       Join lines
-⌘ S     |       Save File
-⌘ [     |       Outdent line
-⌥ ⌘ F       |       Replace
-⌘ F3        |       Find next selection
-⌥ ⌘ ↓       |       Add cursor below
-⌥ ⌘ [       |       Fold
-⇧ F10       |       Show editor context menu
-⌥ F12       |       Peek definition
-⌥ ⌘ ]       |       Unfold
-⌥ ↑     |       Move Line up
-⇧ ⌥ F       |       Format document
-⌘ D     |       Add selection no next find match
-⇧ ⌘ L       |       Select all occurrences of find match
-⌃ Space     |       Trigger suggestion
-⌘ /     |       Toggle line comment
-⇧ ⌥ F8      |       Go to previous problem
-⇧ ⌘ Enter       |       Insert line above
-F8      |       Go to next problem in files
-⇧ ⌥ ↓       |       Copy line down
-F1      |       Open command menu
+| Mac Shortcut      | Windows Shortcut      | Description |
+| ----------- | ----------- | ----------- |
+⌘ U     |⌘ U     |       Cursor Undo
+⇧ ⌘ O       |⇧ ⌘ O       |       Go to symbol
+⌃ G     |⌃ G     |       Go to line/column
+⇧ ⌘ .       |⇧ ⌘ .       |       Replace with next value
+⇧ ⌘ Space       |⇧ ⌘ Space       |       Trigger parameter hints
+Enter       |Enter       |       Find next 
+⌃ ⇧ ⌘ →     |⌃ ⇧ ⌘ →     |       Expand selection
+⇧ F12       |⇧ F12       |       Go to references
+⇧ ⌘ ,       |⇧ ⌘ ,       |       Replace with previous value
+⌘ ]     |⌘ ]     |       Indent line
+⇧ ⌥ ↑       |⇧ ⌥ ↑       |       Copy line up
+⇧ ⌘ F3      |⇧ ⌘ F3      |       Find previous selection
+⌥ ↓     |⌥ ↓     |       Move Line down
+⌃ ⇧ ⌘ ←     |⌃ ⇧ ⌘ ←     |       Shrink selection
+⇧ ⌘ K       |⇧ ⌘ K       |       Delete Line
+⌃ T     |⌃ T     |       Transpose letters
+⇧ F8        |⇧ F8        |       Go to previous problem in files
+⌥ ⌘ ↑       |⌥ ⌘ ↑       |       Add cursor above
+⇧ Enter     |⇧ Enter     |       Find previous
+⌥ F1        |⌥ F1        |       Show accessibility help
+⌘ F     |⌘ F     |       Find
+⌘ Enter     |⌘ Enter     |       Insert line below
+⌘ I     |⌘ I     |       Show Hover
+⌥ F8        |⌥ F8        |       Go to next problem
+⌃ J     |⌃ J     |       Join lines
+⌘ S     |⌘ S     |       Save File
+⌘ [     |⌘ [     |       Outdent line
+⌥ ⌘ F       |⌥ ⌘ F       |       Replace
+⌘ F3        |⌘ F3        |       Find next selection
+⌥ ⌘ ↓       |⌥ ⌘ ↓       |       Add cursor below
+⌥ ⌘ [       |⌥ ⌘ [       |       Fold
+⇧ F10       |⇧ F10       |       Show editor context menu
+⌥ F12       |⌥ F12       |       Peek definition
+⌥ ⌘ ]       |⌥ ⌘ ]       |       Unfold
+⌥ ↑     |⌥ ↑     |       Move Line up
+⇧ ⌥ F       |⇧ ⌥ F       |       Format document
+⌘ D     |⌘ D     |       Add selection no next find match
+⇧ ⌘ L       |⇧ ⌘ L       |       Select all occurrences of find match
+⌃ Space     |⌃ Space     |       Trigger suggestion
+⌘ /     |⌘ /     |       Toggle line comment
+⇧ ⌥ F8      |⇧ ⌥ F8      |       Go to previous problem
+⇧ ⌘ Enter       |⇧ ⌘ Enter       |       Insert line above
+F8      |F8      |       Go to next problem in files
+⇧ ⌥ ↓       |⇧ ⌥ ↓       |       Copy line down
+F1      |F1      |       Open command menu
     </WrapContent>
     <WrapContent>
        ## Global
