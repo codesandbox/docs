@@ -13,11 +13,13 @@ Based on our analysis of usual resource needs, we have defined these resources a
 
 | Type    | Limit  |
 | ------- | ------ |
-| CPU     | 4 vCPU |
+| CPU     | 2 vCPUs |
 | Memory  | 4Gi    |
-| Storage | 8Gi    |
+| Storage | 4Gi    |
 
-But we can go higher, up to 12vCPUs, 16GB memory and 30GB storage. If you hit any limitations while using CodeSandbox, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limits to suit your project.
+But we can go higher, up to 12vCPUs, 16GB memory and 30GB storage. To upgrade to higher specs, you can purchase [Pro](https://codesandbox.io/pro).
+
+If you require higher specs, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limits to suit your project.
 
 ## Persistence
 
