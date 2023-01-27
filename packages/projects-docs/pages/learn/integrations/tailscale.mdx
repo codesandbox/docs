@@ -12,23 +12,23 @@ As you work on an application in CodeSandbox Repositories, you might want to gra
 Tailscale can help.
 
 <Callout emoji="⭑">
-You can try Tailscale for free by following their [Quickstart guide](https://tailscale.com/kb/1017/install/#step-2-add-a-machine-to-your-network).
+You can try Tailscale for free by following their [Quickstart guide](https://tailscale.com/kb/1017/install/).
 Throughout this documentation, we'll assume you have a tailnet called `example-tailnet.ts.net` (which you should replace with your [name](https://tailscale.com/kb/1217/tailnet-name/)).
 </Callout>
 
 ## Motivation
 
 Many applications exist as part of a collection of services.
-While things like mocks can help isolate a single application during development, this isn't always possible.
+Sometimes we can isolate an application from other services during development, but this isn't always possible.
 Just because you develop in CodeSandbox, however, doesn't mean you can't connect your application to private services running in your organization's network.
 
 Integrating with Tailscale provides containers running in a CodeSandbox Repository environment with access to your private resources.
-Combined with Tailscale's Magic DNS and ACLs, you can develop your application as if it were hosted in the same network as your other services — without compromising security.
+Combined with Tailscale's MagicDNS and ACLs, you can develop your application as if it were hosted in the same network as your other services — without compromising security.
 
 ## Creating an Auth Key
 
 Integrating a CodeSandbox Repository with Tailscale requires an [auth key](https://tailscale.com/kb/1085/auth-keys/), a secret you embed in the CodeSandbox environment to allow registration on your network.
-Network admins can create them on the [auth key page](https://login.tailscale.com/admin/settings/keys).
+Admins can create them on the [auth key page](https://login.tailscale.com/admin/settings/keys).
 
 The auth key you give to CodeSandbox should be:
 
@@ -54,7 +54,7 @@ Restart any existing branches to update the running environment.
 
 ### Docker Container
 
-In a setup using Docker Compose, we can add the `tailscale` image as an additional service beside our application.
+In a setup using Docker Compose, we can add [the `tailscale` image](https://hub.docker.com/r/tailscale/tailscale) as an additional service beside our application.
 Here's an example `docker-compose.yml` file with the Tailscale service:
 
 ```yaml
@@ -74,7 +74,7 @@ services:
     network_mode: service:tailscale
 ```
 
-This runs the latest `tailscale/tailscale` image with a few customizations.
+This runs the latest `tailscale` image with a few customizations.
 Then, it instructs the application container to use the Tailscale container's network using `network_mode`.
 
 After this setup, `docker-compose up` will start the application and Tailscale containers, but it will not immediately initiate a connection.
