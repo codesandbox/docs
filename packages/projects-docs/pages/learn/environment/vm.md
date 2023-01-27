@@ -15,7 +15,7 @@ Based on our analysis of usual resource needs, we have defined these resources a
 | ------- | ------ |
 | CPU     | 2 vCPUs |
 | Memory  | 4Gi    |
-| Storage | 4Gi    |
+| Storage | 6Gi    |
 
 But we can go higher, up to 12vCPUs, 16GB memory and 30GB storage. To upgrade to higher specs, you can purchase [Pro](https://codesandbox.io/pro).
 
