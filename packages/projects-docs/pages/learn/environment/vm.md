@@ -19,7 +19,7 @@ Based on our analysis of usual resource needs, we have defined these resources a
 
 But we can go higher, up to 12vCPUs, 16GB memory and 30GB storage. To upgrade to higher specs, you can purchase [Pro](https://codesandbox.io/pro).
 
-If you require higher specs, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limits to suit your project.
+If you require higher specs than default to Pro, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limits to suit your project.
 
 ## Persistence
 
