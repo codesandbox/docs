@@ -9,11 +9,6 @@ import { Callout } from 'nextra-theme-docs'
 
 # Using a Custom NPM Registry
 
-<Callout>
-**Note: Custom NPM Registry support is currently only available on Browser Sandboxes for Team Pro
-members. [Check out Team Pro](https://codesandbox.io/pricing).**
-</Callout>
-
 The custom private npm registry setting makes it possible for sandboxes in your
 team settings to retrieve npm packages from your own npm registry. This setting
 is available for all Team Pro accounts, you can access the settings
