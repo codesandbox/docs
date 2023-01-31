@@ -6,12 +6,20 @@ description:
 ---
 
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
+import { Callout } from 'nextra-theme-docs'
 
 # Secrets
 
-<Tabs tabs={["Browser", "Cloud"]}>
+<Tabs tabs={["Cloud", "Container (Legacy)"]}>
+    <WrapContent>
+       Secrets on Cloud Sandboxes are handled in the same way as Repositories. [Read more here](/learn/repositories/secrets)
+    </WrapContent>
     <WrapContent>
       ## What are secrets?
+
+      <Callout>
+        We're phasing out container sandboxes for cloud sandboxes, to read more on how to apply secrets to cloud sandboxes, [check here](/learn/repositories/secrets).
+      </Callout>
 
 Secrets are used to hide sensitive information in your application that you
 don't want the world to see, like passwords and API keys. They're implemented in
@@ -53,8 +61,5 @@ Once saved, this will take effect automatically, restarting your sandbox to make
 sure we use the new value.
 
 To delete you can click on the `x` icon. This will also restart your sandbox.
-    </WrapContent>
-    <WrapContent>
-       Secrets on Cloud Sandboxes are handled in the same way as Repositories. [Read more here](/learn/repositories/secrets)
     </WrapContent>
 </Tabs>
