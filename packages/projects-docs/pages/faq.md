@@ -11,16 +11,7 @@ import { Tabs, WrapContent } from '../../../shared-components/Tabs'
     <WrapContent>
       ## Which languages and frameworks are supported?
 
-CodeSandbox works with JavaScript (including TypeScript) and has front-end and
-full-stack support.
-
-We've client templates for: React, Vue, Angular, Preact, Svelte, Dojo, CX,
-Reason, as well as vanilla JavaScript that uses Parcel, and one for static
-(HTML, JavaScript, CSS) projects.
-
-We also have container templates for: Node.js, Angular, Adonis, Gatsby, Marko,
-Nuxt, Next, Sapper, Apollo, Ember, Nest, Styleguidist, MDX Deck, Gridsome,
-Quasar, Docusaurus and Vuepress.
+CodeSandbox works with anything that can run in Docker. We have the best experience for JavaScript (including TypeScript), frontend and full-stack.
 
 [Create a sandbox from a template](https://codesandbox.io/s/), or read more
 about the

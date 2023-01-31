@@ -10,13 +10,14 @@ import Video from '../../../../../shared-components/Video'
 
 # Sandbox Editors
 
-
 CodeSandbox offers two web editors and an iOS editor. A Sandbox is either a Browser Sandbox or a Cloud Sandbox (read more [here](/learn/sandboxes/overview)). All Sandboxes are available on the iOS app. 
 
 CodeSandbox supports VS Code for [Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) and [Repositories](/learn/repositories/overview).
 
 <Tabs tabs={["Browser", "Cloud", "iOS"]}>
     <WrapContent>
+Browser sandboxes are sandboxes that fully run in the browser, and are made to run frontend JavaScript/TypeScript frameworks. If you would like to run backend services or databases, check Cloud Sandboxes.
+    
 ## Synced Sandboxes
 #### (previously called Repositories)
 
@@ -72,7 +73,12 @@ and upload them to the CodeSandbox Storage Management after getting
 confirmation.
     </WrapContent>
     <WrapContent>
-       The Cloud Sandbox Editor contains a set of features to increase the accessibility of complex tools like git, setup, review flows, contributions, and visualizing components. 
+    
+Cloud sandboxes run inside a Firecracker MicroVM and utilise memory snapshotting to ensure fast fork time and wake up time. They can run anything that you would be able to run in your local environment, including Docker containers. You can learn more about how they work [here](/blog/how-we-clone-a-running-vm-in-2-seconds).
+
+Cloud sandboxes are best used to run backend services, compiled languages and things like databases.
+
+The Cloud Sandbox Editor contains a set of features to increase the accessibility of complex tools like git, setup, review flows, contributions, and visualizing components. 
 
 Here is an overview of the editor structure:
 
