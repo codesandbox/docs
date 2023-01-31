@@ -1,4 +1,5 @@
 {
   "vm": "VM Config & Persistence",
-  "docker": "Docker Integration"
+  "docker": "Docker Integration",
+  "secrets": "Environment Variables"
 }
