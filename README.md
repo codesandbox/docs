@@ -11,7 +11,7 @@ This repository is hosting all product documentation pages of CodeSandbox.
 
 ## About this repository
 
-The Projects is leveraging [Nextra](https://nextra.vercel.app/), which explains a lot of how the individual projects run. So we recommend checking it out to get a good understanding of the strSucture of this repository.
+The Projects is leveraging [Nextra](https://nextra.vercel.app/), which explains a lot of how the individual projects run. So we recommend checking it out to get a good understanding of the structure of this repository.
 
 The individual documentations can be found in the
 - `packages`
