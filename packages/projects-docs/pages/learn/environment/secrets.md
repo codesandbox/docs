@@ -10,11 +10,17 @@ import Video from '../../../../../shared-components/Video'
 
 You can configure environment variables and secrets in your project, such as settings for your project or access tokens for APIs.
 
+This works both for cloud sandboxes and repositories.
+
 ![CodeSandbox Environment Variables](../images/env-var.jpg)
 
-### Project-level environment variables and secrets
+### Repository Configuration
 
-Currently, CodeSandbox Repositories only support **project-level** configuration. The secrets and environment variables are shared across all VMs, but you need to restart your workspace after making changes for them to take effect.
+Secrets and environment variables are shared across all branches, but you need to restart your VM instance after making changes for them to take effect.
+
+### Cloud Sandbox Configuration
+
+When setting environment variables for cloud sandboxes, we ensure that any fork of this sandbox will not include these environment variables. Because of this, forks will be a bit slower, as we cannot clone the memory snapshot.
 
 ### Storage and Encryption
 
@@ -22,9 +28,15 @@ Environment variables are stored in our database, AES-encrypted. The encryption 
 
 ### Privacy
 
-Environment variables are enabled only for **private** repositories and they are only viewable by users with write access to the repository.
+Environment variables will only be viewable by people who have write access to the project. However, keep in mind that for public projects (sandboxes or repositories), any user can still view logs of your running tasks. So make sure to not log any sensitive information.
 
+We also make sure that environment variables do not travel to forks of VMs, and we'll make sure not to use memory snapshotting for clones.
 
+### Best Practices
+
+If you want to only add environment variables that are not secret, we recommend to set them using a `.env` file instead of using our secrets modal. The advantage of using `.env` is that forks will remain fast, as we can use a memory snapshot, and you can configure environment variables per branch.
+
+If you're planning to store secrets, we recommend to use the secrets feature.
 
 ## Setting env variables and secrets
 ### From the UI
@@ -50,9 +62,6 @@ Environment variables are enabled only for **private** repositories and they are
 ![CodeSandbox Command Palette](../images/env-var-pallette.jpg)
 3. Add and your configurations.
 4. From the editor's menu, click to `Restart` the workspace.
-
-
-
 
 ### Manage environment variables and secrets
 
