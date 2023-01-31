@@ -28,7 +28,7 @@ import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 ⌃ `     |   Open new terminal
 ⌘ K     |   Open command palette
 ⌘ B     |   Toggle Sidebar
-⌘ .     |   Toggle Sidekick
+⌘ '     |   Toggle Sidekick
 ⌘ ⌥ N       |   New file
 
 <br/>
