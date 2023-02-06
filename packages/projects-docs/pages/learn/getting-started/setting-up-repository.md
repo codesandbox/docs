@@ -12,7 +12,7 @@ This guide will help you get started with using CodeSandbox for your repo. It's 
 
 ## Create a Team & Import Repository
 
-To get started with CodeSandbox for your repo, you first need to create a team. You can do this at [the dashboard](https://codesandbox.io/dashboard), by clicking on the workspace on the left, and pressing “Create a new team”. You can optionally start a free trial, in case you want better VM specs and import a private repositories.
+To get started with CodeSandbox for your repo, we recommend to first create a team. You can do this at [the dashboard](https://codesandbox.io/dashboard), by clicking on the workspace on the left, and pressing “Create a new team”. You can optionally start a free trial, in case you want better VM specs and import a private repositories.
 
 ![Pasted image 20230202132514.png](/team-creation.png)
 
