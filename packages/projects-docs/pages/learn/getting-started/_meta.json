@@ -1,7 +1,8 @@
 {
-  "setting-up-repository": "Your First Repository v2",
-  "your-first-repository": "Your First Repository",
+  "setting-up-repository": "Your First Repository",
   "your-first-sandbox": "Your First Sandbox",
+  "setting-up-vscode": "VSCode Setup",
+  "setting-up-ios": "iOS Setup",
   "collaborate-share": "Collaborate & Share",
-  "open-source": "Open source collaboration"
+  "open-source": "Open Source Collaboration"
 }
