@@ -1,0 +1,48 @@
+---
+title: Open Source Collaboration
+description:
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+
+# Open Source Collaboration
+
+Working with your favorite Open Source repositories is easier with CodeSandbox. Whether you are just checking out a repository, testing out an idea or formally proposing a feature, CodeSandbox OS can eliminate tedious steps in your process and get you working on your ideas faster.
+
+
+## Viewing Open Source repositories
+Explore any open source repository through CodeSandbox simply by adding the repository's GitHub URL to the end of the codesandbox URL, in the format below:
+
+<Callout emoji="">**`codesandbox.io/p/` `github/[org]/[reponame]`**</Callout>
+
+For example, try [codesandbox.io/p/github/codesandbox/sandpack/](https://codesandbox.io/p/github/codesandbox/sandpack).
+
+
+## Forking Open Source Repositories
+Traditionally, contributing to an open source repository happens through forking. You can fork an open source repository by opening it in the editor, clicking in the `Branch` dropdown in top right corner in the editor and selecting the `Fork project` option.
+
+![Fork from editor](../images/fork-from-editor.jpg)
+
+You can also create a fork by importing the repository using the `New project` button in the team page. If you try to import a repository you don't have write access to, CodeSandbox will automatically create a new fork in the GitHub organization of your preference. 
+
+![Create New Fork](../images/import-flow.jpg)
+
+By default, when opening a PR from a forked repository, it will point to the `main` branch of your repository. If you would like to target the parent repository, you can do so through the GitHub PR UI.
+
+
+## Introducing Contribution Branches
+Easier and faster than forking repositories, contribution branches allow you to interact with code and open PRs without the need to import or create a project. 
+
+![Contribution Branch](../images/contribution-branch.jpg)
+
+Contribution branches are standalone branches designed to simplify the contributing process. PRs created from them will always target the parent repository, showing up in the maintainers' list like any regular PR. 
+
+To create a contribution branch, open the repository in the editor and click on the `Branch` button in top right corner. By default, the option `New contribution branch` will be selected.
+
+![Crate a Contribution Branch](../images/contribution-from-editor.jpg)
+
+If you try to import a repository you don't have write permission to, a new fork will be automatically created. However, during the import process you can select the option to `Create a Contribution Branch` to start working immediately.
+
+
+Your contribution branches are accessible anytime through on your personal account in the [Dashboard](https://codesandbox.io/dashboard).
