@@ -49,7 +49,7 @@ The additional container runs the Tailscale client and provides networking for t
 
 Before launching the new container, it is necessary to add the Tailscale auth key as an environment variable.
 With a branch open in the Repository editor, go to the CodeSandbox menu, and choose **Env variables**.
-Throughout the rest of this documentation, we will assume you named the variable `TS_AUTH_KEY`.
+Throughout the rest of this documentation, we will assume you named the variable `TS_AUTHKEY`.
 Restart any existing branches to update the running environment.
 
 ### Docker Container
@@ -81,7 +81,7 @@ After this setup, `docker-compose up` will start the application and Tailscale c
 For this, a separate command is necessary:
 
 ```sh
-docker-compose exec tailscale tailscale up --authkey=${TS_AUTH_KEY} --accept-routes --hostname=csb-${HOSTNAME}
+docker-compose exec tailscale tailscale up --authkey=${TS_AUTHKEY} --accept-routes --hostname=csb-${HOSTNAME}
 ```
 
 Luckily, both of these steps can be automated.
@@ -100,7 +100,7 @@ The following example `.codesandbox/tasks.json` runs each of these commands as t
     },
     "tailscale": {
       "name": "Connect Tailscale",
-      "command": "docker-compose exec tailscale tailscale up --accept-routes --authkey=${TS_AUTH_KEY} --hostname=csb-${HOSTNAME}",
+      "command": "docker-compose exec tailscale tailscale up --accept-routes --authkey=${TS_AUTHKEY} --hostname=csb-${HOSTNAME}",
       "restartOn": {
         "branch": true
       },
