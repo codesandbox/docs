@@ -7,8 +7,6 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:theme": "pnpm --filter codesandbox-theme-docs dev",
-    "build:theme": "pnpm --filter codesandbox-theme-docs build",
     "dev:projects": "pnpm --filter projects-docs dev",
     "test:projects": "pnpm --filter projects-docs test-docs"
   },

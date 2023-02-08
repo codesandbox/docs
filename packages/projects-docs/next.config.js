@@ -2,10 +2,8 @@ const BASE_PATH = process.env.BASE_PATH;
 const PREFIX_PATH = "";
 
 const withNextra = require("nextra")({
-  theme: "codesandbox-theme-docs",
+  theme: "nextra-theme-docs",
   themeConfig: "./theme.config.js",
-  unstable_flexsearch: true,
-  unstable_staticImage: true,
   images: {
     quality: 90,
   },

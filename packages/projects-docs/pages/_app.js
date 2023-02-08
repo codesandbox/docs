@@ -1,4 +1,3 @@
-import "codesandbox-theme-docs/style.css";
 import "../styles.css";
 import amplitude from "amplitude-js";
 import { useRouter } from "next/router";

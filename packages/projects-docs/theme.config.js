@@ -1,15 +1,21 @@
 import Logo from "./components/Logo";
-import BackLink from "../../shared-components/BackLink";
-import defaultConfigs from "codesandbox-theme-docs/shared.config.js";
 import { useConfig } from "nextra-theme-docs";
 
 const OG_IMAGE_URL = "https://codesandbox.io/docs/projects/og-image.jpg";
 
 export default {
-  ...defaultConfigs,
+  project: "https://codesandbox.io",
+
+  footer: { component: null },
+  feedback: { content: null },
+
+  editLink: { text: "Edit this page on CodeSandbox →" },
+
   docsRepositoryBase: "https://codesandbox.io/p/github/codesandbox/docs/main",
-  titleSuffix: " - CodeSandbox",
-  project: { icon: BackLink },
+  // project: { icon: BackLink },
+  // navbar: {
+  //   extraContent: BackLink,
+  // },
   gitTimestamp: null,
   head() {
     const { frontMatter } = useConfig();
