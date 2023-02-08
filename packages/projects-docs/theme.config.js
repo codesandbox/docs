@@ -17,6 +17,11 @@ export default {
   //   extraContent: BackLink,
   // },
   gitTimestamp: null,
+   useNextSeoProps() {
+    return {
+      titleTemplate: '%s – CodeSandbox'
+    }
+  },
   head() {
     const { frontMatter } = useConfig();
 
