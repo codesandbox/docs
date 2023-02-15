@@ -3,7 +3,9 @@
   --docs-accent-color-opacity: #9580ff60;
   --docs-accent-color-link: #9580ff;
   --docs-light-bg: #e5e5e560;
+  --docs-light-bg-hover: #d0d0d060;
   --docs-dark-bg: #2a2a2a90;
+  --docs-dark-bg-hover: #2a2a2a60;
   --nextra-navbar-height: 8rem;
 }
 
@@ -11,11 +13,17 @@ html[class~="dark"] {
   --nextra-primary-hue: 267;
   --nextra-primary-hue-saturation: 100%;
   --nextra-primary-hue-lightness: 75%;
+
+  --docs-secondary-bg: var(--docs-dark-bg);
+  --docs-secondary-bg-hover: var(--docs-dark-bg-hover);
 }
 
 html[class~="light"] {
   --docs-accent-color: #644be1;
   --docs-dark-bg: #e5e5e560;
+
+  --docs-secondary-bg: var(--docs-light-bg);
+  --docs-secondary-bg-hover: var(--docs-light-bg-hover);
 }
 
 /* General

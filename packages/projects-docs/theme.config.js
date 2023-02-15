@@ -4,7 +4,7 @@ import { useConfig } from "nextra-theme-docs";
 const OG_IMAGE_URL = "https://codesandbox.io/docs/projects/og-image.jpg";
 
 export default {
-  project: "https://codesandbox.io",
+  project: {},
 
   footer: { component: null },
   feedback: { content: null },
@@ -17,10 +17,10 @@ export default {
   //   extraContent: BackLink,
   // },
   gitTimestamp: null,
-   useNextSeoProps() {
+  useNextSeoProps() {
     return {
-      titleTemplate: '%s – CodeSandbox'
-    }
+      titleTemplate: "%s – CodeSandbox",
+    };
   },
   head() {
     const { frontMatter } = useConfig();

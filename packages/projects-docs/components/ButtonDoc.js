@@ -9,11 +9,16 @@ export default function ButtonDoc({ type, title, description, cta, link }) {
 
       <style jsx>{` 
         .container { 
-            
             padding: 28px;
             overflow: hidden;
             position: relative;
             transition: background 300ms;
+            flex-grow: 1;
+            background: var(--docs-secondary-bg);
+        }
+
+        .container:hover { 
+            background: var(--docs-secondary-bg-hover);
         }
         
         h4 { 
