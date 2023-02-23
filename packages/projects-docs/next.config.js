@@ -218,6 +218,13 @@ module.exports = withTM(
           permanent: true,
         },
 
+        // Other redirects
+        {
+          source: "/learn/getting-started/your-first-repository",
+          destination: "/learn/getting-started/setting-up-repository",
+          permanent: true,
+        },
+
         // Projects
         // ---------------------------
         {
