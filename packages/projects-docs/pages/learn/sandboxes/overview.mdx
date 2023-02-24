@@ -11,8 +11,8 @@ Sandboxes are the environment for rapid web development.
 
 <Tabs tabs={["Browser", "Cloud"]}>
     <WrapContent>
-    ## What is a Browser Sandbox
-      When using Browser Sandboxes, your code is evaluated and run our built-in
+    ## What is a Browser Sandbox?
+      When using Browser Sandboxes, your code is evaluated and run in our built-in
 execution environment. These client environments run entirely inside of your browser and will continue to
 bundle your code even when you lose your connection to our servers. 
 
@@ -22,11 +22,13 @@ They are not one-to-one implementations and thus do not support advanced
 configuration like custom webpack configurations or ejecting. However, they are
 designed to mirror the default behavior of the framework. 
 
-If your project requires advanced configuration, try using a Cloud Sandbox instead.
+If your project requires the use of a terminal or any additional advanced configuration like Docker, you can use a [Cloud Sandbox](/learn/sandboxes/overview?tab=cloud) instead.
     </WrapContent>
     <WrapContent>
-       ## What is a Cloud Sandbox
-       Unlike Browser Sandboxes that run on your browser, Cloud Sandboxes run on our microVMs. Cloud Sandboxes are great for any prototyping needs, but they really shine when working on projects that require the use of the server. 
+       ## What is a Cloud Sandbox?
+       Unlike Browser Sandboxes that run on your browser, Cloud Sandboxes run on our [microVMs](/learn/environment/vm).
+       
+       Cloud Sandboxes are great for any prototyping needs, but they really shine when working on projects that require the use of the server. 
        You can learn more about the editor and the unique functionalities of the cloud developer environment in [Repositories](/learn/repositories/overview).
        
        Like Browser Sandboxes, Cloud Sandboxes are free to use.
@@ -35,5 +37,15 @@ If your project requires advanced configuration, try using a Cloud Sandbox inste
        - Branching
        - Git tooling 
        - Full integration with GitHub
+       
+        ## Create a sandbox from GitHub subfolder or branch
+        
+        Synced Sandboxes are the easiest way to make running and shareable sandboxes from GitHub subfolders, branches or repositories. 
+        
+        These sandboxes stay updated with any changes made to GitHub and are ideal for examples, tutorials or templates as users can fork and start a new project from them. 
+
+        To create a new sandbox from Github, change the GitHub url to `https://codesandbox.io/p/sandbox/github` + `/path/`.
+        
+        For example, here's a link to an Astro example sandbox from a subfolder -  https://codesandbox.io/p/sandbox/github/withastro/astro/main/examples/blog.
     </WrapContent>
 </Tabs>
