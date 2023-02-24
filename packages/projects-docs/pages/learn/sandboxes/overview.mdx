@@ -22,7 +22,7 @@ They are not one-to-one implementations and thus do not support advanced
 configuration like custom webpack configurations or ejecting. However, they are
 designed to mirror the default behavior of the framework. 
 
-If your project requires advanced configuration, try using a [Cloud Sandbox](/learn/sandboxes/overview?tab=cloud) instead.
+If your project requires the use of a terminal or any additional advanced configuration like Docker, you can use a [Cloud Sandbox](/learn/sandboxes/overview?tab=cloud) instead.
     </WrapContent>
     <WrapContent>
        ## What is a Cloud Sandbox?
@@ -38,14 +38,12 @@ If your project requires advanced configuration, try using a [Cloud Sandbox](/le
        - Git tooling 
        - Full integration with GitHub
        
-        ## What is a Synced Sandbox?
-
-        With CodeSandbox, you can import any GitHub repository, subfolder or branch as a synced cloud sandbox. 
+        ## Create a sandbox from GitHub subfolder or branch
         
-        An imported sandbox will automatically stay in sync with the GitHub repository; this means that if you make a commit to GitHub, it will reflect immediately in the sandbox.
-
-        For that reason, we've made these GitHub synced sandboxes immutable. This means that you cannot make direct changes to the sandbox itself. 
+        Synced Sandboxes are the easiest way to make running and shareable sandboxes from GitHub subfolders, branches or repositories. 
         
-        These sandboxes are then treated as [templates](/learn/sandboxes/templates), so you can fork and start a new project from them. When you create a fork of a GitHub sandbox, we will still keep a reference to the original GitHub repository. 
+        These sandboxes stay updated with any changes made to GitHub and are ideal for examples, tutorials or templates as users can fork and start a new project from them. 
+
+        To create a new sandbox from Github, change the GitHub url to `https://codesandbox.io/p/sandbox/github` + `/path/`. For example, here's a link to an Astro example sandbox from a subfolder -  https://codesandbox.io/p/sandbox/github/withastro/astro/main/examples/blog.
     </WrapContent>
 </Tabs>
