@@ -1,6 +1,6 @@
 ---
 title: FAQs
-authors: ['Necoline']
+authors: ['Necoline', 'Obinna']
 ---
 
 import { Tabs, WrapContent } from '../../../shared-components/Tabs'
@@ -98,17 +98,34 @@ repo for large binary files and remove them.
 
 ## Can I use a database on CodeSandbox?
 
-Yes. Container sandboxes on CodeSandbox have a persistent filesystem, so you're
-able to use file-based database options like
-[SQLite](https://codesandbox.io/s/sqlite3-sequelize-example-starter-lst3n),
-[Lowdb](https://codesandbox.io/s/lowdb-json-file-database-example-starter-pldy5),
-and [NeDB](https://codesandbox.io/s/nedb-example-starter-kyv7s). For more
-powerful databases, like MongoDB, MySQL etc. we recommend using a third-party
-host, like
-[MongoDB Atlas](https://codesandbox.io/s/mongodb-database-example-starter-v3ker),
-and interacting with them via an API/SDK.
+Yes, you can use any database that has a Docker image available. Some popular databases with Docker images include MySQL, PostgreSQL, MongoDB, and Redis.
 
+### Do I need to install Docker on my local machine to use it in CodeSandbox?
+
+No, you don't need to install Docker on your local machine. CodeSandbox has built-in support for Docker, so you can use it directly in the online development environment.
+
+### How do I access the database once it's running in a Docker container?
+
+You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database.
 ## How do I change the editor theme?
+
+### Can I use multiple databases in the same CodeSandbox project?
+
+Yes, you can use multiple databases in the same project by running multiple Docker containers with different port numbers. However, keep in mind that running multiple databases can put a strain on your system resources and affect performance.
+
+### Can I use Docker Compose in CodeSandbox?
+
+Yes, you can use Docker Compose in CodeSandbox to orchestrate multiple containers and define the relationships between them. However, you'll need to create a Docker Compose file and run the docker-compose command in the terminal to start the containers.
+
+### Is it safe to use a database in CodeSandbox with Docker support?
+
+Yes, it's safe to use a database in CodeSandbox with Docker support, as long as you follow best practices for security and keep your database credentials private. Docker provides a secure and isolated environment for running containers, so your database is protected from external threats.
+
+### How do I troubleshoot issues with my database in CodeSandbox with Docker support?
+
+If you're having issues with your database, you can check the logs of the container to see if there are any error messages. You can also run commands like docker ps and docker logs in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
+
+## How do I change the editor theme for Browser Sandboxes?
 
 You can change the theme from File > Preferences > Color Theme in the editor.
 
