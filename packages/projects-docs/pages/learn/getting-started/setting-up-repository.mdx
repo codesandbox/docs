@@ -65,7 +65,7 @@ After you've made changes to the `Dockerfile`, you should see a notification tha
 
 You don't have to mount or `ADD` any files from your workspace folder. We'll make sure that your repository is mounted at `/workspace` when we start the container.
 
-If you would like to learn more about how our Docker integration works, we recommend to check out [Docker Integration](/docs/learn/environment/docker).
+If you would like to learn more about how our Docker integration works, we recommend to check out [Docker Integration](/learn/environment/docker).
 
 ### Task Configuration
 
@@ -122,7 +122,7 @@ This configuration says that:
   - When a new PR opens, make a deployment for port `4000` and put it in the pull request
 - There's a task available to run tests, which anyone can click to run tests
 
-<Callout emoji="💡">There are more properties you can configure in this config, you can find more information about this [here](/docs/learn/repositories/task#tasks-configuration).</Callout>
+<Callout emoji="💡">There are more properties you can configure in this config, you can find more information about this [here](/learn/repositories/task#tasks-configuration).</Callout>
 
 If you want to run `docker-compose`, this would be the perfect place to add that. You can create a new task that runs `docker-compose up`, and we'll make sure it's started when the VM boots.
 
@@ -136,7 +136,7 @@ Many repositories require some environment variables to be set. Either to connec
 
 CodeSandbox allows you to set environment variables by clicking on our logo in the top left corner, and clicking on “Env variables”. These environment variables will be encrypted and stored in our database. After you've set the environment variables, they will be available for any branch in the repository after a restart.
 
-You can learn more about our environment variable support [here](/docs/learn/environment/secrets).
+You can learn more about our environment variable support [here](/learn/environment/secrets).
 
 ### VSCode Configuration
 
@@ -178,7 +178,7 @@ To enable deployment previews, you need to install the GitHub App. You can do th
 
 After you've gone through the steps of the installation, you should automatically get deployments for new PRs with a link to both the preview (if configured through tasks) and the development environment!
 
-There are more advantages of using the GitHub App, like automatic dashboard syncing. You can learn more about this [here](/docs/learn/integrations/github-app).
+There are more advantages of using the GitHub App, like automatic dashboard syncing. You can learn more about this [here](/learn/integrations/github-app).
 
 ## Troubleshooting
    
