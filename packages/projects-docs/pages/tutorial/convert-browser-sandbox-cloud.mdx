@@ -1,0 +1,37 @@
+---
+title: Convert a Browser sandbox to a Cloud sandbox
+description: Converting sandboxes
+---
+
+# Convert a Browser sandbox to a Cloud sandbox
+
+CodeSandbox cloud sandboxes utilize micro virtual machines (VMs) to provide a secure, isolated environment for running your code. These micro VMs are lightweight virtual machines optimized for running web applications, providing a range of benefits over traditional virtual machines.
+
+## Why convert to a Cloud Sandbox
+
+Cloud and browser sandboxes are valuable tools for web development projects, but they have critical differences regarding virtual machines (VMs) use.
+
+Browser sandboxes, also known as client-side sandboxes, run directly within the user's web browser. They do not utilize virtual machines and instead rely on browser features to provide environments for running code. This makes browser sandboxes lightweight and easy to use. Still, they may not provide the same level of scalablity and isolation as virtualized environments since they rely heavly on the browser.
+
+In contrast, cloud sandboxes use micro virtual machines (VMs) to provide an isolated and secure environment for running code. Micro VMs are lightweight and optimized for running web applications, and they provide a more consistent and predictable environment for running code than browser sandboxes.
+
+Cloud sandboxes also offer additional benefits over browser sandboxes when managing and scaling infrastructure. For example, cloud sandboxes can be easily scaled up or down to accommodate project needs, offering more resource allocation and management flexibility.
+
+Additionally, cloud sandboxes allow for easier collaboration among team members, as developers can easily share their code and collaborate in real-time. You can also install the GitHub application, review PRs with Cloud Sandboxes, and open your Sandbox project in VScode using the VScode extension. 
+
+## Convert to a Cloud sandbox from URL
+
+There are several ways to convert a Browser sandbox to a Cloud sandbox. The first is from the URL. Usually, Browser sandboxes start with `https://codesandbox.io/s/`. To convert this to a Cloud Sandbox, you can replace the prefix with `https://codesandbox.io/p/sandbox/`. This will automatically open up a Cloud sandbox. 
+
+## Convert directly from your project. 
+
+There are a couple of prompts for moving a sandbox in the browser sandbox UI. For example, if you want to access the terminal we suggest you a Cloud sandbox as the experience is much better there.
+
+![Connect from terminal](/convert-from-terminal.png)
+
+### Access Docker support from Browser sandbox
+
+You can access Docker support from a browser sandbox by clicking on the Docker icon in the menu on the left. By doing so your Sandbox will be converted to a Cloud sandbox. 
+
+![docker support from browser sandbox](/docker-support-browser-sandbox.png)
+
