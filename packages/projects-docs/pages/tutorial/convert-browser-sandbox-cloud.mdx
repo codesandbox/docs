@@ -1,0 +1,62 @@
+---
+title: Convert a browser sandbox into a cloud sandbox
+description: Learn how to quickly convert CodeSandbox browser sandboxes into the new, VM-powered cloud sandboxes.
+---
+
+# Convert a browser sandbox into a cloud sandbox
+
+CodeSandbox provides two different sandboxing environments you can use to quickly experiment with code, learn, prototype a project and share it with others: browser sandboxes and cloud sandboxes.
+
+Cloud sandboxes are part of our evolved CodeSandbox experience, so we now provide a way to easily convert existing browser sandboxes into this new experience.
+
+## Why convert into a Cloud Sandbox?
+
+Cloud and browser sandboxes are valuable tools for web development projects, but they have critical differences regarding their capabilities and limitations.
+
+[Browser sandboxes](/learn/sandboxes/editors?tab=browser), also known as client-side sandboxes, run directly within the user's web browser. Because they rely on browser features to provide environments for running code, they are lightweight and easy to use. Still, they do not provide the same level of scalability and isolation as virtualized environments since they rely heavily on the browser.
+
+In contrast, [cloud sandboxes](/learn/sandboxes/editors?tab=cloud) use [microVMs](/learn/environment/vm) to provide an isolated and secure environment for running code. These microVMs are lightweight and optimized for running web applications, and they provide a more consistent and predictable environment for running code than browser sandboxes.
+
+As a result, cloud sandboxes get rid of several [limitations of browser sandboxes](/faq#are-there-any-limitations-with-sandboxes), while offering additional benefits when managing and scaling infrastructure. Namely, cloud sandboxes can be easily scaled up or down to accommodate project needs, offering more resource allocation and management flexibility.
+
+Additionally, cloud sandboxes are collaborative by default, allowing for easier collaboration among team members, as developers can easily share their code and collaborate in real time. This sets CodeSandbox apart from other cloud development tools.
+
+### Feature comparison
+
+Besides the benefits presented above, there are some other noteworthy features that are only available in cloud sandboxes:
+- built-in [Docker support](/learn/environment/docker)
+- support for any programming language (using Docker)
+- collaborative [terminals](/learn/repositories/terminal) with `root` access
+- [VS Code integration](/learn/getting-started/setting-up-vscode)
+- element inspector
+- [tasks](/learn/repositories/task)
+
+However, cloud sandboxes currently do not offer feature parity to browser sandboxes. The following browser sandboxes features are currently not available in cloud sandboxes:
+- embeds
+- dependency picker
+- deployment menu
+- live sessions
+- themes
+- VIM mode
+
+## Convert into a cloud sandbox via URL
+
+There are several ways to convert a browser sandbox into a Cloud Sandbox. The first is from the URL.
+
+Usually, browser sandboxes start with `https://codesandbox.io/s/`. To convert into a cloud Sandbox, you can replace the prefix with `https://codesandbox.io/p/sandbox/`. This will automatically open up a cloud sandbox. 
+
+## Convert from the browser sandbox UI
+
+There are a few prompts for converting a sandbox in the browser sandbox UI.
+
+### Terminal tab
+
+If you want to access the terminal in the browser sandbox UI, we suggest you convert it into a cloud sandbox since the experience is much better there.
+
+![Connect from terminal](/convert-from-terminal.png)
+
+### Docker icon
+
+You can access Docker support from a browser sandbox by clicking on the Docker icon in the menu on the left. By doing so your sandbox will be converted into a cloud sandbox. 
+
+![docker support from browser sandbox](/docker-support-browser-sandbox.png)
