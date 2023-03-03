@@ -61,7 +61,7 @@ This will ensure that Node.js is installed, but you can make any changes to this
 
 After you've made changes to the `Dockerfile`, you should see a notification that prompts to rebuild the containers. Press “Yes”, and you'll see the setup tasks start again, with a new entry to build the image. The built image is cached, and available through VM cloning in other branches.
 
-<Callout emoji="💡">Native `docker-compose` support is still underway, but for now you can create a task to call `docker-compose up` . We'll get to tasks later in this guide.</Callout>
+<Callout emoji="💡">There's also native `docker-compose` support! If you create a `docker-compose.yml` file in `.codesandbox`, we'll automatically run the services.</Callout>
 
 You don't have to mount or `ADD` any files from your workspace folder. We'll make sure that your repository is mounted at `/workspace` when we start the container.
 
@@ -101,11 +101,6 @@ An example configuration could look like this:
         "pr-link": "direct"
       }
     },
-    "docker-compose": {
-      "name": "Run Docker-Compose",
-      "command": "docker-compose up",
-	  "runAtStart": true
-    },
     "tests": {
       "name": "Run Tests",
       "command": "pnpm test"
@@ -124,11 +119,9 @@ This configuration says that:
 
 <Callout emoji="💡">There are more properties you can configure in this config, you can find more information about this [here](/learn/repositories/task#tasks-configuration).</Callout>
 
-If you want to run `docker-compose`, this would be the perfect place to add that. You can create a new task that runs `docker-compose up`, and we'll make sure it's started when the VM boots.
+By making these changes, you'll ensure that the environment works by default. Other developers won't have to figure out what setup to do, or what commands to run to get started.
 
 <Callout emoji="⭐">Tasks are not started as your user, but by a global user named `pitcher-host`.</Callout>
-
-By making these changes, you'll ensure that the environment works by default. Other developers won't have to figure out what setup to do, or what commands to run to get started.
 
 ### Secret Configuration
 
