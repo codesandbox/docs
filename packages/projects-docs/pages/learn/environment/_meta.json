@@ -1,5 +1,6 @@
 {
   "vm": "VM Config & Persistence",
   "docker": "Docker Integration",
-  "secrets": "Environment Variables"
+  "secrets": "Environment Variables",
+  "branch-protection": "Branch Protection"
 }
