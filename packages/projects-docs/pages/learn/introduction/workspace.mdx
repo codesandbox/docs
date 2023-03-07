@@ -9,34 +9,48 @@ description:
 # Workspaces
 ![Workspaces](../images/workspace-selector.png)
 
+CodeSandbox uses **Workspaces** to provide personal and collaborative experiences. Each workspace could be a [Personal Workspace](#personal-workspace) or a [Team Workspace](#team-workspace). You can think of workspaces as the boundaries for collaboration on CodeSandbox: use a Personal Workspace for focused, individual development work, and use a Team Workspace for collaboration with others.
+
+Every Sandbox belongs to a workspace, and every branch of a Repository has a separate development environment in each workspace. If you are working on something in your Personal Workspace and decide to collaborate with others, it may be necessary to transfer (in the case of a Sandbox) or re-import (in the case of a Repository) your work to a Team Workspace.
+
 ## Personal Workspace
 
-By default, when you set up an account, you will get a free personal workspace. This is a private space to create, prototype and build anything you like. You can think of this workspace as your local development transferred to the cloud. The personal workspace contains any public Sandboxes and Repositories you added while active in your workspace.
+By default, when you set up an account, you have a free personal workspace. This is a private space to create, prototype and build anything you like. You can think of this workspace as your local development transferred to the cloud. The personal workspace contains any public Sandboxes and Repositories you added while active in your workspace.
+
+**Sandboxes**: Your personal workspace contains any Sandboxes created while that workspace was active. You can make these Sandboxes unlisted or private (with a [Personal Pro](#personal-pro) subscription) to work in secret. To collaborate with others, you will have to transfer the Sandbox to a team workspace that includes your collaboration partners.
+
+**Repositories**: Personal workspaces also contain any Repositories that were imported while that workspace was active. You can import private Repositories (with a [Personal Pro](#personal-pro) subscription) to work in secret. To collaborate with others, you will have to re-import the Repository to a team workspace that includes your collaboration partners.
 
 ![Personal workspace](../images/workspace-personal-team.png)
 
-It also contains a section for your [open source contributions](/learn/getting-started/open-source#introducing-contribution-branches).
+Your personal workspace also contains a section for your [open source contributions](/learn/getting-started/open-source#introducing-contribution-branches).
 
 ![My contribution branches](../images/workspace-my-contributions.png)
 
 ### Personal Pro
+
 By upgrading to Personal Pro, you can expand your personal development experience in a number of ways: 
 
 **Add Private Sandboxes and Repositories**
 
-Personal Pro allows you to import your private Repositories or mark your Sandboxes as private. This accelerates your personal and professional endevours by extending access to your work beyond your local machine while keeping the code secure.
+Personal Pro allows you to import your private Repositories and mark your Sandboxes as unlisted or private. This accelerates your personal and professional endevours by extending access to your work beyond your local machine while keeping the code secure.
 
 ![Private sandbox](../images/private-sandbox.png)
 
-**Access more VM Specs**
-Depending on the size of your projects, you may need an increase in memory and processing power. Personal Pro provides this increase so that you can work without friction.
+**Access more VM Resources**
 
-Learn more about subscription differences on our [pricing page](https://codesandbox.io/pricing) 
+Depending on the size of your projects, you may need an increase in memory, disk space, and processing power. Personal Pro provides this increase so that you can work without friction.
+
+Learn more about subscription differences on our [pricing page](https://codesandbox.io/pricing).
 
 ## Team Workspace 
 
 Team workspaces are where collaboration happens. 
-If you want to work together with a friend or colleague on a Sandbox or Repository, create a team and invite them to join you. 
+If you want to work together with a friend or colleague on a Sandbox or Repository, start by creating a team and inviting them to join you.
+
+**Sandboxes**: Anyone with write access to the team workspace can edit its Sandboxes. If you want to collaborate live with team members, you can start a [live session](/learn/getting-started/collaborate-share) (with a Team Pro subscription).
+
+**Repositories**: Similarly, anyone with write access to the team workspace can edit its Repositories — as long as they also have write access to the Repository on the git provider (such as GitHub). Branches have their own development environments for each workspace, so files saved on `my-branch` of a repository in your personal workspace will not appear on `my-branch` in the team workspace until they are committed and pushed to the git provider.
 
 ### Creating a Team
 
@@ -106,14 +120,10 @@ and only the original creator of the sandbox can delete it.
 
 #### Collaborating on Sandboxes
 
-You and other members can open a sandbox at the same time and see each other's
-cursor to work together. You can still invite other people who aren't members of
-the team to the sandbox or host a [live session](/learn/getting-started/collaborate-share).
+You and other members of a workspace can open a sandbox at the same time and see each other's cursor to work together. You can still invite other people who aren't members of the team to the sandbox or host a [live session](/learn/getting-started/collaborate-share).
 
 #### Collaborating on Repositories
 
-While Sandboxes are directly tied to a team, Repositories can exist in multiple workspaces at once. This means that users with write access to a repository may import it to their Personal Pro account while another team may import the same repository to work on it together.
+While Sandboxes belong to only one workspace, Repositories can exist in multiple workspaces at once. This means that users with write access to a repository may import it to their personal workspace while another team may import the same repository to work on it together.
 
-Collaboration on branches will be restricted to the users that are accessing the Repository on their team account, but they will be able to read all branches connected to the Repository regardless of the workspace they are accessing it through.
-
- 
+Live collaboration on branches is restricted to members of the same workspace. If you don't see your collaboration partners working, you may be looking at the same branch in a different workspace. Otherwise, your work will be visible in every workspace as soon as it is committed and pushed to the git provider.
