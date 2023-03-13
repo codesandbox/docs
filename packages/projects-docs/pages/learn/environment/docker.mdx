@@ -34,7 +34,8 @@ Whenever you open a terminal, we check if there is a container running for your 
 Every container does share the network, files and processes between each-other. This allows you to run an HTTP server in one container, and connect to it from another container.
 
 ## Configuring Docker Compose
-To run additional services using the Docker compose integration, you can create a file `.codesandbox/docker-compose.yml`. This file will be used to run `docker compose up` on start of a branch/sandbox. This can be used to run other services needed in the development environment like databases, proxies, etc.
+
+To run additional services using the Docker compose integration, you can create a file `.codesandbox/docker-compose.yml`. This file will be used to run `docker compose up` on start of a branch/sandbox. This feature can be used to run other services needed in the development environment like databases, proxies, etc.
 
 > For docker compose integration to automatically start the compose command the environment should be configured with a `.codesandbox/Dockerfile` as explained above.
 
