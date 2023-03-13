@@ -48,10 +48,10 @@ Note that you also have `root` access inside the terminal, that's because we giv
 
 ![htop running inside the container](/docker-terminal.png)
 
-### 4. Use docker compose
+### 4. Create docker compose file
 Once the environment is setup with `.codesandbox/Dockerfile`, you can run additional services that are required for the dev environment using the native docker compose integration in CodeSandbox.
 
-Create a new file `docker-compose.yml` in `.codesandbox` folder. As an example you can add the following contents in the file to run a nginx server.
+Create a new file `docker-compose.yml` in `.codesandbox` folder. As an example you can add the following contents in the file to run an nginx server.
 
 ``` yaml filename="codesandbox/docker-compose.yml"
 services:
