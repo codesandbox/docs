@@ -15,7 +15,7 @@ Docker is available for Cloud Sandboxes and Repositories. With Docker, you can g
 
 To get started with Docker, you need to create a new file called `Dockerfile` inside the `.codesandbox` folder. As an example, you could put these contents in:
 
-```docker filename="codesandbox/Dockerfile"
+```docker filename=".codesandbox/Dockerfile"
 FROM ubuntu
 
 # Install htop by default
@@ -53,7 +53,7 @@ Once the environment is setup with `.codesandbox/Dockerfile`, you can run additi
 
 Create a new file `docker-compose.yml` in `.codesandbox` folder. As an example you can add the following contents in the file to run an nginx server.
 
-``` yaml filename="codesandbox/docker-compose.yml"
+``` yaml filename=".codesandbox/docker-compose.yml"
 services:
     nginx:
         image: nginx
