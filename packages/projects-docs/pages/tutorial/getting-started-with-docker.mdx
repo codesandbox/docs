@@ -47,3 +47,23 @@ Now that the container has been built, all your new terminal sessions will be ex
 Note that you also have `root` access inside the terminal, that's because we give root access by default inside a container. With this, you can install new packages and use them in your sandbox from the terminal as well. Keep in mind that it's still better to configure this in the `Dockerfile` in the long term, as these temporary container changes won't persist between Dockerfile rebuilds.
 
 ![htop running inside the container](/docker-terminal.png)
+
+### 4. Use docker compose
+Once the environment is setup with `.codesandbox/Dockerfile`, you can run additional services that are required for the dev environment using the native docker compose integration in CodeSandbox.
+
+Create a new file `docker-compose.yml` in `.codesandbox` folder. As an example you can add the following contents in the file to run a nginx server.
+
+``` yaml filename="codesandbox/docker-compose.yml"
+services:
+    nginx:
+        image: nginx
+        ports:
+            - 8080:80
+```
+
+### 5. Run docker compose.
+Now that you've created the `docker-compose.yml` and saved it, you should see a notification pop up, asking you to restart the `docker compose` command. Whenever the `docker-compose.yml` changes, this prompt will show and you can restart docker compose.
+
+![Notification for starting docker compose](/docker-compose-notification.png)
+
+You can press "Yes", and it will run `docker compose up` for you. You should now see a shell dev tool open will docker compose logs. Once the `nginx` image is pulled and run, the port `8080` should open and a notification should show.
