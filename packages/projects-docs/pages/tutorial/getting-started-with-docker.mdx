@@ -48,10 +48,10 @@ Note that you also have `root` access inside the terminal, that's because we giv
 
 ![htop running inside the container](/docker-terminal.png)
 
-### 4. Create docker compose file
-Once the environment is setup with `.codesandbox/Dockerfile`, you can run additional services that are required for the dev environment using the native docker compose integration in CodeSandbox.
+### 4. Create Docker Compose file
+Once the environment is set up with `.codesandbox/Dockerfile`, you can run additional services that are required for the dev environment using the native docker compose integration in CodeSandbox.
 
-Create a new file `docker-compose.yml` in `.codesandbox` folder. As an example you can add the following contents in the file to run an nginx server.
+Create a new file `docker-compose.yml` in the `.codesandbox` folder. For example, you can add the following contents in the file to run an nginx server.
 
 ``` yaml filename=".codesandbox/docker-compose.yml"
 services:
@@ -66,4 +66,4 @@ Now that you've created the `docker-compose.yml` and saved it, you should see a 
 
 ![Notification for starting docker compose](/docker-compose-notification.png)
 
-You can press "Yes", and it will run `docker compose up` for you. You should now see a dev tool open with docker compose logs. Once the `nginx` image is pulled and run, the port `8080` should open and a notification should show with the url to access the port.
+You can press "Yes" and it will run `docker compose up` for you. You should now see a DevTool open with Docker Compose logs. Once the `nginx` image is pulled and run, port `8080` should open and a notification should show with the URL to access the port.

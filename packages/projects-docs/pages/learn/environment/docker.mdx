@@ -35,9 +35,9 @@ Every container does share the network, files and processes between each-other. 
 
 ## Configuring Docker Compose
 
-To run additional services using the Docker compose integration, you can create a file `.codesandbox/docker-compose.yml`. This file will be used to run `docker compose up` on start of a branch/sandbox. This feature can be used to run other services needed in the development environment like databases, proxies, etc.
+To run additional services using the Docker Compose integration, you can create a file `.codesandbox/docker-compose.yml`. This file will be used to run `docker compose up` at a branch/sandbox startup. This feature can be used to run other services needed in the development environment like databases, proxies, etc.
 
-> For docker compose integration to automatically start the compose command the environment should be configured with a `.codesandbox/Dockerfile` as explained above.
+> For the Docker Compose integration to automatically start the `compose` command, the environment should be configured with `.codesandbox/Dockerfile` as explained above.
 
 To access these services, you have to expose the ports in the `docker-compose.yml` file using the `ports` attribute of the service.
 
@@ -49,6 +49,6 @@ services:
             - 8080:80
 ```
 
-You can use docker commands in the terminal to exec into the containers started with this method. To manage the running containers with the `docker compose` command either `cd` into `.codesandbox` directory or specify the location of the `docker-compose.yml` file using `docker compose -f .codesandbox/docker-compose.yml`.
+You can use Docker commands in the terminal to exec into the containers started with this method. To manage the running containers with the `docker compose` command, either `cd` into the `.codesandbox` directory or specify the location of the `docker-compose.yml` file using `docker compose -f .codesandbox/docker-compose.yml`.
 
-> You do not have to run or configure a task to run `docker compose`. The `.codesandbox/docker-compose.yml` will be automatically detected and `docker-compose up` will be run on start of the branch/sandbox.
+> You do not have to run or configure a task to run `docker compose`. The `.codesandbox/docker-compose.yml` file will be automatically detected and `docker-compose up` will be run at branch/sandbox startup.
