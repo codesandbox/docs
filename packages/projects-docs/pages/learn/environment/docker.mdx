@@ -32,3 +32,23 @@ This means that we also have to run containers on a per-user basis. For every us
 Whenever you open a terminal, we check if there is a container running for your user. If it's not running, we start it, and we then start an `exec` session inside the container.
 
 Every container does share the network, files and processes between each-other. This allows you to run an HTTP server in one container, and connect to it from another container.
+
+## Configuring Docker Compose
+
+To run additional services using the Docker Compose integration, you can create a file `.codesandbox/docker-compose.yml`. This file will be used to run `docker compose up` at a branch/sandbox startup. This feature can be used to run other services needed in the development environment like databases, proxies, etc.
+
+> For the Docker Compose integration to automatically start the `compose` command, the environment should be configured with `.codesandbox/Dockerfile` as explained above.
+
+To access these services, you have to expose the ports in the `docker-compose.yml` file using the `ports` attribute of the service.
+
+``` yaml filename=".codesandbox/docker-compose.yml"
+services:
+    nginx:
+        image: nginx
+        ports:
+            - 8080:80
+```
+
+You can use Docker commands in the terminal to exec into the containers started with this method. To manage the running containers with the `docker compose` command, either `cd` into the `.codesandbox` directory or specify the location of the `docker-compose.yml` file using `docker compose -f .codesandbox/docker-compose.yml`.
+
+> You do not have to run or configure a task to run `docker compose`. The `.codesandbox/docker-compose.yml` file will be automatically detected and `docker-compose up` will be run at branch/sandbox startup.
