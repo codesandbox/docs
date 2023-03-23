@@ -1,0 +1,52 @@
+---
+title: Getting Started with PHP
+description: Learn how to get started coding in PHP right from CodeSandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Getting Started with PHP
+
+PHP is fully supported on Cloud Sandboxes and Repositories. It leverages [Docker](./getting-started-with-docker) to run a configurable PHP container, while also bringing LSP support through Intelephense, which includes auto-formatting, auto-linting and type definitions.
+
+In this tutorial, we will showcase two different approaches you can use to get started with PHP in CodeSandbox: starting from a template or importing an existing PHP project.
+
+## Starting from a template
+
+CodeSandbox provides a growing collection of PHP templates that may be useful depending on your use case.
+
+In case you want a fresh, blank environment to start building a project from scratch, you can use our [PHP starter](https://codesandbox.io/p/sandbox/php-starter-ygkev0). Otherwise, you will find our existing PHP templates in the [template library](https://codesandbox.io/s/).
+
+After forking one of these templates, you can open a [terminal](/learn/repositories/terminal) (which you can find under DevTools, on the top right) to run `php` commands.
+
+<Callout emoji="💡">CodeSandbox terminals are collaborative, meaning that if you share the link of your PHP sandbox/repository with someone, you can collaborate on the same terminal!</Callout>
+
+## Importing an existing repository
+
+You can also import one of your existing PHP repositories from GitHub into CodeSandbox by following the steps below.
+
+### 1. Import repository
+
+From the CodeSandbox dashboard, click "Import from GitHub" and input the URL of your repository. If you are missing the required permissions, you should get a prompt asking you to update them.
+
+![Import from GitHub](/dashboard-import-github.png)
+
+<Callout emoji="💡">You can also type your repo without the GitHub URL (e.g. “codesandbox/test-sandbox”) to import the repo.</Callout>
+
+### 2. Rebuild the container
+
+As mentioned above, CodeSandbox relies on a Dockerfile to run PHP.
+
+After importing your repository, you won't be able to immediately run `php` commands. First, you need to rebuild the container.
+
+To do that, open any `.php` file and you will see a prompt appear, asking if you want to create a Dockerfile. Click "Create Dockerfile".
+
+![PHP Dockerfile](/php-dockerfile.png)
+
+CodeSandbox will create this file and set up PHP. The first time when you do this step, it can take a while. However, after this setup, we will create a memory snapshot of the VM, which will ensure that the following VM loads (& clones!) will be fast.
+
+### 3. Use the container
+
+Now that the container has been built, all your new terminal sessions will be executed from inside this container, which is running PHP. You can test this by opening a new [terminal](/learn/repositories/terminal), and verifying that `php` is installed.
+
+If this is your first time using CodeSandbox, keep reading on how to [set up your sandbox](/learn/getting-started/your-first-sandbox) or [repository](/learn/getting-started/setting-up-repository).
