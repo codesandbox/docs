@@ -33,6 +33,7 @@ This is an example of a configuration:
 
 ```json
 {
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
   "setupTasks": ["yarn install", "yarn build"],
   "tasks": {
     "install-dependencies": {
@@ -58,6 +59,7 @@ Setup tasks are an array of commands that will run sequentially before the works
 
 ```json
 {
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
   "setupTasks": [
     {
       "name": "Installing Dependencies",
@@ -77,6 +79,7 @@ Tasks are scripts that can be run inside your repository. In many cases, these w
 
 ```json
 {
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
   "tasks": {
     // Task ID is used to uniquely identify each task, we use it to
     // keep track of the task even if the command changes
@@ -123,6 +126,7 @@ Here's an example:
 
 ```json
 {
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
   "tasks": {
     "dev-server": {
       "name": "Start Dev Server",
@@ -145,6 +149,7 @@ Here's an example:
 
 ```json
 {
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
   "tasks": {
     "run-dev": {
       "name": "App",
@@ -159,6 +164,7 @@ Here's an example:
 
 ```json
 {
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
   "tasks":{
     "build":{
       "name":"Build Workspace",
@@ -187,17 +193,4 @@ Here's an example:
 
 ## Reference
 
-- setupTasks
-  - name
-  - command
-- tasks
-  - task-id
-    - name
-    - command
-    - runAtStart
-    - restartOn
-      - files
-      - branch
-    - preview
-      - port
-      - prLink
+- [JSON Schema for `tasks.json`](https://codesandbox.io/schemas/tasks.json)
