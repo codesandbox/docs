@@ -8,27 +8,31 @@ import Video from '../../../../../shared-components/Video'
 
 # DevTools
  
- DevTools allow you to work faster and more efficient. They are useful for debugging, testing, and developing. They are collaborative by default, allowing you to share their content: a terminal output, a preview error, a console log...
+DevTools allow you to work faster and more efficiently. They are useful for debugging, testing, and developing. They are collaborative by default, allowing you to share their content: a terminal output, a preview error, a console log...
 
  
 <Video src="../../devtools-management.mp4" />
 
-Add as many DevTools as you want. Each one lives in its own tab and each tab can be moved around, reordered or dropped on to another tab to split the view.
+Add as many DevTools as you want. Each one lives in its own tab and each tab can be moved around, reordered or dropped into another tab to split the view.
 
 When a tab is closed, the layout will re-arrange to fill up all the available space. Your layout is persisted in the browser, so you will see the same DevTools when you come back later to your VM.
 
 <Callout emoji="→">
-Closing a devtool will not stop it, it will keep running in the background. If you want to stop the process, you must select the option `Close and stop` from the dropdown menu `...`. 
+Closing a DevTool will not stop it—it will keep running in the background. If you want to stop the process, you must select the option `Close and stop` from the dropdown menu `...`. 
 </Callout>
 
 ## Open a DevTool
 
-Each tabbed panel has a `+` sign on the right side of the tabs. When clicking it you are presented with a list of available DevTools. Clicking on any DevTool will open it in the current tab. Additionally you can trigger the `New` DevTool tab by double clicking anywhere between the tabs and the `+` button or by pressing <kbd>Cmd/Ctrl</kbd> <kbd>Shift</kbd> <kbd>S</kbd>.
+There are three main ways to open a new DevTool:
+
+1. Clicking on the `+` sign on the right side of any tabbed panel. This presents a list of available DevTools—and clicking on any DevTool will open it in the current tab.
+2. Double-clicking anywhere between the tabs and the `+` button.
+3. Pressing <kbd>Cmd/Ctrl</kbd> <kbd>Shift</kbd> <kbd>S</kbd>.
 
 
 ## DevTools configuration
 
-You can control the name, position and what DevTools to run when you open the Web Editor. Check the [`tasks.json`](./task) documentation for more information on how to configure the DevTools.
+You can control the name and position of your DevTools, as well as define which DevTools run when you open the Web Editor. Check the [`tasks.json`](./task) documentation for more information on how to configure the DevTools.
 
 <Callout emoji="⭑">
 Setting up the DevTools makes it easier for non-developers to access and run your project.
