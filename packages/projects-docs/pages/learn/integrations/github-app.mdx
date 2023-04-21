@@ -27,19 +27,21 @@ The integration between CodeSandbox and GitHub allows you to automatically add l
 #### Open in Web Editor
 
 This link opens the branch in the CodeSandbox web editor.
-Because the branch is a shared environment, you will be able to see any running previews, tests, or other DevTools that the PR author left open to assist with the review process.
+
+Because branches running in CodeSandbox are fully collaborative, you will be able to see any running previews, tests, or other DevTools that the PR's author left open to assist with the review process.
 
 #### Open in VS Code Extension
 
-If VS Code (or VS Code Insiders) is your preferred development environment, you can open the branch directly from this link using [remote-ssh](https://code.visualstudio.com/docs/remote/ssh).
+If VS Code (or VS Code Insiders) is your preferred development environment, you can open the branch directly from this link, which uses [remote-ssh](https://code.visualstudio.com/docs/remote/ssh).
 
 #### Open Preview(s)
 
-These links will take you directly to a preview environment — or a standalone devtool of a running preview task — depending on your task configuration.
+These links will take you directly to a preview environment—or a standalone DevTool of a running preview task—depending on your task configuration.
 
 ### Deployments
 
-For projects with preview tasks configured, CodeSandbox can add [Deployments](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-deployment-activity-for-your-repository) to GitHub for easy access to running previews.
+If your project has preview tasks configured, CodeSandbox can add [Deployments](https://docs.github.com/en/repositories/viewing-activity-and-data-for-your-repository/viewing-deployment-activity-for-your-repository) to GitHub for easy access to running previews.
+
 These deployments provide easy access for individuals, as well as programmatic access for CI tasks using the [GitHub API](https://docs.github.com/en/rest/deployments).
 Look for entries like the following:
 
@@ -59,6 +61,7 @@ Look for entries like the following:
 ```
 
 Don't worry if you have other services creating deployments for your project; CodeSandbox will only manage deployments with `"provider": "CodeSandbox"` in the payload.
+
 For more complicated projects, CodeSandbox will create one deployment for each task configured with a preview.
 
 Make sure to [configure the `preview` field](/learn/repositories/tasks#preview-field) in your tasks for them to show up in the deployments.
@@ -66,19 +69,25 @@ Make sure to [configure the `preview` field](/learn/repositories/tasks#preview-f
 {/* NOTE: Project settings not yet available in the client. */}
 {/* This functionality is disabled by default, and can be enabled in your project settings. */}
 
-## Installing the GitHub App
+## Installing the CodeSandbox GitHub App
 
 ![Installing GitHub Apps](../images/GH-App-standalone.jpg)
 
-The GitHub App can be installed by...
+The CodeSandbox GitHub App can be installed by...
 
-- An individual user, for some or all of the repositories owned by that user
-- An organization admin, for some or all of the repositories in that organization
-- A repository admin, for that specific repository
+- An individual user, for some or all of the repositories owned by that user.
+- An organization admin, for some or all of the repositories in that organization.
+- A repository admin, for that specific repository.
 
-However, it is possible to request the installation of a GitHub App in repositories where you don't have the necessary permissions.
-Organization owners and repository admins will receive a notification on GitHub and via email asking them to approve or deny the request.
-Alternatively, you can configure the App through its official [GitHub App Page](https://github.com/apps/codesandbox).
+However, it is possible to request the installation of the CodeSandbox GitHub App in repositories where you don't have the necessary permissions. Organization owners and repository admins will receive a notification on GitHub and via email asking them to approve or deny the request.
+
+Whenever you open a repository that doesn't have the CodeSandbox GitHub App configured, you will see a modal (as pictured above) with an "Install GitHub App" button, which will take you through the setup.
+
+You can check the status of the installation at any time by navigating to a repository on CodeSandbox, clicking the CodeSandbox icon on the top left, then going to _Project Settings_, and finally checking the details shown under _Install GitHub App_.
+
+![CodeSandbox GitHub App install status](../images/GH-App-status.jpg)
+
+Alternatively, you can configure the CodeSandbox GitHub App through its official [GitHub App Page](https://github.com/apps/codesandbox).
 
 ## Privacy and Permissions
 
