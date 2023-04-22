@@ -387,7 +387,7 @@ html[class~="dark"] p code {
 .nextra-callout {
   box-sizing: border-box;
   border-radius: 6px;
-  padding: 16px;
+  padding: 16px !important;
   display: flex;
   align-items: flex-start;
 }
