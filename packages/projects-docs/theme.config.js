@@ -9,9 +9,18 @@ export default {
   footer: { component: null },
   feedback: { content: null },
 
-  editLink: { text: "Edit this page on CodeSandbox →" },
+  editLink: {
+    text: "Edit this page on CodeSandbox →",
+    component: ({ children, className, filePath }) => (
+      <a
+        href={`https://codesandbox.io/p/github/codesandbox/docs/main?file=/packages/projects-docs/${filePath}`}
+        className={className}
+      >
+        {children}
+      </a>
+    ),
+  },
 
-  docsRepositoryBase: "https://codesandbox.io/p/github/codesandbox/docs/main",
   // project: { icon: BackLink },
   // navbar: {
   //   extraContent: BackLink,
