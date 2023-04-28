@@ -1,16 +1,74 @@
 ---
-title: Setup your first sandbox
-description:
+title: Set up your first sandbox
+description: Learn how to take your first steps with CodeSandbox sandboxes.
 ---
 import { Callout } from 'nextra-theme-docs'
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 
 # Getting Started with Sandboxes
-Sandboxes are a great way to get working on your idea with zero startup costs. 
+Sandboxes are a great way to get working on your idea with zero startup costs.
 
-<Tabs tabs={["Browser", "Cloud"]}>
+CodeSandbox provides both [Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) (powered by microVMs, so they're more powerful) and [Browser Sandboxes](/learn/sandboxes/overview) (powered by your browser, so they have more limits).
+
+All CodeSandbox sandboxes are fully [collaborative](/learn/getting-started/collaborate-share?tab=browser-sandboxes).
+
+<Tabs tabs={["Cloud", "Browser"]}>
     <WrapContent>
-## Finding Sandbox Templates
+
+## Using Cloud Templates
+Cloud Sandboxes are an all-around great solution to help you prototype any app, regardless of the language you're using or the complexity of your project.
+
+They have built-in [Docker support](/learn/environment/docker) and include several valuable features, such as collaborative [Terminals](/learn/repositories/terminal), [Tasks](/learn/repositories/task), and [VS Code integration](/learn/getting-started/setting-up-vscode).
+
+<Callout>
+Cloud sandboxes are built for scale. Our Free plan includes generous VM specs but you can easily [start a Pro trial](https://codesandbox.io/pro) to improve them.
+</Callout>
+
+One of the best things about our Cloud Sandboxes is that there are dozens of official templates you can use to start coding.
+    
+To get started, [open the `New` Modal](https://codesandbox.io/s/) and search through our selection of Cloud Sandbox Templates. You can recognize a Cloud Sandbox by their special _Cloud_ badges.
+
+Templates are automatically forked when you select them, so you can edit
+and begin creating your own sandbox.
+
+<br/> 
+![Cloud Sandbox Templates](../images/dashboard-cloud-template.jpg)
+
+## Opening a GitHub Repository as a Cloud Sandbox
+
+Typically, whenever you want to run a GitHub repository in CodeSandbox, we recommend that you [import it](/learn/getting-started/setting-up-repository#create-a-team--import-a-repository) as a CodeSandbox Repository.
+
+However, there are some cases where you might want to run a given repository (or a specific sub-folder of that repo) as a Cloud Sandbox. This is especially handy for large monorepos that include an `/examples` sub folder.
+
+As an example, let's consider the [Blog example](https://github.com/withastro/astro/tree/main/examples/blog) from the official Astro repository.
+
+To easily run it as a Cloud Sandbox that's synced to the GitHub repo, simply update the URL in the address bar from:
+
+`https://github.com/withastro/astro/tree/main/examples/blog`
+
+To:
+
+`https://codesandbox.io/p/sandbox/github/withastro/astro/tree/main/examples/blog`
+
+Then, you can easily fork that synced Cloud Sandbox and start prototyping.
+
+## Growing a Cloud Sandbox into a Repository
+
+When your prototype grows into a full project, you may want to add version control through git, to make updates and collaboration easier to manage.
+
+CodeSandbox is specifically built to enable you to grow your project as big as you need.
+
+You can scale your Cloud Sandbox into a Repository by navigating to the git menu on the left sidebar and clicking _Create Repository_.
+
+![Scaling a sandbox into a repository](../images/convert-sandbox-to-repo.jpg)
+
+## Programatically creating Cloud Sandboxes
+
+If you want to use our API to create Cloud Sandboxes, refer to our [Define API](/learn/getting-started/your-first-sandbox?tab=browser#define-api) documentation and be sure to add an additional `environment: "server"` parameter to the request body.
+ 
+    </WrapContent>
+    <WrapContent>
+## Finding Browser Sandbox Templates
 
 The most popular way of creating a new Sandbox is the 'New' modal.
 
@@ -24,20 +82,28 @@ and begin creating your own sandbox.
 
 ### Using GitHubBox.com
 
-An easy way to import a repo to CodeSandbox via URL is with GitHubBox.com.
+An easy way to import a repo to CodeSandbox as a browser sandbox via URL is with GitHubBox.com.
 Append 'box' to your github.com URL in between 'hub' and '.com' and it will
 redirect to CodeSandbox.
 
 Here's an example:
 
 Change the GitHub URL:
-https://github.com/reduxjs/redux/tree/master/examples/todomvc.
 
-To: https://githubbox.com/reduxjs/redux/tree/master/examples/todomvc.
+`https://github.com/reduxjs/redux/tree/master/examples/todomvc`
 
-The result is we take the last part of the url (everything after github.com) and
-use it in our importer at codesandbox.io/s/github/, adding the repo to
+To:
+
+`https://githubbox.com/reduxjs/redux/tree/master/examples/todomvc`
+
+The result is we take the last part of the URL (everything after github.com) and
+use it in our importer at `codesandbox.io/s/github/`, adding the repo to
 CodeSandbox.
+
+<Callout>
+Unless you specifically want to use a Browser Sandbox, we recommend that you skip this method and instead import a GitHub repo as a [CodeSandbox Repository](/learn/getting-started/setting-up-repository#create-a-team--import-a-repository) or a [synced Cloud Sandbox](/learn/getting-started/your-first-sandbox#opening-a-github-repository-as-a-cloud-sandbox).
+</Callout>
+
 <br/>
 
 ### Using a Browser Extension
@@ -51,7 +117,7 @@ easy to import existing projects from GitHub in to CodeSandbox.
 <br/>
 ### Setting inference
 
-When importting, we infer sandbox settings based on several files in a
+When importing, we infer sandbox settings based on several files in a
 repository.
 
 | Sandbox Setting | Inferred from                                                                                                                                         |
@@ -74,10 +140,10 @@ override the detected template.
 
 ## Import Local projects via CLI
 
-You can import a local project in to CodeSandbox by using our
+You can import a local project into CodeSandbox by using our
 [CLI](https://github.com/codesandbox-app/codesandbox-importers/tree/master/packages/cli).
 
-You can install our CLI by running `npm install -g codesandbox`. Then import a
+To install our CLI, run `npm install -g codesandbox`. Then import a
 project by running `codesandbox {directory}`.
 <br/>
 
@@ -106,15 +172,17 @@ as the [embed options](/learn/sandboxes/embedding).
 | Query Parameter | Description                                                                           | Example Input               |
 | --------------- | ------------------------------------------------------------------------------------- | --------------------------- |
 | `parameters`    | Parameters used to define how the sandbox should be created.                          | Example below               |
-| `query`         | The query that will be used in the redirect url.                                      | `view=preview&runonclick=1` |
-| `embed`         | Whether we should redirect to the embed instead of the editor.                        | `1`                         |
+| `query`         | The query that will be used in the redirect URL.                                      | `view=preview&runonclick=1` |
+| `embed`         | Defines whether we should redirect to the embed instead of the editor.                        | `1`                         |
 | `json`          | Instead of redirecting we will send a JSON response with `{"sandbox_id": sandboxId}`. | `1`                         |
 <br/>
 
 ### How it works
 
 The API only needs one argument: `files`. This argument contains the files that
-will be in the sandbox, an example body would be:
+will be contained in the sandbox.
+
+An example body would be:
 
 ```json
 {
@@ -147,8 +215,8 @@ URL to the file hosted externally. For example:
 
 #### Folders
 
-You can create folders by naming the file with a `/` in it's name, allowing to
-structure your application how you want:
+You can create folders by naming the file with a `/` in its name, allowing you to
+structure your application as you prefer:
 
 ```json
 {
@@ -172,13 +240,13 @@ This will create a file called `index.js` in your `src` folder.
 #### Package.json
 
 Every request **requires** a `package.json`. This file can either be a string or
-an object. We determine all information of the sandbox from the files, like we
+an object. We determine all of the sandbox's information from the files, like we
 do with the GitHub import.
 <br/>
 
 ### GET Request
 
-It's very hard to send the JSON parameters with a GET request, there is a chance
+It's quite difficult to send the JSON parameters with a GET request. There is a chance
 of unescaped characters and the URL hits its limit of ~2000 characters quickly.
 That's why we first compress the files to a compressed `lz-string`. We offer a
 utility function in the `codesandbox` dependency for this. The implementation
@@ -204,46 +272,46 @@ const url = `https://codesandbox.io/api/v1/sandboxes/define?parameters=${paramet
 
 #### Example Sandbox
 
-https://codesandbox.io/s/6yznjvl7nw?editorsize=50&fontsize=14&hidenavigation=1&runonclick=1
+`https://codesandbox.io/s/6yznjvl7nw?editorsize=50&fontsize=14&hidenavigation=1&runonclick=1`
 <br/>
 
 ### POST Form
 
-You can do the exact same steps for a POST request, but instead of a URL you'd
-show a form. With a POST request you can create bigger sandboxes.
+You can do the exact same steps for a POST request, but instead of a URL, you'd
+show a form. With a POST request, you can create bigger sandboxes.
 <br/>
 
 #### Example Sandbox
 
-https://codesandbox.io/s/qzlp7nw34q?editorsize=70&fontsize=14&hidenavigation=1&runonclick=1
+`https://codesandbox.io/s/qzlp7nw34q?editorsize=70&fontsize=14&hidenavigation=1&runonclick=1`
 <br/>
 
 ### Define without render
 
 If you want to define a new sandbox without getting it rendered, you can add
-`?json=1` to the request. For instance
+`?json=1` to the request. For instance,
 `https://codesandbox.io/api/v1/sandboxes/define?json=1`. Instead of the render,
-the result will be json data providing you with the `sandbox_id` of the new
+the result will be JSON data providing you with the `sandbox_id` of the new
 sandbox.
 
 This is useful, for instance, if you need to create a new sandbox
-programmatically, so you can then embed it on your site (See
+programmatically, so you can then embed it on your site (see
 [Embed documentation](/learn/sandboxes/embedding)).
 
-Both `get` and `post` requests are supported.
+Both `GET` and `POST` requests are supported.
 <br/>
 
 ### XHR Request
 
 You can also create a sandbox using an XHR request, like using `fetch`. An
-example sandbox of that is here:
+example sandbox is:
 
-https://codesandbox.io/s/9loovqj5oy?editorsize=70&fontsize=14&hidenavigation=1&runonclick=1
+`https://codesandbox.io/s/9loovqj5oy?editorsize=70&fontsize=14&hidenavigation=1&runonclick=1`
 <br/>
 
 ## Import Single Components
 
-You can import a local component in to CodeSandbox by using our other
+You can import a local component into CodeSandbox by using our other
 [CLI](https://github.com/codesandbox/codesandboxer/tree/master/packages/codesandboxer-fs).
 
 You can install our CLI by running `npm install -g codesandboxer-fs`. Then you
@@ -254,7 +322,7 @@ $ npm install -g codesandboxer-fs
 $ codesandboxer docs/examples/my-single-component.js
 ```
 
-This will print out the id of a sandbox that does nothing but render the
+This will print out the ID of a sandbox that does nothing but render the
 targeted component, along with a link to that sandbox. This will also bundle in
 other local files used by the component to ensure render.
 <br/>
@@ -263,6 +331,7 @@ other local files used by the component to ensure render.
 
 [Codesandboxer](https://github.com/codesandbox/codesandboxer) imports a single
 file from a git repository, along with supplemental files and dependencies.
+
 Using this creates an easy way to upload an example instead of an entire git
 repository. This enables you to easily share examples with others, or to link to
 editable versions of examples from a documentation website. React-codesandboxer
@@ -272,7 +341,7 @@ BitBucket.
 
 ### How it works
 
-Below the surface, react-codesandboxer fetches the files it needs from GitHub or
+Below the surface, `react-codesandboxer` fetches the files it needs from GitHub or
 BitBucket, using a single file that will be rendered as the 'example' as an
 entry point, then uses the Define API to upload the necessary files into a new
 `create-react-app` sandbox.
@@ -306,14 +375,6 @@ remark plugin for creating sandboxes directly from code blocks in documentation.
 Developed by CodeSandbox community member Kai Hao, it supports popular platforms
 including MDX, Gatsby, Storybook Docs, docz etc. Learn more about it in their
 [documentation](https://github.com/kevin940726/remark-codesandbox#remark-codesandbox).
-    </WrapContent>
-    <WrapContent>
-    ## Using Cloud Templates
-    This new Sandbox experience is currently in Beta. We will be adding more features in the coming months to offer more prototyping tools. That said, this Sandbox is already a great option for anyone looking to run server-side code. 
-    
-    To get started, open the 'New' Modal to search through our new selection of Cloud Sandbox Templates. You can recognize a Cloud Sandbox by their special badges.
-    <br/> 
-    ![Cloud Sandbox Templates](../images/dashboard-cloud-template.jpg)
        
     </WrapContent>
 </Tabs>
