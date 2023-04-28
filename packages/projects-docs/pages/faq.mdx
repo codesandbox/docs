@@ -66,7 +66,7 @@ recommend using a [cloud sandbox](/learn/sandboxes/overview?tab=cloud#what-is-a-
 ## Can I change the Node version used in a container sandbox?
 
 Yes. Container sandboxes that are created after May 10 2021 run Node v14.18.1 (LTS) by default.
-For backwards compatibility the older sandboxes are on Node v10. However, you can
+For backwards compatibility, the older sandboxes are on Node v10. However, you can
 specify a `node` value to alter the version in `sandbox.config.json`, which will
 be used instead. For further details, see [configuration](/learn/sandboxes/configuration).
 
@@ -99,7 +99,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
 - Cannot use more than 500 modules (files). Note that
   `node_modules` and dependencies do not count toward this limit.
 - The maximum file size that can be opened in the editor is 2MB. Files uploaded
-  that are larger than that still exist but are linked as a static asset.
+  that are larger than that still exist but are linked as a static assets.
 - Terminal commands that alter the filesystem of the container instance aren't
   synced with files shown in the editor. You'll need to refresh to see files
   updated this way.
@@ -113,7 +113,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
 - When using a container, the sandbox has a 1GB persistent storage limit, a 1GB vCPU soft
   limit, and a hard memory limit of 2GB.
   
-Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you use them to avoid encountering these limitations.
+Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
 ## I'm getting a 'Request Entity too Large' error, what should I do?
 
@@ -234,15 +234,15 @@ Only the scripts that start with `node` or the name of a dependency located insi
 
 The runtime provides a `WEB_PORT` environment variable matching the port used by default by the in-app web browser. If your sandbox doesn't use the port in that environment variable, then you will need to fix the URL in the web browser to load the page on the right port.
 
-### Why does my sandbox stop running when I move the app to background?
+### Why does my sandbox stop running when I move the app to the background?
 This happens because iOS suspends the process while the application is in the background, which also suspends all its activity.
 
 ### My sandbox requires Node.js 14 but the app uses Node.js 12. How can I change the Node.js version?
-The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating the new CodeSandbox experience instead. We will be making changes in this front, so please stay tuned.
+The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating the new CodeSandbox experience instead. Stay tuned, as we will be making some updates.
 
 ## Repositories
 
 ### Why can't I make any changes to my project?
-It is very likely that you have a protected branch selected (i.e. `main`). Forking a branch will create a new one where you can make changes.
+You likely have a protected branch selected (i.e. `main`). Forking a branch will create a new one where you can make changes.
     </WrapContent>
 </Tabs>
