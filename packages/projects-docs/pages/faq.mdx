@@ -4,6 +4,7 @@ authors: ['Necoline', 'Obinna']
 ---
 
 import { Tabs, WrapContent } from '../../../shared-components/Tabs'
+import { Callout } from 'nextra-theme-docs'
 
 # FAQ
 
@@ -11,72 +12,95 @@ import { Tabs, WrapContent } from '../../../shared-components/Tabs'
     <WrapContent>
       ## Which languages and frameworks are supported?
 
-CodeSandbox works with anything that can run in Docker. We have the best experience for JavaScript (including TypeScript), frontend and full-stack.
+[Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack, and officially support (with built-in LSP/IntelliSense) Rust, Python, PHP, Ruby on Rails, Node and Deno (more languages coming soon).
+
+[Browser sandboxes](/learn/sandboxes/overview) are more limited. They support JavaScript/TypeScript projects, as well as Node.js.
 
 [Create a sandbox from a template](https://codesandbox.io/s/), or read more
 about the
-[difference between client and container sandboxes](/learn/sandboxes/editors).
+[difference between browser and cloud sandboxes](/learn/sandboxes/editors).
 
 ## How do I make a sandbox private?
 
-You can set a sandbox as private in two main ways: From the editor, change the
-privacy setting from the Privacy drop-down under Sandbox Info, and from the
-dashboard right-click and select make private.
+There are several ways to set a sandbox as private. One universal way (that works both for browser sandboxes and cloud sandboxes) is to right-click a sandbox from the dashboard and select _Make sandbox private_.
 
-Note that a [Pro subscription](https://codesandbox.io/pricing) is required to
+<Callout>
+A [Pro subscription](https://codesandbox.io/pricing) is required to
 make sandboxes private or unlisted.
+</Callout>
+
+You can also change the privacy settings from the editor. How you do it will depend on whether you're using a browser sandbox or a cloud sandbox, as shown below.
+
+### Make a browser sandbox private
+
+The browser editor provides two ways to change the privacy:
+
+1. Change the privacy drop-down under _Permissions_ in the _Sandbox Info_ tab.
+2. Click the _Share_ button on the top right and change the privacy drop-down at the top.
 
 ![Make private in the editor](./learn/images/sandbox-private.jpg)
+
+### Make a cloud sandbox private
+
+The cloud editor also provides two ways to change the privacy:
+
+1. Click the chevron on the right side of your sandbox's name at the top of the screen; click _Edit info_ and then change the drop-down next to _Privacy_.
+2. Click the _Share_ button on the top right and change the drop-down under _Permissions_.
 
 ## I'm getting a 422 error when importing from GitHub, why?
 
 There are a few possible reasons a repo might throw that error on import. The
-most common are either a lack of a `package.json` file, or the project using
-more than 500 modules (files). If you think it's something else, or you're not
-able to solve this yourself, then [get in touch](mailto:support@codesandbox.io)
+most common are the lack of a `package.json` file, or the project using
+more than 500 modules (files).
+
+If you think it's something else, or you're unable to solve this yourself, then [get in touch](mailto:support@codesandbox.io)
 and provide a link to the repo you're importing and we can look into this for
 you.
 
 ## Why are my start scripts not having an effect?
 
-For performance reasons we ignore any specified scripts in client sandboxes,
+For performance reasons, we ignore any specified scripts in browser sandboxes,
 instead using a default script. If you need to control the scripts, then we
-recommend using a container sandbox.
+recommend using a [cloud sandbox](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox).
 
 ## Can I change the Node version used in a container sandbox?
 
 Yes. Container sandboxes that are created after May 10 2021 run Node v14.18.1 (LTS) by default.
-For backwards compatibility the older sandboxes are on Node v10. However, you can
+For backwards compatibility, the older sandboxes are on Node v10. However, you can
 specify a `node` value to alter the version in `sandbox.config.json`, which will
 be used instead. For further details, see [configuration](/learn/sandboxes/configuration).
 
-## Can I open the terminal or console or test panel instead of the browser in a sandbox?
+## Can I open the terminal, console, or test panel instead of the browser in a browser sandbox?
 
-Yes, the terminal, console, and problems tabs are all draggable. Click on the
-tab and drag it up into the bar alongside browser and tests. You can then
-re-order those items by dragging them in that bar. Whichever is 1st from left to
+Yes. The terminal, console, and problems tabs are all draggable. Click on the
+tab and drag it to the bar alongside browser and tests. You can then
+re-order those items by dragging them in that bar. Whichever is first from left to
 right in the list of tabs is what opens first when other folks view the sandbox.
 The ordering is maintained within the sandbox. You can also achieve this change
 by setting a value for "view" in a
 [sandbox config file](/configuration#sandbox-configuration).
 
-## How do I change the font used in the editor?
+## How do I change the font used in the browser editor?
 
 Ensure the font you want to use has been installed on your computer, then put
 the name of it first in the comma-separated list under 'Editor: Font Family'
 from File > Preferences > Settings in the editor.
 
-## Are there any limitations with sandboxes?
+<Callout>
+Changing fonts is currently only supported in [browser sandboxes](/learn/sandboxes/overview).
+</Callout>
+
+## Do sandboxes have any limitations?
 
 We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-browser-sandbox) and [Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox). Browser Sandboxes have the following limitations:
 
 - The maximum file upload size is 7MB for Free users and 30MB for Pro users.
 - Imported sandboxes must contain a `package.json` file.
-- Cannot use more than 500 modules (files). Note though that
-  `node_modules` and dependencies are not counted toward this limit.
+- Cannot use more than 500 modules (files). Note that
+  `node_modules` and dependencies do not count toward this limit.
 - The maximum file size that can be opened in the editor is 2MB. Files uploaded
-  that are larger than that still exist but are linked as a static asset.
-- Terminal commands which alter the filesystem of the container instance aren't
+  that are larger than that still exist but are linked as a static assets.
+- Terminal commands that alter the filesystem of the container instance aren't
   synced with files shown in the editor. You'll need to refresh to see files
   updated this way.
 - When using a container, there is a sync limit of 10 files per second and only
@@ -89,7 +113,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
 - When using a container, the sandbox has a 1GB persistent storage limit, a 1GB vCPU soft
   limit, and a hard memory limit of 2GB.
   
-Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you use them to avoid encountering these limitations.
+Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
 ## I'm getting a 'Request Entity too Large' error, what should I do?
 
@@ -99,6 +123,8 @@ repo for large binary files and remove them.
 ## Can I use a database on CodeSandbox?
 
 Yes, you can use any database that has a Docker image available. Some popular databases with Docker images include MySQL, PostgreSQL, MongoDB, and Redis.
+
+For ready-to-use examples, check the _Database_ tab of our [starter templates](https://codesandbox.io/s/) modal.
 
 ### Do I need to install Docker on my local machine to use it in CodeSandbox?
 
@@ -114,7 +140,7 @@ Yes, you can use multiple databases in the same project by running multiple Dock
 
 ### Can I use Docker Compose in CodeSandbox?
 
-Yes, you can use Docker Compose in CodeSandbox to orchestrate multiple containers and define the relationships between them. However, you'll need to create a Docker Compose file and run the docker-compose command in the terminal to start the containers.
+Yes, you can use Docker Compose in CodeSandbox to orchestrate multiple containers and define the relationships between them. However, you'll need to create a Docker Compose file and run the `docker-compose` command in the terminal to start the containers.
 
 ### Is it safe to use a database in CodeSandbox with Docker support?
 
@@ -122,7 +148,7 @@ Yes, it's safe to use a database in CodeSandbox with Docker support, as long as 
 
 ### How do I troubleshoot issues with my database in CodeSandbox with Docker support?
 
-If you're having issues with your database, you can check the logs of the container to see if there are any error messages. You can also run commands like docker ps and docker logs in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
+If you're having issues with your database, you can check the logs of the container to see if there are any error messages. You can also run commands like `docker ps` and `docker logs` in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
 
 ## How do I change the editor theme for Browser Sandboxes?
 
@@ -131,22 +157,22 @@ You can change the theme from File > Preferences > Color Theme in the editor.
 You can also set a custom VS Code theme. Open VS Code, Press (CMD or CTRL) +
 SHIFT + P, Enter: '> Developer: Generate Color Scheme From Current Settings',
 copy the contents and paste it into Preferences > Appearance from the top-right
-avatar menu. After completing that you need to reload the browser and select
+avatar menu. After completing that, you need to reload the browser and select
 "Custom" as your color theme from File > Preferences > Color Theme.
 
-## I can't edit my code because of an infinite loop
+## Why is my code in an infinite loop that doesn't allow me to edit?
 
 While we do have infinite loop protection as a
 [configurable option](https://codesandbox.io/docs/learn/sandboxes/configuration) it doesn't
 prevent all scenarios where infinite loops can occur, such as with incomplete
 code. When this happens, you can append `runonclick=1` to the editor URL to stop
-the code from being automatically executed enabling you to edit your code to
+the code from being automatically executed, enabling you to edit your code to
 resolve it. For example:
 [https://codesandbox.io/s/new?runonclick=1](https://codesandbox.io/s/new?runonclick=1)
 
 ## How do I cancel my Personal Pro, Team Pro or Patron plan?
 
-For Team Pro & Personal Pro users, once you've logged in you can downgrade your plan on the
+For Team Pro & Personal Pro users, once you've logged in, you can downgrade your plan on the
 [Settings page](https://codesandbox.io/dashboard/settings). 
 
 If you're on one of our legacy Patron plans you can cancel
@@ -158,49 +184,65 @@ your subscription on the [Patron page](https://codesandbox.io/patron).
 
 ![Trust Modal](./learn/images/vscode-trust.jpg)
 
-This modal shows up every time you launch a project folder in a new container. Since every branch will be opened with a unique SSH url, VS Code will ask you to verify that you trust the connection. This is an important security notice used to confirm that the user understands the  connection being established before opening the code. You can read more about the modal [here](https://code.visualstudio.com/blogs/2021/07/06/workspace-trust).
+This modal shows up every time you launch a project folder in a new container. Since every branch will be opened with a unique SSH URL, VS Code will ask you to verify that you trust the connection. This is an important security notice to ensure that the user understands the connection being established before opening the code. You can read more about the modal on the [VS Code blog](https://code.visualstudio.com/blogs/2021/07/06/workspace-trust).
 
-## Do I have to be connected to live session on CodeSandbox in order to work on a branch?
+## Do I have to be connected to a live session on CodeSandbox to work on a branch?
 
-It is possible to work in an “un-synced” state. In order for CodeSandbox features to work, the branch needs to established on a remote connection AND connected to Pitcher (see How it works for more information
+It is possible to work in an “un-synced” state. For CodeSandbox features to work, the branch needs to be established on a remote connection **and** connected to Pitcher (learn [how it works](/learn/getting-started/setting-up-vscode#how-it-works)).
 
 ## Who can access my code?
 
-Only people on your CodeSandbox team with permissions to the repository may join as a collaborator. Repository permissions are carried over from GitHub. To add someone new to the team, provide access on GitHub and add them to the CodeSandbox. From there, they can access the code in the browser or follow the steps above to use VS Code.
+Only people on your CodeSandbox team with permissions to the repository may join as collaborators. Repository permissions are carried over from GitHub.
+
+To add someone new to the team, provide access on GitHub and add them to your CodeSandbox team. From there, they can access the code in the browser or follow the steps above to use VS Code.
+
+## Is it possible to use GitHub Copilot together with CodeSandbox?
+
+Yes. Follow the steps below:
+
+1. Use our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) to connect to one of our Cloud Sandboxes or Repositories.
+2. Install the Copilot VS Code extension (if not already installed).
+3. Configure the extension to run in CodeSandbox remote connections (following the instructions for [Default User Extensions](/learn/repositories/editors#default-user-extensions)).
 
 ## More Questions?
 
-For questions and support please use the community [discord server](https://discord.gg/R32XxEGp4s).
+If you have additional questions or need support, please use the community [Discord server](https://discord.gg/R32XxEGp4s).
     </WrapContent>
     <WrapContent>
        ## Sandboxes
 
-### I'm getting a Git error resolving a dependency. Why is that?
-CodeSandbox for iOS is only compatible with dependencies hosted and accessible via HTTP or HTTPS. This is because the app doesn't provide local shell environments where you can run arbitrary commands, like git. Use the [CodeSandbox web editor](/learn/sandboxes/editors) instead.
+### Why am I getting a git error resolving a dependency?
+CodeSandbox for iOS is only compatible with dependencies hosted and accessible via HTTP or HTTPS.
 
-You may find some of the following answers helpful if you have gone through the sections in this documentation but you still haven’t cleared your doubts:
+This happens because the app doesn't provide local shell environments where you can run arbitrary commands, like git. Use the [CodeSandbox web editor](/learn/sandboxes/editors) instead.
+
+You may find some of the following answers helpful if you have gone through the sections in this documentation but still haven’t solved your questions:
     
 ### I'm getting an error trying to run my sandbox in CodeSandbox for iOS. What could be the cause?
 
-The root cause of the problem could be either a coding mistake on your side or a dependency trying to do something forbidden by iOS. For instance, dependencies relying on WebAssembly won't work as WebAssembly requires JIT compilation to function, and this isn't allowed by the App Store guidelines. Another cause can be that your project or one of its dependencies rely on a native dependency or Node extension, which aren’t supported.
+The root cause of the problem could be either a coding mistake on your side or a dependency trying to do something forbidden by iOS.
+
+For instance, dependencies relying on WebAssembly won't work, as WebAssembly requires JIT compilation to function, and this isn't allowed by the App Store guidelines.
+
+Another cause can be that your project or one of its dependencies rely on a native dependency or Node extension, which aren’t supported.
 
 ### One of the scripts in my sandbox cannot be run. What could be the cause?
 
-Only the scripts that start with `node` or the name of a dependency located inside the `node_modules/.bin` directory are compatible. This is because CodeSandbox for iOS doesn’t provide a shell environment, scripts containing an arbitrary bash command won't work.
+Only the scripts that start with `node` or the name of a dependency located inside the `node_modules/.bin` directory are compatible. This happens because CodeSandbox for iOS doesn’t provide a shell environment, so scripts containing an arbitrary bash command won't work.
 
 ### I can't see the preview of my sandbox in the web browser. What could be the cause?
 
-The runtime provides a `WEB_PORT` environment variable matching the port used by default by the in-app web browser. If your sandbox doesn't use the port in that environment variable then you will need to fix the url in the web browser to load the page at the right port.
+The runtime provides a `WEB_PORT` environment variable matching the port used by default by the in-app web browser. If your sandbox doesn't use the port in that environment variable, then you will need to fix the URL in the web browser to load the page on the right port.
 
-### My sandbox stops running when I move the app to background. Why is that?
-This is because iOS suspends the process while the application is in background and with it all its activity.
+### Why does my sandbox stop running when I move the app to the background?
+This happens because iOS suspends the process while the application is in the background, which also suspends all its activity.
 
 ### My sandbox requires Node.js 14 but the app uses Node.js 12. How can I change the Node.js version?
-The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating the new CodeSandbox experience instead. We will be making changes in this front, so please stay tuned.
+The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating the new CodeSandbox experience instead. Stay tuned, as we will be making some updates.
 
 ## Repositories
 
-### I cannot make any changes to my project. Why is that?
-It is very likely that you have a protected branch selected (i.e. main). Forking a branch will create a new one where you can make changes.
+### Why can't I make any changes to my project?
+You likely have a protected branch selected (i.e. `main`). Forking a branch will create a new one where you can make changes.
     </WrapContent>
 </Tabs>
