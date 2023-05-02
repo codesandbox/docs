@@ -3,11 +3,13 @@ title: Setting up VS Code
 description: With this guide, you'll learn how to get the most out of VS Code in CodeSandbox.
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 # Setting up VS Code
 
-CodeSandbox has an integration with VS Code that allows you to use VS Code to edit sandboxes and repositories on CodeSandbox.
+The CodeSandbox VS Code extension allows you to use VS Code to edit sandboxes and repositories on CodeSandbox.
 
-You can use your own extensions, keybindings and themes, while live collaborating with other people using CodeSandbox.
+This allows you to keep using your own extensions, keybindings and themes, while live collaborating with other people using CodeSandbox.
 
 ## Getting Started
 
@@ -24,13 +26,17 @@ When you connect to your CodeSandbox account and open a branch, a virtual contai
 
 It is possible to work on the SSH connection while disconnected from Pitcher, but you should be mindful that other team members may be making changes to your branch while you are in an un-synced state, so be sure to commit often.
 
-Only people on your team in CodeSandbox have access to these repositories. 
+<Callout>
+Only people on your CodeSandbox team have access to these repositories. 
+</Callout>
 
-So the VS Code extension actually connects directly to the container with an SSH connection, completely bypassing Pitcher, where it operates directly with the FileSystem.
+So the VS Code extension connects directly to the container with an SSH connection, bypassing Pitcher, where it operates directly with the FileSystem.
+
 On top of this, we also connect to Pitcher, just like we do in the browser, where we "tie it together".
 
 <br/>
 <br/>
+
 ## Using Visual Studio Code Insiders
 
 You can also open your work in [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) straight from the editor.
@@ -43,7 +49,7 @@ Once you open the branch, follow these steps:
 1. Click on the dropdown icon of the "Open in VS Code" button.
 1. In the dropdown menu, click on the "Open in VS Code Insiders" option.
 
-![Dropdown to select the Open in VS Code Insiders option](../images/vscode-insiders-editor.jpg)
+![Dropdown to select the Open in VS Code Insiders option](../images/vs-code-insiders-open.jpg)
 
 <br/>
 ### In the command palette
@@ -63,4 +69,4 @@ You can reset your choice at any time by selecting a different option from the "
 
 ## VS Code Tips and Tricks
 
-To get the most out of VS Code, like automatic extension installation, we recommend you to follow these [tips and tricks](/learn/getting-started/setting-up-repository#vscode-configuration).
+To get the most out of VS Code, like automatic extension installation, we recommend you to follow these [tips and tricks](/learn/getting-started/setting-up-repository#vs-code-configuration).
