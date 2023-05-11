@@ -9,22 +9,79 @@ import { Callout } from 'nextra-theme-docs'
 import Video from '../../../../../shared-components/Video'
 
 # Embedding
-<Callout>
-**Note: Currently only available for Browser Sandboxes**
-</Callout>
 
 ## What is an Embed?
 
-An embed enables you to include a sandbox in your documentation, blog post, or
-website using an iframe, or anywhere with Embedly support, like Medium, Reddit,
-Trello, and Notion. You can show just the code, the preview, or both at the same
-time.
+An embed enables you to include a running sandbox in your documentation, blog post, or
+website.
 
-CodeSandbox has a separate application for the embed. This application is
-specifically built to be as small as possible. If you replace `s` in the URL of
-a sandbox to `embed` you have the embed version of the sandbox. Example:
-https://codesandbox.io/s/new => https://codesandbox.io/embed/new. Notice that
-the embed doesn't have all of the features of the full editor.
+Embeds are currently supported as a beta feature for cloud sandboxes and repositories. While these provide fewer customization options as compared to browser sandboxes, they are much more powerful and support any programming language, not just JavaScript.
+
+<Tabs tabs={["Cloud Sandboxes & Repositories", "Browser Sandboxes"]}>
+    <WrapContent>
+
+Cloud sandboxes ir repositories embeds are a great solution if you want to show examples of applications that go beyond front-end JavaScript (namely, other programming languages).
+
+Unlike browser sandbox embeds, which will use the resources of the viewer's machine to run, these embeds run in CodeSandbox microVMs. This allows them to run with optimal performance regardless of the viewer's device.
+
+<Callout>
+Embeds for cloud sandboxes and repositories are currently in beta.
+</Callout>
+
+## Generate an Embed URL
+
+You can generate a URL to embed by clicking the `Share` button inside the editor of a cloud sandbox or a repository and then clicking on 'Copy embed code'.
+
+This will give you HTML code with an iFrame that you can paste in your content.
+
+`Screenshot of the "Copy embed code"`
+
+## Limitations
+
+- Is there any expected limit to the number of concurrent viewers? Do we support thousands at the same time?
+- Are there any differences between free and pro users when it comes to embeds?
+- Which V1 embed features are missing in V2?
+  - customization
+  - others?
+
+## Example Embed
+
+Below is an example of the iFrame to embed a Rust sandbox:
+
+```
+<iframe
+  style={{
+    width: "100%",
+    height: 900,
+    outline: "1px solid #252525",
+    border: 0,
+    borderRadius: 8,
+    marginBottom: 16,
+    zIndex: 100
+  }}
+  src="https://codesandbox.io/p/sandbox/fork-syscall-example-7giodp?file=/src/main.rs"
+></iframe>
+```
+
+This code outputs the following embed:
+
+<iframe
+  style={{
+    width: "100%",
+    height: 900,
+    outline: "1px solid #252525",
+    border: 0,
+    borderRadius: 8,
+    marginBottom: 16,
+    zIndex: 100
+  }}
+  src="https://codesandbox.io/p/sandbox/fork-syscall-example-7giodp?file=/src/main.rs"
+></iframe>
+
+    </WrapContent>
+    <WrapContent>
+      
+Browser sandbox embeds can be achieved using an iFrame or with Embedly support, which works for platforms like Medium, Reddit, Trello, and Notion. You can customize the embed to show just the code, the preview, or both at the same time.
 
 ## Generate an Embed URL
 
@@ -128,3 +185,12 @@ That will give to a result like this:
     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   ></iframe>
+      
+CodeSandbox has a separate application for the embed. This application is
+specifically built to be as small as possible. If you replace `s` in the URL of
+a sandbox to `embed` you have the embed version of the sandbox. Example:
+https://codesandbox.io/s/new => https://codesandbox.io/embed/new. Notice that
+the embed doesn't have all of the features of the full editor.
+      
+</WrapContent>
+</Tabs>
