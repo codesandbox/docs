@@ -41,45 +41,15 @@ The `node_modules` folder is globally ignored. You can override this behaviour b
 
 ## Environment configuration
 
-Configure various aspects of the running VMs with the environment file. Currently the config allows you to set a specific `nodeVersion`, but more options will be available in the future.
+You can configure the environment of your VM with a `Dockerfile`. To do this, create a file in the `.codesandbox` folder called `Dockerfile`. After you've saved the file, you should be prompted with a notification to restart the container.
 
-### Getting started
+### Configuring NodeJS version
 
-1. Create a new file: `.codesandbox/environment.json`.
-2. Add your configuration.
-3. Save the file.
-4. Commit/Push the file to persist changes when restarting the VM - this is needed to ensure every newly created branch will use the new configuration.
-5. Open the sidebar menu and click on `Restart`.
+For example, to update NodeJS to v18, you can create a `.codesandbox/Dockerfile` with these contents:
 
-### Supported configuration
-
-#### NodeJS
-
-<Callout emoji="⭑">
-If you already have a `.nvmrc` file containing a Node version number in your project's root folder it will automatically be picked up by CodeSandbox.
-</Callout>
-
-The environment file allows you to specify:
-
-**nodeVersion**
-
-```json
-/* .codesandbox/environment.json */
-
-{
-  "nodeVersion": "14"
-}
+```dockerfile
+FROM node:18
 ```
-
-Single value configuration, type `string`, by default it is set to `"16"` .
-
-<Callout emoji="*">
-If your package.json uses [engines](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#engines) field then a `.nvmrc` or `environment.json` file is not needed. 
-</Callout>
-
-**Note:** This works only if you are using `pitcherv-v0.236.0` or higher. You can restart your vm anytime to load the latest version.
-
-If your project has all three ways of configuring node version. Then `.nvmrc` and `environment.json` gets the priority. If both of the files are missing then the node version that is specified in `package.json` file is used.
 
 ## Docker support
 
@@ -88,20 +58,3 @@ CodeSandbox supports running Docker containers inside any workspace. You can lea
 <Callout emoji="⭑">
 For a step-by-step guide, check out our tutorial [Getting started with Docker](/tutorial/getting-started-with-docker)
 </Callout>
-
-## Nix support
-
-[Nix](https://nixos.org/) is a tool that takes a unique approach to package management and system configuration. Use it to install any additional tools, like go, java, or system packages, inside your workspace.
-
-You can put a file called `csb.nix` in the root of the project. This is an example configuration file for installing Python:
-
-```nix
-with import <nixpkgs> {};
-
-stdenv.mkDerivation {
-    name = "csb";
-    buildInputs = [
-        python310
-    ];
-}
-```
