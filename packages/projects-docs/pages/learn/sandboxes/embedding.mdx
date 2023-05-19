@@ -36,14 +36,6 @@ This will give you HTML code with an iFrame that you can paste in your content.
 
 ![Cloud Sandbox Embed](../images/embed-cloud-sandbox.jpg)
 
-## Limitations
-
-- Is there any expected limit to the number of concurrent viewers? Do we support thousands at the same time?
-- Are there any differences between free and pro users when it comes to embeds?
-- Which V1 embed features are missing in V2?
-  - customization
-  - others?
-
 ## Example Embed
 
 Below is an example of the iFrame to embed a Rust sandbox:
@@ -77,6 +69,13 @@ This code outputs the following embed:
   }}
   src="https://codesandbox.io/p/sandbox/fork-syscall-example-7giodp?file=/src/main.rs"
 ></iframe>
+
+## Limitations
+As cloud sandbox embeds is in beta, some more advanced options are currently unavailble.
+
+Notably, the embed viewer cannot make changes to the sandbox before forking it, so inline editing is not currently supported on these embeds.
+
+Additionally, cloud sandbox embeds still lack some of the customization options that are available in browser sandbox embeds. 
 
     </WrapContent>
     <WrapContent>
