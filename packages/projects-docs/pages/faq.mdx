@@ -63,12 +63,16 @@ For performance reasons, we ignore any specified scripts in browser sandboxes,
 instead using a default script. If you need to control the scripts, then we
 recommend using a [cloud sandbox](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox).
 
-## Can I change the Node version used in a container sandbox?
+## Can I change the Node version used in a sandbox?
 
-Yes. Container sandboxes that are created after May 10 2021 run Node v14.18.1 (LTS) by default.
+Yes, for cloud sandboxes you can refer to [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) to learn how to change the Node version. All recent server sandboxes run in a cloud sandbox.
+
+For container sandboxes that are created after May 10 2021 we run Node v14.18.1 (LTS) by default.
 For backwards compatibility, the older sandboxes are on Node v10. However, you can
 specify a `node` value to alter the version in `sandbox.config.json`, which will
 be used instead. For further details, see [configuration](/learn/sandboxes/configuration).
+
+Note that we recommend to use Cloud Sandboxes in
 
 ## Can I open the terminal, console, or test panel instead of the browser in a browser sandbox?
 
