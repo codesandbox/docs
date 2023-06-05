@@ -96,11 +96,15 @@ Tasks are scripts that can be run inside your project. In many cases these will 
 
 The task id does not appear on the UI, since each task has a display name configured alongside the command it runs.
 
-### `preview` field
+### Configuring task ports
 
-You can define the `preview` field for tasks. By setting the `preview` field, we will directly put a link of the preview for the given task in every GitHub PR (if the [GitHub App](/learn/integrations/github-app) is installed), and we'll create deployments for them.
+Tasks can have their ports assigned. Normally we try to automatically detect ports assigned to a task, but there are three advantages to defining them manually using the `preview` field:
 
-The `preview` object has two fields: `port` and `prLink`. The `port` field defines the port that this task opens, and the `prLink` defines how PRs should link to this port. The possible options are `direct` and `devtool`.
+1. We'll automatically eagerly a preview for this port when opening the sandbox.
+2. If the port is not opened, and you try to open it using our preview, we give the option to open the task assigned to the port.
+3. The [GitHub App](/learn/integrations/github-app) will automatically add the link to the preview in a comment for every pull request, and we'll create deployments for them.
+
+The `preview` object has two fields: `port` and optional `prLink`. The `port` field defines the port that this task opens, and the `prLink` defines how PRs should link to this port. The possible options are `direct` and `devtool`.
 
 With `direct`, you will directly open the preview URL from the PR.
 
@@ -120,6 +124,7 @@ Here's an example:
       // deployment:
       "preview": {
         "port": 4000,
+        // This next field is optional:
         "prLink": "direct"
       }
     }
