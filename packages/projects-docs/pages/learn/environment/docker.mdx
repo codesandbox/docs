@@ -52,3 +52,9 @@ services:
 You can use Docker commands in the terminal to exec into the containers started with this method. To manage the running containers with the `docker compose` command, either `cd` into the `.codesandbox` directory or specify the location of the `docker-compose.yml` file using `docker compose -f .codesandbox/docker-compose.yml`.
 
 > You do not have to run or configure a task to run `docker compose`. The `.codesandbox/docker-compose.yml` file will be automatically detected and `docker-compose up` will be run at branch/sandbox startup.
+
+## Configuring what to run
+
+Normally, you would define in your `Dockerfile` what the container should run when it boots. Since CodeSandbox has its own [task management system](https://codesandbox.io/docs/learn/repositories/task), we don't run commands defined in `Dockerfile` defined as `CMD`.
+
+Instead, we recommend to create a `.codesandbox/tasks.json`, and define your starting process from there. You can automatically do this by opening the command palette (CMD/Ctrl + Shift + P) and selecting "Generate task configuration". You can learn more about task configuration [here](https://codesandbox.io/docs/learn/repositories/tasks).
