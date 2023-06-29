@@ -9,5 +9,6 @@
   "commandpalette": "Command Palette",
   "shortcuts": "Keyboard Shortcuts",
   "tasks": "Task Configuration",
+  "review": "Code Reviews",
   "limitations": "Workspace Limitations"
 }
