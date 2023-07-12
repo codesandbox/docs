@@ -1,11 +1,20 @@
 {
-  "introduction": "Introduction",
-  "getting-started": "Getting Started",
-  "sandboxes": "Sandboxes",
-  "repositories": "Repositories",
-  "boxy": "Boxy",
-  "environment": "Environment",
-  "integrations": "Integrations",
-  "teams": "Team and access",
-  "plan-billing": "Plans and Billing"
+  "index": "Intro",
+  "getting-started": "Guides",
+  "-- cloud-development": {
+    "type": "separator",
+    "title": "Cloud Development"
+  },
+  "boxy": "",
+  "environment": "",
+  "integrations": "",
+  "repositories": "",
+  "sandboxes": "",
+  "editors": "",
+
+  "-- browser-sandboxes": {
+    "type": "separator",
+    "title": "Browser Sandboxes"
+  },
+  "teams": "Teams and Billing"
 }
