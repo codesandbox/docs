@@ -1,20 +1,27 @@
 {
-  "index": "Intro",
+  "index": "Introduction",
   "getting-started": "Guides",
   "-- cloud-development": {
     "type": "separator",
     "title": "Cloud Development"
   },
-  "boxy": "",
-  "environment": "",
-  "integrations": "",
   "repositories": "",
   "sandboxes": "",
   "editors": "",
-
+  "boxy": "",
+  "environment": "",
+  "integrations": "",
   "-- browser-sandboxes": {
     "type": "separator",
     "title": "Browser Sandboxes"
   },
+  "browser-vs-cloud-sbx": "Why Browser Sandboxes",
+  "browser-sandboxes": "Features",
+  "-- more": {
+    "type": "separator",
+    "title": "More"
+  },
+  "ci": "CodeSandbox CI",
+  "explore": "Explore Page & Curators",
   "teams": "Teams and Billing"
 }

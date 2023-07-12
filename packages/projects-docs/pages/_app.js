@@ -8,12 +8,12 @@ export default function Nextra({ Component, pageProps }) {
   const router = useRouter();
 
   // Init Amplitude
-  amplitude.getInstance().init(process.env.NEXT_PUBLIC_AMPLITUDE, null, {
-    includeReferrer: true,
-    saveEvents: true,
-    includeUtm: true,
-    saveParamsReferrerOncePerSession: false,
-  });
+  // amplitude.getInstance().init(process.env.NEXT_PUBLIC_AMPLITUDE, null, {
+  //   includeReferrer: true,
+  //   saveEvents: true,
+  //   includeUtm: true,
+  //   saveParamsReferrerOncePerSession: false,
+  // });
 
   const isBrowser = typeof window !== "undefined";
   const [initialRouteTracked, setInitialRouteTracked] = useState(false);
@@ -25,7 +25,7 @@ export default function Nextra({ Component, pageProps }) {
         source: "docs",
         path: router.asPath,
       };
-      amplitude.getInstance().logEvent(event, eventProperties);
+      // amplitude.getInstance().logEvent(event, eventProperties);
       setInitialRouteTracked(true);
     }
   }, [router]);
@@ -38,7 +38,7 @@ export default function Nextra({ Component, pageProps }) {
         source: "docs",
         path: path,
       };
-      amplitude.getInstance().logEvent(event, eventProperties);
+      // amplitude.getInstance().logEvent(event, eventProperties);
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
