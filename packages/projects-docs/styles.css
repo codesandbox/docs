@@ -183,6 +183,13 @@ html[class~="dark"] .nextra-search input::placeholder {
   font-weight: normal;
 }
 
+html[class~="light"] .nextra-sidebar-separator {
+  color: #ac9cff;
+}
+html[class~="dark"] .nextra-sidebar-separator {
+  color: #edffa5;
+}
+
 html[class~="light"] .nextra-sidebar-container ul li a {
   color: #0e0e0e;
 }
