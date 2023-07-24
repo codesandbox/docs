@@ -2,7 +2,7 @@
   --docs-accent-color: #9580ff;
   --docs-accent-color-opacity: #9580ff60;
   --docs-accent-color-link: #9580ff;
-  --docs-light-bg: #e5e5e560;
+  :#e5e5e560 ;
   --docs-light-bg-hover: #d0d0d060;
   --docs-dark-bg: #2a2a2a90;
   --docs-dark-bg-hover: #2a2a2a60;
@@ -183,11 +183,15 @@ html[class~="dark"] .nextra-search input::placeholder {
   font-weight: normal;
 }
 
+.nextra-sidebar-container ul li {
+  color: var(--docs-light-bg);
+}
+
 html[class~="light"] .nextra-sidebar-separator {
-  color: #ac9cff;
+  color: #7f7f80;
 }
 html[class~="dark"] .nextra-sidebar-separator {
-  color: #edffa5;
+  color: #ffff;
 }
 
 html[class~="light"] .nextra-sidebar-container ul li a {
@@ -206,7 +210,7 @@ html[class~="dark"] .nextra-sidebar-container ul li.active > a:hover {
 
 html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li a {
   color: rgb(197, 197, 197);
-  font-size: 1.05rem;
+  /* font-size: 1.05rem; */
 }
 
 html[class~="dark"] .folderAsHeader .nextra-sidebar-container ul li ul li a {
@@ -253,26 +257,6 @@ html[class~="light"] .nx-text-primary-600 {
   }
 }
 
-/*  Remove lines when you apply `.folderAsHeader` the class in the doc 
-   */
-.folderAsHeader .nextra-sidebar-container ul ul {
-  padding-left: 0;
-  margin-left: 0;
-  margin: 0.3rem 0 1.2rem 0;
-}
-
-.folderAsHeader .nextra-sidebar-container ul div {
-  padding-left: 0;
-}
-
-.folderAsHeader .nextra-sidebar-container ul ul::before {
-  content: none;
-}
-
-.folderAsHeader .nextra-sidebar-container ul li a {
-  font-size: 16px;
-}
-
 /* arrow dropdown */
 .folderAsHeader .nextra-sidebar-container a svg {
   transition: opacity 100ms;
@@ -290,7 +274,7 @@ svg:hover {
 /* Bold only on the header */
 .folderAsHeader .nextra-sidebar-container ul > li > a,
 .folderAsHeader .nextra-sidebar-container ul > li > a:hover {
-  font-weight: 600;
+  /* font-weight: 600; */
   cursor: default;
   line-height: 1.3;
 }
