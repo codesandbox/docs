@@ -1,17 +1,17 @@
 ---
 title: Sandboxes
-description: Learn about the differences between cloud sandboxes and browser sandboxes
+description: Learn about the differences between cloud sandboxes and browser sandboxes.
 ---
 
 import { Tabs, WrapContent } from '../../../../shared-components/Tabs'
 
 # CodeSandbox Sandboxes
 
-Sandboxes are the environment for rapid web development. CodeSandbox has two types of sandboxes, browser sandboxes (which run in the browser) and cloud sandboxes (which run in a microVM).
+Sandboxes are the ideal environment for rapid web development. CodeSandbox provides two types of sandboxes: browser sandboxes (which run in the browser) and cloud sandboxes (which run in a microVM).
 
 To create a new sandbox, you can clone a template from our ["Create Sandbox"](https://codesandbox.io/s) modal. When clicking on a template, we create a fork (a copy) of the template and open the newly created sandbox in our web editor.
 
-## Difference between browser & cloud sandboxes
+## Difference between Browser & Cloud Sandboxes
 
 <Tabs tabs={["Browser", "Cloud"]}>
 <WrapContent>
@@ -20,7 +20,7 @@ To create a new sandbox, you can clone a template from our ["Create Sandbox"](ht
 execution environment. These client environments run entirely inside of your browser and will continue to
 bundle your code even when you lose your connection to our servers.
 
-Browser Sandboxes each have their own bundler attached to them which are
+Browser Sandboxes each have their own bundler attached to them which is
 configured to support a specific framework and emulate their official CLI tools.
 They are not one-to-one implementations and thus do not support advanced
 configuration like custom webpack configurations or ejecting. However, they are
@@ -33,7 +33,7 @@ If your project requires the use of a terminal or any additional advanced config
 ## What is a Cloud Sandbox?
 Unlike Browser Sandboxes that run on your browser, Cloud Sandboxes run on our [microVMs](/learn/environment/vm).
 
-       Cloud Sandboxes are great for any prototyping needs and are suitable for any type of project. They can run both backend and frontend services.
+       Cloud Sandboxes are great for prototyping any type of project. They can run both backend and frontend services.
        You can learn more about the editor and the unique functionalities of the cloud developer environment in [Repositories](/learn/repositories/overview).
 
        Like Browser Sandboxes, Cloud Sandboxes are free to use.
@@ -48,7 +48,7 @@ Unlike Browser Sandboxes that run on your browser, Cloud Sandboxes run on our [m
        - Git tooling
        - Full integration with GitHub
 
-       To configure a Cloud Sandbox, you can read more about it [tasks](https://codesandbox.io/docs/learn/repositories/task) and [Docker](https://codesandbox.io/docs/learn/environment/docker).
+       To configure a Cloud Sandbox, you can read more about [tasks](https://codesandbox.io/docs/learn/repositories/task) and [Docker](https://codesandbox.io/docs/learn/environment/docker).
     </WrapContent>
 
 </Tabs>
