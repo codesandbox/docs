@@ -1,15 +1,14 @@
 {
   "overview": "Overview",
-  "editors": "Editors",
+  "setting-up-repository": "First-Time Setup",
   "devtools": "DevTools",
   "preview": "Preview",
-  "task": "Task",
+  "task": "Task Configuration",
   "terminal": "Terminal",
   "interactive-readme": "Interactive Readme",
-  "commandpalette": "Command Palette",
-  "shortcuts": "Keyboard Shortcuts",
-  "tasks": "Task Configuration",
+  "upload": "File Upload",
   "review": "Code Reviews",
-  "limitations": "Workspace Limitations",
-  "themes": "Themes"
+  "open-source": "Open Source Collaboration",
+  "collaborate-share": "Collaborate & Share",
+  "limitations": "Workspace Limitations"
 }

@@ -2,5 +2,9 @@
   "configuration": "Configuration",
   "deployment": "Deployment",
   "embedding": "Embedding",
-  "secrets": "Secrets"
+  "secrets": "Secrets",
+  "file-upload": "File Upload",
+  "live-sessions": "Live Sessions",
+  "test": "Tests",
+  "collaborate-share": "Collaborate & Share"
 }

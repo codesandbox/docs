@@ -5,12 +5,12 @@
     "type": "separator",
     "title": "Cloud Development"
   },
-  "repositories": "",
-  "sandboxes": "",
-  "editors": "",
-  "boxy": "",
-  "environment": "",
-  "integrations": "",
+  "repositories": "Repositories",
+  "sandboxes": "Sandboxes",
+  "editors": "Editors",
+  "boxy": "Boxy",
+  "environment": "Environment",
+  "integrations": "Integrations",
   "-- browser-sandboxes": {
     "type": "separator",
     "title": "Browser Sandboxes"
