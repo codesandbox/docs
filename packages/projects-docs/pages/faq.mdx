@@ -33,7 +33,7 @@ You can also change the privacy settings from the editor. How you do it will dep
 
 ### Make a browser sandbox private
 
-The browser editor provides two ways to change the privacy:
+The browser editor provides two ways to change the privacy settings:
 
 1. Change the privacy drop-down under _Permissions_ in the _Sandbox Info_ tab.
 2. Click the _Share_ button on the top right and change the privacy drop-down at the top.
@@ -42,7 +42,7 @@ The browser editor provides two ways to change the privacy:
 
 ### Make a cloud sandbox private
 
-The cloud editor also provides two ways to change the privacy:
+The cloud editor also provides two ways to change the privacy settings:
 
 1. Click the chevron on the right side of your sandbox's name at the top of the screen; click _Edit info_ and then change the drop-down next to _Privacy_.
 2. Click the _Share_ button on the top right and change the drop-down under _Permissions_.
@@ -50,7 +50,7 @@ The cloud editor also provides two ways to change the privacy:
 ## I'm getting a 422 error when importing from GitHub, why?
 
 There are a few possible reasons a repo might throw that error on import. The
-most common are the lack of a `package.json` file, or the project using
+most common are: the lack of a `package.json` file, or the project using
 more than 500 modules (files).
 
 If you think it's something else, or you're unable to solve this yourself, then [get in touch](mailto:support@codesandbox.io)
@@ -67,12 +67,12 @@ recommend using a [cloud sandbox](/learn/sandboxes/overview?tab=cloud#what-is-a-
 
 Yes, for cloud sandboxes you can refer to [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) to learn how to change the Node version. All recent server sandboxes run in a cloud sandbox.
 
-For container sandboxes that are created after May 10 2021 we run Node v14.18.1 (LTS) by default.
+For container sandboxes that are created after May 10 2021, we run Node v14.18.1 (LTS) by default.
 For backwards compatibility, the older sandboxes are on Node v10. However, you can
 specify a `node` value to alter the version in `sandbox.config.json`, which will
 be used instead. For further details, see [configuration](/learn/sandboxes/configuration).
 
-Note that we recommend to use Cloud Sandboxes in
+Note that we recommend using Cloud Sandboxes when you're working with Node.js projects.
 
 ## Can I open the terminal, console, or test panel instead of the browser in a browser sandbox?
 
@@ -103,7 +103,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
 - Cannot use more than 500 modules (files). Note that
   `node_modules` and dependencies do not count toward this limit.
 - The maximum file size that can be opened in the editor is 2MB. Files uploaded
-  that are larger than that still exist but are linked as a static assets.
+  that are larger than that still exist but are linked as a static asset.
 - Terminal commands that alter the filesystem of the container instance aren't
   synced with files shown in the editor. You'll need to refresh to see files
   updated this way.
@@ -115,7 +115,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
 - When using a container, the sandbox sleeps after around 10 minutes and can be woken by opening
   the sandbox or preview in a web browser.
 - When using a container, the sandbox has a 1GB persistent storage limit, a 1GB vCPU soft
-  limit, and a hard memory limit of 2GB.
+  limit, and a hard memory limit of 2 GB.
   
 Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
