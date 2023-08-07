@@ -12,7 +12,7 @@ import { Callout } from 'nextra-theme-docs'
     <WrapContent>
       ## Which languages and frameworks are supported?
 
-[Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack, and officially support (with built-in LSP/IntelliSense) Rust, Python, PHP, Ruby on Rails, Node and Deno (more languages coming soon).
+[Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack, and officially support (with built-in LSP/IntelliSense) Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node and Deno (more languages coming soon).
 
 [Browser sandboxes](/learn/sandboxes/overview) are more limited. They support JavaScript/TypeScript projects, as well as Node.js.
 
@@ -33,7 +33,7 @@ You can also change the privacy settings from the editor. How you do it will dep
 
 ### Make a browser sandbox private
 
-The browser editor provides two ways to change the privacy:
+The browser editor provides two ways to change the privacy settings:
 
 1. Change the privacy drop-down under _Permissions_ in the _Sandbox Info_ tab.
 2. Click the _Share_ button on the top right and change the privacy drop-down at the top.
@@ -42,7 +42,7 @@ The browser editor provides two ways to change the privacy:
 
 ### Make a cloud sandbox private
 
-The cloud editor also provides two ways to change the privacy:
+The cloud editor also provides two ways to change the privacy settings:
 
 1. Click the chevron on the right side of your sandbox's name at the top of the screen; click _Edit info_ and then change the drop-down next to _Privacy_.
 2. Click the _Share_ button on the top right and change the drop-down under _Permissions_.
@@ -50,7 +50,7 @@ The cloud editor also provides two ways to change the privacy:
 ## I'm getting a 422 error when importing from GitHub, why?
 
 There are a few possible reasons a repo might throw that error on import. The
-most common are the lack of a `package.json` file, or the project using
+most common are: the lack of a `package.json` file, or the project using
 more than 500 modules (files).
 
 If you think it's something else, or you're unable to solve this yourself, then [get in touch](mailto:support@codesandbox.io)
@@ -67,12 +67,12 @@ recommend using a [cloud sandbox](/learn/sandboxes/overview?tab=cloud#what-is-a-
 
 Yes, for cloud sandboxes you can refer to [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) to learn how to change the Node version. All recent server sandboxes run in a cloud sandbox.
 
-For container sandboxes that are created after May 10 2021 we run Node v14.18.1 (LTS) by default.
+For container sandboxes that are created after May 10 2021, we run Node v14.18.1 (LTS) by default.
 For backwards compatibility, the older sandboxes are on Node v10. However, you can
 specify a `node` value to alter the version in `sandbox.config.json`, which will
 be used instead. For further details, see [configuration](/learn/sandboxes/configuration).
 
-Note that we recommend to use Cloud Sandboxes in
+Note that we recommend using Cloud Sandboxes when you're working with Node.js projects.
 
 ## Can I open the terminal, console, or test panel instead of the browser in a browser sandbox?
 
@@ -84,7 +84,7 @@ The ordering is maintained within the sandbox. You can also achieve this change
 by setting a value for "view" in a
 [sandbox config file](/configuration#sandbox-configuration).
 
-## How do I change the font used in the browser editor?
+## How do I change the font used in a browser sandbox?
 
 Ensure the font you want to use has been installed on your computer, then put
 the name of it first in the comma-separated list under 'Editor: Font Family'
@@ -103,7 +103,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
 - Cannot use more than 500 modules (files). Note that
   `node_modules` and dependencies do not count toward this limit.
 - The maximum file size that can be opened in the editor is 2MB. Files uploaded
-  that are larger than that still exist but are linked as a static assets.
+  that are larger than that still exist but are linked as a static asset.
 - Terminal commands that alter the filesystem of the container instance aren't
   synced with files shown in the editor. You'll need to refresh to see files
   updated this way.
@@ -115,7 +115,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
 - When using a container, the sandbox sleeps after around 10 minutes and can be woken by opening
   the sandbox or preview in a web browser.
 - When using a container, the sandbox has a 1GB persistent storage limit, a 1GB vCPU soft
-  limit, and a hard memory limit of 2GB.
+  limit, and a hard memory limit of 2 GB.
   
 Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
@@ -128,7 +128,7 @@ repo for large binary files and remove them.
 
 Yes, you can use any database that has a Docker image available. Some popular databases with Docker images include MySQL, PostgreSQL, MongoDB, and Redis.
 
-For ready-to-use examples, check the _Database_ tab of our [starter templates](https://codesandbox.io/s/) modal.
+For ready-to-use examples, check our [starter templates](https://codesandbox.io/s/) modal.
 
 ### Do I need to install Docker on my local machine to use it in CodeSandbox?
 
@@ -154,11 +154,11 @@ Yes, it's safe to use a database in CodeSandbox with Docker support, as long as 
 
 If you're having issues with your database, you can check the logs of the container to see if there are any error messages. You can also run commands like `docker ps` and `docker logs` in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
 
-## How do I change the editor theme for Browser Sandboxes?
+## How do I change the editor's theme?
 
-You can change the theme from File > Preferences > Color Theme in the editor.
+To change the [theme of a Cloud Sandbox](https://codesandbox.io/docs/learn/repositories/themes), click on the CodeSandbox logo at the top left, then go to Settings >  Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
 
-You can also set a custom VS Code theme. Open VS Code, Press (CMD or CTRL) +
+On a Browser Sandbox, you can change the theme from File > Preferences > Color Theme in the editor. You can also set a custom VS Code theme on a Browser Sandbox. Open VS Code, Press (CMD or CTRL) +
 SHIFT + P, Enter: '> Developer: Generate Color Scheme From Current Settings',
 copy the contents and paste it into Preferences > Appearance from the top-right
 avatar menu. After completing that, you need to reload the browser and select
@@ -173,6 +173,11 @@ code. When this happens, you can append `runonclick=1` to the editor URL to stop
 the code from being automatically executed, enabling you to edit your code to
 resolve it. For example:
 [https://codesandbox.io/s/new?runonclick=1](https://codesandbox.io/s/new?runonclick=1)
+
+## Can I push/pull from a GitLab, Azure DevOps, or BitBucket repository?
+Yes. While our Repositories only have built-in push and sync capabilities for GitHub, you can connect to a remote repository from any other git provider.
+
+To do that, use our terminal to `git remote add` the remote repository and then add your credentials for it. You can also add the authentication details to the CodeSandbox microVM using [environment variables](https://codesandbox.io/docs/learn/environment/secrets).
 
 ## How do I cancel my Personal Pro, Team Pro or Patron plan?
 
