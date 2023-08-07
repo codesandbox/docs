@@ -1,18 +1,18 @@
 {
   "setting-up-repository": {
     "title": "Repository First-Time Setup",
-    "href": "https://codesandbox.io/docs/learn/repositories/setting-up-repository"
+    "href": "/learn/repositories/setting-up-repository"
   },
   "your-first-sandbox": {
     "title": "Sandbox First-Time Setup",
-    "href": "https://codesandbox.io/docs/learn/sandboxes/your-first-sandbox"
+    "href": "/learn/sandboxes/your-first-sandbox"
   },
   "setting-up-vscode": {
     "title": "VS Code Setup",
-    "href": "https://codesandbox.io/docs/learn/editors/setting-up-vscode"
+    "href": "/learn/editors/setting-up-vscode"
   },
   "setting-up-ios": {
     "title": "iOS Setup",
-    "href": "https://codesandbox.io/docs/learn/editors/setting-up-ios"
+    "href": "/learn/editors/setting-up-ios"
   }
 }
