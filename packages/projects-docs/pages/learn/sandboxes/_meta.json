@@ -1,7 +1,6 @@
 {
   "overview": "Overview",
   "your-first-sandbox": "First-Time Setup",
-  "editors": "Editors",
   "embedding": "Embedding",
   "secrets": {
     "title": "Secrets",
@@ -14,6 +13,6 @@
   "templates": "Templates",
   "synced-templates": "Synced Templates",
   "cli-api": "Sandbox CLI & API",
-  "custom-npm-registry": "Custom NPM Registry",
-  "ci": "CodeSandbox CI"
+  "deployment": "Deployment Options",
+  "custom-npm-registry": "Custom NPM Registry"
 }

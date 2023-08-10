@@ -2,5 +2,6 @@
   "team-overview": "Working with Teams",
   "permissions": "User Permissions",
   "preferences": "Preferences",
-  "workspace": "Workspace"
+  "workspace": "Workspace",
+  "plan-billing": "Plans & Billing"
 }
