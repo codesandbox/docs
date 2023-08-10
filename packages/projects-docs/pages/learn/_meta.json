@@ -1,12 +1,12 @@
 {
   "index": "Introduction",
-  "getting-started": "Guides",
+  "guides": "Guides",
   "-- cloud-development": {
     "type": "separator",
     "title": "Cloud Development"
   },
   "repositories": "Repositories",
-  "sandboxes": "Sandboxes",
+  "sandboxes": "Cloud Sandboxes",
   "editors": "Editors",
   "boxy": "Boxy",
   "environment": "Environment",

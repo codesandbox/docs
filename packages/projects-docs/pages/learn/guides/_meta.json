@@ -9,10 +9,10 @@
   },
   "setting-up-vscode": {
     "title": "VS Code Setup",
-    "href": "/learn/editors/setting-up-vscode"
+    "href": "/learn/editors/vscode/setting-up-vscode"
   },
   "setting-up-ios": {
     "title": "iOS Setup",
-    "href": "/learn/editors/setting-up-ios"
+    "href": "/learn/editors/ios/setting-up-ios"
   }
 }

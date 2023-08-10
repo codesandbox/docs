@@ -25,6 +25,11 @@ module.exports = withTM(
           permanent: true,
         },
         {
+          source: "/learn/introduction/overview",
+          destination: "/learn",
+          permanent: true,
+        },
+        {
           source: "/tutorial/docker",
           destination: "/tutorial/getting-started-with-docker",
           permanent: true,
@@ -321,6 +326,114 @@ module.exports = withTM(
         {
           source: `${PREFIX_PATH}/projects/:path*`,
           destination: "/:path*",
+          permanent: true,
+        },
+        /*
+           Redirects to pages after restructuring
+        */
+        {
+          source: "/learn/introduction/overview",
+          destination: "/learn",
+          permanent: true,
+        },
+        {
+          source: "/learn/introduction/workspace",
+          destination: "/learn/teams/workspace",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/setting-up-repository",
+          destination: "/learn/repositories/setting-up-repository",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/your-first-sandbox",
+          destination: "/learn/sandboxes/your-first-sandbox",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/setting-up-vscode",
+          destination: "/learn/editors/vscode/setting-up-vscode",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/setting-up-ios",
+          destination: "/learn/editors/ios/setting-up-ios",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/collaborate-share",
+          destination: "/learn/repositories/collaborate-share",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/open-source",
+          destination: "/learn/repositories/open-source",
+          permanent: true,
+        },
+        {
+          source: "/learn/sandboxes/tests",
+          destination: "/learn/sandboxes/overview",
+          permanent: true,
+        },
+        {
+          source: "/learn/sandboxes/secrets",
+          destination: "/learn/environment/secrets",
+          permanent: true,
+        },
+        {
+          source: "/learn/sandboxes/configuration",
+          destination: "/learn/repositories/task",
+          permanent: true,
+        },
+        {
+          source: "/learn/sandboxes/deployment",
+          destination: "/learn/browser-sandboxes/deployment",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/editors",
+          destination: "/learn/repositories/editors/overview",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/commandpalette",
+          destination: "/learn/editors/web/commandpalette",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/shortcuts",
+          destination: "/learn/editors/web/shortcuts",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/tasks",
+          destination: "/learn/repositories/task",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/limitations",
+          destination: "/learn/environment/limitations",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/themes",
+          destination: "/learn/editors/web/themes",
+          permanent: true,
+        },
+        {
+          source: "/learn/integrations/explore",
+          destination: "/learn/explore",
+          permanent: true,
+        },
+        {
+          source: "/learn/plan-billing/pricing-faq",
+          destination: "/learn/teams/plan-billing/pricing-faq",
+          permanent: true,
+        },
+        {
+          source: "/learn/plan-billing/trials",
+          destination: "/learn/teams/plan-billing/trials",
           permanent: true,
         },
       ];
