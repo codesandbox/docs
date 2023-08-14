@@ -1,0 +1,9 @@
+{
+  "configuration": "Configuration",
+  "deployment": "Deployment",
+  "embedding": "Embedding",
+  "secrets": "Secrets",
+  "file-upload": "File Upload",
+  "live-sessions": "Live Sessions",
+  "test": "Tests"
+}

@@ -21,7 +21,12 @@ module.exports = withTM(
         */
         {
           source: "/",
-          destination: "/learn/introduction/overview",
+          destination: "/learn",
+          permanent: true,
+        },
+        {
+          source: "/learn/introduction/overview",
+          destination: "/learn",
           permanent: true,
         },
         {
@@ -43,12 +48,12 @@ module.exports = withTM(
         // ---------------------------
         {
           source: `${PREFIX_PATH}/overview`,
-          destination: "/learn/introduction/overview",
+          destination: "/learn/introduction",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/workspaces`,
-          destination: "/learn/introduction/workspace",
+          destination: "/learn/teams/workspace",
           permanent: true,
         },
         {
@@ -68,22 +73,22 @@ module.exports = withTM(
         },
         {
           source: `${PREFIX_PATH}/importing`,
-          destination: "/learn/getting-started/your-first-sandbox",
+          destination: "/learn/sandboxes/your-first-sandbox",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/importing`,
-          destination: "/learn/getting-started/collaborate-share",
+          destination: "/learn/repositories/collaborate-share",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/tests`,
-          destination: "/learn/sandboxes/tests",
+          destination: "/learn/browser-sandboxes/tests",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/secrets`,
-          destination: "/learn/sandboxes/secrets",
+          destination: "/learn/repositories/secrets",
           permanent: true,
         },
         {
@@ -93,7 +98,7 @@ module.exports = withTM(
         },
         {
           source: `${PREFIX_PATH}/configuration`,
-          destination: "/learn/sandboxes/configuration",
+          destination: "/learn/browser-sandboxes/configuration",
           permanent: true,
         },
         {
@@ -113,12 +118,12 @@ module.exports = withTM(
         },
         {
           source: `${PREFIX_PATH}/ci`,
-          destination: "/learn/sandboxes/ci",
+          destination: "/learn/ci",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/custom-npm-registry`,
-          destination: "/learn/sandboxes/npm",
+          destination: "/learn/sandboxes/custom-npm-registry",
           permanent: true,
         },
         {
@@ -128,12 +133,12 @@ module.exports = withTM(
         },
         {
           source: `${PREFIX_PATH}/explore`,
-          destination: "/learn/integrations/explore",
+          destination: "/learn/explore",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/api-reference`,
-          destination: "/learn/getting-started/your-first-sandbox",
+          destination: "/learn/sandboxes/your-first-sandbox",
           permanent: true,
         },
 
@@ -141,12 +146,12 @@ module.exports = withTM(
         // ---------------------------
         {
           source: `${PREFIX_PATH}/vscode`,
-          destination: "/learn/introduction/overview",
+          destination: "/learn/editors/vscode/overview",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/vscode/overview`,
-          destination: "/learn/introduction/overview",
+          destination: "/learn/editors/vscode/overview",
           permanent: true,
         },
         {
@@ -157,27 +162,27 @@ module.exports = withTM(
         // TODO: Redirect to open the right tab
         {
           source: `${PREFIX_PATH}/vscode/open-branches`,
-          destination: "/learn/repositories/editors",
+          destination: "/learn/editors/vscode/overview",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/vscode/live-collaboration`,
-          destination: "/learn/repositories/editors",
+          destination: "/learn/editors/vscode/overview",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/vscode/review-prs`,
-          destination: "/learn/repositories/editors",
+          destination: "/learn/editors/vscode/overview",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/vscode/extensions`,
-          destination: "/learn/repositories/editors",
+          destination: "/learn/editors/vscode/overview",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/vscode/insiders`,
-          destination: "/learn/repositories/editors",
+          destination: "/learn/editors/vscode/overview",
           permanent: true,
         },
         {
@@ -188,28 +193,28 @@ module.exports = withTM(
         // iOS
         {
           source: `${PREFIX_PATH}/ios`,
-          destination: "/learn/introduction/overview",
+          destination: "/learn/editors/ios/overview",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/ios/overview`,
-          destination: "/learn/introduction/overview",
+          destination: "/learn/editors/ios/overview",
           permanent: true,
         },
         // TODO: Redirect to open the right tab
         {
           source: `${PREFIX_PATH}/ios/sandbox`,
-          destination: "/learn/getting-started/your-first-sandbox",
+          destination: "/learn/sandboxes/your-first-sandbox",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/ios/projects`,
-          destination: "/learn/getting-started/your-first-repository",
+          destination: "/learn/repositories/your-first-repository",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/ios/shortcuts`,
-          destination: "/learn/repositories/shortcuts",
+          destination: "/learn/editors/web/shortcuts",
           permanent: true,
         },
         {
@@ -221,7 +226,7 @@ module.exports = withTM(
         // Other redirects
         {
           source: "/learn/getting-started/your-first-repository",
-          destination: "/learn/getting-started/setting-up-repository",
+          destination: "/learn/repositories/setting-up-repository",
           permanent: true,
         },
 
@@ -239,27 +244,27 @@ module.exports = withTM(
         },
         {
           source: `${PREFIX_PATH}/projects/learn/getting-started/your-first-project`,
-          destination: "/learn/getting-started/your-first-repository",
+          destination: "/learn/repositories/your-first-repository",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/projects/learn/getting-started/start-building`,
-          destination: "/learn/getting-started/your-first-repository",
+          destination: "/learn/repositories/your-first-repository",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/projects/learn/getting-started/keep-working-on-vscode`,
-          destination: "/learn/repositories/editors",
+          destination: "/learn/editors/vscode/overview",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/projects/learn/getting-started/keep-working-on-ios`,
-          destination: "/learn/repositories/editors",
+          destination: "/learn/editors/ios/overview",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/projects/learn/editor`,
-          destination: "/learn/repositories/editors",
+          destination: "/learn/editors/web/overview",
           permanent: true,
         },
         {
@@ -289,12 +294,12 @@ module.exports = withTM(
         },
         {
           source: `${PREFIX_PATH}/projects/learn/editor/commandpalette`,
-          destination: "/learn/repositories/commandpalette",
+          destination: "/learn/editors/web/commandpalette",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/projects/learn/editor/shortcuts`,
-          destination: "/learn/repositories/shortcuts",
+          destination: "/learn/editors/web/shortcuts",
           permanent: true,
         },
         {
@@ -304,12 +309,12 @@ module.exports = withTM(
         },
         {
           source: `${PREFIX_PATH}/projects/learn/setting-up/env`,
-          destination: "/learn/repositories/env",
+          destination: "/learn/environment/vm",
           permanent: true,
         },
         {
           source: `${PREFIX_PATH}/projects/learn/setting-up/secrets`,
-          destination: "/learn/repositories/secrets",
+          destination: "/learn/environment/secrets",
           permanent: true,
         },
         {
@@ -321,6 +326,114 @@ module.exports = withTM(
         {
           source: `${PREFIX_PATH}/projects/:path*`,
           destination: "/:path*",
+          permanent: true,
+        },
+        /*
+           Redirects to pages after restructuring
+        */
+        {
+          source: "/learn/introduction/overview",
+          destination: "/learn",
+          permanent: true,
+        },
+        {
+          source: "/learn/introduction/workspace",
+          destination: "/learn/teams/workspace",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/setting-up-repository",
+          destination: "/learn/repositories/setting-up-repository",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/your-first-sandbox",
+          destination: "/learn/sandboxes/your-first-sandbox",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/setting-up-vscode",
+          destination: "/learn/editors/vscode/setting-up-vscode",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/setting-up-ios",
+          destination: "/learn/editors/ios/setting-up-ios",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/collaborate-share",
+          destination: "/learn/repositories/collaborate-share",
+          permanent: true,
+        },
+        {
+          source: "/learn/getting-started/open-source",
+          destination: "/learn/repositories/open-source",
+          permanent: true,
+        },
+        {
+          source: "/learn/sandboxes/tests",
+          destination: "/learn/sandboxes/overview",
+          permanent: true,
+        },
+        {
+          source: "/learn/sandboxes/secrets",
+          destination: "/learn/environment/secrets",
+          permanent: true,
+        },
+        {
+          source: "/learn/sandboxes/configuration",
+          destination: "/learn/repositories/task",
+          permanent: true,
+        },
+        {
+          source: "/learn/sandboxes/deployment",
+          destination: "/learn/browser-sandboxes/deployment",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/editors",
+          destination: "/learn/repositories/editors/overview",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/commandpalette",
+          destination: "/learn/editors/web/commandpalette",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/shortcuts",
+          destination: "/learn/editors/web/shortcuts",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/tasks",
+          destination: "/learn/repositories/task",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/limitations",
+          destination: "/learn/environment/limitations",
+          permanent: true,
+        },
+        {
+          source: "/learn/repositories/themes",
+          destination: "/learn/editors/web/themes",
+          permanent: true,
+        },
+        {
+          source: "/learn/integrations/explore",
+          destination: "/learn/explore",
+          permanent: true,
+        },
+        {
+          source: "/learn/plan-billing/pricing-faq",
+          destination: "/learn/teams/plan-billing/pricing-faq",
+          permanent: true,
+        },
+        {
+          source: "/learn/plan-billing/trials",
+          destination: "/learn/teams/plan-billing/trials",
           permanent: true,
         },
       ];

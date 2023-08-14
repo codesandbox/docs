@@ -1,4 +1,4 @@
-# [CodeSandbox Docs](https://codesandbox.io/docs/learn/introduction/overview)
+# [CodeSandbox Docs](https://codesandbox.io/docs/learn/introduction)
 
 The official documentation for CodeSandbox.
 
