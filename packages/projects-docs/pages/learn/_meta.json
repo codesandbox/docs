@@ -1,11 +1,27 @@
 {
-  "introduction": "Introduction",
-  "getting-started": "Getting Started",
-  "sandboxes": "Sandboxes",
+  "index": "Introduction",
+  "guides": "Guides",
+  "-- cloud-development": {
+    "type": "separator",
+    "title": "Cloud Development"
+  },
   "repositories": "Repositories",
+  "sandboxes": "Cloud Sandboxes",
+  "editors": "Editors",
   "boxy": "Boxy",
   "environment": "Environment",
   "integrations": "Integrations",
-  "teams": "Team and access",
-  "plan-billing": "Plans and Billing"
+  "-- browser-sandboxes": {
+    "type": "separator",
+    "title": "Browser Sandboxes"
+  },
+  "browser-vs-cloud-sbx": "Why Browser Sandboxes",
+  "browser-sandboxes": "Features",
+  "-- more": {
+    "type": "separator",
+    "title": "More"
+  },
+  "ci": "CodeSandbox CI",
+  "explore": "Explore Page & Curators",
+  "teams": "Teams and Billing"
 }

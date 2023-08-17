@@ -1,0 +1,18 @@
+{
+  "setting-up-repository": {
+    "title": "Repository First-Time Setup",
+    "href": "/learn/repositories/setting-up-repository"
+  },
+  "your-first-sandbox": {
+    "title": "Sandbox First-Time Setup",
+    "href": "/learn/sandboxes/your-first-sandbox"
+  },
+  "setting-up-vscode": {
+    "title": "VS Code Setup",
+    "href": "/learn/editors/vscode/setting-up-vscode"
+  },
+  "setting-up-ios": {
+    "title": "iOS Setup",
+    "href": "/learn/editors/ios/setting-up-ios"
+  }
+}

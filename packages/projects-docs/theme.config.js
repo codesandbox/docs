@@ -25,6 +25,16 @@ export default {
   // navbar: {
   //   extraContent: BackLink,
   // },
+  sidebar: {
+    titleComponent({ title, type }) {
+      if (type === "separator") {
+        return <span className="nextra-sidebar-separator">{title}</span>;
+      }
+      return <>{title}</>;
+    },
+    defaultMenuCollapseLevel: 1,
+    toggleButton: true,
+  },
   gitTimestamp: null,
   useNextSeoProps() {
     return {

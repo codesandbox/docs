@@ -3,20 +3,20 @@ title: Overview
 description:
 ---
 
-import ButtonDoc from '../../../components/ButtonDoc'
-import Hero from "../../../../../shared-components/Hero.js"
-import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
+import ButtonDoc from '../../components/ButtonDoc'
+import Hero from "../../../../shared-components/Hero.js"
+import { Tabs, WrapContent } from '../../../../shared-components/Tabs'
 
 <Hero 
   title={<>Code anything from idea to production.</>}
   subtitle="CodeSandbox is a cloud development platform that empowers anyone to code, collaborate, and ship projects of any size from any device in record time."
 />
 
-![](../images/cover-projects.jpg)
+![](./images/cover-projects.jpg)
 
 CodeSandbox is a cloud development environment that makes it easy for you to spin up a development environment in the cloud and start working on it, whether it's a small prototype or a big monolith with multiple services.
 
-For prototyping we recommend to use [sandboxes](https://codesandbox.io/docs/learn/sandboxes/overview), for cloud development with a strong GitHub integration we recommend to use [repositories](https://codesandbox.io/docs/learn/repositories/overview).
+For prototyping we recommend to use [sandboxes](/learn/sandboxes/overview), for cloud development with a strong GitHub integration we recommend to use [repositories](/learn/repositories/overview).
 
 ## Editors
 
@@ -25,43 +25,46 @@ We provider many alternatives for you to code. Each option is built to help you 
 <Tabs tabs={["Web Editor", "VS Code", "iOS"]}>
 
 <WrapContent>
-## Browser Sandbox Editor
-
-Known and loved for years, this online editor is built for rapid web development. Use this editor to prototype quickly, experiment easily, and share creations with a click.
-
-[Learn more](/learn/sandboxes/editors)
 
 ## Cloud Web Editor
 
-Our new web editor is part of a larger effort at CodeSandbox to increase the accessibility of complex tools like git, setup, review flows, contributions, and visualizing components.
+Introduced in 2022, the cloud web editor leverages the power of micro virtual machines to run project of any type and size. We recommend it as the first choice for daily development, reviewing code or quickly spinning up prototypes.
 
 [Learn more](/learn/repositories/editors)
+
+## Browser Sandbox Editor
+
+Known and loved for years, this editor was built for rapid web development using only the power of the browser. Our cloud editor is gradually building out all the the features in placei in place within the browser editor. However, the browser editor remains available to everyone who still calls this home.
+
+[Learn more](/learn/sandboxes/editors)
 
 </WrapContent>
 
 <WrapContent>
-## Keep working on VS Code
+## Easily move between web and VS Code
 
-**Install the CodeSandbox Projects VS Code extension and open any branch or cloud sandbox directly in your VS Code editor.** Work from your local environment with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
+Any project running in a cloud web editor may also be run in VS Code. Work from your local environment with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
+
+**Install the CodeSandbox Projects VS Code extension and open any branch or cloud sandbox directly in your VS Code editor.** 
 
 [Install VS Code Extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects)
 
 ## Opening a branch in VS Code
 
-![Open in vscode button](../images/getting-openvscode.jpg)
+![Open in vscode button](./images/getting-openvscode.jpg)
 
 To start working in a branch on VS Code, open the branch in the Editor and click on the `Open in VS Code` button positioned in the bottom left corner. This will prompt you to install the CodeSandbox extension responsible for making the connection to our cloud development environment.
 
 ### Learn more
 
-To get the most from your local setup, check our [VS Code Extension documentation](https://codesandbox.io/docs/vscode).
+To get the most from your local setup, check our [VS Code Extension documentation](/learn/editors/vscode/overview).
 
 </WrapContent>
 
 <WrapContent>
 ## Keep working in the iPad or iPhone
 
-![iOS-App](../images/iOS-iPad.jpg)
+![iOS-App](./images/iOS-iPad.jpg)
 
 **CodeSandbox for iOS** is a fully native development environment that brings the power of modern software development to your iOS device. Use your iPhone or iPad to develop any kind of application or collaborate in real-time with others.
 

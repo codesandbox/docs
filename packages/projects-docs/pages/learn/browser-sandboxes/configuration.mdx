@@ -3,12 +3,9 @@ title: Configuration
 authors: ['CompuIves']
 description: You can configure sandboxes and templates with configuration files.
 ---
-import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 
 # Configuration
 
-<Tabs tabs={["Browser", "Cloud"]}>
-    <WrapContent>
 ## Configuration Files
 
 There are some advanced use cases where you might need more control over a
@@ -42,8 +39,3 @@ support these options:
 | `port`                   | The main port which the browser window listens to                                                                                             | 1024 - 65535                                                                                                   | First opened port inside the container.            |
 | `startScript`            | Explicitly specify the start script used in a container sandbox, overriding the default value                                                 | A String matching a script name defined under `"scripts"` in `package.json`                                      | `"dev"` / `"develop"` / `"serve"` / `"start"`              |
 | `node` | The Node.js major version to use inside the container. The exact versions used are as follows:<br />`"10"`: `10.24.1`<br />`"12"`: `12.22.7`<br />`"14"`: `14.18.1`<br />`"16"`: `16.12.0` | `"10"` / `"12"` / `"14"` / `"16"` | `"14"` |
-    </WrapContent>
-    <WrapContent>
-       Configuration on Cloud Sandboxes are handled in the same way as Repositories. [Read more here](/learn/environment/vm)
-    </WrapContent>
-</Tabs>
