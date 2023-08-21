@@ -436,6 +436,37 @@ module.exports = withTM(
           destination: "/learn/teams/plan-billing/trials",
           permanent: true,
         },
+        // changes after new subscription model
+        {
+          source: "/learn/teams/team-overview",
+          destination: "/learn/",
+          permanent: true,
+        },
+        {
+          source: "/learn/teams/permissions",
+          destination: "/learn/",
+          permanent: true,
+        },
+        {
+          source: "/learn/teams/preferences",
+          destination: "/learn/",
+          permanent: true,
+        },
+        {
+          source: "/learn/teams/workspace",
+          destination: "/learn/",
+          permanent: true,
+        },
+        {
+          source: "/learn/teams/plan-billing/pricing-faq",
+          destination: "/learn/",
+          permanent: true,
+        },
+        {
+          source: "/learn/teams/plan-billing/trials",
+          destination: "/learn/",
+          permanent: true,
+        },
       ];
     },
   })
