@@ -439,32 +439,32 @@ module.exports = withTM(
         // changes after new subscription model
         {
           source: "/learn/teams/team-overview",
-          destination: "/learn/",
+          destination: "/learn/plans/plan-overview",
           permanent: true,
         },
         {
           source: "/learn/teams/permissions",
-          destination: "/learn/",
+          destination: "/learn/plans/permissions",
           permanent: true,
         },
         {
           source: "/learn/teams/preferences",
-          destination: "/learn/",
+          destination: "/learn/plans/preferences",
           permanent: true,
         },
         {
           source: "/learn/teams/workspace",
-          destination: "/learn/",
+          destination: "/learn/plans/workspace",
           permanent: true,
         },
         {
           source: "/learn/teams/plan-billing/pricing-faq",
-          destination: "/learn/",
+          destination: "/learn/plans/pricing-faq",
           permanent: true,
         },
         {
           source: "/learn/teams/plan-billing/trials",
-          destination: "/learn/",
+          destination: "/learn/plans/trials",
           permanent: true,
         },
       ];
