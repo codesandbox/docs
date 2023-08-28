@@ -15,8 +15,6 @@
   --neutral-light-medium: #c2c2c2;
   --neutral-light-high: #f5f5f5;
   --neutral-light-opacity: #00000016;
-
-  --nextra-navbar-height: 8rem;
 }
 
 html[class~="dark"] {

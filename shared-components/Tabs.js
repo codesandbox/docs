@@ -18,8 +18,6 @@ export function Tabs({ children, tabs }) {
   const router = useRouter();
   const [tab, setTab] = useState(undefined);
 
-  console.log(slugify(tabs[0]));
-
   useEffect(() => {
     setTab(router.query.tab);
   }, [router.query]);
