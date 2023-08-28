@@ -17,7 +17,7 @@
       "command": "pnpm dev:projects",
       "runAtStart": true,
       "preview": {
-        "port": 3001,
+        "port": 3000,
         "prLink": "devtool"
       }
     },
