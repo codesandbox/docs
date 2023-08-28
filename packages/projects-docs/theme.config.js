@@ -21,10 +21,6 @@ export default {
     ),
   },
 
-  // project: { icon: BackLink },
-  // navbar: {
-  //   extraContent: BackLink,
-  // },
   sidebar: {
     titleComponent({ title, type }) {
       if (type === "separator") {
