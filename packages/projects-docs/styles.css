@@ -221,6 +221,7 @@ html[class~="dark"] .nextra-sidebar-separator {
 
 html[class~="light"] .nextra-sidebar-container ul li a {
   color: var(--neutral-dark-base);
+  transition: none;
 }
 
 html[class~="light"] .nextra-sidebar-container ul li a:hover,
@@ -236,6 +237,7 @@ html[class~="light"] .nextra-toc ul li a[aria-selected="true"] {
 
 html[class~="dark"] .nextra-sidebar-container ul li a {
   color: var(--neutral-light-base);
+  transition: none;
 }
 
 html[class~="dark"] .nextra-sidebar-container ul li a:hover,
@@ -253,6 +255,10 @@ html[class~="dark"] .nextra-sidebar-container ul li.active > a:hover,
 html[class~="dark"] .nextra-toc ul li a[aria-selected="true"]:hover {
   color: var(--neutral-light-high);
   background: var(--neutral-dark-opacity);
+}
+
+html[class~="dark"] .nx-text-primary-600 {
+  color: var(--neutral-light-high);
 }
 
 html[class~="light"] .nx-text-primary-600 {
@@ -277,7 +283,6 @@ html[class~="light"] .nx-text-primary-600 {
 
 /* arrow dropdown */
 .folderAsHeader .nextra-sidebar-container a svg {
-  transition: opacity 100ms;
   opacity: 0;
 }
 
