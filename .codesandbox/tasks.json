@@ -1,4 +1,10 @@
 {
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "pnpm install"
+    }
+  ],
   "tasks": {
     "dev:projects": {
       "name": "Dev Projects",
