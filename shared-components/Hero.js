@@ -4,7 +4,7 @@ export default function Hero({ title, subtitle }) {
   return (
     <div>
       <h1 className={styles.title}>{title}</h1>
-      <h2 className={styles.subtitle}>{subtitle}</h2>
+      <p className={styles.subtitle}>{subtitle}</p>
     </div>
   );
 }
