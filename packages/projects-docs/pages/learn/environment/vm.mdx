@@ -51,6 +51,31 @@ For example, to update NodeJS to v18, you can create a `.codesandbox/Dockerfile`
 FROM node:18
 ```
 
+### Deno support
+
+If we detect a `deno.json` file in your sandbox or repository during boot, we'll automatically enable the Deno LSP (which provides autocompletions) instead of the TypeScript LSP. You can also force this by creating a file called `.codesandbox/features.json` and inserting these contents:
+
+```json
+{
+    "deno": true
+}
+```
+
+### Vue support
+
+Vue also has a custom LSP to handle TypeScript files better. If we detect any `.vue` files in the project, we'll default to using that LSP. You can also forcefully enable or disable this by creating a `.codesandbox/features.json` file and inserting these contents:
+
+```json
+{
+    "vue": {
+        // Whether to enable Vue LSP for TS files
+        takeOverMode: true,
+        // Whether to enable component inspector functionality in the editor for Vue
+        inspector: true,
+    }
+}
+```
+
 ## Docker support
 
 CodeSandbox supports running Docker containers inside any workspace. You can learn more about our Docker support in our [Docker documentation](/learn/environment/docker).
