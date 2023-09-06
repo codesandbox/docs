@@ -1,0 +1,7 @@
+{
+  "name": "CodeSandbox Applications",
+  "build": {
+    "context": ".",
+    "dockerfile": "./Dockerfile"
+  }
+}

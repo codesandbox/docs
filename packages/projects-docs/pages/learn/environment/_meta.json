@@ -2,6 +2,5 @@
   "vm": "VM Config & Persistence",
   "docker": "Docker Integration",
   "secrets": "Environment Variables",
-  "branch-protection": "Branch Protection",
-  "limitations": "Workspace Limitations"
+  "branch-protection": "Branch Protection"
 }
