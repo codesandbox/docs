@@ -1,7 +1,6 @@
 {
   "getting-started-with-docker": "Getting Started with Docker",
   "cli-tool": "Install CLI Tools and Global Modules",
-  "install-system-packages": "Install System Packages",
   "getting-started-with-python": "Getting Started with Python",
   "getting-started-with-php": "Getting Started with PHP",
   "convert-browser-sandbox-cloud": "Convert browser sandbox into cloud sandbox"
