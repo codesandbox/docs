@@ -5,36 +5,34 @@ description: This guide is the first step to get started with CodeSandbox for yo
 
 import { Callout } from 'nextra-theme-docs'
 
-# Repository Setup + Tips & Tricks
+
+# Setting up a repository with Codesandbox
+
+## Import a repository
+
+If you haven't already imported a repository, you can do so by navigating to the Recent page in the dashboard and clicking “Import from GitHub”.
+
+If you have already granted GH OAuth permissions, you will see a list of GitHub organizations that you are a part of. 
+Select the organization containing the repository that you want to import and select the desired repo. If you don't see your repository, you may need to insert the github url into the input field (e.g. “codesandbox/test-sandbox”). 
+
+<Callout emoji="💡">OAuth permissions allow CodeSandbox to list the repositories you have access to as well as permsision to execute git actions that allows the editor to stay up-to-date as you code.</Callout>
 
 
-This guide will help you get started with using CodeSandbox for your repo. It's a walkthrough with a bunch of tips and tricks on how to get the most out of CodeSandbox!
-
-## Create a Team & Import a Repository
-
-To get started with CodeSandbox for your repo, we recommend creating a team first. You can do this at [the dashboard](https://codesandbox.io/dashboard), by clicking on the workspace on the left, and pressing “Create a new team”. You can optionally start a free trial, in case you want better VM specs and import private repositories.
-
-![Pasted image 20230202132514.png](/team-creation.png)
-
-Once you've created the team, you can import a repository by clicking “Import from GitHub” and entering the URL of the GitHub repo. Once you've clicked “Import”, you're off to the races!
-
-<Callout emoji="💡">You can also type your repo without the GitHub URL (e.g. “codesandbox/test-sandbox”) to import the repo.</Callout>
+## Opening the repository
 
 The first time when you import a repo, it can take a while. During first-time setup, we clone the repository into the VM and set up the folders for the project. However, after this setup, we will create a memory snapshot of the VM, which will ensure that all the following VM loads (& clones!) will be fast.
 
 Next, let's take a look at the editor setup!
 
-## Editor & Workflow Setup
+## Repository & workflow setup
+
+### Branching flow
 
 CodeSandbox has an opinionated flow when it comes to working with repositories, and you can see hints of this in the editor.
 
 As soon as you enter the editor, you will see the current branch name in the header. Every branch has its own VM and is available through a unique URL. For example, if two people visit the URL for the `main` branch, they will be able to see each other's cursor, terminals and DevTools.
 
 <Callout emoji="💡">URLs for branches are predictable. So, if you want to open a specific branch, you can update the URL with the new branch name, and we'll import & create an environment for that branch automatically.</Callout>
-
-Now it's time to write some code!
-
-### Branching Workflow
 
 On CodeSandbox, the `main` branch is protected by default. This means that it's read-only and will sync automatically with the branch on GitHub when new commits come in.
 
@@ -43,113 +41,84 @@ To write some code, you have three options:
 2. Click the “Branch” button in the header.
 3. [Toggle protection off](/learn/environment/branch-protection) for the `main` branch.
 
-Give it a try on the repository you imported!
-
 When we create the new branch, we create a clone of the `main` VM and switch it to the new branch. This new VM is an _exact_ copy of the original VM, down to the memory contents. Because of this, processes like dev servers are already started in the cloned VM.
 
 <Callout emoji="💡">Tip: you can start a Postgres database on the `main` branch, seed some data in it, and then every new branch created from `main` will have that data available.</Callout>
 
-As you can see, we automatically generated a new branch for you, starting with `draft/...`. This branch is not protected, so you can make changes, open terminals or open any other DevTool.
+As we move into the environment setup, you will see the seamless branching in action
 
-### Git Workflow
+### Environment setup
 
-When you're ready to open a PR, you can either click “Create PR” in the header or commit from the Git panel in the sidebar.
 
-<Callout emoji="⚠️">New branches are not automatically created on GitHub. We only push the branch to GitHub when you create a commit or rename the branch.</Callout>
+![Setup Devtool](../images/setup-devtool.png)
 
-Next, let's do some configuration to make your repository work in CodeSandbox.
+If this is your first time setting up this repository in CodeSandbox, you should notice an onboarding tool in the devtool window. 
+We highly recommend completing the setup steps, but if for any reason, you don't finish and want to find this tool again, you can see the option header
 
-### Environment Configuration
+![Setup Button](../images/setup-button.png)
 
-Generally, we recommend configuring the environment with a `Dockerfile`. When Docker is enabled, any new terminal will open inside a container and you will have `root` access to install additional packages.
+#### About the environment setup
 
-To enable the Docker integration, you need to create a folder called `.codesandbox` in the root of your repo and put a file named `Dockerfile` in there. An example Dockerfile could look like this:
+When you run your repository in CodeSandbox, you are running it on Micro Virtual Machine (VM). This means that we need some basic configuration to set the environment on which your repository will run. To do this, we take advantage of the open source [Development Containers](https://containers.dev/). 
 
-```docker
-FROM node:18.14.0-bullseye
+In this section, we will walk through how to identify the best environment for your project and explain how each of the steps work together to create an automatic setup process for everyone accessing your repository in the future. 
 
-# Install htop
-RUN apt update -y && apt install -y htop
-```
+#### Step 1: select the environment 
+When importing a repository for the first time, CodeSandbox will examine the files in the repo to determine the environment that it is running on. CodeSandbox will also check to see if the repository has pre-existing configuration files that can be used to run the repository. 
 
-This will ensure that Node.js is installed, but you can make any changes to this `Dockerfile` to install additional language support or packages.
+Based on the findings, you will see a few options to choose from. 
 
-<Callout emoji="⭐">Currently, we only install Debian or Ubuntu-based Docker images, because we install additional utilities like `zsh` and `git` on top of the image</Callout>
+![Step 1](../images/setup-step-1.png)
 
-After you've made changes to the `Dockerfile`, you should see a notification that prompts you to rebuild the containers. Press “Yes” and you'll see the setup tasks start again, with a new entry to build the image. The built image is cached and available through VM cloning in other branches.
+The auto-detected environment is a DevContainer template that is likely to work for your repository. If you want to configure your own DevContainer, you can use our DevContainer wizard to select a [template](https://containers.dev/implementors/templates/) and add [features](https://containers.dev/implementors/features/) as needed to customize your DevContainer image. 
 
-<Callout emoji="💡">CodeSandbox also has native `docker-compose` support! If you create a `docker-compose.yml` file in `.codesandbox`, we'll automatically run the services.</Callout>
+![Step 1](../images/setup-step-1-2.png)
 
-You don't have to mount or `ADD` any files from your workspace folder. We'll make sure that your repository is mounted at `/workspace` when we start the container.
+#### Step 2: select setup tasks
 
-If you would like to learn more about how our Docker integration works, we recommend checking out [Docker Integration](/learn/environment/docker).
-
-### Task Configuration
-
-You can use tasks to configure what terminal commands should run by default, and what terminal commands need to run when the VM boots, or when a certain event happens.
-
-To create a task configuration, open the command palette by typing <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>. Then choose “Create task configuration”.
-
-There are two fields in this file:
-
-- `setupTasks`: these tasks are run when the VM boots or when a new commit comes in on a protected branch (like `main`).
-- `tasks`: these tasks are available through DevTools and are the recommended way of configuring commands to start development servers or build tasks.
-
-An example configuration could look like this:
-
-```json
-{
-  "$schema": "https://codesandbox.io/schemas/tasks.json",
-  "setupTasks": [
-    {
-      "name": "Installing Dependencies",
-      "command": "pnpm install"
-    }
-  ],
-  "tasks": {
-    "dev": {
-      "name": "Application",
-      "command": "pnpm dev:v2",
-      "runAtStart": true,
-      "restartOn": {
-        "files": ["pnpm-lock.yaml"]
-      },
-      "preview": {
-        "port": 4000,
-        "pr-link": "direct"
-      }
-    },
-    "tests": {
-      "name": "Run Tests",
-      "command": "pnpm test"
-    }
-  }
-}
-```
-
-This configuration says that:
-
-- We should run `pnpm install` during setup.
-- We should run `pnpm dev:v2` when setup has been completed.
-  - In case `pnpm-lock.yaml` changes, restart this task.
-  - When a new PR opens, make a deployment for port `4000` and put it in the pull request.
-- There's a task available to run tests, which anyone can click to run tests.
-
-<Callout emoji="💡">There are more properties you can configure in this config, you can find more information about this under [Task](/learn/repositories/task#tasks-configuration).</Callout>
-
-By making these changes, you'll ensure that the environment works by default. Other developers won't have to figure out what setup to do, or what commands to run to get started.
+Setup tasks are a list of terminal commands that run when a VM boots or when a new commit comes in on a protected branch (like `main`). 
+In this setup you can select which terminal commands you would like to automatically run when booting a VM. By setting these tasks, you'll ensure that the environment works by default. Other developers won't have to figure out what setup to do, or what commands to run to get started.
 
 <Callout emoji="⭐">Tasks are not started as your user, but by a global user named `pitcher-host`.</Callout>
 
-### Configuring Secrets
+![Step 2](../images/setup-step-2.png)
+
+In this example, we auto-detected `yarn install` as a likely command from the `package.json` file. 
+
+A **run** command is the terminal command to run the project, in this case we will run `yarn run dev` to spin up the dev environment.
+
+<Callout emoji="⭐">During the final step, this setting will generate a `tasks.json` file. There are many more ways to use this file for advanced configuration that are described [here](./task)</Callout>
+
+#### Step 3: set environment variables
+
+![Step 3](../images/setup-step-3.png)
 
 Several repositories require setting environment variables—either to connect to an external service or as the configuration of the environment itself.
 
-CodeSandbox allows you to set environment variables by clicking on our logo in the top left corner, and clicking on "Project Settings" and then “Env Variables”.
-
-These environment variables will be encrypted and stored in our database. After you've set the environment variables, they will be available for any branch in the repository after a restart.
+These environment variables will be encrypted and stored in our database. After you've set the environment variables, they will be available for any branch in the repository after a restart. 
 
 You can learn more about our environment variable support under [Secrets](/learn/environment/secrets).
+
+<Callout emoji="⭐">If there is a `.env.example` file in the repository, this step will reference the variable names to help you determine which variables shold be added.</Callout>
+
+
+#### Step 4: run your setup
+In this step you can review your setup steps and make changes before running the environment. Once you have run your setup steps, you should see some new files added to your branch. After you have read through the files and adjusted final details, you are ready to commit your changes and create your first PR. 
+
+![Step 4](../images/setup-step-4.png)
+
+You can do this either by clicking “Create PR” in the header or commit from the Git panel in the sidebar.
+
+<Callout emoji="⚠️">New branches are not automatically created on GitHub. We only push the branch to GitHub when you create a commit or rename the branch.</Callout>
+
+
+### Environment Configuration
+// Joji to do
+
+
+
+
+
 
 ### VS Code Configuration
 
