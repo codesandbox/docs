@@ -7,28 +7,27 @@ import { Callout } from 'nextra-theme-docs'
 
 # Dev Containers
 
-CodeSandbox supports Dev Containers spec natively. Dev Containers is an open specification for setting up and running containers for development environments. With Dev Containers you can setup the development environment using existing container images or build your own with custom Dockerfile. You can also run additional services like databases, caches etc with Docker Compose. Dev Containers also lets you add features on top of the container so that you can enhance your development environment without modifying the Dockerfile or the base image.
+CodeSandbox natively supports the Dev Containers specification. Dev Containers is an open specification for configuring and running containers in development environments. With Dev Containers, you can set up your development environment using existing container images or build your own using a custom Dockerfile. You can also run additional services like databases and caches using Docker Compose. Dev Containers also allows you to add features on top of the container, enhancing your development environment without the need to modify the Dockerfile or the base image.
 
-You can read more about the spec and configuration at the [Dev Container website](https://containers.dev/)
+For more information about the specification and configuration, please visit the [Dev Container website](https://containers.dev/).
 
 <Callout emoji="⭑">
-If you have already configured containers with our legacy Docker integration, we advise you to move to Dev Containers. You can still [read the docs for Docker integration here](/learn/environment/docker) 
+If you've previously configured containers using our legacy Docker integration, we recommend transitioning to Dev Containers. You can still [refer to the Docker integration documentation here](/learn/environment/docker).
 </Callout>
 
 ## Configuring Dev Containers in CodeSandbox
 
-Configuring Dev Containers in CodeSandbox is similar to how you do in a local VSCode environment. If you already have a configuration then it should work out of the box in CodeSandbox.
+Configuring Dev Containers in CodeSandbox is similar to how you would in a local VSCode environment. If you already have a configuration, it should work seamlessly in CodeSandbox.
 
-CodeSandbox also has a onboarding tool that allows you to configure Dev Containers via the UI. You can read more about the onboarding tool [here](/learn/repositories/setting-up-repository#environment-setup) 
+Additionally, CodeSandbox offers an onboarding tool that simplifies the process of configuring Dev Containers through a user-friendly interface. You can find more details about this onboarding tool [here](/learn/repositories/setting-up-repository#environment-setup).
 
-CodeSandbox uses rootless [Podman](https://podman.io/) to run the containers. We also use the [devcontainer/cli](https://github.com/devcontainers/cli) to build and manage devcontainers.
+CodeSandbox utilizes rootless [Podman](https://podman.io/) for running containers and relies on the [devcontainer/cli](https://github.com/devcontainers/cli) for building and managing devcontainers.
 
-While CodeSandbox supports most of the Dev Containers spec, there are some caveats. Majority of the Dev Container configurations should work as expected but if it does not you can take a look at the [limitations](#limitations) section below.
+While CodeSandbox supports the majority of the Dev Containers specification, there are a few caveats. Most Dev Container configurations should function as expected, but in cases where they do not, you can refer to the [limitations](#limitations) section below for guidance.
 
 ### Limitations
 
-The following properties in Dev Container config may work slightly different from other Dev Container implementation.
-
+Some properties within the Dev Container configuration may behave differently compared to other Dev Container implementations.
 
 - `forwardPorts`: CodeSandbox does not need this property. All ports opened in Dev Containers will be mapped to a public URL automatically.
 - `portsAttributes`: CodeSandbox does not yet support this property. Ports are attached to tasks configured in .codesandbox/tasks.json and are attributed to the tasks.
