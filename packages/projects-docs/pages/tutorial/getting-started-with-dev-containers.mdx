@@ -16,7 +16,9 @@ For more information about the specification and configuration, please visit the
 With Dev Containers configuration, you can configure your development environment in CodeSandbox. All you need is a Dev Container config to get started.
 
 ### 1. Create a Dev Container configuration file
-Dev Container configuration can be placed in either `.devcontainer.json` or `.devcontainer/devcontainer.json`. If you need to reference other files in your configuration, such as a Dockerfile or a docker-compose file, it is advisable to store it in the .devcontainer folder. For the purposes of this tutorial, you should create the configuration file at .devcontainer/devcontainer.json, as we will be adding additional files in later steps. This initial configuration will set up a basic environment for running JavaScript-based Node applications.
+Dev Container configuration can be placed in either `.devcontainer.json` or `.devcontainer/devcontainer.json`. If you need to reference other files in your configuration, such as a Dockerfile or a docker-compose file, it is advisable to store it in the .devcontainer folder. For the purposes of this tutorial, you should create the configuration file at .devcontainer/devcontainer.json, as we will be adding additional files in later steps. This initial configuration will set up a basic environment for running JavaScript-based Node applications. 
+
+If there is a `.codesandbox/Dockerfile` present, you can delete that so that Dev Container config will be used to configure the environment.
 
 ``` json filename=".devcontainer/devcontainer.json"
 {
