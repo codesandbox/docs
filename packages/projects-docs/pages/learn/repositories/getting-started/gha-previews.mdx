@@ -1,0 +1,18 @@
+---
+title: Setting up deployment previews
+description: Create preview links in GH PRs
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Deployment Previews & GitHub App
+
+Now that you've configured your repository to work in CodeSandbox, we highly recommend that you also configure deployment previews.
+
+With deployment previews, CodeSandbox automatically adds a link to every PR you open, allowing anyone with access to the repo to open the PR on a preloaded development environment running in CodeSandbox. This is great for reviewing changes, testing the application, or quickly making changes to a PR.
+
+To enable deployment previews, you need to install the CodeSandbox GitHub App. You can do this by opening the command palette (<kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>) and selecting “Install GitHub App”.
+
+After you've gone through the install steps, you should automatically get deployments for new PRs with a link to both the preview (if configured through tasks) and the development environment!
+
+There are more advantages to using the CodeSandbox GitHub App, like automatic dashboard syncing. You can learn more about this under [GitHub App](/learn/integrations/github-app).

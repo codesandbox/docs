@@ -1,0 +1,36 @@
+---
+title: Configuring VS Code
+description: Learn about how to configure VS Code to work for you
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+## VS Code Configuration
+
+CodeSandbox supports opening branches in [VS Code](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) and in our [native iOS app](https://apps.apple.com/us/app/codesandbox/id1423330822). When you open the branch inside VS Code, you will have access to your own extensions, keybindings and themes.
+
+<Callout emoji="⭐">VS Code and iOS also have live collaboration across different editors. This means that you'll be able to work together with someone who has the same branch open inside the web editor.</Callout>
+
+If you want to configure default VS Code extensions to be installed for your repository, you can create a new file called `.vscode/recommendations.json`.
+
+This is an example of how this file could look like:
+
+```json
+{
+  "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+}
+```
+
+When someone opens this VM in VS Code, we'll make sure that the extensions are preinstalled.
+
+If you want to have some personal extensions available in any CodeSandbox branch, you can update your own VS Code settings to reflect this. In your VS Code settings (we recommend opening the JSON version by clicking on the File icon in the top left), you can add these settings, for example, to automatically install these extensions when connecting to a VM:
+
+```json
+  "remote.SSH.defaultExtensions": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "GitHub.vscode-pull-request-github",
+    "GitHub.copilot",
+    "eamodio.gitlens"
+  ]
+```

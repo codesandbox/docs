@@ -1,0 +1,30 @@
+---
+title: Understanding the branching workflow 
+description: Learn about how branching works
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+
+# Repository & workflow setup
+
+## Branching flow
+
+CodeSandbox has an opinionated flow when it comes to working with repositories, and you can see hints of this in the editor.
+
+As soon as you enter the editor, you will see the current branch name in the header. Every branch has its own VM and is available through a unique URL. For example, if two people visit the URL for the `main` branch, they will be able to see each other's cursor, terminals and DevTools.
+
+<Callout emoji="💡">URLs for branches are predictable. So, if you want to open a specific branch, you can update the URL with the new branch name, and we'll import & create an environment for that branch automatically.</Callout>
+
+On CodeSandbox, the `main` branch is protected by default. This means that it's read-only and will sync automatically with the branch on GitHub when new commits come in.
+
+To write some code, you have three options:
+1. (Recommended) Just start typing some code - we will create a new branch for you using seamless branching!
+2. Click the “Branch” button in the header.
+3. [Toggle protection off](/learn/environment/branch-protection) for the `main` branch.
+
+When we create the new branch, we create a clone of the `main` VM and switch it to the new branch. This new VM is an _exact_ copy of the original VM, down to the memory contents. Because of this, processes like dev servers are already started in the cloned VM.
+
+<Callout emoji="💡">Tip: you can start a Postgres database on the `main` branch, seed some data in it, and then every new branch created from `main` will have that data available.</Callout>
+
+As we move into the environment setup, you will see the seamless branching in action.

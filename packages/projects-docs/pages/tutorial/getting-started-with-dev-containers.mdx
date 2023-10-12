@@ -1,0 +1,115 @@
+---
+title: Getting started with Dev Containers
+description: Learn how to use Dev Container spec in CodeSandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Getting started with Dev Containers
+
+CodeSandbox natively supports the Dev Containers specification. Dev Containers is an open specification for configuring and running containers in development environments. With Dev Containers, you can set up your development environment using existing container images or build your own using a custom Dockerfile. You can also run additional services like databases and caches using Docker Compose. Dev Containers also allows you to add features on top of the container, enhancing your development environment without the need to modify the Dockerfile or the base image.
+
+For more information about the specification and configuration, please visit the [Dev Container website](https://containers.dev/).
+
+## Using a Dev Containers configuration
+
+With Dev Containers configuration, you can configure your development environment in CodeSandbox. All you need is a Dev Container config to get started.
+
+### 1. Create a Dev Container configuration file
+Dev Container configuration can be placed in either `.devcontainer.json` or `.devcontainer/devcontainer.json`. If you need to reference other files in your configuration, such as a Dockerfile or a docker-compose file, it is advisable to store it in the .devcontainer folder. For the purposes of this tutorial, you should create the configuration file at .devcontainer/devcontainer.json, as we will be adding additional files in later steps. This initial configuration will set up a basic environment for running JavaScript-based Node applications. 
+
+If there is a `.codesandbox/Dockerfile` present, you can delete that so that Dev Container config will be used to configure the environment.
+
+``` json filename=".devcontainer/devcontainer.json"
+{
+    "name": "Dev Container tutorial",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:20"
+}
+```
+The image can be any publicly available Docker image. The one utilized above has been specifically pre-built for use as a Dev Container.
+
+### 2. Rebuild & Restart 
+When the Dev Container configuration file or any file within the `.devcontainer` folder is modified, you will receive a notification asking if you would like to initiate a rebuild and restart of the containers. You can also manually trigger the rebuild and restart process by opening the command palette using `Cmd + Shift + P` and selecting `Instance: Rebuild & Restart Containers`.
+
+This action will stop any active terminals or tasks and subsequently restart the setup tasks. It should now include a new step labeled `Running Containers` which will build and launch the devcontainer.
+
+### 3. Run a terminal to verify the Node version
+Once the stup tasks have been completed, you can open a terminal and execute the following command.
+``` sh
+node --version
+```
+It should display the version as '20' since we have employed the 'javascript-node:20' image.
+
+### 4. Customizing the Dev Container with features
+Dev Container allows you to customize the development environment using pre-built features. You can explore the available features for installation [here](https://containers.dev/features).
+
+For this tutorial, we will add PHP to the development environment. You can include `ghcr.io/devcontainers/features/php:1` to the `features` property in Dev Container config.
+
+``` json filename=".devcontainer/devcontainer.json"
+{
+    "name": "Dev Container tutorial",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+    "features": {
+        "ghcr.io/devcontainers/features/php:1": {}
+    }
+}
+```
+
+Now, after restarting and rebuilding the containers, PHP should be installed in the Dev Container. You can verify this by opening a new terminal and entering the following command
+``` sh
+php -v
+```
+
+### 5. Customizing the image using Dockerfile
+You can also customize Dev Containers using a Dockerfile instead of a feature. In this tutorial, we will install `strace` using the `apt` package manager. To achieve this, you need to create a `.devcontainer/Dockerfile` with the following content.
+
+``` Dockerfile filename=".devcontainer/Dockerfile"
+FROM mcr.microsoft.com/devcontainers/javascript-node:20
+
+RUN apt update && apt install -y strace
+```
+Now, we need to modify the `.devcontainer/devcontainer.json` configuration to instruct it to build the container image from the Dockerfile.
+``` json filename=".devcontainer/devcontainer.json"
+{
+    "name": "Dev Container tutorial",
+    "build": {
+        "context": ".",
+        "dockerfile": "Dockerfile"
+    }
+    "features": {
+        "ghcr.io/devcontainers/features/php:1": {}
+    }
+}
+```
+Now, after restarting and rebuilding the containers, both `strace` and PHP should be installed in the Dev Container.
+
+### 6. Running additional service with Docker Compose
+
+We can run additional services such as Redis so that the Dev Container we configured earlier can connect to them. To achieve this, we will create a file `.devcontainer/docker-compose.yml` with configurations for the workspace and Redis services.
+
+``` yaml filename=".devcontainer/docker-compose.yml"
+services:
+    workspace:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ..:/workspace:cached
+        command: sleep infinity
+    redis:
+        image: redis:alpine
+```
+Now, we need to set up the Dev Container to utilize the docker-compose.yml file.
+``` json filename=".devcontainer/devcontainer.json"
+{
+  "name": "Dev Container tutorial",
+  "service": "workspace",
+  "dockerComposeFile": "docker-compose.yml",
+  "workspaceFolder": "/workspace"
+}
+```
+Now, after restarting and rebuilding the containers, the Redis container should start alongside the workspace Dev Container. The workspace Dev Container will have `strace` (installed via the `Dockerfile`) and `PHP` (added via features) installed. The terminal will open in the workspace Dev Container.
+
+<Callout>
+For more details on our legacy Docker environment setup, check the [Docker tutorial](/tutorial/getting-started-with-docker).
+</Callout>

@@ -1,6 +1,7 @@
 {
   "vm": "VM Config & Persistence",
-  "docker": "Docker Integration",
+  "devcontainers": "Dev Containers",
+  "docker": { "display": "hidden" },
   "secrets": "Environment Variables",
   "branch-protection": "Branch Protection"
 }

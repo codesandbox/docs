@@ -467,7 +467,12 @@ module.exports = withTM(
           destination: "/learn/plans/trials",
           permanent: true,
         },
+        {
+          source: "/learn/repositories/setting-up-repository",
+          destination: "/learn/repositories/getting-started/repo-import",
+          permanent: true,
+        },
       ];
     },
-  })
+  }),
 );
