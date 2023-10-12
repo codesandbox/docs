@@ -6,13 +6,8 @@
     "title": "Secrets",
     "href": "/learn/environment/secrets"
   },
-  "configuration": {
-    "title": "Configuration",
-    "href": "/learn/environment/secrets"
-  },
   "templates": "Templates",
   "synced-templates": "Synced Templates",
   "cli-api": "Sandbox CLI & API",
-  "deployment": "Deployment Options",
   "custom-npm-registry": "Custom NPM Registry"
 }
