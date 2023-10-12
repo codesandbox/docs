@@ -1,6 +1,6 @@
 {
   "index": "Introduction",
-  "guides": "Guides",
+  "guides": "Getting Started",
   "-- cloud-development": {
     "type": "separator",
     "title": "Cloud Development"

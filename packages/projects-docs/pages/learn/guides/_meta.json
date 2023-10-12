@@ -1,18 +1,18 @@
 {
   "setting-up-repository": {
-    "title": "Repository First-Time Setup",
-    "href": "/learn/repositories/setting-up-repository"
+    "title": "Getting started with repositories",
+    "href": "/learn/repositories/getting-started/repo-import"
   },
   "your-first-sandbox": {
-    "title": "Sandbox First-Time Setup",
+    "title": "Getting started with sandboxes",
     "href": "/learn/sandboxes/your-first-sandbox"
   },
   "setting-up-vscode": {
-    "title": "VS Code Setup",
+    "title": "Getting started with VS Code",
     "href": "/learn/editors/vscode/setting-up-vscode"
   },
   "setting-up-ios": {
-    "title": "iOS Setup",
+    "title": "Getting started with iOS",
     "href": "/learn/editors/ios/setting-up-ios"
   }
 }
