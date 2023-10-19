@@ -1,7 +1,7 @@
 {
   "repo-import": "Importing a repo",
-  "environment-setup": "Environment setup",
   "branching": "Branching",
+  "environment-setup": "Environment setup",
   "git-workflow": "Git workflow",
   "gha-previews": "PR configuration",
   "configure-vscode": "VS Code configuration",
