@@ -1,0 +1,52 @@
+---
+title: Git workflow 
+description: Learn how committs and other git operations work in CodeSandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+
+# Git Workflow
+
+## Git panel
+
+After you have made some changes to your code and saved them (<kbd>⌘ + S or Ctrl + S</kbd>), you will notice a purple notification next to the git icon at the top of the left sidebar.
+
+Clicking that icon or using <kbd>⌃ ⇧ G or Ctrl + ⇧ + G</kbd> reveals the Git panel, which will contain a list of your previous commits, as well as all uncommitted changes.
+
+## Committing changes
+
+Under the "Uncomitted changes" section, you will find a text field where you can input a commit message. If you have the [Boxy AI assistant](/learn/boxy/overview) enabled, Boxy will automatically suggest a commit message based on the changes you made. Optionally, you can click the sparkles icon at the top right of the text box to generate a new commit message using Boxy.
+
+Finally, when you click the "Commit and push" button, we commit the changes to the branch on GitHub.
+
+<Callout emoji="💡">You can also commit changes using the terminal. This is especially useful is you're working with a repository from GitLab or another non-GitHub git provider, as our git panel currently only supports GitHub repos.</Callout>
+
+## Opening a pull request
+
+When you're ready to open a PR, you can either click “Create PR” at the top right of the web editor or commit from the Git panel in the sidebar.
+
+
+
+<Callout emoji="⚠️">New branches are not automatically created on GitHub. We only push the branch to GitHub when you create a commit or rename the branch.</Callout>
+
+Next, let's do some configuration to make your repository work in CodeSandbox.
+
+## Using the git panel
+
+CodeSandbox has an opinionated flow when it comes to working with repositories, and you can see hints of this in the editor.
+
+As soon as you enter the editor, you will see the current branch name in the header. Every branch has its own VM and is available through a unique URL. For example, if two people visit the URL for the `main` branch, they will be able to see each other's cursor, terminals and DevTools.
+
+<Callout emoji="💡">URLs for branches are predictable. So, if you want to open a specific branch, you can update the URL with the new branch name, and we'll import & create an environment for that branch automatically.</Callout>
+
+On CodeSandbox, the `main` branch is protected by default. This means that it's read-only and will sync automatically with the branch on GitHub when new commits come in.
+
+To write some code, you have three options:
+1. (Recommended) Just start typing some code - we will create a new branch for you using seamless branching!
+2. Click the “Branch” button in the header.
+3. [Toggle protection off](/learn/environment/branch-protection) for the `main` branch.
+
+When we create the new branch, we create a clone of the `main` VM and switch it to the new branch. This new VM is an _exact_ copy of the original VM, down to the memory contents. Because of this, processes like dev servers are already started in the cloned VM.
+
+<Callout emoji="💡">Tip: you can start a Postgres database on the `main` branch, seed some data in it, and then every new branch created from `main` will have that data available.</Callout>
