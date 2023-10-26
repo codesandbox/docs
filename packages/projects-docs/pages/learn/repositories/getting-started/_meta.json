@@ -2,6 +2,7 @@
   "repo-import": "Importing a repo",
   "branching": "Branching",
   "environment-setup": "Environment setup",
+  "git-workflow": "Git workflow",
   "gha-previews": "PR configuration",
   "configure-vscode": "VS Code configuration",
   "troubleshooting": "Troubleshooting"
