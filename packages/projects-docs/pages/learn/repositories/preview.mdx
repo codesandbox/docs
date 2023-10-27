@@ -20,3 +20,12 @@ This will often make hot module reloading work out of the box for frameworks lik
 ### Service Worker Proxy
 
 If possible, we try to install a service worker in the preview that will proxy requests to [`localhost:3000`](http://localhost:3000) to the corresponding dev URL. The service worker only proxies URLs that are going to localhost, or URLs that go to e.g. `https://3000-:id.preview.csb.app:4000`.
+
+#### Configuring the Proxy
+
+The service worker proxy is enabled by default, but you can turn it off in two ways:
+
+1. Configure the dev server to respond with the `x-csb-no-sw-proxy` header when sending HTML responses (any value is possible)
+2. Or, set `csbLocalProxyEnabled` to `false` in the localStorage: `localStorage.setItem('csbLocalProxyEnabled', 'false');`.
+
+When the `x-csb-no-sw-proxy` header is set, we automatically add `localStorage.setItem('csbLocalProxyEnabled', 'false');` to the returned HTML from the dev server.
