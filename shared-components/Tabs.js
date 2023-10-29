@@ -26,7 +26,7 @@ export function Tabs({ children, tabs }) {
   useEffect(() => {
     const checkContentMatch = (url, pushURL) => {
       const match = url.split("#")[1];
-      const checkMatch = false;
+      let checkMatch = false;
       for (let i = 0; i < children.length; i++) {
         const content = ReactDOMServer.renderToString(children[i]);
 
