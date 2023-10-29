@@ -23,6 +23,6 @@ If you want to contribute, you can do get started with one click:
 
 
 Your probably going to want to create a new fork to keep thing in sync;  If you are planning to work on this a lot.
-Read [Here](/packages/projects-docs/pages/learn/repositories/open-source.mdx) for more instructions.  
+Read [here](/packages/projects-docs/pages/learn/repositories/open-source.mdx) and [here](https://codesandbox.io/blog/how-to-make-your-first-open-source-contribution) for more instructions on how to contribute.  
 
 
