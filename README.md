@@ -17,8 +17,12 @@ The individual documentations can be found in the
 - `packages`
 folder.
 
-If you want to contribute, you can do so with one click:
+If you want to contribute, you can do get started with one click:
 
 [![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/github/codesandbox/docs)
+
+
+Your probably going to want to create a new fork to keep thing in sync;  If you are planning to work on this a lot.
+Read [Here](./packages/projects-docs/pages/learn/repository/collaborate-share.mdx) for more instructions.  
 
 
