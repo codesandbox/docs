@@ -1,0 +1,179 @@
+---
+title: Preview URLs
+description: When working with CodeSandbox, you access your previews through special URLs. This post highlights how you can use them to your advantage.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Preview URLs
+
+When you work with CodeSandbox, every port opened by your dev server is available behind a URL that looks like this:
+
+```
+https://{id}-{port}.csb.app
+```
+
+For example, while writing this blog post I'm previewing my changes at `https://rfjmrz-3000.csb.app`.
+
+This is different compared to working on your local machine, where the dev server is often available behind `http://localhost:{port}`. We'll guide you through how you can integrate more easily with the new URL structure.
+
+## Generating preview URLs
+
+Unlike `localhost` URLs, `csb.app` URLs differ per branch. The advantage of this approach is that you can share a preview URL with a co-worker and start working on a new branch while they check out your work. However, it does require some additional configuration to support this.
+
+### JavaScript library
+
+We've created a (zero-dependency) [JavaScript library](https://www.npmjs.com/package/@codesandbox/utils) that simplifies getting the current hostname. You can install the library by running one of the following three commands:
+
+```bash
+npm i @codesandbox/utils
+pnpm i @codesandbox/utils
+yarn add @codesandbox/utils
+```
+
+After installing the library, you can get the preview URL for the current VM like so:
+
+```js
+import { getCodeSandboxHost } from '@codesandbox/utils';
+
+const port = 3000;
+const previewUrl = `https://${getCodeSandboxHost(port)}`;
+```
+
+This library works both in the frontend and in the backend. In the frontend it will base the preview id on the current URL, in the backend it will use `hostname` to determine the current preview id.
+
+Here's a running example:
+
+<iframe src="https://codesandbox.io/p/sandbox/autumn-hill-kvkcgq?embed=1&file=%2Findex.js"
+     style={{width:"100%", height: "800px", border:"0", borderRadius: "4px", overflow:"hidden"}}
+     title="Preview URL Example"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+### Using `hostname`
+
+You can programmatically get the current branch or devbox ID by checking the hostname of the machine. This is guaranteed to work between live clones of VMs as well.
+
+You can use this to generate a preview URL, here's an example in JavaScript:
+
+```js
+const hostname = require('os').hostname;
+const port = 3000;
+
+const previewUrl = `https://${hostname}-${port}.csb.app`;
+```
+
+Or alternatively you can run `hostname` as a shell command to get the latest hostname.
+
+### Using RegEx in the browser
+
+If you want to get the current preview id in the frontend, and you don't want to use the JavaScript library mentioned earlier, you can use a RegEx based on the current URL to get the current preview id. Like so:
+
+```ts
+const REGEX = /(?<id>\w{5,6})-(?<port>\d{1,5})\.(?<hostname>.*)/;
+
+function getPreviewUrl(port) {
+  const currentUrl = location.host;
+  const currentMatch = currentUrl.match(REGEX);
+
+  if (!currentMatch?.groups) {
+    return undefined;
+  }
+  const { id, hostname } = currentMatch.groups;
+
+  if (!id || !port || !hostname) {
+    return undefined;
+  }
+
+  return `${id}-${port}.${hostname}`;
+}
+```
+
+The same code can be found [here](https://github.com/codesandbox/utils/blob/main/src/url.ts#L24-L38).
+
+### Using environment variables
+
+CodeSandbox exposes two environment variables inside the VM that you can use to determine the hostname:
+
+- `CSB_BASE_PREVIEW_HOST`, this is `csb.app` by default
+- `CODESANDBOX_HOST`, this is `:id-$PORT.csb.app` by default, for example: `rfjmrz-$PORT.csb.app`.
+
+<Callout type="warning">
+When you create a live clone of a VM, its environment variables will not update _until_ you restart the process using the environment variables.
+
+Let's say you have a server using `CODESANDBOX_HOST` running in the `main` branch, and you create a new branch by cloning the VM of the `main` branch. The cloned branch will still use the old `CODESANDBOX_HOST`. You'd have to restart the server to get the new version.
+
+You can do this automatically by setting `"restartOn": { "branch": true }` for the server task. You can learn more about this [here](/learn/repositories/task#tasks-configuration).
+</Callout>
+
+Generally we recommend to use `hostname` instead of environment variables, as using environment variables requires restarting the task on every fork.
+
+## Forwarding Ports
+
+You can also opt to forward the ports to localhost. The disadvantage is that anyone would have to forward the port to localhost to see the preview, but it requires zero configuration.
+
+You can do this by opening the project inside VSCode, and clicking on "Ports" in the bottom panel. From there you can forward any HTTP or TCP port to your machine.
+
+## Common Troubleshooting
+
+### "Invalid Host/Origin header"
+
+The Webpack dev server is by default configured to only allow requests originating from `localhost`. Because of this, Webpack will reject requests from the preview with an "Invalid Host/Origin header" error.
+
+You can fix this by updating the Webpack configuration.
+
+#### Webpack 4
+
+For Webpack 4, you'd need to add this to your `devServer` entry in your webpack configuration:
+
+```
+disableHostCheck: true
+```
+
+#### Webpack 5
+
+For Webpack 5, you'd need to add this to your `devSever` entry in your webpack configuration:
+
+```
+allowedHosts: ".csb.app",
+```
+
+### CORS Headers
+
+If a frontend server runs on a different port or branch than the backend server, and CORS is enabled, the backend will have to return CORS headers based on the caller URL.
+
+There are two ways to approach this. If the server runs in the same branch/instance as the frontend, you can use the current preview id, like so:
+
+```js
+const express = require('express')
+const cors = require('cors')
+const { getCodeSandboxHost } = require('@codesandbox/utils')
+const app = express()
+
+const FRONTEND_PORT = 3000
+app.use(cors({
+    origin: getCodeSandboxHost(FRONTEND_PORT)
+}))
+```
+
+If the frontend and backend run in different branches or instances, you will need to use dynamic checking on `csb.app`. In Express this can be done like so:
+
+```js
+const express = require('express')
+const cors = require('cors')
+const app = express()
+
+const FRONTEND_PORT = 3000
+app.use(cors({
+    origin: /\.csb\.app$/
+}))
+```
+
+#### OAuth Login
+
+Adding support for OAuth depends on the provider that you're looking to support. Some OAuth providers support wildcard subdomains, which will make it work with CodeSandbox.
+
+<Callout>We recommend setting up a special subdomain for wildcard subdomains, like `{id}-{port}.{org}.csb.app`. At CodeSandbox we support this on a request-basis. Send an e-mail to hello@codesandbox.io to request access</Callout>
+
+If the provider does not support wildcard subdomains, we recommend using another sign in method, like username/password based sign in or token-based login.
