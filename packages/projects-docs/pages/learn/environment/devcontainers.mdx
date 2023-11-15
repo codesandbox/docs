@@ -38,3 +38,29 @@ Some properties within the Dev Container configuration may behave differently co
 - `features`: CodeSandbox automatically adds docker-cli to the container and connects to the host socket. Features like docker-in-docker and docker-outside-of-docker will work a bit differently. As the docker-cli and socket from host are accessible in the container, most use cases should work as expected.
 - `${localEnv:VARIABLE_NAME}`	Any	For CodeSandbox, the host is in the cloud rather than in your local machine.
 hostRequirements: CodeSandbox does not yet support this property.
+
+## Examples
+
+Here are some example devcontainer configurations that you can use for configuring your environment.
+
+### Node v18
+
+Create a `.devcontainer/devcontainer.json` with these contents:
+
+```json
+{
+    "name": "Node.js",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:18"
+}
+```
+
+### Node v20
+
+Create a `.devcontainer/devcontainer.json` with these contents:
+
+```json
+{
+    "name": "Node.js",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:20"
+}
+```
