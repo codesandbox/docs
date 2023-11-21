@@ -116,7 +116,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
   the sandbox or preview in a web browser.
 - When using a container, the sandbox has a 1GB persistent storage limit, a 1GB vCPU soft
   limit, and a hard memory limit of 2 GB.
-  
+
 Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
 ## I'm getting a 'Request Entity too Large' error, what should I do?
@@ -156,7 +156,7 @@ If you're having issues with your database, you can check the logs of the contai
 
 ## How do I change the editor's theme?
 
-To change the [theme of a Cloud Sandbox](https://codesandbox.io/docs/learn/repositories/themes), click on the CodeSandbox logo at the top left, then go to Settings >  Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
+To change the [theme of a Cloud Sandbox](https://codesandbox.io/docs/learn/repositories/themes), click on the CodeSandbox logo at the top left, then go to Settings > Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
 
 On a Browser Sandbox, you can change the theme from File > Preferences > Color Theme in the editor. You can also set a custom VS Code theme on a Browser Sandbox. Open VS Code, Press (CMD or CTRL) +
 SHIFT + P, Enter: '> Developer: Generate Color Scheme From Current Settings',
@@ -175,17 +175,18 @@ resolve it. For example:
 [https://codesandbox.io/s/new?runonclick=1](https://codesandbox.io/s/new?runonclick=1)
 
 ## Can I push/pull from a GitLab, Azure DevOps, or BitBucket repository?
+
 Yes. While our Repositories only have built-in push and sync capabilities for GitHub, you can connect to a remote repository from any other git provider.
 
 To do that, use our terminal to `git remote add` the remote repository and then add your credentials for it. You can also add the authentication details to the CodeSandbox microVM using [environment variables](https://codesandbox.io/docs/learn/environment/secrets).
 
-## How do I cancel my Personal Pro, Team Pro or Patron plan?
+## How do I cancel my Pro or Patron plan?
 
-For Team Pro & Personal Pro users, once you've logged in, you can downgrade your plan on the
-[Settings page](https://codesandbox.io/dashboard/settings). 
+For Pro users, once you've logged in, you can downgrade your plan on the
+[Settings page](https://codesandbox.io/dashboard/settings).
 
 If you're on one of our legacy Patron plans you can cancel
-your subscription on the [Patron page](https://codesandbox.io/patron). 
+your subscription on the [Patron page](https://codesandbox.io/patron).
 
     </WrapContent>
     <WrapContent>
@@ -216,17 +217,19 @@ Yes. Follow the steps below:
 ## More Questions?
 
 If you have additional questions or need support, please use the community [Discord server](https://discord.gg/R32XxEGp4s).
+
     </WrapContent>
     <WrapContent>
-       ## Sandboxes
+      ## Sandboxes
 
 ### Why am I getting a git error resolving a dependency?
+
 CodeSandbox for iOS is only compatible with dependencies hosted and accessible via HTTP or HTTPS.
 
 This happens because the app doesn't provide local shell environments where you can run arbitrary commands, like git. Use the [CodeSandbox web editor](/learn/sandboxes/editors) instead.
 
 You may find some of the following answers helpful if you have gone through the sections in this documentation but still haven’t solved your questions:
-    
+
 ### I'm getting an error trying to run my sandbox in CodeSandbox for iOS. What could be the cause?
 
 The root cause of the problem could be either a coding mistake on your side or a dependency trying to do something forbidden by iOS.
@@ -244,14 +247,18 @@ Only the scripts that start with `node` or the name of a dependency located insi
 The runtime provides a `WEB_PORT` environment variable matching the port used by default by the in-app web browser. If your sandbox doesn't use the port in that environment variable, then you will need to fix the URL in the web browser to load the page on the right port.
 
 ### Why does my sandbox stop running when I move the app to the background?
+
 This happens because iOS suspends the process while the application is in the background, which also suspends all its activity.
 
 ### My sandbox requires Node.js 14 but the app uses Node.js 12. How can I change the Node.js version?
+
 The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating the new CodeSandbox experience instead. Stay tuned, as we will be making some updates.
 
 ## Repositories
 
 ### Why can't I make any changes to my project?
+
 You likely have a protected branch selected (i.e. `main`). Forking a branch will create a new one where you can make changes.
-    </WrapContent>
+</WrapContent>
+
 </Tabs>
