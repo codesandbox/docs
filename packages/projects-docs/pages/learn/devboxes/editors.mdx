@@ -8,21 +8,21 @@ import { Callout } from 'nextra-theme-docs'
 import Video from '../../../../../shared-components/Video'
 
 
-# Sandbox Editors
+# Editors
 
-CodeSandbox offers two web editors and an iOS editor. A Sandbox is either a Browser Sandbox or a Cloud Sandbox. All Sandboxes are available on the iOS app. 
+CodeSandbox offers two different development environments A browser based Sandbox and Cloud based Devbox. 
 
-<Tabs tabs={["Cloud", "Browser"]}>
+<Tabs tabs={["Devbox", "Sandbox"]}>
     <WrapContent>    
-Cloud sandboxes run inside a Firecracker MicroVM and utilise memory snapshotting to ensure fast fork time and wake up time. They can run anything that you would be able to run in your local environment, including Docker containers. You can learn more about how they work in our [blog post](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds).
+Devboxes run inside a Firecracker MicroVM and utilise memory snapshotting to ensure fast fork time and wake up time. They can run anything that you would be able to run in your local environment, including Docker containers. You can learn more about how they work in our [blog post](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds).
 
-Cloud sandboxes are best used to run backend services, compiled languages and things like databases.
+Devboxes are best used to run backend services, compiled languages and things like databases.
 
-The Cloud Sandbox editor contains a set of features to increase the accessibility of complex tools like git, setup, review flows, contributions, and visualizing components. 
+The Devbox editor contains a set of features to increase the accessibility of complex tools like git, setup, review flows, contributions, and visualizing components. 
 
     </WrapContent>
     <WrapContent>
-    Browser sandboxes are sandboxes that fully run in the browser, and are made to run frontend JavaScript/TypeScript frameworks. If you would like to run backend services or databases, check Cloud Sandboxes.
+    Sandboxes run fully in the browser, and are made to run frontend JavaScript/TypeScript frameworks. If you would like to run backend services or databases, check Devboxes.
 
     </WrapContent>
 </Tabs>
