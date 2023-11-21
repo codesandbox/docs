@@ -17,15 +17,19 @@
   },
   "templates": {
     "title": "Templates",
-    "href": "/templates"
+    "href": "/learn/sandboxes/templates"
   },
   "editor-features": {
     "title": "Editor features",
-    "href": "/editor-features"
+    "href": "/learn/sandboxes/editor-features"
+  },
+  "custom-npm-registry": {
+    "title": "Editor features",
+    "href": "/learn/sandboxes/custom-npm-registry"
   },
   "faq": {
     "title": "FAQ",
-    "href": "/faq"
+    "href": "/learn/sandboxes/faq"
   },
   "-- more": {
     "type": "separator",
