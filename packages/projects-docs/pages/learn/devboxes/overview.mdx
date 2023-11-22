@@ -1,20 +1,25 @@
 ---
-title: Sandboxes
+title: Devboxes
 description: Learn about the differences between Devboxes and Sandboxes.
 ---
 
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 import { Callout } from 'nextra-theme-docs'
 
-# CodeSandbox Sandboxes & Devboxes
+# CodeSandbox Devboxes
 
-CodeSandbox provides two development environments that are ideal for prototyping and rapid web development: Devboxes (which run in a microVM) and Sandboxes (which run using browser resources).
+CodeSandbox provides two development environments that are ideal for prototyping and rapid web development: [Devboxes](/learn/devboxes/overview) (which run in a microVM) and [Sandboxes](/learn/sandboxes/templates) (which run using browser resources).
 
-To create a new Sandbox, you can clone a template from our ["Create Sandbox"](https://codesandbox.io/s) modal. When clicking on a template, we create a fork (a copy) of the template and open the newly created sandbox in our web editor.
+We generally recommend using Devboxes, which provide all the tooling needed for building prototypes. Sandboxes are mostly useful as a playground for basic front-end JavaScript projects.
+
+Previously known as Cloud Sandboxes, Devboxes are a great way to work on any type of project, regardless of its language or size. Devboxes run [microVMs](/learn/environment/vm) and leverage our memory snapshotting to spin up an environment in 1.5 seconds. They have built-in [Docker support](/learn/environment/docker) and include several valuable features, such as [AI](/learn/ai/overview), collaborative [Terminals](/learn/repositories/terminal), [Tasks](/learn/repositories/task), and [VS Code integration](/learn/getting-started/setting-up-vscode).
 
 <Callout>
-By default, we recommend using Devboxes, which provide all the tooling needed for building prototypes. Sandboxes are mostly useful as a playground for basic front-end JavaScript projects.
+Devboxes are built for scale. Our Free plan includes generous VM specs but you can easily [start a Pro trial](https://codesandbox.io/pro) to improve them.
 </Callout>
+
+## Creating a Devbox
+To create a new Devbox, you can clone a template from our ["Create Devbox"](https://codesandbox.io/s) modal. When clicking on a template, we create a fork (a copy) of the template and open the newly created sandbox in our web editor.
 
 ## Difference between Devboxes & Sandboxes
 
