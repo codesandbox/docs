@@ -12,24 +12,24 @@ import { Callout } from 'nextra-theme-docs'
     <WrapContent>
       ## Which languages and frameworks are supported?
 
-[Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack, and officially support (with built-in LSP/IntelliSense) Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node and Deno (more languages coming soon).
+[Devboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack, and officially support (with built-in LSP/IntelliSense) Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node and Deno (more languages coming soon).
 
 [Browser sandboxes](/learn/sandboxes/overview) are more limited. They support JavaScript/TypeScript projects, as well as Node.js.
 
 [Create a sandbox from a template](https://codesandbox.io/s/), or read more
 about the
-[difference between browser and cloud sandboxes](/learn/sandboxes/editors).
+[difference between Sandboxes and Devboxes](/learn/sandboxes/editors).
 
 ## How do I make a sandbox private?
 
-There are several ways to set a sandbox as private. One universal way (that works both for browser sandboxes and cloud sandboxes) is to right-click a sandbox from the dashboard and select _Make sandbox private_.
+There are several ways to set a sandbox as private. One universal way (that works both for sandboxes and devboxes) is to right-click a sandbox from the dashboard and select _Make sandbox private_.
 
 <Callout>
 A [Pro subscription](https://codesandbox.io/pricing) is required to
 make sandboxes private or unlisted.
 </Callout>
 
-You can also change the privacy settings from the editor. How you do it will depend on whether you're using a browser sandbox or a cloud sandbox, as shown below.
+You can also change the privacy settings from the editor. How you do it will depend on whether you're using a sandbox or a devbox, as shown below.
 
 ### Make a browser sandbox private
 
@@ -40,11 +40,11 @@ The browser editor provides two ways to change the privacy settings:
 
 ![Make private in the editor](./learn/images/sandbox-private.jpg)
 
-### Make a cloud sandbox private
+### Make a Devbox private
 
-The cloud editor also provides two ways to change the privacy settings:
+The Devbox editor also provides two ways to change the privacy settings:
 
-1. Click the chevron on the right side of your sandbox's name at the top of the screen; click _Edit info_ and then change the drop-down next to _Privacy_.
+1. Click the chevron on the right side of your Devbox's name at the top of the screen; click _Edit info_ and then change the drop-down next to _Privacy_.
 2. Click the _Share_ button on the top right and change the drop-down under _Permissions_.
 
 ## I'm getting a 422 error when importing from GitHub, why?
@@ -59,20 +59,20 @@ you.
 
 ## Why are my start scripts not having an effect?
 
-For performance reasons, we ignore any specified scripts in browser sandboxes,
+For performance reasons, we ignore any specified scripts in sandboxes,
 instead using a default script. If you need to control the scripts, then we
-recommend using a [cloud sandbox](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox).
+recommend using a [Devbox](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox).
 
 ## Can I change the Node version used in a sandbox?
 
-Yes, for cloud sandboxes you can refer to [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) to learn how to change the Node version. All recent server sandboxes run in a cloud sandbox.
+Yes, for Devboxes you can refer to [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) to learn how to change the Node version. All recent server sandboxes run in a Devbox.
 
 For container sandboxes that are created after May 10 2021, we run Node v14.18.1 (LTS) by default.
 For backwards compatibility, the older sandboxes are on Node v10. However, you can
 specify a `node` value to alter the version in `sandbox.config.json`, which will
 be used instead. For further details, see [configuration](/learn/sandboxes/configuration).
 
-Note that we recommend using Cloud Sandboxes when you're working with Node.js projects.
+Note that we recommend using Devboxes when you're working with Node.js projects.
 
 ## Can I open the terminal, console, or test panel instead of the browser in a browser sandbox?
 
@@ -96,7 +96,7 @@ Changing fonts is currently only supported in [browser sandboxes](/learn/sandbox
 
 ## Do sandboxes have any limitations?
 
-We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-browser-sandbox) and [Cloud Sandboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox). Browser Sandboxes have the following limitations:
+We currently provide [Sandboxes](/learn/sandboxes/overview#what-is-a-browser-sandbox) and [Devboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox). Sandboxes have the following limitations:
 
 - The maximum file upload size is 7MB for Free users and 30MB for Pro users.
 - Imported sandboxes must contain a `package.json` file.
@@ -117,7 +117,7 @@ We currently provide [Browser Sandboxes](/learn/sandboxes/overview#what-is-a-bro
 - When using a container, the sandbox has a 1GB persistent storage limit, a 1GB vCPU soft
   limit, and a hard memory limit of 2 GB.
 
-Cloud Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
+Devboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
 ## I'm getting a 'Request Entity too Large' error, what should I do?
 
@@ -156,9 +156,9 @@ If you're having issues with your database, you can check the logs of the contai
 
 ## How do I change the editor's theme?
 
-To change the [theme of a Cloud Sandbox](https://codesandbox.io/docs/learn/repositories/themes), click on the CodeSandbox logo at the top left, then go to Settings > Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
+To change the [theme of a Devbox](https://codesandbox.io/docs/learn/repositories/themes), click on the CodeSandbox logo at the top left, then go to Settings > Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
 
-On a Browser Sandbox, you can change the theme from File > Preferences > Color Theme in the editor. You can also set a custom VS Code theme on a Browser Sandbox. Open VS Code, Press (CMD or CTRL) +
+On a Sandbox, you can change the theme from File > Preferences > Color Theme in the editor. You can also set a custom VS Code theme on a Sandbox. Open VS Code, Press (CMD or CTRL) +
 SHIFT + P, Enter: '> Developer: Generate Color Scheme From Current Settings',
 copy the contents and paste it into Preferences > Appearance from the top-right
 avatar menu. After completing that, you need to reload the browser and select
@@ -210,7 +210,7 @@ To add someone new to the team, provide access on GitHub and add them to your Co
 
 Yes. Follow the steps below:
 
-1. Use our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) to connect to one of our Cloud Sandboxes or Repositories.
+1. Use our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) to connect to one of our Devboxes or Repositories.
 2. Install the Copilot VS Code extension (if not already installed).
 3. Configure the extension to run in CodeSandbox remote connections (following the instructions for [Default User Extensions](/learn/repositories/editors#default-user-extensions)).
 

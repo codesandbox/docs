@@ -1,0 +1,28 @@
+---
+title: Editors
+description:
+---
+
+import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
+import { Callout } from 'nextra-theme-docs'
+import Video from '../../../../../shared-components/Video'
+
+
+# Editors
+
+CodeSandbox offers two different development environments: a browser-based Sandbox and cloud-based Devbox. 
+
+<Tabs tabs={["Devbox", "Sandbox"]}>
+    <WrapContent>    
+Devboxes run inside a Firecracker MicroVM and use memory snapshotting to ensure fast fork time and wake-up time. They can run anything that you would be able to run in your local environment, including Docker containers. You can learn more about how they work in our [blog post](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds).
+
+Devboxes are best used to run backend services, compiled languages and things like databases.
+
+The Devbox editor contains a set of features to increase the accessibility of complex tools like git, setup, review flows, contributions, and visualizing components. 
+
+    </WrapContent>
+    <WrapContent>
+    Sandboxes run fully in the browser, and are especially useful to run frontend JavaScript/TypeScript frameworks. If you would like to run backend services or databases, check Devboxes.
+
+    </WrapContent>
+</Tabs>

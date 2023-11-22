@@ -1,13 +1,7 @@
 {
-  "overview": "Overview",
-  "your-first-sandbox": "First-Time Setup",
-  "embedding": "Embedding",
-  "secrets": {
-    "title": "Secrets",
-    "href": "/learn/environment/secrets"
-  },
+  "editor-features": "Editor Features",
   "templates": "Templates",
-  "synced-templates": "Synced Templates",
-  "cli-api": "Sandbox CLI & API",
-  "custom-npm-registry": "Custom NPM Registry"
+  "cli-api": "CLI & API",
+  "custom-npm-registry": "Custom NPM Registry",
+  "faq": "FAQ"
 }
