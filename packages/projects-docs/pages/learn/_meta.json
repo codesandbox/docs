@@ -15,28 +15,13 @@
     "type": "separator",
     "title": "Sandboxes"
   },
-  "templates": {
-    "title": "Templates",
-    "href": "/learn/sandboxes/templates"
-  },
-  "editor-features": {
-    "title": "Editor features",
-    "href": "/learn/sandboxes/editor-features"
-  },
-  "custom-npm-registry": {
-    "title": "Editor features",
-    "href": "/learn/sandboxes/custom-npm-registry"
-  },
-  "faq": {
-    "title": "FAQ",
-    "href": "/learn/sandboxes/faq"
-  },
+  "sandboxes": "Sandboxes",
+  "legacy-sandboxes": "Legacy Sandboxes",
   "-- more": {
     "type": "separator",
     "title": "More"
   },
   "ci": "CodeSandbox CI",
   "explore": "Explore Page & Curators",
-  "plans": "Plans and Billing",
-  "legacy-sandboxes": "Legacy Sandboxes"
+  "plans": "Plans and Billing"
 }
