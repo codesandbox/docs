@@ -12,13 +12,13 @@ import { Callout } from 'nextra-theme-docs'
     <WrapContent>
       ## Which languages and frameworks are supported?
 
-[Devboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack, and officially support (with built-in LSP/IntelliSense) Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node and Deno (more languages coming soon).
+[Devboxes](/learn/devboxes/overview) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack, and officially support (with built-in LSP/IntelliSense) Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node and Deno (more languages coming soon).
 
-[Browser sandboxes](/learn/sandboxes/overview) are more limited. They support JavaScript/TypeScript projects, as well as Node.js.
+[Sandboxes](/learn/sandboxes/editor-features) are more limited. They support JavaScript/TypeScript projects, as well as Node.js.
 
-[Create a sandbox from a template](https://codesandbox.io/s/), or read more
+[Create a Sandbox or Devbox from a template](https://codesandbox.io/s/), or read more
 about the
-[difference between Sandboxes and Devboxes](/learn/sandboxes/editors).
+[difference between Sandboxes and Devboxes](/learn/devboxes/overview#difference-between-devboxes--sandboxes).
 
 ## How do I make a sandbox private?
 
@@ -61,42 +61,36 @@ you.
 
 For performance reasons, we ignore any specified scripts in sandboxes,
 instead using a default script. If you need to control the scripts, then we
-recommend using a [Devbox](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox).
+recommend using a [Devbox](/learn/devboxes/overview).
 
-## Can I change the Node version used in a sandbox?
+## Can I change the Node version used in a Devbox?
 
-Yes, for Devboxes you can refer to [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) to learn how to change the Node version. All recent server sandboxes run in a Devbox.
+Yes, we have instructions [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) that tell you how to change the Node version. All recent server sandboxes run in a Devbox.
 
 For container sandboxes that are created after May 10 2021, we run Node v14.18.1 (LTS) by default.
 For backwards compatibility, the older sandboxes are on Node v10. However, you can
-specify a `node` value to alter the version in `sandbox.config.json`, which will
-be used instead. For further details, see [configuration](/learn/sandboxes/configuration).
+specify a `node` value to alter the version in `sandbox.config.json` which will
+be used instead. For further details, see [configuration](/learn/legacy-sandboxes/configuration).
+
+<Callout>
+This method only applies to legacy sandboxes.
+</Callout>
 
 Note that we recommend using Devboxes when you're working with Node.js projects.
 
-## Can I open the terminal, console, or test panel instead of the browser in a browser sandbox?
+## How do I change the editor's theme?
 
-Yes. The terminal, console, and problems tabs are all draggable. Click on the
-tab and drag it to the bar alongside browser and tests. You can then
-re-order those items by dragging them in that bar. Whichever is first from left to
-right in the list of tabs is what opens first when other folks view the sandbox.
-The ordering is maintained within the sandbox. You can also achieve this change
-by setting a value for "view" in a
-[sandbox config file](/configuration#sandbox-configuration).
+To change the [theme of a Devbox](https://codesandbox.io/docs/learn/editors/web/themes), click on the CodeSandbox logo at the top left, then go to Settings > User Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
 
-## How do I change the font used in a browser sandbox?
-
-Ensure the font you want to use has been installed on your computer, then put
-the name of it first in the comma-separated list under 'Editor: Font Family'
-from File > Preferences > Settings in the editor.
-
-<Callout>
-Changing fonts is currently only supported in [browser sandboxes](/learn/sandboxes/overview).
-</Callout>
+On a Sandbox, you can change the theme from File > Preferences > Color Theme in the editor. You can also set a custom VS Code theme on a Sandbox. Open VS Code, Press (CMD or CTRL) +
+SHIFT + P, Enter: '> Developer: Generate Color Scheme From Current Settings',
+copy the contents and paste it into Preferences > Appearance from the top-right
+avatar menu. After completing that, you need to reload the browser and select
+"Custom" as your color theme from File > Preferences > Color Theme.
 
 ## Do sandboxes have any limitations?
 
-We currently provide [Sandboxes](/learn/sandboxes/overview#what-is-a-browser-sandbox) and [Devboxes](/learn/sandboxes/overview?tab=cloud#what-is-a-cloud-sandbox). Sandboxes have the following limitations:
+We currently provide [Sandboxes](/learn/sandboxes/editor-features) and [Devboxes](/learn/devboxes/overview). Sandboxes have the following limitations:
 
 - The maximum file upload size is 7MB for Free users and 30MB for Pro users.
 - Imported sandboxes must contain a `package.json` file.
@@ -126,9 +120,9 @@ repo for large binary files and remove them.
 
 ## Can I use a database on CodeSandbox?
 
-Yes, you can use any database that has a Docker image available. Some popular databases with Docker images include MySQL, PostgreSQL, MongoDB, and Redis.
+Yes, you can use any database that has a Docker image available with a Devbox. Some popular databases with Docker images include MySQL, PostgreSQL, MongoDB, and Redis.
 
-For ready-to-use examples, check our [starter templates](https://codesandbox.io/s/) modal.
+{/* For ready-to-use examples, check our [Devbox templates](https://codesandbox.io/s/) modal. */}
 
 ### Do I need to install Docker on my local machine to use it in CodeSandbox?
 
@@ -154,15 +148,15 @@ Yes, it's safe to use a database in CodeSandbox with Docker support, as long as 
 
 If you're having issues with your database, you can check the logs of the container to see if there are any error messages. You can also run commands like `docker ps` and `docker logs` in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
 
-## How do I change the editor's theme?
+## How do I change the font used in a browser sandbox?
 
-To change the [theme of a Devbox](https://codesandbox.io/docs/learn/repositories/themes), click on the CodeSandbox logo at the top left, then go to Settings > Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
+Ensure the font you want to use has been installed on your computer, 
+then put the name of it first in the comma-separated list under 'Editor: Font Family' from 
+File > Preferences > Settings in the editor.
 
-On a Sandbox, you can change the theme from File > Preferences > Color Theme in the editor. You can also set a custom VS Code theme on a Sandbox. Open VS Code, Press (CMD or CTRL) +
-SHIFT + P, Enter: '> Developer: Generate Color Scheme From Current Settings',
-copy the contents and paste it into Preferences > Appearance from the top-right
-avatar menu. After completing that, you need to reload the browser and select
-"Custom" as your color theme from File > Preferences > Color Theme.
+<Callout>
+This method only applies to legacy sandboxes.
+</Callout>
 
 ## Why is my code in an infinite loop that doesn't allow me to edit?
 
@@ -183,7 +177,7 @@ To do that, use our terminal to `git remote add` the remote repository and then 
 ## How do I cancel my Pro or Patron plan?
 
 For Pro users, once you've logged in, you can downgrade your plan on the
-[Settings page](https://codesandbox.io/dashboard/settings).
+[Settings page](https://codesandbox.io/dashboard/settings) once you've selected your Pro workspace.
 
 If you're on one of our legacy Patron plans you can cancel
 your subscription on the [Patron page](https://codesandbox.io/patron).
