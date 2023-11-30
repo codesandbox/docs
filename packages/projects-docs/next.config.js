@@ -470,6 +470,46 @@ module.exports = withNextra({
         destination: "/learn/repositories/getting-started/repo-import",
         permanent: true,
       },
+      /*
+           Redirects for missing repo content that is available 
+           under devboxes
+           Not permanent redirection as content might change
+        */
+      {
+        source: "/learn/repositories/task",
+        destination: "/learn/devboxes/task",
+        permanent: false,
+      },
+      {
+        source: "/learn/repositories/devtools",
+        destination: "/learn/devboxes/devtools",
+        permanent: false,
+      },
+      {
+        source: "/learn/repositories/preview",
+        destination: "/learn/devboxes/preview",
+        permanent: false,
+      },
+      {
+        source: "/learn/repositories/terminal",
+        destination: "/learn/devboxes/terminal",
+        permanent: false,
+      },
+      {
+        source: "/learn/repositories/upload",
+        destination: "/learn/devboxes/upload",
+        permanent: false,
+      },
+      {
+        source: "/learn/repositories/interactive-readme",
+        destination: "/learn/devboxes/interactive-readme",
+        permanent: false,
+      },
+      {
+        source: "/learn/repositories/secrets",
+        destination: "/learn/devboxes/secrets",
+        permanent: false,
+      },
     ];
   },
 });

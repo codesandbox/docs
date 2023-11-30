@@ -6,6 +6,7 @@
   "task": "Task Configuration",
   "terminal": "Terminal",
   "interactive-readme": "Interactive Readme",
+  "secrets": "Secrets",
   "upload": "File Upload",
   "review": "Code Reviews",
   "open-source": "Open Source Collaboration",
