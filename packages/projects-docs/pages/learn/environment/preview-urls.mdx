@@ -17,6 +17,10 @@ For example, while writing this blog post I'm previewing my changes at `https://
 
 This is different compared to working on your local machine, where the dev server is often available behind `http://localhost:{port}`. We'll guide you through how you can integrate more easily with the new URL structure.
 
+## Automatic Proxy
+
+We're injecting code automatically in the preview to proxy `localhost:3000` and similar requests coming from the preview (e.g. your frontend code) to the right hostname. You can learn more about that [here](https://codesandbox.io/docs/learn/devboxes/preview).
+
 ## Generating preview URLs
 
 Unlike `localhost` URLs, `csb.app` URLs differ per branch. The advantage of this approach is that you can share a preview URL with a co-worker and start working on a new branch while they check out your work. However, it does require some additional configuration to support this.
