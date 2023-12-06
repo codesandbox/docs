@@ -510,6 +510,56 @@ module.exports = withNextra({
         destination: "/learn/devboxes/secrets",
         permanent: false,
       },
+      {
+        source: "/learn/browser-sandboxes/secrets",
+        destination: "/learn/devboxes/task",
+        permanent: false,
+      },
+      {
+        source: "/learn/sandboxes/synced-templates",
+        destination: "/learn/devboxes/synced-templates",
+        permanent: false,
+      },
+      {
+        source: "/learn/sandboxes/configuration",
+        destination: "/learn/legacy-sandboxes/configuration",
+        permanent: false,
+      },
+      {
+        source: "/learn/sandboxes/deployment",
+        destination: "/learn/legacy-sandboxes/deployment",
+        permanent: false,
+      },
+      {
+        source: "/learn/sandboxes/embedding",
+        destination: "/learn/legacy-sandboxes/embedding",
+        permanent: false,
+      },
+      {
+        source: "/learn/sandboxes/live-sessions",
+        destination: "/learn/legacy-sandboxes/live-sessions",
+        permanent: false,
+      },
+      {
+        source: "/learn/sandboxes/test",
+        destination: "/learn/legacy-sandboxes/test",
+        permanent: false,
+      },
+      {
+        source: "/learn/boxy/faqs",
+        destination: "/learn/ai/faqs",
+        permanent: false,
+      },
+      {
+        source: "/learn/boxy/getting-started",
+        destination: "/learn/ai/getting-started",
+        permanent: false,
+      },
+      {
+        source: "/learn/sandboxes/synced-templates",
+        destination: "/learn/devboxes/synced-templates",
+        permanent: true,
+      },
     ];
   },
 });
