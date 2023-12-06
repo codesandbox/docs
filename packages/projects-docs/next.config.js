@@ -545,6 +545,16 @@ module.exports = withNextra({
         destination: "/learn/legacy-sandboxes/test",
         permanent: false,
       },
+      {
+        source: "/learn/boxy/faqs",
+        destination: "/learn/ai/faqs",
+        permanent: false,
+      },
+      {
+        source: "/learn/boxy/getting-started",
+        destination: "/learn/ai/getting-started",
+        permanent: false,
+      },
     ];
   },
 });
