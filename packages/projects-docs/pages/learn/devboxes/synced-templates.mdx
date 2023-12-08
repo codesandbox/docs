@@ -10,7 +10,7 @@ import { Callout } from 'nextra-theme-docs'
 
 ## What are synced templates?
 
-Synced templates are [templates](https://codesandbox.io/docs/learn/sandboxes/templates) that are created from a GitHub repository, or a folder in a GitHub repository. A synced template stays in sync with its source, so when you create a commit in the GitHub repository, the template will automatically update on next access with the new contents.
+Synced templates are [templates](https://codesandbox.io/docs/learn/devboxes/templates) that are created from a GitHub repository, or a folder in a GitHub repository. A synced template stays in sync with its source, so when you create a commit in the GitHub repository, the template will automatically update on next access with the new contents.
 
 <Callout>
   Because synced templates stay in sync with its source, you can't edit a synced template in CodeSandbox. If you want to edit the template, you'll have to commit to the source repository. You could consider that GitHub is the "owner" of the template.
@@ -26,9 +26,9 @@ A good rule of thumb is that if you want to work on a repository, you should imp
 
 ## Creating a synced template
 
-A synced template URL is essentially the same as the GitHub URL, but `github.com` is replaced with `codesandbox.io/s/github`. Because of this, you can go to your GitHub repository, and replace `github.com` with `codesandbox.io/s/github` to create a synced template. We have also introduced three helpers to do this more easily:
+A synced template URL is essentially the same as the GitHub URL, but `github.com` is replaced with `codesandbox.io/p/devbox/github`. Because of this, you can go to your GitHub repository, and replace `github.com` with `codesandbox.io/p/devbox/github` to create a synced template. We have also introduced three helpers to do this more easily:
 
-https://codesandbox.io/s/github/withastro/astro/main/examples/blog
+https://codesandbox.io/p/devbox/github/withastro/astro/main/examples/blog
 
 ### Directly from the GitHub URL
 
@@ -36,7 +36,7 @@ First, visit the GitHub repository or folder that you want to create a synced te
 
 Then, replace `github.com` with `githubbox.com` and press Enter.
 
-This will redirect you to a URL that looks like `https://codesandbox.io/s/github/owner/repo` or `https://codesandbox.io/s/github/owner/repo/tree/main/folder`, which is the location of the newly created synced template!
+This will redirect you to a URL that looks like `https://codesandbox.io/p/devbox/github/owner/repo` or `https://codesandbox.io/p/devbox/github/owner/repo/tree/main/folder`, which is the location of the newly created synced template!
 
 ### Using our GitHub importer
 
