@@ -2,6 +2,7 @@
   "editor-features": "Editor Features",
   "templates": "Templates",
   "cli-api": "CLI & API",
+  "embedding": "Embedding",
   "custom-npm-registry": "Custom NPM Registry",
   "faq": "FAQ"
 }

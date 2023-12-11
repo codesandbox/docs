@@ -531,11 +531,6 @@ module.exports = withNextra({
         permanent: false,
       },
       {
-        source: "/learn/sandboxes/embedding",
-        destination: "/learn/legacy-sandboxes/embedding",
-        permanent: false,
-      },
-      {
         source: "/learn/sandboxes/live-sessions",
         destination: "/learn/legacy-sandboxes/live-sessions",
         permanent: false,
