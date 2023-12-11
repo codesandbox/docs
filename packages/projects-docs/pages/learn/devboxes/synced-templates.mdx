@@ -10,17 +10,17 @@ import { Callout } from 'nextra-theme-docs'
 
 ## What are synced templates?
 
-Synced templates are [templates](https://codesandbox.io/docs/learn/devboxes/templates) that are created from a GitHub repository, or a folder in a GitHub repository. A synced template stays in sync with its source, so when you create a commit in the GitHub repository, the template will automatically update on next access with the new contents.
+Synced templates are [templates](https://codesandbox.io/docs/learn/devboxes/templates) that are created from a GitHub repository, or a folder in a GitHub repository. A synced template stays in sync with its source, so when you create a commit in the GitHub repository, the template will automatically update with the new contents on the next access.
 
 <Callout>
-  Because synced templates stay in sync with its source, you can't edit a synced template in CodeSandbox. If you want to edit the template, you'll have to commit to the source repository. You could consider that GitHub is the "owner" of the template.
+  Because synced templates stay in sync with their source, you can't edit a synced template in CodeSandbox. If you want to edit the template, you must commit to the source repository. You could consider that GitHub is the "owner" of the template.
 </Callout>
 
 ### How is a synced template different from CodeSandbox Repositories?
 
 CodeSandbox also has [Repositories](https://codesandbox.io/docs/learn/repositories/overview), which are also imported from GitHub repositories. However, there is a key difference between synced templates and repositories.
 
-Repositories are meant for working on a repository. We introduce a workflow to create new branches and pull requests. Synced templates are meant to create a sandbox template from a repository (or folder), and are meant for using as template for new sandboxes (or for sharing as example with others).
+Repositories are meant for working on a repository. We introduce a workflow to create new branches and pull requests. Synced templates allow you to create a sandbox template from a repository (or folder), and are meant to be used as a template for new sandboxes (or for sharing as an example with others).
 
 A good rule of thumb is that if you want to work on a repository, you should import a repository. If you want to create a template from a repository, you should create a synced template from a GitHub repository.
 
@@ -32,7 +32,7 @@ https://codesandbox.io/p/devbox/github/withastro/astro/main/examples/blog
 
 ### Directly from the GitHub URL
 
-First, visit the GitHub repository or folder that you want to create a synced template from. The URL should look something like `https://github.com/owner/repo` for a repository, and it should look like `https://github.com/owner/repo/tree/main/folder` for a folder.
+First, visit the GitHub repository or folder from which you want to create a synced template. The URL should look something like `https://github.com/owner/repo` for a repository and `https://github.com/owner/repo/tree/main/folder` for a folder.
 
 Then, replace `github.com` with `githubbox.com` and press Enter.
 
@@ -48,11 +48,11 @@ We have browser extensions for
 [Chrome](https://chrome.google.com/webstore/detail/open-in-codesandbox/hdidglkcgdolpoijdckmafdnddjoglia)
 and [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/codesandbox/),
 which add an 'Open in CodeSandbox' button to GitHub repo pages. This makes it
-easy to import existing projects from GitHub in to CodeSandbox.
+easy to import existing projects from GitHub into CodeSandbox.
 
 ## Configuring a title, icon & description
 
-By default, we try to infer the name, description and icon of a synced template based on the files in the repository. However, you can also configure this manually.
+By default, we try to infer a synced template's name, description and icon based on the files in the repository. However, you can also configure this manually.
 
 You can configure a title, description and template icon for your synced template in a file called `.codesandbox/template.json` in your synced template. This file is a JSON file that contains the following properties:
 
@@ -75,14 +75,14 @@ An example `template.json` could look like this:
 }
 ```
 
-All fields are optional, we will infer the missing fields from the repository contents.
+All fields are optional—we will infer the missing fields from the repository contents.
 
-After you've created this file, and opened the synced template at least once, you can find it in the [template search](https://codesandbox.io/s) by searching for the title or description.
+After you've created this file and opened the synced template at least once, you can find it in the [template search](https://codesandbox.io/s) by searching for the title or description.
 
-## VM behaviour of synced templates
+## VM behavior of synced templates
 
 For our [Devboxes](https://codesandbox.io/docs/learn/sandboxes/overview?tab=cloud), we run your sandbox in a microVM. We try to automatically detect from your repository contents whether your project is more suited for a Devbox than a browser sandbox. To force the template to load as a Devbox, you can create a `.codesandbox/Dockerfile` file in your repository. This file should contain a valid Dockerfile that we'll use to build your Devbox.
 
 We use memory snapshotting to resume a VM quickly when someone visits it. To ensure that visitors of your sandbox will always get the latest contents of your GitHub repository, we base the memory snapshot on the latest commit of your repository or folder.
 
-This means that if you create a new commit in your repository, we will discard the memory snapshot of the synced template and will start the sandbox from scratch on next visit. During boot of the VM, we will download the latest file contents from the repository. This ensures that visitors of your sandbox will always get the latest contents of your GitHub repository, but it also means that the first visit of your sandbox after a commit can be slower than usual (only for memory, we do still keep the filesystem between invalidations).
+This means that if you create a new commit in your repository, we will discard the memory snapshot of the synced template and will start the sandbox from scratch on next visit. During the VM boot, we will download the latest file contents from the repository. This ensures that visitors to your sandbox will always get the latest contents of your GitHub repository, but it also means that the first visit of your sandbox after a commit can be slower than usual (only for memory; we do still keep the filesystem between invalidations).
