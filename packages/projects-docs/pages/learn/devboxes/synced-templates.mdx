@@ -81,7 +81,7 @@ After you've created this file and opened the synced template at least once, you
 
 ## VM behavior of synced templates
 
-For our [Devboxes](https://codesandbox.io/docs/learn/sandboxes/overview?tab=cloud), we run your sandbox in a microVM. We try to automatically detect from your repository contents whether your project is more suited for a Devbox than a browser sandbox. To force the template to load as a Devbox, you can create a `.codesandbox/Dockerfile` file in your repository. This file should contain a valid Dockerfile that we'll use to build your Devbox.
+For our [Devboxes](https://codesandbox.io/docs/learn/sandboxes/overview?tab=cloud), we run your sandbox in a microVM. We try to automatically detect from your repository contents whether your project is more suited for a Devbox than a browser sandbox. To force the template to load as a Devbox, you can create a `.devcontainer/devcontainer.json` file in your repository. This file should contain a valid [Devcontainer configuration](https://codesandbox.io/docs/learn/environment/devcontainers) that we'll use to build your Devbox.
 
 We use memory snapshotting to resume a VM quickly when someone visits it. To ensure that visitors of your sandbox will always get the latest contents of your GitHub repository, we base the memory snapshot on the latest commit of your repository or folder.
 
