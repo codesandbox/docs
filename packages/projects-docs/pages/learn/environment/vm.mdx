@@ -49,15 +49,20 @@ The `node_modules` folder is globally ignored. You can override this behaviour b
 
 ## Environment configuration
 
-You can configure the environment of your VM with a `Dockerfile`. To do this, create a file in the `.codesandbox` folder called `Dockerfile`. After you've saved the file, you should be prompted with a notification to restart the container.
+You can configure the environment of your VM with [Devcontainers](https://codesandbox.io/docs/learn/environment/devcontainers). To do this, create `.devcontainer/devcontainer.json` file in the root of the repository. After you've saved the file, you should be prompted with a notification to restart the container.
 
 ### Configuring NodeJS version
 
-For example, to update NodeJS to v18, you can create a `.codesandbox/Dockerfile` with these contents:
+For example, to update NodeJS to v18, you can either create or update a `.devcontainer/devcontainer.json` file with these contents:
 
-```dockerfile
-FROM node:18
+```json
+{
+  "name": "My App",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20"
+}
 ```
+
+We're using [Devcontainers](https://codesandbox.io/docs/learn/environment/devcontainers) to configure the environment. 
 
 ### Deno support
 

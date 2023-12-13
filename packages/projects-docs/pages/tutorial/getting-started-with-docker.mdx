@@ -13,9 +13,17 @@ Docker is available for Devboxes and Repositories. With Docker, you can get `roo
 
 ### 1. Create a Dockerfile
 
-To get started with Docker, you need to create a new file called `Dockerfile` inside the `.codesandbox` folder. As an example, you could put these contents in:
+To get started with Docker, you need to create a new file called `devcontainer.json` inside the `.devcontainer` folder. As an example, you could put these contents in:
 
-```docker filename=".codesandbox/Dockerfile"
+```json filename=".devcontainer/devcontainer.json"
+{
+    "build": { "dockerfile": "Dockerfile" },
+}
+```
+
+And then create a `Dockerfile` in the same `devcontainer` folder:
+
+```docker filename=".devcontainer/Dockerfile"
 FROM ubuntu
 
 # Install htop by default
@@ -38,7 +46,7 @@ Now that you've created a Dockerfile and saved it, you should see a notification
 
 You can press "Yes", and it will build the container for you. Alternatively you can also rebuild the container by opening the command palette (<kbd>CMD/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>), and searching for "Rebuild Container".
 
-With a Dockerfile in `.codesandbox`, the VM will also always make sure to create the container when it boots.
+With a Dockerfile in `.devcontainer`, the VM will also always make sure to create the container when it boots.
 
 ### 3. Use the container
 
@@ -49,17 +57,33 @@ Note that you also have `root` access inside the terminal, that's because we giv
 ![htop running inside the container](/docker-terminal.png)
 
 ### 4. Create Docker Compose file
-Once the environment is set up with `.codesandbox/Dockerfile`, you can run additional services that are required for the dev environment using the native docker compose integration in CodeSandbox.
+Once the environment is set up with `.devcontainer/devcontainer.json`, you can run additional services that are required for the dev environment using the native docker compose integration in CodeSandbox.
 
-Create a new file `docker-compose.yml` in the `.codesandbox` folder. For example, you can add the following contents in the file to run an nginx server.
+Create a new file `docker-compose.yml` in the `.devcontainer` folder. For example, you can add the following contents in the file to run an nginx server. Note that you need to add your development container (from `Dockerfile`) as well. 
 
-``` yaml filename=".codesandbox/docker-compose.yml"
+``` yaml filename=".devcontainer/docker-compose.yml"
 services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: sleep infinity
     nginx:
         image: nginx
         ports:
             - 8080:80
 ```
+
+To use this configuration, you should change your devcontainer configuration, like so:
+
+```json filename=".devcontainer/devcontainer.json"
+{
+	"dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+}
+```
+
+Note the `service` field. This tells devcontainers to start the services in `docker-compose.yml`, and then attach to the `app` service.
 
 ### 5. Run docker compose.
 Now that you've created the `docker-compose.yml` and saved it, you should see a notification pop up, asking you to restart the `docker compose` command. Whenever the `docker-compose.yml` changes, this prompt will be shown and you can restart docker compose.
