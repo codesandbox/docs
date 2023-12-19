@@ -1,14 +1,98 @@
 ---
 title: Templates
-authors: ['necoline']
-description: About sandbox templates.
+authors: ['James']
+description: Use templates to kickstart new projects with no setup.
 ---
 
-# Sandbox Templates
+import { Callout } from 'nextra-theme-docs'
 
-In the sandbox template modal, you will find the official list of sandbox templates along with any templates that have been created or imported within the workspace.
+---
 
-![sandbox templates](../images/sandbox-modal.png)
-If you are unable to find the template you are looking for, check out the devbox templates. There are many more languages and frameworks that devboxes support.
+# Templates
 
+## What are Templates?
 
+Templates are starting points for development environments that you create through CodeSandbox. When you pick a template, you create a fork of the original project. Forked templates are already set up with the
+configuration, file structure and dependencies installed. So you don't have to
+spend time doing this each time you begin working on something new. They
+are easily accessible from the ["Create" modal](https://codesandbox.io/s).
+
+From the modal, CodeSandbox offers several official templates for several different programming languages.
+
+You can also create your own custom templates from your projects. So you can fully customize your development start points for your particular use-case and preferences. Once a custom
+template has been created, you can use it to start new projects through the ["Create" modal](https://codesandbox.io/s). Custom templates can also be added
+to workspaces, so workspace members can make use of them. Any custom templates that you have access too can be found in the [Templates folder](https://codesandbox.io/dashboard/templates) or under 'Workspace Templates' within the modal.
+
+## How to make a custom template
+
+There are a few ways to create a template, but the main way is from within the
+"Sandbox Info" panel inside the editor. When viewing one of your Sandboxes,
+expand the "Sandbox Info" panel on the left. You will then see an edit icon in line with the "Sandbox Info" header. Just click the icon and then check the 'Template' box in the settings pane that opens on the right of the editor.
+
+<Callout>
+You can also rename and set a description for the template from this interface. As well as configure the template privacy options. 
+
+Private and Unlisted Templates are only available for Pro subscribers
+</Callout>
+
+![Make a Template from a Sandbox](../images/devbox-info-pane.png)
+
+You can also create templates from the dashboard. You can do this by either dragging and dropping a Sandbox from
+any folder into ["Templates"](https://codesandbox.io/dashboard/templates). Or using the right click menu and selecting
+`Make Sandbox a Template`.
+
+<Callout>
+The Templates folder will not appear until you have created your first custom template. 
+</Callout>
+
+import Image from 'next/image'
+import gif1 from '../images/template-2.gif'
+import gif2 from '../images/template-3.gif'
+
+<br/>
+<Image src={gif1} width={1438} height={790} />
+<br/>
+<br/>
+<Image src={gif2} width={1438} height={790} />
+
+## Using Templates
+
+After you've made your first custom template, there's a few places from which
+you can access and use them. First, inside of the "Create a Sandbox" modal,
+you will see a list of your templates under `Workspace Templates`. Clicking on one of
+these will fork the template and open it in the editor.
+
+![Sandbox Modal](../images/sandbox-template-modal.png)
+
+You can also find all of your templates under the [Templates folder](https://codesandbox.io/dashboard/templates) on the
+Dashboard. Clicking on any of the templates shown inside this folder will open
+it in the editor.
+
+## Editing Templates
+
+When you first create a template it will be fully editable to allow you to quickly make any required changes.
+Once you're happy with the template, just open up the 'Template Info' settings using the instructions above. 
+Then check 'Frozen' and reload the page to prevent further changes. 
+In order to make further changes to a template, you just need to uncheck 'Frozen' and reload the page again.  
+Any time you try to save a change to a frozen template, it will automatically fork into a new environment. 
+
+<Callout>
+The 'Template Info' panel is in the same position as the 'Sandbox Info' panel prior to conversion.
+</Callout>
+
+## Deleting Templates
+
+There are a few ways in which you can "delete" a template. From the "Template
+Info" panel inside the editor you can uncheck 'Template'. Doing this will convert the template back
+to a regular Sandbox and remove it from the ["Create" modal](https://codesandbox.io/s).
+
+You can then delete the Sandbox from your dashboard as you would normally. 
+
+Alternatively, you can use the 'right click' template's options menu inside the [Templates folder](https://codesandbox.io/dashboard/templates)
+folder to select `Convert to Sandbox`.
+
+![Delete template from dashboard](../images/sandbox-folder-menu.png)
+
+<Callout>
+This menu is only available within the Templates folder.
+</Callout>
