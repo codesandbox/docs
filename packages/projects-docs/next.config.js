@@ -526,6 +526,11 @@ module.exports = withNextra({
         permanent: false,
       },
       {
+        source: "/learn/browser-sandboxes/configuration",
+        destination: "/learn/legacy-sandboxes/configuration",
+        permanent: false,
+      },
+      {
         source: "/learn/sandboxes/deployment",
         destination: "/learn/legacy-sandboxes/deployment",
         permanent: false,
