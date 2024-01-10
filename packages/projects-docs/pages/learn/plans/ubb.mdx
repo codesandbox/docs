@@ -1,0 +1,83 @@
+---
+title: Beta Usage-Based Billing
+description: Overview of the CodeSandbox Usage-Based Billing model.
+---
+
+# Usage-based billing
+
+Our usage-based billing system is designed to provide a flexible and cost-effective approach to managing your workspace. It's based on a credit system, where credits translate virtual machine (VM) runtime per hour into precise costs.
+
+## Key components
+### Virtual Machines
+Our Devboxes and Repositories run on VMs, which allow you to develop, review and preview your software projects. As such, VMs are the backbone of our usage measurement.
+
+### Credits
+
+Credits serve as the unit of measurement for VM runtime. They simplify understanding and managing the costs of running your Devboxes and Repositories. One credit equates to a specific amount of resources used per hour, which ensures clarity and transparency in your billing.
+
+There are three types of credits:
+
+**Subscription credits:** the allocation of monthly credits provided to a workspace according to the subscription tier. Unused credits do not roll over month-to-month.
+
+**On-demand credits**: credits that are automatically billed to the user once the subscription credits have been used.
+
+**Purchased credits**: credits that can be purchased at any time. These credits are available in packages of 500 credits and will be invoiced separately from the subscription. Purchased credits do not expire.
+
+| VM size | Credits / hour | Cost / hour | CPU      | RAM    |
+| ------ | -------------- | ----------- | -------- | ------ |
+| Nano   | 10 credits     | $0.18       | 2 cores  | 4 GB   |
+| Micro  | 20 credits     | $0.36       | 4 cores  | 8 GB   |
+| Small  | 40 credits     | $0.72       | 8 cores  | 16 GB  |
+| Medium | 80 credits     | $1.44       | 16 cores | 32 GB  |
+| Large  | 160 credits    | $2.88       | 32 cores | 64 GB  |
+| XLarge | 320 credits    | $5.76       | 64 cores | 128 GB |
+
+### Storage
+Each subscription tier has a specific storage limit. The storage refers to the VM disk space limit of _each_ Devbox or Repository branch running in that workspace.
+For example, the Free tier includes 30 GB of storage. So, every Devbox or Repository branch running on a VM will have 30 GB of storage.
+If the storage included in your subscription tier isn't enough, you can upgrade to a higher tier of Pro or purchase a storage [add-on](#add-ons).
+
+## Pricing 
+### Free tier
+Our Free tier is designed to make it very easy to start using CodeSandbox. Every Free workspace gets 400 free monthly credits, providing a great option for hobbyists to run a small side project. For example, it's enough to develop a small React web app for 40 hours per month on a Nano VM. 
+
+The Free tier is also a good option for anyone wanting to evaluate how much VM usage they need before upgrading to a plan with more credits.
+
+Note that if the free credits run out before the end of the billing cycle, all Devboxes and Repositories will enter into a [frozen state](#my-devbox-is-frozen-what-does-that-mean). 
+
+### Pro tiers
+There are several Pro tiers to choose from. Every Pro tier includes subscription credits. The higher the tier, the more you save on these credits. Once these credits are used, the VMs will start running on `on-demand` credits. These credits will be aggregated and added to the end-of-month invoice.
+
+To prevent any surprise expenses, each workspace is required to set a max-spend limit. Once the on-demand credits hit that limit, all Devboxes and Repositories will enter a [frozen state](#my-devbox-is-frozen-what-does-that-mean) until more credits have been added or the next billing cycle begins.
+
+### Sandboxes 
+Sandboxes do not run on VMs, so any time spent on a Sandbox will not count toward your credit spend. 
+However, every subscription tier has a Sandbox limit. If you want access to more Sandboxes, you can upgrade to a higher tier of Pro or purchase a Sandbox add-on.
+
+### Add-ons
+Add-ons allow you to customize your workspace to meet your unique needs. If, for example, you want more Sandboxes but don't want to upgrade your subscription, you can purchase more through the add-ons.
+
+The following add-ons are available:
+
+| Add-on | Cost / month   |
+| ------ | -------------- |
+| 50 extra Sandboxes   | $9     |
+| 20 GB additional storage  | $12     |
+
+### Old pricing plans
+Starting Jan 30th, 2023, all new and existing Free workspaces will transition to usage-based billing. Existing Pro workspaces may opt to switch to usage-based billing but will not be required to do so for the time being.
+
+
+
+## FAQs
+### My Devbox is frozen. What does that mean?
+The VM will become frozen if the workspace does not have enough available credits to run a VM. You may encounter a frozen state if:
+- you are on a Free workspace and you have run out of credits;
+- you are on a Pro workspace but your credit spend has hit the spending limit.
+
+To get out of the frozen state, you can either upgrade to Pro (if you are on Free) or adjust your spending limit. Otherwise, you must wait until the start of the next billing cycle for your credits to renew.
+
+### The Sandbox that I want to use is restricted. What do I do?
+If you have Sandboxes over the limit of your subscription, you have two choices. You can regain access to the Sandboxes in two ways:
+- by upgrading your workspace to Pro;
+- by converting your Sandbox to a Devbox (all plans include unlimited Devboxes).
