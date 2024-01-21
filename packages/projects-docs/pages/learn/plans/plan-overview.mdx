@@ -7,29 +7,60 @@ import { Callout } from 'nextra-theme-docs'
 
 # Plans
 
-## Free
 
-Free workspaces are a great way to get started with CodeSandbox. By simply creating an account and opening a workspace, you can create any public sandbox or import any public repository.
-Additionally, you may invite others to join the workspace so that you can collaborate on sandboxes or repositories.
-If at any time you need access to private sandboxes or repos, or are in need of higher VMs, a trial provides access to 2 weeks of free access to Pro.
+Our usage-based billing system is designed to provide a flexible and cost-effective approach to managing your workspace. It's based on a credit system, where credits translate virtual machine (VM) runtime per hour into precise costs.
 
-## Pro
+## Key components
+### Virtual Machines
+Our Devboxes and Repositories run on VMs, which allow you to develop, review and preview your software projects. As such, VMs are the backbone of our usage measurement.
 
-Pro offers unlimited collaboration, unlimited sandboxes and repositories (both private and public), higher VM specs and [much more](https://codesandbox.io/pricing).
+### Credits
 
-### Creating a new Pro workspace
+Credits serve as the unit of measurement for VM runtime. They simplify understanding and managing the costs of running your Devboxes and Repositories. One credit equates to a specific amount of resources used per hour, which ensures clarity and transparency in your billing.
 
-1. Go to the [Dashboard](https://codesandbox.io/dashboard).
-2. Open the workspace selector and click on the `Create a Pro workspace` button at the bottom.
-3. Select `Start Trial` or `Create a Pro workspace` depending on your eligibility for a trial.
-4. Choose a **workspace name**.
-5. Add **members** by inviting them via email or searching for their CodeSandbox username.
+There are three types of credits:
 
-![Manage your team](../images/teams-new.png)
+**Subscription credits:** the allocation of monthly credits provided to a workspace according to the subscription tier. Unused credits do not roll over month-to-month.
 
-### Add or remove people from a workspace
+**On-demand credits**: credits that are automatically billed to the user once the subscription credits have been used. All on-demand credits are subject to a spend limit which is set by admins during the pro upgrade process. This limit is designed to ensure that workspaces don't incur any surprise expenses.
 
-1. Go to the [Dashboard](https://codesandbox.io/dashboard).
-1. In the top left corner, select the **team** you'd like to edit in the dropdown.
-1. Click on the **settings** icon next to the team.
-1. Add or remove people through the **Members** section by inviting them via email or searching for their CodeSandbox username.
+**Purchased credits**: credits that can be purchased at any time. These credits are available in packages of 500 credits and will be invoiced separately from the subscription. Purchased credits do not expire.
+
+| VM size | Credits / hour | Cost / hour | CPU      | RAM    |
+| ------ | -------------- | ----------- | -------- | ------ |
+| Nano   | 10 credits     | $0.18       | 2 cores  | 4 GB   |
+| Micro  | 20 credits     | $0.36       | 4 cores  | 8 GB   |
+| Small  | 40 credits     | $0.72       | 8 cores  | 16 GB  |
+| Medium | 80 credits     | $1.44       | 16 cores | 32 GB  |
+| Large  | 160 credits    | $2.88       | 32 cores | 64 GB  |
+| XLarge | 320 credits    | $5.76       | 64 cores | 128 GB |
+
+### Storage
+Each subscription tier has a specific storage limit. The storage refers to the VM disk space limit of _each_ Devbox or Repository branch running in that workspace.
+For example, the Free tier includes 20 GB of storage. So, every Devbox or Repository branch running on a VM will have 20 GB of storage.
+If the storage included in your subscription tier isn't enough, you can upgrade to a higher tier of Pro.
+
+## Pricing 
+### Free 
+Our Free tier is designed to make it very easy to start using CodeSandbox. 
+Every Free workspace gets 400 free monthly credits, providing a great option for hobbyists to run a small side project. For example, it's enough to develop a small React web app for 40 hours per month on a Nano VM. 
+The Free tier is also a good option for anyone wanting to evaluate how much VM usage they need before upgrading to a plan with more credits.
+
+Note that if the free credits run out before the end of the billing cycle, all Devboxes and Repositories will enter into a [frozen state](#my-devbox-is-frozen-what-does-that-mean). 
+
+In addition to the monthly free credits, the free tier also provides access to 20 Sandboxes. 
+Unlike Devboxes and repositories, Sandboxes do not run on credits. Instead, there are multiple options for accessing sandboxes at a flat rate. This is described more in the following section.
+
+### Pro 
+A fee of $9/mo opens a workspace gains access to an additional 600 credits (1000 total), a total of 50GB storage and up to 100 sandboxes. 
+Pro workspaces gain access to `on-demand credits` and options to purchase add-ons. 
+
+### Add-ons
+Add-ons allow you to customize your workspace to meet your unique needs.
+There is a range of add-ons for both credits and sandboxes with savings included for bulk purchases. 
+
+
+### Sandboxes 
+Sandboxes do not run on VMs, so any time spent on a Sandbox will not count toward your credit spend. 
+
+
