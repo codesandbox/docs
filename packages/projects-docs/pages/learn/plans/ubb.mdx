@@ -5,7 +5,7 @@ description: Manage your teams and control access to your workspace inside CodeS
 
 import { Callout } from 'nextra-theme-docs'
 
-# Plans
+# Usage-based Billing
 
 
 Our usage-based billing system is designed to provide a flexible and cost-effective approach to managing your workspace. It's based on a credit system, where credits translate virtual machine (VM) runtime per hour into precise costs.
@@ -17,30 +17,15 @@ Our Devboxes and Repositories run on VMs, which allow you to develop, review and
 ### Credits
 
 Credits serve as the unit of measurement for VM runtime. They simplify understanding and managing the costs of running your Devboxes and Repositories. One credit equates to a specific amount of resources used per hour, which ensures clarity and transparency in your billing.
-
-There are three types of credits:
-
-**Subscription credits:** the allocation of monthly credits provided to a workspace according to the subscription tier. Unused credits do not roll over month-to-month.
-
-**On-demand credits**: credits that are automatically billed to the user once the subscription credits have been used. All on-demand credits are subject to a spend limit which is set by admins during the pro upgrade process. This limit is designed to ensure that workspaces don't incur any surprise expenses.
-
-**Purchased credits**: credits that can be purchased at any time. These credits are available in packages of 500 credits and will be invoiced separately from the subscription. Purchased credits do not expire.
-
-| VM size | Credits / hour | Cost / hour | CPU      | RAM    |
-| ------ | -------------- | ----------- | -------- | ------ |
-| Nano   | 10 credits     | $0.18       | 2 cores  | 4 GB   |
-| Micro  | 20 credits     | $0.36       | 4 cores  | 8 GB   |
-| Small  | 40 credits     | $0.72       | 8 cores  | 16 GB  |
-| Medium | 80 credits     | $1.44       | 16 cores | 32 GB  |
-| Large  | 160 credits    | $2.88       | 32 cores | 64 GB  |
-| XLarge | 320 credits    | $5.76       | 64 cores | 128 GB |
+More details can be found [here](/learn/credit-usage/credits)
 
 ### Storage
 Each subscription tier has a specific storage limit. The storage refers to the VM disk space limit of _each_ Devbox or Repository branch running in that workspace.
 For example, the Free tier includes 20 GB of storage. So, every Devbox or Repository branch running on a VM will have 20 GB of storage.
 If the storage included in your subscription tier isn't enough, you can upgrade to a higher tier of Pro.
 
-## Pricing 
+
+# Plans 
 ### Free 
 Our Free tier is designed to make it very easy to start using CodeSandbox. 
 Every Free workspace gets 400 free monthly credits, providing a great option for hobbyists to run a small side project. For example, it's enough to develop a small React web app for 40 hours per month on a Nano VM. 

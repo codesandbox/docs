@@ -1,5 +1,6 @@
 {
-  "plan-overview": "About usage-based billing",
+  "ubb": "Usage-based billing",
+  "plans": "Plans",
   "codesandbox-friends": "CodeSandbox Friends",
   "pricing-faq": "FAQ"
 }
