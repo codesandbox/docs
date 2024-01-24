@@ -1,10 +1,6 @@
 {
-  "plan-overview": "Choosing a plan",
-  "workspace": "Workspaces",
-  "pricing-faq": "Pricing FAQ",
-  "permissions": "User permissions",
-  "preferences": "Preferences",
-  "trials": "Trials",
   "ubb": "Usage-based billing",
-  "codesandbox-friends": "CodeSandbox Friends"
+  "plans": "Plans",
+  "codesandbox-friends": "CodeSandbox Friends",
+  "pricing-faq": "FAQ"
 }
