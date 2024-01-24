@@ -1,28 +1,29 @@
 ---
 title: User Permissions
-description: How to manage access control in CodeSandbox Repositories
+description: How to manage access control in your CodeSandbox workspace. 
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
 # User Permissions
 
-Permission vary slightly between repositories, which extend the settings from GitHub and Sandboxes and Devboxes, which soley exist in CodeSandbox. 
+Permissions vary slightly between repositories, which extend the settings from GitHub, and Sandboxes and Devboxes, which solely exist in CodeSandbox.
 
 ## Devboxes and Sandboxes
 ### Private
-Private Devboxes and Sandboxes can only be accessed by member of the workspace that own the Sandbox or Devbox. 
+Private Devboxes and Sandboxes can only be accessed by workspace members who own the Sandbox or Devbox.
 
 ### Unlisted 
-Unlisted Sandboxes and Devboxes are accessible by workspace members and non-workspace members with the url.
+Unlisted Sandboxes and Devboxes are accessible by workspace members and non-workspace members with the URL.
 
 ### Public
 Public Sandboxes and Devboxes are visible to everyone. Public Sandboxes are a great option for sharing content with people outside the workspace. Non-workspace members are able to open and run public Sandboxes and Devboxes. In order to edit, however, they will need to fork the Sandbox or Devbox to their own workspace. 
+
 <Callout emoji="⚠️">
-VMs used to run public Devboxes will be charged to the workspace that owns the Devbox
+VMs used to run public Devboxes will be charged to the workspace that owns the Devbox.
 </Callout>
 
-If you want to share a Devbox with the public, consider turning the Devbox into a template. That way, the VMs used to run the code and/or the preview won't be charged to your workspace.
+If you want to share a Devbox publicly, consider turning it into a template. That way, the runtime of the VMs used to run the code and/or the preview won't be charged to your workspace.
 
 
 Default privacy settings for Devboxes and Sandboxes can be set in the workspace portal in the [permissions tab](https://codesandbox.io/t/permissions)
@@ -37,12 +38,11 @@ Users with write access to a repository can enjoy the full feature set available
 
 ### Users with read-only access 
 
-Users with read-only access to the repository can browse the content of the repository, check the previews and even execute a few tasks. To introduce changes, they need to create a contribution branch or fork the repository. For more information, visit the [open source collaboration](/learn/getting-started/open-source) page.
+Users with read-only access to the repository can browse the content of the repository, check the previews and execute a few tasks. To introduce changes, they need to create a contribution branch or fork the repository. For more information, visit the [open source collaboration](/learn/getting-started/open-source) page.
 
 ### Anonymous users
 
-Users without a CodeSandbox account can only browse the content of the project and interact with the previews. 
-
+Users without a CodeSandbox account can only browse the content of the project and interact with the previews.
 
 ## Feature comparative guide
 
