@@ -30,7 +30,7 @@ Currently, every account must be associated with at least one workspace. In the 
 
 ## Collaboration on workspaces
 
-You can add as many members to a workspace as you like. You can invite them when you are creating the workspace for the first time, or later through the subscription management view.
+On Free, you are allowed up to 5 members on a workspace and on Pro, you are allowed 20 members. You can invite them when you are creating the workspace for the first time, or later through the subscription management view.
 
 ![Invite team members](../images/workspace-invite-members.png)
 
@@ -39,7 +39,7 @@ From there, they can accept or decline the invitation.
 
 You can also invite workspace members who do not have a CodeSandbox account. They will be sent an email inviting them to create an account where they will have access to the workspace.
 
-#### Collaborating on sandboxes
+#### Collaborating on Sandboxes
 
 Anyone with edit permissions to the workspace can edit its sandboxes.
 
@@ -50,7 +50,7 @@ If you want to collaborate live with workspace members, you can start a [live se
 
 #### Collaborating on repositories
 
-Similarly, anyone with edit access to the team workspace can edit its repositories—as long as they also have write access to the repository on the git provider (such as GitHub). Branches have their own development environments for each workspace, so files saved on `my-branch` of a repository in your personal workspace will not appear on `my-branch` in the team workspace until they are committed and pushed to the git provider.
+Similarly, anyone with edit access to the team workspace can edit its repositories — as long as they also have write access to the repository on the git provider (such as GitHub). Branches have their own development environments for each workspace, so files saved on `my-branch` of a repository in your personal workspace will not appear on `my-branch` in the team workspace until they are committed and pushed to the git provider.
 
 Live collaboration on branches is restricted to members of the same workspace. If you don't see your collaboration partners working, you may be looking at the same branch in a different workspace. Otherwise, your work will be visible in every workspace as soon as it is committed and pushed to the git provider.
 
@@ -74,31 +74,11 @@ Admins can edit team member access and roles here as well as edit the subscripti
 
 ![Team settings](../images/workspace-team-settings.png)
 
-## Transitioned personal workspaces
 
-As of Nov 12, 2023, all personal workspaces act as standard workspaces.
-Previously, everyone who signed up for a CodeSandbox account would automatically have a personal workspace created for them.
-This workspace would hold:
+### Add or remove people from a workspace
 
-- your account details
-- your contribution branches
-- all the sandboxes created in the workspace
+1. Go to the [Dashboard](https://codesandbox.io/dashboard).
+1. In the top left corner, select the **team** you'd like to edit in the dropdown.
+1. Click on the **settings** icon next to the team.
+1. Add or remove people through the **Members** section by inviting them via email or searching for their CodeSandbox username.
 
-However, there was no option to add people to the workspace or upgrade the space.
-With the recent changes, every workspace will be treated the same. This means that workspaces that were previously a Free Personal can do the following:
-
-#### Add collaborators
-
-Just like in a Pro workspace, you may add members to the workspace by navigating to the workspace settings, and either sending an invite URL or entering the email address of the member you wish to add (they will be notified by email).
-
-#### Upgrade to Pro
-
-Every workspace can now be upgraded. By selecting any action to upgrade from within a workspace, you will be able to remove free limitations from any workspace and access all Pro features on the sandboxes and repos that already exist in that space. 
-
-#### Access account details from any workspace
-
-Account information is now held in a separate account view. You can access it from the main menu within `Preferences`.
-
-<Callout emoji="⚠️">
-If you have a legacy Personal Pro account, some of these options may vary.
-</Callout>

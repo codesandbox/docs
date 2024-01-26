@@ -17,11 +17,17 @@
   },
   "sandboxes": "Sandboxes",
   "legacy-sandboxes": "Legacy Sandboxes",
+  "-- Plans": {
+    "type": "separator",
+    "title": "Plans & Billing"
+  },
+  "plans": "Plans",
+  "credit-usage": "Credits & Usage",
+  "access": "Access",
   "-- more": {
     "type": "separator",
     "title": "More"
   },
   "ci": "CodeSandbox CI",
-  "explore": "Explore Page & Curators",
-  "plans": "Plans and Billing"
+  "explore": "Explore Page & Curators"
 }

@@ -7,27 +7,32 @@ import { Callout } from 'nextra-theme-docs'
 
 # Environment
 
-CodeSandbox Repositories and Devboxes run on [microVM technology](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds). Each branch and Devbox gets its own microVM and their resources (shown below) are set to each one of these instances.
+CodeSandbox repositories and Devboxes run on [virtual machines](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds). Each branch and Devbox gets its own virtual machine (VM). The size of the VM depends on the settings configured in the [workspace portal](https://codesandbox.io/t/vm_settings).
+VM resource consist of vCPU, RAM and memory. The vCPU and RAM specs are grouped in VM tiers of various sizes. However, the memory is set according to the subscription.
 
-## Default resources
+| VM size | CPU      | RAM    |
+| ------ | -------- | ------ |
+| Nano   |  2 cores  | 4 GB   |
+| Micro  | 4 cores  | 8 GB   |
+| Small  | 8 cores  | 16 GB  |
+| Medium | 16 cores | 32 GB  |
+| Large  | 32 cores | 64 GB  |
+| XLarge | 64 cores | 128 GB |
 
-Based on our analysis of usual resource needs, we have defined these resources as default:
 
-| Type    | Limit   |
-| ------- | ------- |
-| CPU     | 2 vCPUs |
-| Memory  | 2Gi     |
-| Storage | 6Gi     |
+| Subscription | Memory | 
+| ------ | --------- |
+| Free   | 20 GB     | 
+| Pro    | 50 GB     | 
 
-But we can go higher, up to 32vCPUs, 64GB memory and 256GB storage. To upgrade to higher specs, you can ugrade to one of our [Pro plans](https://codesandbox.io/pro).
 
-If you require specs that go beyond our Pro plan defaults, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limits to suit your project.
+If you require storage that goes beyond our Pro plan defaults, [get in touch](mailto:support@codesandbox.io) and our team will adjust the limits to suit your project.
 
 ## Memory snapshotting
 
 One of the most unique aspects of our environments is the use of a technique called memory snapshotting.
 
-When we hibernate a microVM, we pause it and save its memory to disk. When you come back, we resume the VM from that memory snapshot in about 1.5 seconds. So for you, it will look as if the VM was never stopped at all! You can learn more about how we use memory snapshotting in [this blog post](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds).
+When we hibernate a VM, we pause it and save its memory to disk. When you come back, we resume the VM from that memory snapshot in about 1.5 seconds. So for you, it will look as if the VM was never stopped at all! You can learn more about how we use memory snapshotting in [this blog post](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds).
 
 Note that, the first time you import a project to CodeSandbox, it can take longer to start. However, every subsequent start will resume from memory–so, the real-world experience on a day-to-day scenario will be spinning up an environment in 1.5 seconds.
 

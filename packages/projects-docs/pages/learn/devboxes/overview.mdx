@@ -8,11 +8,11 @@ import { Callout } from 'nextra-theme-docs'
 
 # CodeSandbox Devboxes
 
-CodeSandbox provides two development environments that are ideal for prototyping and rapid web development: [Devboxes](/learn/devboxes/overview) (which run in a microVM) and [Sandboxes](/learn/sandboxes/templates) (which run using browser resources).
+CodeSandbox provides two development environments that are ideal for prototyping and rapid web development: [Devboxes](/learn/devboxes/overview) (which run in a virtual machine (VM)) and [Sandboxes](/learn/sandboxes/templates) (which run using browser resources).
 
 We generally recommend using Devboxes, which provide all the tooling needed for building prototypes. Sandboxes are mostly useful as a playground for basic front-end JavaScript projects.
 
-Previously known as Cloud Sandboxes, Devboxes are a great way to work on any type of project, regardless of its language or size. Devboxes run [microVMs](/learn/environment/vm) and leverage our memory snapshotting to spin up an environment in 1.5 seconds. They have built-in [Docker support](/learn/environment/docker) and include several valuable features, such as [AI](/learn/ai/overview), collaborative [Terminals](/learn/repositories/terminal), [Tasks](/learn/repositories/task), and [VS Code integration](/learn/getting-started/setting-up-vscode).
+Previously known as Cloud Sandboxes, Devboxes are a great way to work on any type of project, regardless of its language or size. Devboxes run [VMs](/learn/environment/vm) and leverage our memory snapshotting to spin up an environment in 1.5 seconds. They have built-in [Docker support](/learn/environment/docker) and include several valuable features, such as [AI](/learn/ai/overview), collaborative [Terminals](/learn/repositories/terminal), [Tasks](/learn/repositories/task), and [VS Code integration](/learn/getting-started/setting-up-vscode).
 
 <Callout>
 Devboxes are built for scale. Our Free plan includes generous VM specs but you can easily [start a Pro trial](https://codesandbox.io/pro) to improve them.
@@ -26,14 +26,14 @@ To create a new Devbox, you can clone a template from our ["Create Devbox"](http
 <Tabs tabs={["Devbox", "Sandbox"]}>
 <WrapContent> 
 ## What is a Devbox?
-Unlike Sandboxes that run on your browser, Devboxes run on our [microVMs](/learn/environment/vm).
+Unlike Sandboxes that run on your browser, Devboxes run on our [VMs](/learn/environment/vm).
 
        Devboxes are great for prototyping any type of project in any programming language. They can run both backend and front-end services.
-       You can learn more about the editor and the unique functionalities of the cloud developer environment in [Repositories](/learn/repositories/overview).
+       You can learn more about the editor and the unique functionalities of the cloud developer environment in [repositories](/learn/repositories/overview).
 
        Like Sandboxes, Devboxes are free to use.
 
-       Devboxes run on microVMs, which brings two features that make them great for prototyping:
+       Devboxes run on VMs, which brings two features that make them great for prototyping:
 
        1. Fast cloning. You can fork Devbox [within 2 seconds](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds) and continue with an exact clone of the microVM. This way, you can quickly test multiple approaches to your prototype.
        2. Instant resume. When you connect to a Devbox, it will wake up within 1 second and continue with your running dev server. This way, you can quickly continue prototyping.
