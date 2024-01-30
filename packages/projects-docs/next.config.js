@@ -555,6 +555,24 @@ module.exports = withNextra({
         destination: "/learn/ai/getting-started",
         permanent: false,
       },
+      /*
+           Redirects for changes to UBB content
+        */
+      {
+        source: "/learn/plans/plan-overview",
+        destination: "/learn/plans/subscriptions",
+        permanent: false,
+      },
+      {
+        source: "/learn/plans/workspace",
+        destination: "/learn/access/workspace",
+        permanent: false,
+      },
+      {
+        source: "/learn/plans/permissions",
+        destination: "/learn/access/permissions",
+        permanent: false,
+      },
     ];
   },
 });
