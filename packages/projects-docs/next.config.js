@@ -573,6 +573,11 @@ module.exports = withNextra({
         destination: "/learn/access/permissions",
         permanent: false,
       },
+      {
+        source: "/learn/plans/ubb#credit",
+        destination: "/learn/credit-usage/credits",
+        permanent: false,
+      },
     ];
   },
 });
