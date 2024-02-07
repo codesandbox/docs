@@ -42,6 +42,8 @@ Everything you save in `/project` is guaranteed to be persisted between reboots,
 
 Your project folder lives in `/project/<repo-name>`, your home folder lives in `/project/home/<username>`. Your home folder is inaccessible for other users.
 
+<Callout>If your project uses [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers) (which is the default now), the paths differ a bit, as they are mounted inside the container. Your project is under `/workspaces/workspace`, and your home folder is under `/root`. Under the hood the paths are still in `/project` though.</Callout>
+
 If your branch has not been accessed for 31 days, we delete the contents of `/project`. This means that the next time you start this branch again, we will reinitialize `/project` by doing a fresh clone.
 
 For any uncommitted work we make a backup. This backup is never deleted. All your uncommitted work is restored when you open a branch where the `/project` folder is deleted. This means that you will never lose your work, even if we delete `/project` after 31 days of inactivity.
