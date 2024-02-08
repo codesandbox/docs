@@ -101,17 +101,6 @@ aside {
 /* General colors
   ------------------------ */
 
-html[class~="light"] body,
-html[class~="light"] .nextra-content {
-  color: var(--neutral-dark-base) !important;
-}
-
-html[class~="dark"] body,
-html[class~="dark"] .nextra-content {
-  color: var(--neutral-light-high) !important;
-  background: var(--neutral-dark-base) !important;
-}
-
 /* Link
   ------------------------ */
 html[class~="dark"] .nextra-content p a,
