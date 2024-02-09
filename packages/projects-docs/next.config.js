@@ -574,7 +574,7 @@ module.exports = withNextra({
         permanent: false,
       },
       {
-        source: "/learn/plans/ubb#credit",
+        source: "/learn/plans/ubb",
         destination: "/learn/credit-usage/credits",
         permanent: false,
       },
