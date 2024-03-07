@@ -10,9 +10,7 @@ export default function Nextra({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
   const router = useRouter();
 
-  // "a205ed9b06a7baf5a594bdd30293aa80"
-  // process.env.NEXT_PUBLIC_AMPLITUDE
-  useInitAnalytics("a205ed9b06a7baf5a594bdd30293aa80");
+  useInitAnalytics(process.env.NEXT_PUBLIC_AMPLITUDE);
 
   const isBrowser = typeof window !== "undefined";
   const [initialRouteTracked, setInitialRouteTracked] = useState(false);
