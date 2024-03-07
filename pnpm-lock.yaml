@@ -44,6 +44,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      vanilla-cookieconsent:
+        specifier: 3.0.0
+        version: 3.0.0
     devDependencies:
       autoprefixer:
         specifier: ^10.4.16
@@ -5388,6 +5391,10 @@ packages:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+    dev: false
+
+  /vanilla-cookieconsent@3.0.0:
+    resolution: {integrity: sha512-oeK7FivRDb424mt3/UT8DG98Pu5m6Uuye7JsdzO6HnYkstW5QHXhkslXyUpE3phtKz3NEeIo7hzLUtfRNRMfbQ==}
     dev: false
 
   /vfile-find-up@6.1.0:

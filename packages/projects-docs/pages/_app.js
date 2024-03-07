@@ -2,18 +2,17 @@ import "../styles.css";
 import amplitude from "amplitude-js";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useInitAnalytics } from "../utils/useInitAnalytics";
+import "vanilla-cookieconsent/dist/cookieconsent.css";
+import "../utils/cookieConsentTheme.css";
 
 export default function Nextra({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
   const router = useRouter();
 
-  // Init Amplitude
-  amplitude.getInstance().init(process.env.NEXT_PUBLIC_AMPLITUDE, null, {
-    includeReferrer: true,
-    saveEvents: true,
-    includeUtm: true,
-    saveParamsReferrerOncePerSession: false,
-  });
+  // "a205ed9b06a7baf5a594bdd30293aa80"
+  // process.env.NEXT_PUBLIC_AMPLITUDE
+  useInitAnalytics("a205ed9b06a7baf5a594bdd30293aa80");
 
   const isBrowser = typeof window !== "undefined";
   const [initialRouteTracked, setInitialRouteTracked] = useState(false);
