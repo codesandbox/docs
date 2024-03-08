@@ -8,6 +8,16 @@ import { Callout } from 'nextra-theme-docs'
 
 # Git workflow
 
+## Terminal
+
+Working locally you where likely using the terminal to interact with Git. You can still use your terminal, with one exception: `git checkout`.
+
+Since each branch on CodeSandbox is its own MicroVM and environment, we will rather navigate you to the respective MicroVM when doing a `git checkout`. Normally this is just another way of navigating to a branch, but if you
+use `git checkout` related to updating your branch from your target, you will need to conform to the following:
+
+- If you use `rebase` you should use the following command: `git rebase origin/main my-current-branch`. This is [a more efficient way](https://stackoverflow.com/a/56840200) and bypasses the need for a checkout
+- If you use `merge` you should use the upper left pill which appears automatically when you are behind your target
+
 ## Git panel
 
 After you have made some changes to your code and saved them (<kbd>⌘ + S</kbd> or <kbd>Ctrl + S</kbd>), you will notice a purple notification next to the git icon at the top of the left sidebar.
