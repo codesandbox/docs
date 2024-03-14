@@ -13,7 +13,10 @@ import { Callout } from 'nextra-theme-docs'
 When working locally, you likely use the terminal to interact with Git. On CodeSandbox, Git commands will work as expected with one exception: `git checkout`.
 
 
-Since each branch on CodeSandbox is its own MicroVM and environment, we will rather navigate you to the respective MicroVM when doing a `git checkout`. Normally this is just another way of navigating to a branch, but if you
+Each branch runs on its own virtual machine (VM). So instead of checking out a branch within the same VM, when you change a branch on CodeSandbox, we will navigate you to the branch running on its respective VM. 
+
+However, if you choose to change branch from the terminal using `git checkout`, you will need to conform to the following
+
 use `git checkout` related to updating your branch from your target, you will need to conform to the following:
 
 - If you use `rebase` you should use the following command: `git rebase origin/main my-current-branch`. This is [a more efficient way](https://stackoverflow.com/a/56840200) and bypasses the need for a checkout
