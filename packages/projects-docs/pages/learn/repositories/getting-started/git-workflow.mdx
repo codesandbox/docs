@@ -8,6 +8,19 @@ import { Callout } from 'nextra-theme-docs'
 
 # Git workflow
 
+## Terminal
+
+When working locally, you likely use the terminal to interact with Git. On CodeSandbox, Git commands will work as expected with two exceptions, changing and renaming the branch.
+
+Each branch runs on its own virtual machine (VM). So instead of checking out a branch within the same VM, when you change a branch on CodeSandbox, we will navigate you to the branch running on its respective VM.
+
+However, if you currently use `git checkout` to update your branch from target, you will need to conform to the following:
+
+- If you use `checkout` with `rebase` you should use the following command instead: `git rebase origin/main my-current-branch`. This is [a more efficient way](https://stackoverflow.com/a/56840200) and bypasses the need for a checkout
+- If you use `merge` you should use the upper left pill in the UI which appears automatically when you are behind your target
+
+If you need to rename the branch, please double click the name in the topbar and change it there.
+
 ## Git panel
 
 After you have made some changes to your code and saved them (<kbd>⌘ + S</kbd> or <kbd>Ctrl + S</kbd>), you will notice a purple notification next to the git icon at the top of the left sidebar.
