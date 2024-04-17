@@ -106,18 +106,6 @@ We currently provide [Sandboxes](/learn/sandboxes/editor-features) and [Devboxes
   `node_modules` and dependencies do not count toward this limit.
 - The maximum file size that can be opened in the editor is 2MB. Files uploaded
   that are larger than that still exist but are linked as a static asset.
-- Terminal commands that alter the filesystem of the container instance aren't
-  synced with files shown in the editor. You'll need to refresh to see files
-  updated this way.
-- When using a container, there is a sync limit of 10 files per second and only
-  files up to 2MB are synced with the editor. Files larger than that still exist
-  but are not shown in the editor's file tree. You're still able to write and
-  read to and from them in your code and they can be seen and edited via the
-  terminal.
-- When using a container, the sandbox sleeps after around 10 minutes and can be woken by opening
-  the sandbox or preview in a web browser.
-- When using a container, the sandbox has a 1GB persistent storage limit, a 1GB vCPU soft
-  limit, and a hard memory limit of 2 GB.
 
 Devboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
