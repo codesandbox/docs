@@ -75,17 +75,6 @@ recommend using a [Devbox](/learn/devboxes/overview).
 
 Yes, we have instructions [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) that tell you how to change the Node version. All recent server sandboxes run in a Devbox.
 
-For container sandboxes that are created after May 10 2021, we run Node v14.18.1 (LTS) by default.
-For backwards compatibility, the older sandboxes are on Node v10. However, you can
-specify a `node` value to alter the version in `sandbox.config.json` which will
-be used instead. For further details, see [configuration](/learn/legacy-sandboxes/configuration).
-
-<Callout>
-This method only applies to legacy sandboxes.
-</Callout>
-
-Note that we recommend using Devboxes when you're working with Node.js projects.
-
 ## How do I change the editor's theme?
 
 To change the [theme of a Devbox](https://codesandbox.io/docs/learn/editors/web/themes), click on the CodeSandbox logo at the top left, then go to Settings > User Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
@@ -126,19 +115,19 @@ No, you don't need to install Docker on your local machine. CodeSandbox has [bui
 
 ### How do I access the database once it's running in a Docker container?
 
-You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database.
+You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database. If you want to connect locally to the database, you can use our VSCode integration to open the Devbox inside VSCode, and then forward the port of the database to localhost.
 
 ### Can I use multiple databases in the same CodeSandbox project?
 
-Yes, you can use multiple databases in the same project by running multiple Docker containers with different port numbers. However, keep in mind that running multiple databases can put a strain on your system resources and affect performance.
+Yes, you can use multiple databases in the same project by running multiple Docker containers with different port numbers.
 
 ### Can I use Docker Compose in CodeSandbox?
 
-Yes, you can use Docker Compose in CodeSandbox to orchestrate multiple containers and define the relationships between them. However, you'll need to create a Docker Compose file and run the `docker-compose` command in the terminal to start the containers.
+Yes, you can use Docker Compose in CodeSandbox to orchestrate multiple containers and define the relationships between them. However, you'll need to create a Docker Compose file and run the `docker-compose` command in the terminal to start the containers. We share more about this [here](https://codesandbox.io/docs/tutorial/getting-started-with-docker#4-create-docker-compose-file).
 
 ### Is it safe to use a database in CodeSandbox with Docker support?
 
-Yes, it's safe to use a database in CodeSandbox with Docker support, as long as you follow best practices for security and keep your database credentials private. Docker provides a secure and isolated environment for running containers, so your database is protected from external threats.
+Yes, it's safe to use a database in CodeSandbox with Docker support, as long as you follow best practices for security and keep your database credentials private. Docker provides a secure and isolated environment for running containers, so your database is protected from external threats. We also prevent any connections to your Devbox without sign in if your Devbox is private.
 
 ### How do I troubleshoot issues with my database in CodeSandbox with Docker support?
 
