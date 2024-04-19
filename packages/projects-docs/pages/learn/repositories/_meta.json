@@ -1,13 +1,34 @@
 {
   "overview": "Overview",
   "getting-started": "Getting Started",
-  "devtools": "DevTools",
-  "preview": "Preview",
-  "task": "Task Configuration",
-  "terminal": "Terminal",
-  "interactive-readme": "Interactive Readme",
-  "secrets": "Secrets",
-  "upload": "File Upload",
+  "devtools": {
+    "title": "DevTools",
+    "href": "/learn/devboxes/devtools"
+  },
+  "preview": {
+    "title": "Preview",
+    "href": "/learn/devboxes/preview"
+  },
+  "task": {
+    "title": "Tasks",
+    "href": "/learn/devboxes/task"
+  },
+  "terminal": {
+    "title": "Terminal",
+    "href": "/learn/devboxes/terminal"
+  },
+  "interactive-readme": {
+    "title": "Interactive Readme",
+    "href": "/learn/devboxes/interactive-readme"
+  },
+  "secrets": {
+    "title": "Secrets",
+    "href": "/learn/environment/secrets"
+  },
+  "upload": {
+    "title": "File Upload",
+    "href": "/learn/devboxes/upload"
+  },
   "review": "Code Reviews",
   "open-source": "Open Source Collaboration",
   "collaborate-share": "Collaborate & Share"
