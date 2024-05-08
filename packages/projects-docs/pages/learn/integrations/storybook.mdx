@@ -1,0 +1,172 @@
+---
+title: Storybook
+description: Use the Storybook Addon to seamlessly open a story as a sandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+import Video from '../../../../../shared-components/Video'
+
+# Storybook Addon
+
+The [@codesandbox/storybook-addon](https://github.com/codesandbox/storybook-addon) allows you to open the code from a story in a Sandbox with the click of a button.
+
+This integration allows you to transform design system documentation into interactive example. We have found this incredibly useful for interactive learning and for sharing bug reproductions.
+
+<Video src="https://assets.codesandbox.io/videos/storybook-add-on.mp4" />
+
+## Connecting Storybook to your workspace
+
+All Sandboxes created from the Storybook addon will be created within the workspace that is listed in the [configuration](#configuration).
+
+Anyone opening a Sandbox from the addon will need to be a part of the workspace in order to access the Sandbox.
+Luckily organization domains make it very easy for new users to join automatically.
+
+If a workspace has an organzation domain, when a new user opens a Sandbox from a Storybook addon, they will be asked to join the workspace if they have an account with an email that matches the domain of the organization.
+
+You can find a step-by-step guide for setting a domain on the [Organization](/learn/access/organizations#creating-an-organization) documentation.
+
+## Configuration
+
+```js
+// .storybook/main.js
+
+module.exports = {
+  // ...
+  addons: ['@codesandbox/storybook-addon'],
+};
+
+```
+
+<details>
+  <summary>Storybook configuration (required)</summary>
+
+<br />
+
+To run the addon, you'll need to configure it in your Storybook's `.storybook/preview.js` file.
+
+```js
+// .storybook/preview.js
+
+const preview: Preview = {
+  parameters: {
+    codesandbox: {
+      /**
+       * @required
+       * Workspace API key from codesandbox.io/t/permissions.
+       * This sandbox is created inside the given workspace
+       * and can be shared with team members.
+       */
+      apiToken: <api-token>,
+
+      /**
+       * @required
+       * Dependencies list to be installed in the sandbox.
+       *
+       * @note You cannot use local modules or packages since
+       * this story runs in an isolated environment (sandbox)
+       * inside CodeSandbox. As such, the sandbox doesn't have
+       * access to your file system.
+       *
+       * Example:
+       */
+      dependencies: {
+        "@radix-ui/themes": "latest",
+        "@myscope/mypackage": "1.0.0",
+      },
+
+      /**
+       * @required
+       * CodeSandbox will try to import all components by default from
+       * the given package, in case `mapComponent` property is not provided.
+       *
+       * This property is useful when your components imports are predictable
+       * and come from a single package and entry point.
+       */
+      fallbackImport: "@radix-ui/themes",
+
+      /**
+       * @optional
+       * All required providers to run the sandbox properly,
+       * such as themes, i18n, store, and so on.
+       *
+       * @note Remember to use only the dependencies listed above.
+       *
+       * Example:
+       */
+      provider: `import { Theme } from "@radix-ui/themes";
+        import '@radix-ui/themes/styles.css';
+
+        export default ThemeProvider = ({ children }) => {
+          return (
+            <Theme>
+              {children}
+            </Theme>
+          )
+        }`,
+    },
+  },
+};
+
+export default preview;
+```
+
+</details>
+
+<details>
+  <summary>Story configuration (recommended)</summary>
+
+````ts
+import type { Meta, StoryObj } from "@storybook/react";
+
+const meta: Meta<typeof Button> = {
+  title: "Example/Button",
+  component: Button,
+  parameters: {
+    codesandbox: {
+     /**
+       * To import all components used within each story in
+       * CodeSandbox, provide all necessary packages and modules.
+       *
+       * Given the following story:
+       * ```js
+       * import Provider from "@myscope/mypackage";
+       * import { Button } from "@radix-ui/themes";
+       * import "@radix-ui/themes/styles.css";
+       * ```
+       *
+       * You need to map all imports to the following:
+       */
+      mapComponent: {
+        // Example of default imports
+        "@myscope/mypackage": "Provider",
+
+        // Example of named functions
+        "@radix-ui/themes": ["Button"],
+
+        // Example of static imports
+        "@radix-ui/themes/styles.css": true,
+      },
+
+      /**
+       * @note You cannot use local modules or packages since
+       * this story runs in an isolated environment (sandbox)
+       * inside CodeSandbox. As such, the sandbox doesn't have
+       * access to your file system.
+       */
+    },
+  },
+};
+````
+
+</details>
+
+<br />
+
+Make sure to provide the necessary values for [`apiToken`](https://codesandbox.io/t/permissions) and any additional dependencies or providers required for your specific setup.
+
+For now, this addon only supports the [Component Story Format (CSF)](https://storybook.js.org/docs/api/csf) stories format.
+
+### Additional Notes
+
+- Ensure that you have proper permissions and access rights to the CodeSandbox workspace specified in the configuration.
+- Verify the correctness of the dependencies and providers listed in the configuration to ensure the sandbox runs smoothly.
