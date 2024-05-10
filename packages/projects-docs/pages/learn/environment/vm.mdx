@@ -1,6 +1,6 @@
 ---
 title: VM Configuration & Persistence
-description: The specs of our VMs and how we persist files.
+description: The specs of CodeSandbox VMs and how we persist files.
 ---
 
 import { Callout } from 'nextra-theme-docs'
@@ -8,23 +8,21 @@ import { Callout } from 'nextra-theme-docs'
 # Environment
 
 CodeSandbox repositories and Devboxes run on [virtual machines](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds). Each branch and Devbox gets its own virtual machine (VM). The size of the VM depends on the settings configured in the [workspace portal](https://codesandbox.io/t/vm_settings).
-VM resource consist of vCPU, RAM and memory. The vCPU and RAM specs are grouped in VM tiers of various sizes. However, the memory is set according to the subscription.
+VM resources consist of vCPU, RAM and storage. The vCPU and RAM specs are grouped in VM tiers of various sizes. However, the storage is set according to the subscription.
 
 | VM size | CPU      | RAM    |
-| ------ | -------- | ------ |
-| Nano   |  2 cores  | 4 GB   |
-| Micro  | 4 cores  | 8 GB   |
-| Small  | 8 cores  | 16 GB  |
-| Medium | 16 cores | 32 GB  |
-| Large  | 32 cores | 64 GB  |
-| XLarge | 64 cores | 128 GB |
+| ------- | -------- | ------ |
+| Nano    | 2 cores  | 4 GB   |
+| Micro   | 4 cores  | 8 GB   |
+| Small   | 8 cores  | 16 GB  |
+| Medium  | 16 cores | 32 GB  |
+| Large   | 32 cores | 64 GB  |
+| XLarge  | 64 cores | 128 GB |
 
-
-| Subscription | Memory | 
-| ------ | --------- |
-| Free   | 20 GB     | 
-| Pro    | 50 GB     | 
-
+| Subscription | Storage |
+| ------------ | ------- |
+| Free         | 20 GB   |
+| Pro          | 50 GB   |
 
 If you require storage that goes beyond our Pro plan defaults, please select 'Pro Subscriptions' on our support form and [get in touch](https://codesandbox.io/support). Our team can adjust your limits to suit your project.
 
@@ -38,25 +36,30 @@ Note that, the first time you import a project to CodeSandbox, it can take longe
 
 ## Persistence
 
-Everything you save in `/project` is guaranteed to be persisted between reboots, hibernations and forks. Every file change outside of `/project` will usually be persisted, but there is a chance that those changes will be cleared.
+We use [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers) by default for all repositories and Devboxes. Your project is under `/workspaces/workspace` (the default workspace folder) and your home folder is under `/root`. Under the hood, the paths are in `/project`.
 
-Your project folder lives in `/project/<repo-name>`, your home folder lives in `/project/home/<username>`. Your home folder is inaccessible for other users.
+<Callout>The workspace folder is not always `/workspaces/workspace`; it depends on the Dev Container configuration.</Callout>
 
-<Callout>If your project uses [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers) (which is the default now), the paths differ a bit, as they are mounted inside the container. Your project is under `/workspaces/workspace`, and your home folder is under `/root`. Under the hood the paths are still in `/project` though.</Callout>
+Everything in your workspace is guaranteed to persist between reboots, hibernations and forks. We persist the workspace folder and the Docker engine state, like images, volumes, etc.
 
-If your branch has not been accessed for 31 days, we delete the contents of `/project`. This means that the next time you start this branch again, we will reinitialize `/project` by doing a fresh clone.
+If your branch or Devbox has not been accessed for a certain period (explained below), we delete the contents of your workspace. However, we back up uncommitted changes to repositories and all code in Devboxes (other than the ones in `.gitignore`). This means that you will never lose your work, even if we delete the workspace folder after the standard period of inactivity.
 
-For any uncommitted work we make a backup. This backup is never deleted. All your uncommitted work is restored when you open a branch where the `/project` folder is deleted. This means that you will never lose your work, even if we delete `/project` after 31 days of inactivity.
+Overall, we persist the workspace folder and some state in Docker (like volumes) for:
+
+- 8 days of inactivity for projects belonging to Free workspaces.
+- 15 days of inactivity for projects belonging to Pro workspaces.
+
+<Callout>In case your project has a database that needs to retain data across restarts, we recommend putting the data in a git ignored directory in the workspace or a named Docker volume.</Callout>
 
 Memory snapshots (which allow instant resume of VMs) will be cleaned up after 7 to 31 days of inactivity. There is no lost work from cleaning up memory snapshots.
 
 ## Node Modules
 
-The `node_modules` folder is globally ignored. You can override this behaviour by adding `!node_modules` in your own project `.gitignore` file. While this will add `node_modules` folders to git, they won't be displayed in the UI.
+The `node_modules` folder is globally ignored. You can override this behavior by adding `!node_modules` in your own project `.gitignore` file. While this will add `node_modules` folders to git, they won't be displayed in the UI.
 
 ## Environment configuration
 
-You can configure the environment of your VM with [Devcontainers](https://codesandbox.io/docs/learn/environment/devcontainers). To do this, create `.devcontainer/devcontainer.json` file in the root of the repository. After you've saved the file, you should be prompted with a notification to restart the container.
+You can configure the environment of your VM with [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers). To do this, create `.devcontainer/devcontainer.json` file in the root of the repository. After you've saved the file, you should be prompted with a notification to restart the container.
 
 ### Configuring NodeJS version
 
@@ -69,11 +72,11 @@ For example, to update NodeJS to v18, you can either create or update a `.devcon
 }
 ```
 
-We're using [Devcontainers](https://codesandbox.io/docs/learn/environment/devcontainers) to configure the environment. 
+We're using [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers) to configure the environment.
 
 ### Deno support
 
-If we detect a `deno.json` file in your sandbox or repository during boot, we'll automatically enable the Deno LSP (which provides autocompletions) instead of the TypeScript LSP. You can also force this by creating a file called `.codesandbox/features.json` and inserting these contents:
+If we detect a `deno.json` file in your Sandbox or repository during boot, we'll automatically enable the Deno LSP (which provides autocompletions) instead of the TypeScript LSP. You can also force this by creating a file called `.codesandbox/features.json` and inserting these contents:
 
 ```json
 {
