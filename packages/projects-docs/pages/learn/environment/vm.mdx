@@ -36,26 +36,20 @@ Note that, the first time you import a project to CodeSandbox, it can take longe
 
 ## Persistence
 
-We use [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers) by default for all repositories and Devboxes. Your project is under `/workspaces/workspace`, and your home folder is under `/root`. Under the hood, the paths are in `/project`.
+We use [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers) by default for all repositories and Devboxes. Your project is under `/workspaces/workspace` (the default workspace folder) and your home folder is under `/root`. Under the hood, the paths are in `/project`.
 
-<Callout>The workspace folder is not always `/workspaces/workspace`; it is dependent on the Dev Container configuration.</Callout>
+<Callout>The workspace folder is not always `/workspaces/workspace`; it depends on the Dev Container configuration.</Callout>
 
-Everything in `/workspaces/workspace` is guaranteed to be persisted between reboots, hibernations and forks. We persist the workspace folder and the Docker engine state, like images, volumes, etc.
+Everything in your workspace is guaranteed to persist between reboots, hibernations and forks. We persist the workspace folder and the Docker engine state, like images, volumes, etc.
 
-Every file change outside of `/workspaces/workspace` will usually be persisted, but there is a chance that those changes will be cleared.
-
-Your project folder lives in `/workspaces/workspace/<repo-name>`; your home folder lives in `/workspaces/workspace/home/<username>`; your home folder is inaccessible to other users.
-
-If your branch or Devbox has not been accessed for a certain period (explained below), we delete the contents of `/workspaces/workspace`. This means that the next time you start this branch again, we will reinitialize `/workspaces/workspace` by doing a fresh clone.
-
-We make a backup of any uncommitted work. This backup is never deleted. All your uncommitted work is restored when you open a branch where the `/workspaces/workspace` folder is deleted. This means that you will never lose your work, even if we delete `/workspaces/workspace` after 31 days of inactivity.
+If your branch or Devbox has not been accessed for a certain period (explained below), we delete the contents of your workspace. However, we back up uncommitted changes to repositories and all code in Devboxes (other than the ones in `.gitignore`). This means that you will never lose your work, even if we delete the workspace folder after the standard period of inactivity.
 
 Overall, we persist the workspace folder and some state in Docker (like volumes) for:
 
 - 8 days of inactivity for projects belonging to Free workspaces.
 - 15 days of inactivity for projects belonging to Pro workspaces.
 
-<Callout>In case your project has a database that needs to retain data across restarts, we recommend putting the data in a git ignored directory in the workspace or in a named Docker volume.</Callout>
+<Callout>In case your project has a database that needs to retain data across restarts, we recommend putting the data in a git ignored directory in the workspace or a named Docker volume.</Callout>
 
 Memory snapshots (which allow instant resume of VMs) will be cleaned up after 7 to 31 days of inactivity. There is no lost work from cleaning up memory snapshots.
 
