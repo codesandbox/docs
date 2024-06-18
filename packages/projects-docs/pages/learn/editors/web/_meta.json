@@ -2,5 +2,6 @@
   "overview": "Overview",
   "commandpalette": "Command Palette",
   "shortcuts": "Keyboard Shortcuts",
-  "themes": "Themes"
+  "themes": "Themes",
+  "vscode-web": "VS Code Web"
 }
