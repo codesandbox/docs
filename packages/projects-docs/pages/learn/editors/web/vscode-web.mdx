@@ -1,9 +1,9 @@
 ---
-
 title: VS Code Web
-description: Introduction to a customized version of[VS Code for the web
+description: Introduction to a customized version ofVS Code for the web
+---
 
-import { Callout } from 'nextra-theme-docs
+import { Callout } from 'nextra-theme-docs'
 
 # VS Code for the web
 
@@ -20,3 +20,39 @@ The web editor also comes with a CodeSandbox Devtool extension which provides ac
 In the terminal panel, you can see all the running tasks, any private terminals as well as shared terminals (managed by CodeSandbox).
 
 While the layout is entirely customizable, the standard layout opens previews, and support tools like documentation and setup tools in the right editor panel.
+
+# Things to know when switching over
+
+All CodeSandbox DevTools, such as previews, tasks, and shared terminals, are now nested under the “CodeSandbox DevTools” panel on the left sidebar. From there, you can manage all these DevTools when needed, but most of these actions will still be performed automatically, just like before. For example, if your project has a task configured that runs the dev server on VM startup, it will automatically open the preview for you when you open the project.
+
+## Tasks, Terminals and Previews
+
+Preview ports, Tasks and shared terminals are controlled through the devtool extension in the sidebar.
+
+![CSB devtool](../../images/vscode-web-devtools.png)
+
+**Tasks**
+
+Tasks set in the `tasks.json` file will be listed in the Devtool extension. Here you can see all the tasks, run, stop or restart the tasks.
+
+**Previews**
+
+Tasks that spin up previews will be accessible in a port listed under `Previews`
+
+You can also see the list of ports in the terminal panel under `Ports`
+
+![Ports](../../images/vscode-web-ports.png)
+
+**Terminals**
+
+There are three types of terminals. The first
+
+1. Native terminal: this is managed by VS Code when you open a terminal. This is a private terminal to you that others don’t see.
+
+2. Tasks: tasks are run by Pitcher - an internal CodeSandbox service. The output of a task is streamed to a terminal window. These are displayed as a VS Code task so it is easily distinguishable from a terminal.
+
+   ![Tasks](../../images/vscode-web-tasks.png)
+
+3. Shared terminal: In the sidebar, you can open a shared terminal. This terminal is managed by Pitcher, allowing others to see it.
+
+   ![shared terminals](../../images/vscode-web-shared-terminal.png)
