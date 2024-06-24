@@ -31,7 +31,7 @@ export const useInitAnalytics = (amplitudeApiKey) => {
   };
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NODE_ENV !== "production" || window.self !== window.top) {
       return;
     }
 
