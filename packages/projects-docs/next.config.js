@@ -578,6 +578,11 @@ module.exports = withNextra({
         destination: "/learn/credit-usage/credits",
         permanent: false,
       },
+      {
+        source: "/learn/devboxes/editors",
+        destination: "/learn/devboxes/overview",
+        permanent: false,
+      },
     ];
   },
 });
