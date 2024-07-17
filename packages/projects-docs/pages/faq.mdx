@@ -1,6 +1,6 @@
 ---
 title: FAQs
-authors: ['Necoline', 'Obinna']
+authors: ['Necoline', 'Obinna', 'Filipe']
 ---
 
 import { Tabs, WrapContent } from '../../../shared-components/Tabs'
@@ -8,7 +8,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # FAQ
 
-<Tabs tabs={["Web", "VS Code", "iOS"]}>
+<Tabs tabs={["Web", "VS Code", "iOS", "Account", "Pro Subscription"]}>
     <WrapContent>
       ## Which languages and frameworks are supported?
 
@@ -20,22 +20,17 @@ import { Callout } from 'nextra-theme-docs'
 about the
 [difference between Sandboxes and Devboxes](/learn/devboxes/overview#difference-between-devboxes--sandboxes).
 
-## What operating systems and devices are supported? 
+## What operating systems and devices are supported?
 
-CodeSandbox is designed for Desktop/Laptop operating systems, browsers and display resolutions. 
+CodeSandbox is designed for Desktop/Laptop operating systems, browsers and display resolutions.
 
-For those who may like to code on the move, we offer an [iOS app](https://codesandbox.io/codesandbox-for-ios) for iPhone and iPad. 
+For those who may like to code on the move, we offer an [iOS app](https://codesandbox.io/codesandbox-for-ios) for iPhone and iPad.
 
 Our editor may work on other operating systems and mobile devices. While we will take onboard feedback from users on these platforms, we do not officially support them or recommend them for the optimum CodeSandbox experience.
 
-## How do I make a sandbox private?
+## How can I make a sandbox private?
 
 There are several ways to set a sandbox as private. One universal way (that works both for sandboxes and devboxes) is to right-click a sandbox from the dashboard and select _Make sandbox private_.
-
-<Callout>
-A [Pro subscription](https://codesandbox.io/pricing) is required to
-make sandboxes private or unlisted.
-</Callout>
 
 You can also change the privacy settings from the editor. How you do it will depend on whether you're using a sandbox or a devbox, as shown below.
 
@@ -75,7 +70,7 @@ recommend using a [Devbox](/learn/devboxes/overview).
 
 Yes, we have instructions [here](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) that tell you how to change the Node version. All recent server sandboxes run in a Devbox.
 
-## How do I change the editor's theme?
+## How can I change the editor's theme?
 
 To change the [theme of a Devbox](https://codesandbox.io/docs/learn/editors/web/themes), click on the CodeSandbox logo at the top left, then go to Settings > User Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
 
@@ -113,7 +108,7 @@ Yes, you can use any database that has a Docker image available with a Devbox. S
 
 No, you don't need to install Docker on your local machine. CodeSandbox has [built-in support for Docker](https://codesandbox.io/blog/introducing-docker-support-in-codesandbox), so you can use it directly in the online development environment.
 
-### How do I access the database once it's running in a Docker container?
+### How can I access the database once it's running in a Docker container?
 
 You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database. If you want to connect locally to the database, you can use our VSCode integration to open the Devbox inside VSCode, and then forward the port of the database to localhost.
 
@@ -129,14 +124,14 @@ Yes, you can use Docker Compose in CodeSandbox to orchestrate multiple container
 
 Yes, it's safe to use a database in CodeSandbox with Docker support, as long as you follow best practices for security and keep your database credentials private. Docker provides a secure and isolated environment for running containers, so your database is protected from external threats. We also prevent any connections to your Devbox without sign in if your Devbox is private.
 
-### How do I troubleshoot issues with my database in CodeSandbox with Docker support?
+### How can I troubleshoot issues with my database in CodeSandbox with Docker support?
 
 If you're having issues with your database, you can check the logs of the container to see if there are any error messages. You can also run commands like `docker ps` and `docker logs` in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
 
-## How do I change the font used in a browser sandbox?
+## How can I change the font used in a browser sandbox?
 
-Ensure the font you want to use has been installed on your computer, 
-then put the name of it first in the comma-separated list under 'Editor: Font Family' from 
+Ensure the font you want to use has been installed on your computer,
+then put the name of it first in the comma-separated list under 'Editor: Font Family' from
 File > Preferences > Settings in the editor.
 
 <Callout>
@@ -158,14 +153,6 @@ resolve it. For example:
 Yes. While our Repositories only have built-in push and sync capabilities for GitHub, you can connect to a remote repository from any other git provider.
 
 To do that, use our terminal to `git remote add` the remote repository and then add your credentials for it. You can also add the authentication details to the CodeSandbox microVM using [environment variables](https://codesandbox.io/docs/learn/environment/secrets).
-
-## How do I cancel my Pro or Patron plan?
-
-For Pro users, once you've logged in, you can downgrade your plan on the
-[Settings page](https://codesandbox.io/dashboard/settings) once you've selected your Pro workspace.
-
-If you're on one of our legacy Patron plans you can cancel
-your subscription on the [Patron page](https://codesandbox.io/patron).
 
     </WrapContent>
     <WrapContent>
@@ -201,6 +188,7 @@ If you have additional questions or need support, please use the community [Disc
     <WrapContent>
 
 ### What is the current state of CodeSandbox for iOS?
+
 CodeSandbox for iOS support and maintenance is currently suspended.
 
 CodeSandbox is currently unable to update the iOS experience at the rate required to keep up with the changes happening on the web editor. As a result, we have decided to discontinue support for the iOS app until we are able to provide an experience on par with the web editor. This does not remove the app from your device or prevent you from opening it if you already have it installed.
@@ -246,6 +234,154 @@ The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as
 ### Why can't I make any changes to my project?
 
 You likely have a protected branch selected (i.e. `main`). Forking a branch will create a new one where you can make changes.
+
+</WrapContent>
+
+<WrapContent>
+
+## I can't log in to my account - what should I do?
+
+If you're having trouble logging in, fill out our [Support form](https://codesandbox.io/support) by picking "Account Management" and "Login Issues". This will ensure we prioritize your request.
+
+## How can I update my account's name and username?
+
+You can edit your name or username from your [Dashboard](https://codesandbox.io/dashboard/):
+
+1. Click your avatar at the top right.
+2. Click "User settings".
+3. Click "Edit" under "Account details".
+4. Make the necessary changes and click "Save".
+
+## How can I add team members to my workspace?
+
+To add a new member to your workspace:
+
+1. Click the "[Invite members](https://codesandbox.io/t/overview)" link shown at the left sidebar of your [Dashboard](https://codesandbox.io/dashboard/).
+2. Input the username or email you wish to add in the input box.
+3. Select the user role.
+4. Click "Add member".
+
+The user will receive an email invitation and in-app notification asking them to confirm.
+
+## How can I leave or delete a workspace?
+
+You can leave or delete a workspace from the "Overview" tab of your [Workspace Settings](https://codesandbox.io/t/overview), by clicking on "Leave workspace", or "Delete workspace", respectively.
+
+There are some cases where leaving a workspace is not permitted.
+1. You are the only workspace member with admin rights: Every workspace requires at least one admin member. Before you can leave the workspace, you must assign a new admin. 
+
+2. You are trying to leave the only workspace connected to your account: Every account must be associated with at least one workspace. If you want to leave the only workspace connected to your account, you may create a new workspace and then leave the workspace you want to be disassociated with. Alternatively, deleting your account will remove you from any workspaces that you are a member of. 
+
+## How can I change my account's email address?
+
+Updating an account's email address requires us first to validate account ownership.
+
+To validate your identity and request the email update, follow these steps:
+
+1. Log in to your existing CodeSandbox account. From the Dashboard, click your avatar at the top right, then "User settings", and note the username and email you see right next to your avatar in that new modal.
+
+2. Fill out our [Support form](https://codesandbox.io/support) by picking "Account Management" and "Change Email Address". In the text field, share the account's username and current email address.
+
+3. Send another email to support@codesandbox.io from your new email address while referencing your intention to update the account's email address (feel free to include your current account's email address in CC).
+
+These will be enough to verify your identity and allow us to update the email address.
+
+## How can I unsubscribe from your mailing lists?
+
+Every email we send includes an "Unsubscribe" link on its footer that allows you to unsubscribe from our communications. However, you can also globally unsubscribe from your [Dashboard](https://codesandbox.io/dashboard/):
+
+1. Click your avatar at the top right.
+2. Click "User settings".
+3. Click "Notifications"
+4. Turn off "Send me occasional news and product updates via email".
+
+## What happens if I delete my account?
+
+When you delete your CodeSandbox account, all your workspaces and any Sandboxes, Devboxes or repositories of which you are the author will be removed.
+
+## How can I delete my account?
+
+<Callout>
+If you have an active Pro subscription, make sure you [cancel it](/faq?tab=pro-subscription) before you delete your CodeSandbox account.
+</Callout>
+
+You can delete your account from your [Dashboard](https://codesandbox.io/dashboard/):
+
+1. Click your avatar at the top right.
+2. Click "User settings".
+3. Click "Request account deletion".
+
+## How can I exercise my right to be forgotten?
+
+Fill out our [Support form](https://codesandbox.io/support) by picking "Account Management" and "Data Deletion Request". In the text field, share the account's username and current email address, so we have proof of your ownership.
+
+</WrapContent>
+
+<WrapContent>
+
+## How can I edit my billing information?
+
+You can edit your billing information from the "Overview" tab of your [Workspace Settings](https://codesandbox.io/t/overview) by clicking on "Edit billing information", under "CodeSandbox Pro".
+
+## How can I add or update a billing contact?
+
+Workspace admins can assign a "Billing Manager" role to a workspace member. This role is cumulative with any other permission levels. Billing Managers will receive communications about billing and be able to manage the subscription.
+
+An admin can assign a Billing Manager from the "Overview" tab of your [Workspace Settings](https://codesandbox.io/t/overview):
+
+1. In the "Workspace members" list, click the `...` shown at the right of the corresponding username.
+2. Click "Manage membership".
+3. Tick the "Billing Manager" checkbox and save.
+
+## I'm having problems with my payment - how should I proceed?
+
+First, check if the payment method associated with your subscription has expired or is facing any issues.
+
+You can check or edit your payment methods from the "Overview" tab of your [Workspace Settings](https://codesandbox.io/t/overview) by clicking on "Edit billing information", under "CodeSandbox Pro".
+
+If everything seems to be in order but you're still having issues with the payment, fill out our [Support form](https://codesandbox.io/support) by picking "Pro Subscriptions" and "Payment Problems". This will ensure we prioritize your request.
+
+## Can I change my subscription?
+
+Yes, you can upgrade or downgrade your plan at any time from the settings page. 
+
+
+## How can I add more credits?
+
+You can add more credits from the "Plan & Billing" tab of your [Workspace Settings](https://codesandbox.io/t/billing):
+
+1. Click "Manage addons", under "Plan".
+2. Select the VM credit package(s) you'd like to purchase.
+3. Click "Next" and then "Confirm changes".
+
+## Can I keep my legacy per-user Pro plan?
+
+Absolutely! You can choose to keep your legacy Pro plan until further notice. In case we require any change to your subscription in the future, rest assured that we will give you two months’ notice so you can accommodate the changes. If you wish to upgrade, follow the steps shown in our [upgrade flow](https://codesandbox.io/upgrade).
+
+## How can I view my invoices?
+
+All your invoices will be automatically sent to the email address associated with your subscription. If, for some reason, you do not have access to those emails, you can request these invoices manually:
+
+1. Fill out our [Support form](https://codesandbox.io/support) by picking "Pro Subscriptions" and "More Information".
+2. In the text field, provide details about the subscription and additional information that serves as proof of your association to it (transaction ID, last four digits of credit card, date and amount of the last charge).
+3. Submit the request.
+
+Our Support team will analyze the request and get back to you.
+
+## What happens if I cancel my Pro subscription?
+
+When you cancel your CodeSandbox Pro subscription, it will be marked for cancellation at the end of your current billing period. This means you can keep using your Pro benefits until that date, after which the Pro subscription will not be renewed.
+
+## How can I cancel my Pro subscription?
+
+You can cancel your Pro subscription from the "Overview" tab of your [Workspace Settings](https://codesandbox.io/t/overview), by clicking on "Cancel Subscription", under "CodeSandbox Pro".
+
+## How can I get a refund?
+
+As specified in our [Terms of Service](https://codesandbox.io/legal/terms), we typically do not offer refunds. However, users in the EU or Turkey can [request](https://codesandbox.io/support) a refund within 14 days of their initial purchase.
+
+Please note that the refund option is no longer available if you've used up to 50 credits after your Pro subscription or add-on.
+
 </WrapContent>
 
 </Tabs>
