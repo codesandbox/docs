@@ -10,9 +10,5 @@
   "setting-up-vscode": {
     "title": "Getting started with VS Code",
     "href": "/learn/editors/vscode/setting-up-vscode"
-  },
-  "setting-up-ios": {
-    "title": "Getting started with iOS",
-    "href": "/learn/editors/ios/setting-up-ios"
   }
 }
