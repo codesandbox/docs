@@ -14,18 +14,12 @@ We generally recommend using Devboxes, which provide all the tooling needed for 
 
 Previously known as Cloud Sandboxes, Devboxes are a great way to work on any type of project, regardless of its language or size. Devboxes run [VMs](/learn/environment/vm) and leverage our memory snapshotting to spin up an environment in 1.5 seconds. They have built-in [Docker support](/learn/environment/docker) and include several valuable features, such as [AI](/learn/ai/overview), collaborative [Terminals](/learn/repositories/terminal), [Tasks](/learn/repositories/task), and [VS Code integration](/learn/getting-started/setting-up-vscode).
 
-<Callout>
-Devboxes are built for scale. Our Free plan includes generous VM specs but you can easily [start a Pro trial](https://codesandbox.io/pro) to improve them.
+<Callout type="info" emoji="ℹ️">
+Devboxes run on VM credits. Check out the [plans page](/learn/plans/subscriptions) to learn how these credits work.
 </Callout>
 
-## Creating a Devbox
-To create a new Devbox, you can clone a template from our ["Create Devbox"](https://codesandbox.io/d) modal. When clicking on a template, we create a fork (a copy) of the template and open the newly created sandbox in our web editor.
-
-## Difference between Devboxes & Sandboxes
-
-<Tabs tabs={["Devbox", "Sandbox"]}>
-<WrapContent> 
 ## What is a Devbox?
+
 Unlike Sandboxes that run on your browser, Devboxes run on our [VMs](/learn/environment/vm).
 
        Devboxes are great for prototyping any type of project in any programming language. They can run both backend and front-end services.
@@ -44,21 +38,7 @@ Unlike Sandboxes that run on your browser, Devboxes run on our [VMs](/learn/envi
        - Full integration with GitHub
 
        To configure a Devbox, you can read more about [tasks](https://codesandbox.io/docs/learn/repositories/task) and [Docker](https://codesandbox.io/docs/learn/environment/docker).
-    </WrapContent>
-<WrapContent>
-    ## What is a Sandbox?
-      When using Sandboxes, your code is evaluated and run in our built-in
-execution environment. These client environments run entirely inside of your browser and will continue to
-bundle your code even when you lose your connection to our servers.
 
-Sandboxes each have their own bundler attached to them which is
-configured to support a specific framework and emulate their official CLI tools.
-They are not one-to-one implementations and thus do not support advanced
-configuration like custom webpack configurations or ejecting. However, they are
-designed to mirror the default behavior of the framework.
+## Creating a Devbox
 
-If your project requires the use of a terminal or any additional advanced configuration like Docker, you can use a [Devbox](/learn/sandboxes/overview?tab=cloud) instead.
-
-</WrapContent>
-
-</Tabs>
+To create a new Devbox, you can clone a template from our ["Create Devbox"](https://codesandbox.io/d) modal. When clicking on a template, we create a fork (a copy) of the template and open the newly created sandbox in our web editor.
