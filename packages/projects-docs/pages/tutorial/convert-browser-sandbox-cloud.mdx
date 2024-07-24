@@ -5,56 +5,37 @@ description: Learn how to quickly convert CodeSandbox browser sandboxes into the
 
 # Convert a Sandbox into a Devbox
 
-CodeSandbox provides two different sandboxing environments you can use to quickly experiment with code, learn, prototype a project and share it with others: sandboxes and devboxes.
+CodeSandbox provides two different sandboxing environments you can use to quickly experiment with code, learn, prototype a project and share it with others: Sandboxes and Devboxes.
 
 Devboxes are part of our evolved CodeSandbox experience, so we now provide a way to easily convert existing browser sandboxes into this new experience.
 
 ## Why convert into a Devbox?
 
-Cloud and browser sandboxes are valuable tools for web development projects, but they have critical differences regarding their capabilities and limitations.
+Sandboxes and Devboxes are valuable tools for web development projects, but they have critical differences regarding their capabilities and limitations.
 
-[Browser sandboxes](/learn/sandboxes/editors?tab=browser), also known as client-side sandboxes, run directly within the user's web browser. Because they rely on browser features to provide environments for running code, they are lightweight and easy to use. Still, they do not provide the same level of scalability and isolation as virtualized environments since they rely heavily on the browser.
+[Sandboxes](/learn/sandboxes/editor-features) run directly within the user's web browser. Because they rely on browser features to provide environments for running code, they are lightweight and easy to use. Still, they do not provide the same level of scalability and isolation as virtualized environments since they rely heavily on the browser.
 
-In contrast, [Devboxes](/learn/sandboxes/editors?tab=cloud) use [microVMs](/learn/environment/vm) to provide an isolated and secure environment for running code. These microVMs are lightweight and optimized for running web applications, and they provide a more consistent and predictable environment for running code than browser sandboxes.
+In contrast, [Devboxes](/learn/devboxes/overview) use [VMs](/learn/environment/vm) to provide an isolated and secure environment for running code. These VMs are lightweight and optimized for running web applications, and they provide a more consistent and predictable environment for running code than Sandboxes.
 
-As a result, Devboxes get rid of several [limitations of sandboxes](/faq#are-there-any-limitations-with-sandboxes), while offering additional benefits when managing and scaling infrastructure. Namely, Devboxes can be easily scaled up or down to accommodate project needs, offering more resource allocation and management flexibility.
+As a result, Devboxes get rid of several [limitations of Sandboxes](/faq#are-there-any-limitations-with-sandboxes), while offering additional benefits when managing and scaling infrastructure. Namely, Devboxes can be easily scaled up or down to accommodate project needs, offering more resource allocation and management flexibility.
 
 Additionally, Devboxes are collaborative by default, allowing for easier collaboration among team members, as developers can easily share their code and collaborate in real time. This sets CodeSandbox apart from other cloud development tools.
 
 ### Feature comparison
 
 Besides the benefits presented above, there are some other noteworthy features that are only available in Devboxes:
+
 - built-in [Docker support](/learn/environment/docker)
 - support for any programming language (using Docker)
 - Boxy [AI assistant](/learn/boxy/overview)
 - collaborative [terminals](/learn/repositories/terminal) with `root` access
-- [VS Code integration](/learn/getting-started/setting-up-vscode)
+- [VS Code Desktop integration](/learn/getting-started/setting-up-vscode)
 - element inspector
 - [tasks](/learn/repositories/task)
+- [live sessions](/learn/devboxes/live-sessions)
 
-However, Devboxes currently do not offer feature parity to Sandboxes. The following Sandboxes features are currently not available in Devboxes:
-- deployment menu
-- live sessions
+## Convert a Sandbox to a Devbox
 
-## Convert into a Devbox via URL
+You can convert most Sandboxes into a Devbox by clicking the "Convert to Devbox" button at the top right of the Sandbox editor.
 
-There are several ways to convert a Sandbox into a Devbox. The first is from the URL.
-
-Usually, Sandboxes start with `https://codesandbox.io/s/`. To convert into Devbox, you can replace the prefix with `https://codesandbox.io/p/sandbox/`. This will automatically open up a Devbox.
-
-## Convert from the browser sandbox UI
-
-There are a few prompts for converting a sandbox in the browser sandbox UI.
-
-### Terminal tab
-
-If you want to access the terminal in the browser sandbox UI, we suggest you convert it into a Devbox since the experience is much better there.
-
-![Convert from terminal](/convert-from-terminal.png)
-
-### Sidebar icons
-
-In case you want to use some cloud-only features such as Docker, VS Code integration or AI, click the corresponding icon on the left sidebar. This will display a prompt allowing you to convert or fork the sandbox to get access to those features.
-
-![Convert from left sidebar](/convert-from-sidebar.png)
-
+![Convert Sandbox to Devbox](https://assets.codesandbox.io/images/convert-sandbox-to-devbox.jpg)
