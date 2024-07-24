@@ -8,7 +8,7 @@ import { Callout } from 'nextra-theme-docs'
 # Docker Integration
 
 <Callout type="warning" emoji="⚠️">
-We are in the process of deprecating this integration and shifting towards the Dev Containers specification. For more information about Dev Containers, please [click here](/learn/environment/devcontainers).
+We are in the process of deprecating this integration and shifting towards the Dev Containers specification. For more information about Dev Containers, see the [Dev Containers](/learn/environment/devcontainers) page.
 </Callout>
 
 CodeSandbox has a native integration with Docker. This means that you can use Docker to install any package you want, including databases and new languages. Additionally, with the Docker integration you have root access within your terminals, so you can install packages from the terminal as well.
@@ -45,7 +45,7 @@ To run additional services using the Docker Compose integration, you can create 
 
 To access these services, you have to expose the ports in the `docker-compose.yml` file using the `ports` attribute of the service.
 
-``` yaml filename=".codesandbox/docker-compose.yml"
+```yaml filename=".codesandbox/docker-compose.yml"
 services:
     nginx:
         image: nginx
@@ -61,4 +61,4 @@ You can use Docker commands in the terminal to exec into the containers started 
 
 Normally, you would define in your `Dockerfile` what the container should run when it boots. Since CodeSandbox has its own [task management system](https://codesandbox.io/docs/learn/repositories/task), we don't run commands defined in `Dockerfile` defined as `CMD`.
 
-Instead, we recommend to create a `.codesandbox/tasks.json`, and define your starting process from there. You can automatically do this by opening the command palette (CMD/Ctrl + Shift + P) and selecting "Generate task configuration". You can learn more about task configuration [here](https://codesandbox.io/docs/learn/repositories/tasks).
+Instead, we recommend to create a `.codesandbox/tasks.json`, and define your starting process from there. You can automatically do this by opening the command palette (CMD/Ctrl + Shift + P) and selecting "Generate task configuration". You can learn more about task configuration in the [Tasks](https://codesandbox.io/docs/learn/repositories/tasks) page.

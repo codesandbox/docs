@@ -1,6 +1,6 @@
 ---
 title: Editor Settings
-description: Overview of settings and configurations in editor
+description: Overview of settings and configurations of the CodeSandbox editor.
 ---
 
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
@@ -10,43 +10,43 @@ import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 <Tabs tabs={["Web", "Desktop"]}>
     <WrapContent>
         ## Web editor settings
-        Under the main menu you will find the editor settings. This view contains settings the editor and repository as well as management tools for environment variables and options to toggle on and off experiments. 
+        Under the main menu you will find the editor settings. This view contains settings for the editor and repository, management tools for environment variables, and options to toggle experiments on and off.
 
         ### Editor settings
 
         #### Codeium code completion
-        
-        Codeium code completion is turned on by default in most cases. If at any time you want to disable this feature, you can do so here.
+
+        Codeium code completion is turned on by default in most cases. If at any time you want to disable this feature, you can do so from this tab.
 
         #### VIM
-        
-        For all the VIM users, this setting enables the use of the command palette to control VIM
+
+        For all the VIM users, this setting enables the use of the command palette to control VIM.
 
         #### Pointer cursor
-        Enabled by default, this setting determines if the cursor shows as a pointer over interactive elements
+        Enabled by default, this setting determines if the cursor is displayed as a pointer over interactive elements.
 
         ![](../images/editor-settings.png)
 
         ### Repository settings
-        If developing on a repository, this settings panel provide option to 
-        * toggle Codeium code completion for the specific repository
-        * protect the current branch
-        * install the GitHub App - once installed this provides a live dev environment and preview for every PR
-        * manage default behavior for previews
+        If you are developing on a repository, this settings panel provides options to:
+        * Toggle Codeium code completion for the specific repository.
+        * Protect the current branch.
+        * Install the [GitHub App](/learn/integrations/github-app) - once installed, this provides a live dev environment and preview for every PR.
+        * Manage default behavior for previews.
 
         ![](../images/editor-settings-repo.png)
 
         ### Environment variables
-        This tab holds the environment variables set to a Devbox or Repository. 
-        Learn more about secret management [here](/learn/environment/secrets)
+        This tab holds the environment variables defined on the current Devbox or Repository.
+        See the [Environment variables page](/learn/environment/secrets) for additional details.
 
         ![](../images/editor-settings-env.png)
 
         ### Experiments
-        The product team will often launch experimental features as an opt-in experience. This tabs lists all the current experiments. You can toggle each these to explore what's cooking.  
+        The CodeSandbox product team often launches experimental features as an opt-in experience. This tabs lists all the current experiments. You can toggle each one to explore what's cooking.
 
 
-    
+
     </WrapContent>
     <WrapContent>
 
@@ -70,7 +70,7 @@ import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 
         ## VS Code setting sync
 
-        To sync your settings and keybindings between branches, you can enable VS Code Setting Sync. To learn more about how to set this up, you can check [here](https://code.visualstudio.com/docs/editor/settings-sync).
+        To sync your settings and keybindings between branches, you can enable VS Code Setting Sync. To learn more about how to set this up, you can check the [VS Code docs](https://code.visualstudio.com/docs/editor/settings-sync).
 
     </WrapContent>
 

@@ -12,14 +12,14 @@ CodeSandbox natively supports the Dev Containers specification. Dev Containers i
 For more information about the specification and configuration, please visit the [Dev Container website](https://containers.dev/). Here's an [example sandbox](https://codesandbox.io/p/sandbox/github/codesandbox/sandbox-templates/tree/main/docker) that is configured using Dev Containers.
 
 <Callout emoji="⭑">
-If you've previously configured containers using our legacy Docker integration, we recommend transitioning to Dev Containers. You can still [refer to the Docker integration documentation here](/learn/environment/docker).
+If you've previously configured containers using our legacy Docker integration, we recommend transitioning to Dev Containers. You can still refer to the [Docker integration documentation](/learn/environment/docker).
 </Callout>
 
 ## Configuring Dev Containers in CodeSandbox
 
 Configuring Dev Containers in CodeSandbox is similar to how you would in a local VSCode environment. If you already have a configuration, it should work seamlessly in CodeSandbox.
 
-Additionally, CodeSandbox offers an onboarding tool that simplifies the process of configuring Dev Containers through a user-friendly interface. You can find more details about this onboarding tool [here](/learn/repositories/getting-started/environment-setup).
+Additionally, CodeSandbox offers an onboarding tool that simplifies the process of configuring Dev Containers through a user-friendly interface. You can find more details about this onboarding tool on the [Environment setup](/learn/repositories/getting-started/environment-setup) page.
 
 CodeSandbox utilizes rootless [Podman](https://podman.io/) for running containers and relies on the [devcontainer/cli](https://github.com/devcontainers/cli) for building and managing Dev Containers.
 
@@ -33,11 +33,11 @@ Some properties within the Dev Container configuration may behave differently co
 - `portsAttributes`: CodeSandbox does not yet support this property. Ports are attached to tasks configured in .codesandbox/tasks.json and are attributed to the tasks.
 - `otherPortsAttributes`: CodeSandbox does not yet support this property.
 - `remoteUser`: CodeSandbox currently ignores this property and overrides this as root. CodeSandbox uses rootless Podman to run containers. Running with a non-root remote user is the same as running as a root remote user in rootless Podman, from a security perspective. CodeSandbox plans on supporting this in the future.
-- `shutdownAction`:	Does not apply to CodeSandbox.
+- `shutdownAction`: Does not apply to CodeSandbox.
 - `capAdd`: CodeSandbox does not support adding all capabilities. As the containers are run as a non-root user, capabilities that need root access will not work.
 - `features`: CodeSandbox automatically adds docker-cli to the container and connects to the host socket. Features like docker-in-docker and docker-outside-of-docker will work a bit differently. As the docker-cli and socket from host are accessible in the container, most use cases should work as expected.
-- `${localEnv:VARIABLE_NAME}`	Any	For CodeSandbox, the host is in the cloud rather than in your local machine.
-hostRequirements: CodeSandbox does not yet support this property.
+- `${localEnv:VARIABLE_NAME}` Any For CodeSandbox, the host is in the cloud rather than in your local machine.
+  hostRequirements: CodeSandbox does not yet support this property.
 
 ## Examples
 
