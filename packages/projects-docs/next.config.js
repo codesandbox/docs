@@ -583,6 +583,59 @@ module.exports = withNextra({
         destination: "/learn/devboxes/overview",
         permanent: false,
       },
+      /*
+           Redirects for switch to vs code editor
+      */
+      {
+        source: "/learn/editors/web/overview",
+        destination: "/learn/editors/web-interface",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/ios/overview",
+        destination: "/learn/editors/overview",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/vscode/overview",
+        destination: "/learn/editors/overview",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/ios/setting-up-ios",
+        destination: "/learn/editors/overview",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/ios/shortcuts",
+        destination: "/learn/editors/overview",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/vscode/overview",
+        destination: "/learn/editors/overview",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/web/overview",
+        destination: "/learn/editors/web-interface",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/web/commandpalette",
+        destination: "/learn/editors/web-interface",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/web/shortcuts",
+        destination: "/learn/editors/shortcuts",
+        permanent: false,
+      },
+      {
+        source: "/learn/editors/ios/setting-up-ios",
+        destination: "/learn/editors/overview",
+        permanent: false,
+      },
     ];
   },
 });
