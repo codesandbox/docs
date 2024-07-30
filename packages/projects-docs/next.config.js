@@ -636,6 +636,11 @@ module.exports = withNextra({
         destination: "/learn/editors/overview",
         permanent: false,
       },
+      {
+        source: "/learn/editors/themes",
+        destination: "/learn/editors/overview",
+        permanent: false,
+      },
     ];
   },
 });
