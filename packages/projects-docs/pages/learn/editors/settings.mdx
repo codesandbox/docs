@@ -1,0 +1,77 @@
+---
+title: Editor Settings
+description: Overview of settings and configurations of the CodeSandbox editor.
+---
+
+import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
+
+# Settings
+
+<Tabs tabs={["Web", "Desktop"]}>
+    <WrapContent>
+        ## Web editor settings
+        Under the main menu you will find the editor settings. This view contains settings for the editor and repository, management tools for environment variables, and options to toggle experiments on and off.
+
+        ### Editor settings
+
+        #### Codeium code completion
+
+        Codeium code completion is turned on by default in most cases. If at any time you want to disable this feature, you can do so from this tab.
+
+        #### VIM
+
+        This setting enables all VIM users out there to use the command palette to control VIM.
+
+        #### Pointer cursor
+        Enabled by default, this setting determines if the cursor is displayed as a pointer over interactive elements.
+
+        ![](../images/editor-settings.png)
+
+        ### Repository settings
+        If you are developing on a repository, this settings panel provides options to:
+        * Toggle Codeium code completion for the specific repository.
+        * Protect the current branch.
+        * Install the [GitHub App](/learn/integrations/github-app) - once installed, this provides a live dev environment and preview for every PR.
+        * Manage default behavior for previews.
+
+        ![](../images/editor-settings-repo.png)
+
+        ### Environment variables
+        This tab holds the environment variables defined on the current Devbox or Repository.
+        See the [Environment variables page](/learn/environment/secrets) for additional details.
+
+        ![](../images/editor-settings-env.png)
+
+        ### Experiments
+        The CodeSandbox product team often launches experimental features as an opt-in experience. This tabs lists all the current experiments. You can toggle each one to explore what's cooking.
+
+
+
+    </WrapContent>
+    <WrapContent>
+
+        ## Default workspace extensions
+
+        You can create the file `.vscode/extensions.json` in your repository to define the default extensions that should be installed for the repository. An example:
+
+        ```json
+        {
+        "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+        }
+        ```
+
+        This will make sure that Prettier and ESLint are installed whenever someone opens the branch in VS Code.
+
+        ## Default user extensions
+
+        In case you have any personal extensions that you want to have in every branch, you can define those in your VS Code settings under the setting id `remote.SSH.defaultExtensions`. To change this setting, you can open VS Code settings (`CMD/Ctrl + ,`) and search for `remote.SSH.defaultExtensions`.
+
+        You can copy your favourite VS Code extension ids, and put them in that setting. From then on, these extensions will be automatically installed in your branches.
+
+        ## VS Code setting sync
+
+        To sync your settings and keybindings between branches, you can enable VS Code Setting Sync. To learn more about how to set this up, you can check the [VS Code docs](https://code.visualstudio.com/docs/editor/settings-sync).
+
+    </WrapContent>
+
+</Tabs>

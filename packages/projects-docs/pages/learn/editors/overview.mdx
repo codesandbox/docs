@@ -1,63 +1,39 @@
-
 import { Tabs, WrapContent } from '../../../../../shared-components/Tabs'
 import { Callout } from 'nextra-theme-docs'
 
 # Editors
 
-We provider many alternatives for you to code. Each option is built to help you focus on what matters: getting the work done without friction.
+Productivity is key when working in an editor. For this reason, we have embedded our CodeSandbox features within the powerful and well loved VS Code.
+There are two editor versions to choose from - web and desktop. All Sandboxes and Devboxes open in the web editor by default. However, you can select your prefered editor when you open a new Devbox or import a repo.
 
-<Tabs tabs={["Web Editor", "VS Code", "iOS"]}>
+{/* ![Select editor](../images/editor-select-create.png) */}
 
-<WrapContent>
+## Web
 
-## Cloud Web Editor
+The web editor is a customized version of [VS Code for the web](https://code.visualstudio.com/docs/editor/vscode-web). This hybrid editor provides the familiarity and comfort of VS Code without leaving CodeSandbox.
+All CodeSandbox DevTools, such as previews, tasks, and shared terminals, are nested under the “CodeSandbox DevTools” panel on the left sidebar. From there, you can manage all these DevTools when needed, but most of these actions will still be performed automatically. For example, if your project has a task configured that runs the dev server on VM startup, it will automatically open the preview for you when you open the project.
 
-Introduced in 2022, the cloud web editor leverages the power of micro virtual machines to run project of any type and size. We recommend it as the first choice for daily development, reviewing code or quickly spinning up prototypes.
+![vs code web layout](../images/vscode-web-overview.png)
 
-[Learn more](/learn/devboxes/editors?tab=devbox)
+## Desktop
 
-## Browser Sandbox Editor
+VS Code Desktop offers the local VS Code experience with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
 
-Known and loved for years, this editor was built for rapid web development using only the power of the browser. Our cloud editor is gradually building out all the the features in placei in place within the browser editor. However, the browser editor remains available to everyone who still calls this home.
-
-[Learn more](/docs/learn/devboxes/editors?tab=sandbox)
-
-</WrapContent>
-
-<WrapContent>
-## Easily move between web and VS Code
-
-Any project running in a Devbox may also be run in VS Code. Work from your local environment with your own configurations and shortcuts whilst remaining connected to the CodeSandbox development environment.
-
-**Install the CodeSandbox VS Code extension and open any branch or Devbox directly in your VS Code editor.** 
+**Install the CodeSandbox VS Code extension and open any branch or Devbox directly in your VS Code editor.**
 
 [Install VS Code Extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects)
 
-## Opening a branch in VS Code
+## Which editor is right for you?
 
-![Open in vscode button](../images/getting-openvscode.jpg)
+Each editor brings its own benefits and drawbacks. Depending on the configuration you desire or the requirements of your project, you my find that one editor satisfies your needs more than the other.
 
-To start working in a branch on VS Code, open the branch in the Editor and click on the `Open in VS Code` button positioned in the bottom left corner. This will prompt you to install the CodeSandbox extension responsible for making the connection to our cloud development environment.
-
-### Learn more
-
-To get the most from your local setup, check our [VS Code Extension documentation](/learn/editors/vscode/overview).
-
-</WrapContent>
-
-<WrapContent>
-## Keep working in the iPad or iPhone
-
-![iOS-App](../images/iOS-iPad.jpg)
-
-<Callout emoji="ℹ️">
-The CodeSandbox for iOS app is currently not supported.
-</Callout>
-
-**CodeSandbox for iOS** is a fully native development environment that brings the power of modern software development to your iOS device. Use your iPhone or iPad to develop any kind of application or collaborate in real-time with others.
-
-[Go to the App Store](https://apps.apple.com/us/app/codesandbox/id1423330822)
-
-</WrapContent>
-    
-</Tabs>
+| Features              | Web                                                                                                                     | Desktop                                                                          |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Keybindings           | [CodeSandbox shortcuts](web/shortcuts)                                                                                  | [VS Code keybindings](https://code.visualstudio.com/docs/getstarted/keybindings) |
+| Extension marketplace | [Open VSX Registry](https://open-vsx.org/)                                                                              | [Microsoft marketplace](https://marketplace.visualstudio.com/vscode)             |
+| Layout                | Devtool panels have a default placement                                                                                 | Depends on personal configuration                                                |
+| Previews              | Running previews are listed in the Devtool panel                                                                        | Same as web                                                                      |
+| Tasks                 | Listed in Devtool extension                                                                                             | Same as web                                                                      |
+| Terminals             | Private terminals available in terminal panel, Shared terminals created from Devtool extension                          | Same as web                                                                      |
+| Github PRs            | Managed by th [Github extension](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) | Depends on personal configuration                                                |
+| Themes                | [Uses VS Code themes](https://code.visualstudio.com/docs/getstarted/themes)                                             | Same as web                                                                      |

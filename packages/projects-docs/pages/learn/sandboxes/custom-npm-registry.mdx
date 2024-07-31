@@ -11,14 +11,14 @@ import { Callout } from 'nextra-theme-docs'
 
 The custom private npm registry setting makes it possible for Sandboxes in your
 workspace portal to retrieve npm packages from your own npm registry. You can access the settings
-[here](https://codesandbox.io/dashboard/settings/npm-registry).
+[here](https://codesandbox.io/t/registry).
 
 ## Configuration
 
 You can configure your private npm registry in your
-[Team Settings](https://codesandbox.io/dashboard/settings/npm-registry).
+[Team Settings](https://codesandbox.io/t/registry).
 
-![Configuration Form](../images/custom-npm-registry.jpg)
+![Configuration Form](../images/npm-registry.jpg)
 
 ### Registry Host
 
@@ -54,7 +54,7 @@ needs `Bearer` auth.
 This is the token that we'll use to connect to your registry. This token is
 encrypted and stored in our database using an external key, we also don't share
 this key with anyone else who has access to your sandbox. Read more about that
-[here](#security).
+[below](#security).
 
 ### Specific Scopes
 

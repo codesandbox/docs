@@ -1,11 +1,11 @@
 ---
-title: Setting up VS Code
-description: With this guide, you'll learn how to get the most out of VS Code in CodeSandbox.
+title: Setting up VS Code Desktop
+description: With this guide, you'll learn how to get the most out of VS Code Desktop in CodeSandbox.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# Setting up VS Code
+# Setting up VS Code Desktop
 
 The CodeSandbox VS Code extension allows you to use VS Code to edit sandboxes and repositories on CodeSandbox.
 
@@ -13,7 +13,7 @@ This allows you to keep using your own extensions, keybindings and themes, while
 
 ## Getting Started
 
-1. If needed, install [Visual Studio Code](https://code.visualstudio.com/) for Windows *(7+)*, macOS *(10.11 +)*, or Linux.
+1. If needed, install [Visual Studio Code](https://code.visualstudio.com/) for Windows _(7+)_, macOS _(10.11 +)_, or Linux.
 2. Download and install the [CodeSandbox extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) for Visual Studio Code.
 3. Wait for the extension to finish downloading and then reload VS Code when prompted.
 4. Click on the CodeSandbox icon on the side menu and log in.
@@ -22,7 +22,7 @@ This allows you to keep using your own extensions, keybindings and themes, while
 <br/>
 ## How it works
 
-When you connect to your CodeSandbox account and open a branch, a virtual container is spun up with [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) to allow you to access your code. At the same time, a connection is established with a CodeSandbox API called Pitcher. This is the service that powers all of the collaboration features across different editors, including the web and mobile editors. 
+When you connect to your CodeSandbox account and open a branch, a virtual container is spun up with [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) to allow you to access your code. At the same time, a connection is established with a CodeSandbox API called Pitcher. This is the service that powers all of the collaboration features across different editors, including the web and mobile editors.
 
 It is possible to work on the SSH connection while disconnected from Pitcher, but you should be mindful that other team members may be making changes to your branch while you are in an un-synced state, so be sure to commit often.
 
@@ -30,7 +30,7 @@ It is possible to work on the SSH connection while disconnected from Pitcher, bu
 Only people on your CodeSandbox team have access to these repositories. 
 </Callout>
 
-So the VS Code extension connects directly to the container with an SSH connection, bypassing Pitcher, where it operates directly with the FileSystem.
+So, the VS Code extension connects directly to the container with an SSH connection, bypassing Pitcher, where it operates directly with the FileSystem.
 
 On top of this, we also connect to Pitcher, just like we do in the browser, where we "tie it together".
 
@@ -49,7 +49,7 @@ Once you open the branch, follow these steps:
 1. Click on the dropdown icon of the "Open in VS Code" button.
 1. In the dropdown menu, click on the "Open in VS Code Insiders" option.
 
-![Dropdown to select the Open in VS Code Insiders option](../../images/vs-code-insiders-open.jpg)
+![Dropdown to select the Open in VS Code Insiders option](../images/vscode-desktop-open.png)
 
 <br/>
 ### In the command palette
@@ -58,7 +58,7 @@ Once you open the branch, follow these steps:
 1. Type "insiders" into the command palette prompt;
 1. Under the "Integrations" section, click on the "Open in VS Code Insiders" option.
 
-![Choosing Open in VS Code Insiders from the command palette](../../images/vscode-insiders-command-palette.jpg)
+![Choosing Open in VS Code Insiders from the command palette](../images/vscode-insiders-command-palette.jpg)
 
 <br/>
 ### Preferences
@@ -66,7 +66,3 @@ Once you open the branch, follow these steps:
 CodeSandbox will remember your choice of IDE and will use it as the default button action next time you wish to open your project in Visual Studio Code.
 
 You can reset your choice at any time by selecting a different option from the "Open in VS Code" dropdown menu.
-
-## VS Code Tips and Tricks
-
-To get the most out of VS Code, like automatic extension installation, we recommend you to follow these [tips and tricks](/learn/getting-started/setting-up-repository#vs-code-configuration).

@@ -1,6 +1,8 @@
 {
   "overview": "Overview",
-  "web": "Web",
-  "ios": "iOS",
-  "vscode": "VS Code"
+  "web-interface": "Web interface",
+  "desktop-interface": "Desktop interface",
+  "desktop-setup": "Desktop setup",
+  "shortcuts": "Keybindings",
+  "settings": "Settings"
 }
