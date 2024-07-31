@@ -547,11 +547,21 @@ module.exports = withNextra({
       },
       {
         source: "/learn/boxy/faqs",
-        destination: "/learn/ai/faqs",
+        destination: "/learn/ai/getting-started",
         permanent: false,
       },
       {
         source: "/learn/boxy/getting-started",
+        destination: "/learn/ai/getting-started",
+        permanent: false,
+      },
+      {
+        source: "/learn/ai/boxy",
+        destination: "/learn/ai/codeium",
+        permanent: false,
+      },
+      {
+        source: "/learn/ai/faq",
         destination: "/learn/ai/getting-started",
         permanent: false,
       },
