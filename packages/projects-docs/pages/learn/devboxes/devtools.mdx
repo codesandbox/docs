@@ -1,57 +1,30 @@
 ---
-title: DevTools - The Basics
-description: 
+title: DevTools
+description: Learn how CodeSandbox DevTools work and how they can be useful to boost your productivity.
 ---
 
 import { Callout } from 'nextra-theme-docs'
-import Video from '../../../../../shared-components/Video'
 
 # DevTools
+
+The CodeSandbox DevTools panel aggregates a series of tools that allow you to work faster and more efficiently. Among these tools, you will find Previews, Tasks and Shared Terminals.
  
-DevTools allow you to work faster and more efficiently. They are useful for debugging, testing, and developing. They are collaborative by default, allowing you to share their content: a terminal output, a preview error, a console log...
+![CodeSandbox DevTools](../images/devtools.jpg)
 
- 
-<Video src="../../devtools-management.mp4" />
+## Previews
+Any [previews](./preview) associated with your project, namely those spun up by tasks, will be accessible in a port listed under `Previews` in the DevTools tab. Each preview will show a tag next to it to identify its associated task, or show `Unconfigured` if no task is tied to it.
 
-Add as many DevTools as you want. Each one lives in its own tab and each tab can be moved around, reordered or dropped into another tab to split the view.
+Clicking on a listed preview will open it on the right side of the editor.
 
-When a tab is closed, the layout will re-arrange to fill up all the available space. Your layout is persisted in the browser, so you will see the same DevTools when you come back later to your VM.
-
-<Callout emoji="→">
-Closing a DevTool will not stop it—it will keep running in the background. If you want to stop the process, you must select the option `Close and stop` from the dropdown menu `...`. 
+<Callout emoji="💡">
+You can also see the list of ports in the terminal panel under the `Ports` tab at the bottom of the editor.
 </Callout>
 
-## Open a DevTool
+## Tasks
 
-There are three main ways to open a new DevTool:
+[Tasks](./task) set in the `tasks.json` file will be listed in the DevTools tab. This lists all the configured tasks and allow you to run, stop or restart them. Any tasks that are running will display a `Running...` tag next to them.
 
-1. Clicking on the `+` sign on the right side of any tabbed panel. This presents a list of available DevTools—and clicking on any DevTool will open it in the current tab.
-2. Double-clicking anywhere between the tabs and the `+` button.
-3. Pressing <kbd>Cmd/Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>.
+## Shared Terminals
+Any active shared terminals will be listed under `Shared Terminals` in the DevTools tab. These are a specific type of [terminal](./terminal) that is managed by Pitcher, which means that other users with access to the project can see them.
 
-
-## DevTools configuration
-
-You can control the name and position of your DevTools, as well as define which DevTools run when you open the Web Editor. Check the [Tasks](./task) documentation for more information on how to configure the DevTools.
-
-<Callout emoji="⭑">
-Setting up the DevTools makes it easier for non-developers to access and run your project.
-</Callout>
-
-## Available DevTools
-
-- **[Preview](./preview)**
-- **[Task](./task)**
-- **[Terminal](./terminal)**
-- **VM resource usage**
-- **Debug ([Chrome DevTools](https://developer.chrome.com/docs/devtools/))**
-
-We are working on supporting other DevTools in the future, which may include:
-
-- Test runner UI
-- Viewing / editing [Design Tokens](https://css-tricks.com/what-are-design-tokens/) in a project
-- Viewing components in isolation and changing their props from a UI
-- [Postman](https://www.postman.com/) integration
-- Bundle size analyzer
-
-If you would like to collaborate on building a DevTool, please select 'something else' on our [support form](https://codesandbox.io/support) and get in touch!
+From this tab, you can also create new shared terminals, which will open in the Terminal tab at the bottom of the editor.

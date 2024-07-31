@@ -1,13 +1,13 @@
 {
   "index": "Introduction",
   "guides": "Getting Started",
+  "editors": "Editors",
   "-- cloud-development": {
     "type": "separator",
     "title": "Cloud Development"
   },
   "repositories": "Repositories",
   "devboxes": "Devboxes",
-  "editors": "Editors",
   "ai": "AI",
   "environment": "Environment",
   "integrations": "Integrations",

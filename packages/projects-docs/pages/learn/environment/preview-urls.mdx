@@ -19,7 +19,7 @@ This is different compared to working on your local machine, where the dev serve
 
 ## Automatic Proxy
 
-We're injecting code automatically in the preview to proxy `localhost:3000` and similar requests coming from the preview (e.g. your frontend code) to the right hostname. You can learn more about that [here](https://codesandbox.io/docs/learn/devboxes/preview).
+We're injecting code automatically in the preview to proxy `localhost:3000` and similar requests coming from the preview (e.g. your frontend code) to the right hostname. You can learn more about that in the [Preview](https://codesandbox.io/docs/learn/devboxes/preview) page.
 
 ## Generating preview URLs
 
@@ -108,7 +108,8 @@ When you create a live clone of a VM, its environment variables will not update 
 
 Let's say you have a server using `CODESANDBOX_HOST` running in the `main` branch, and you create a new branch by cloning the VM of the `main` branch. The cloned branch will still use the old `CODESANDBOX_HOST`. You'd have to restart the server to get the new version.
 
-You can do this automatically by setting `"restartOn": { "branch": true }` for the server task. You can learn more about this [here](/learn/repositories/task#tasks-configuration).
+You can do this automatically by setting `"restartOn": { "branch": true }` for the server task. You can learn more about this on the [Tasks](/learn/repositories/task#tasks-configuration) page.
+
 </Callout>
 
 Generally we recommend to use `hostname` instead of environment variables, as using environment variables requires restarting the task on every fork.

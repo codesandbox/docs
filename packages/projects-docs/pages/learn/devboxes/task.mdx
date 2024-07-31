@@ -1,35 +1,29 @@
 ---
 title: Task
-description: Learn how you can use tasks to run commands with a click or on setup.
+description: Learn how you can use CodeSandbox tasks to run commands with a click or on setup.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
 # Task
 
-![CodeSandbox Task](../images/devtools-cover-tasks.jpg)
+Tasks allow you to define commands (like `yarn start`) that can run at specific moments, such as during the project's setup, at a VM's startup, or when they are manually run. These tasks are shared between all the clients connected to the project where they're configured.
 
-Tasks allow you to define commands (like `yarn start`) that you can run in a single click or on setup. These tasks are shared between all the clients connected to that branch.
+You can use tasks for multiple purposes. The most common ones include:
+- installing the project's dependencies at the VM's startup.
+- running a preview.
+- running a linter.
+- running tests.
 
-## Adding a new task
+Note that tasks are only supported in our VM environments (Devboxes and repositories).
 
-To add a new task and make it available from the menu, go to the DevTools dropdown, select `Tasks` and click on `New Task`. This will open the command palette where you can type the desired command and press enter. 
+## Default configuration
 
-<Callout emoji="⭑">
-To make a task available on all branches, you need to commit and merge `tasks.json` to main.
-</Callout>
+By default, CodeSandbox tries to infer scripts from the `package.json` file in your project's root folder. In addition, you can always use the _Environment setup_ DevTool to set any shell script to run your projects.
 
-<br/>
-<br/>
-# Configuring tasks
+## Adding and configuring tasks
 
-CodeSandbox Repositories can be configured through the `.codesandbox/tasks.json` configuration file in your repository. This file defines the steps to set up VMs and configures the running commands inside the workspace (webservers, Docker containers, tests, etc.).
-
-<Callout emoji="⭑">
-Checking these files into version control is recommended to ensure that every collaborator has a similar editing experience. This configuration can be tracked and additional changes can be made to specific branches. In addition, once the file is merged into your main branch, every new branch will follow the same configuration.
-</Callout>
-
-This is an example of a configuration:
+Tasks are specified in the `.codesandbox/tasks.json` configuration file in your project. Below is an example of a configuration:
 
 ```json
 {
@@ -49,11 +43,13 @@ This is an example of a configuration:
 }
 ```
 
-## Default configuration
+To add a new task, create a new entry in the `tasks` array as exemplified above. 
 
-By default, CodeSandbox Repositories tries to infer scripts from the `package.json` file in your Repositories' root folder. In addition, you can always use the environment setup devtool to set any shell script to run your repositories.
+<Callout emoji="💡">
+Checking these files into a repository's version control is recommended to ensure that every collaborator has a similar editing experience. This configuration can be tracked and additional changes can be made to specific branches. In addition, once the file is merged into your main branch, every new branch will follow the same configuration.
+</Callout>
 
-## Setup tasks
+### Setup tasks
 
 Setup tasks are an array of commands that will run sequentially before the workspace is ready to start your application. If no value is provided, `installing dependencies` will be the default task (CodeSandbox will detect which package manager you use).
 
@@ -73,50 +69,11 @@ Setup tasks are an array of commands that will run sequentially before the works
 }
 ```
 
-## Tasks configuration
-
-Tasks are scripts that can be run inside your repository. In many cases, these will call the scripts in your `package.json`, but they can also be used to run other executables.
-
-```json
-{
-  "$schema": "https://codesandbox.io/schemas/tasks.json",
-  "tasks": {
-    // Task ID is used to uniquely identify each task, we use it to
-    // keep track of the task even if the command changes
-    "<task-id>": {
-      "name": "Install Dependencies", // this is shown in the UI
-      "command": "yarn", // the command to run in a shell
-      "restartOn": {
-        "files": ["yarn.lock", "**/package.json"], // File globs that trigger this task to restart
-        "branch": true, // restart this task when creating a new branch/fork
-      }
-    },
-    "<other-task-id>": {
-      "name": "Build Repository",
-      "command": "yarn build"
-    },
-    "dev-server": {
-      "name": "Start Dev Server",
-      "command": "yarn dev",
-      // With the `preview` field set, the GitHub App will also add a link
-      // to that preview to PRs, and it will become part of a GitHub
-      // deployment:
-      "preview": {
-        "port": 4000,
-        "prLink": "direct"
-      }
-    }
-  }
-}
-```
-
-The task ID does not appear on the UI, since each task has a display name configured alongside the command it runs.
-
 ### Configuring task ports
 
-Tasks can have their ports assigned. Normally we try to automatically detect ports assigned to a task, but there are three advantages to defining them manually using the `preview` field:
+You can assign ports to tasks. Normally we try to automatically detect ports assigned to a task, but there are three advantages to defining them manually using the `preview` field:
 
-1. We'll automatically eagerly a preview for this port when opening the sandbox.
+1. We'll automatically eagerly a preview for this port when opening the project.
 2. If the port is not opened, and you try to open it using our preview, we give the option to open the task assigned to the port.
 3. The [GitHub App](/learn/integrations/github-app) will automatically add the link to the preview in a comment for every pull request, and we'll create deployments for them.
 
@@ -147,6 +104,9 @@ Here's an example:
   }
 }
 ```
+
+## Manually running, stopping and restarting tasks
+The [DevTools](./devtools) panel lists all tasks and allows you to manually run, stop and restart a task (these options are shown when you hover any given task from the displayed list).
 
 ## Examples
 
