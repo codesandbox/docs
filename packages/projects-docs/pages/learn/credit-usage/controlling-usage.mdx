@@ -17,27 +17,36 @@ Making Devboxes private allows workspace admins to have finer control over total
 
 ## Templates
 
-VM runtime for templates is covered by CodeSandbox. By setting a Devbox as a template, you can share your work without worrying about the costs associated with non-workspace users running your Devbox. 
-Once a Devbox is in a template state, it cannot be edited. If you want to continue making changes to the Devbox, you will need to switch it back out of template mode. 
+VM runtime for templates is covered by CodeSandbox. By setting a Devbox as a template, you can share your work without worrying about the costs associated with non-workspace users running your Devbox.
+Once a Devbox is in a template state, it cannot be edited. If you want to continue making changes to the Devbox, you will need to switch it back out of template mode.
 
 ## VM settings
 
-Each workspace has a range of VM sizes to choose from. The range of options varies depending on the subscription tier of the workspace. 
+Each workspace has a range of VM sizes to choose from. The range of options varies depending on the subscription tier of the workspace.
 By default, all Devboxes and repositories will run on [Micro](/learn/credit-usage/credits). The default VM size can be changed on the VM [settings page](https://codesandbox.io/t/vm_settings) in the workspace portal.
 
 ![VM settings page](../images/vm-settings.png)
 
-Individual Devboxes or repositories can be set to run on VMs other than the default. 
+Individual Devboxes or repositories can be set to run on VMs other than the default.
 To set the VM of a Devbox or repositority, you can create a rule. This helps ensure that heavy compute projects get the power they need without increasing VM usage across the other projects.
 
 ![VM Rule](../images/vm-rule.png)
 
+## VM Hibernation
+
+Each individual VM can be manually hibernated at any time from the editor:
+
+1. Click the CodeSandbox icon at the top left.
+2. Click "Hibernate VM".
+
+![Hibernate VM](../images/hibernate-vm.jpg)
 
 ## Spending limit
-On-demand credits will never exceed the spending limit. 
+
+On-demand credits will never exceed the spending limit.
 Once subscription credits are used, the VMs will start running on on-demand credits. These credits will be aggregated and added to the end-of-month invoice.
 
-Every Pro workspace is required to have a maximum spending limit to ensure that there are no surprise bills at the end of the billing cycle. 
-The spending limit is initially set during the Pro subscription check-out flow. Workspace admins can adjust this spending limit in the workspace portal at any time. 
+Every Pro workspace is required to have a maximum spending limit to ensure that there are no surprise bills at the end of the billing cycle.
+The spending limit is initially set during the Pro subscription check-out flow. Workspace admins can adjust this spending limit in the workspace portal at any time.
 
 Once the on-demand credits hit that limit, all Devboxes and Repositories will enter a [frozen state](/learn/plans/pricing-faq#my-devbox-or-repository-is-frozen-what-does-that-mean) until more credits have been added or the next billing cycle begins.
