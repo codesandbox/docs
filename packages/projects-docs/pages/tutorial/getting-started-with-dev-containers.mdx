@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Getting started with Dev Containers
 
-CodeSandbox natively supports the Dev Containers specification. Dev Containers is an open specification for configuring and running containers in development environments. With Dev Containers, you can set up your development environment using existing container images or build your own using a custom Dockerfile. You can also run additional services like databases and caches using Docker Compose. Dev Containers also allows you to add features on top of the container, enhancing your development environment without the need to modify the Dockerfile or the base image.
+CodeSandbox natively supports the Dev Containers specification. Dev Containers is an open specification for configuring and running containers in development environments. With Dev Containers, you can set up your development environment using existing container images or build your own using a custom Dockerfile. You can also run additional services like databases and caches using Docker Compose. Dev Containers also allow you to add features on top of the container, enhancing your development environment without the need to modify the Dockerfile or the base image.
 
 For more information about the specification and configuration, please visit the [Dev Container website](https://containers.dev/).
 
@@ -38,7 +38,7 @@ This action will stop any active terminals or tasks and subsequently restart the
 
 ### 3. Run a terminal to verify the Node version
 
-Once the stup tasks have been completed, you can open a terminal and execute the following command.
+Once the setup tasks have been completed, you can open a terminal and execute the following command.
 
 ```sh
 node --version
@@ -95,7 +95,7 @@ Now, we need to modify the `.devcontainer/devcontainer.json` configuration to in
 
 Now, after restarting and rebuilding the containers, both `strace` and PHP should be installed in the Dev Container.
 
-### 6. Running additional service with Docker Compose
+### 6. Running additional services with Docker Compose
 
 We can run additional services such as Redis so that the Dev Container we configured earlier can connect to them. To achieve this, we will create a file `.devcontainer/docker-compose.yml` with configurations for the workspace and Redis services.
 
