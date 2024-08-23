@@ -27,3 +27,16 @@ When you press `Create Branch`, we automatically create a new branch and set up 
 <Video src="../../repo-branching.mp4" />
 
 If you are looking at someone’s PR and want to quickly test a suggestion, simply click `Create Branch`, write the code and share a link to your changes. If you’re happy with the changes, merge that into the existing PR. All of this in under a minute.
+
+## Understanding repository imports
+
+CodeSandbox handles imported repositories on a per-workspace basis. This means that the changes made to a repository in one workspace will only be visible to users within that workspace until those changes are synced with GitHub. 
+
+Because of the repository access permissions within a workspace, the following scenarios apply:
+
+- When a repository gets imported to a workspace, that version of the repo can only be accessed by the workspace team members.
+- When a repository gets opened as a public repo, the user opening it will get the public version of the repo, which is a standalone, read-only version that might not match up with a version of the same repo that has been imported to a workspace.
+
+At any given time, you can switch through the different available versions of the CodeSandbox repository by clicking the chevron icon next to the repo name on the top bar of the editor and then selecting a workspace under "Change workspace", as shown below.
+
+![Changing the workspace of a repository](../images/repo-change-workspace.jpg)
