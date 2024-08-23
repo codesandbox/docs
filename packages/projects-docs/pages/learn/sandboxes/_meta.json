@@ -5,5 +5,9 @@
   "cli-api": "CLI & API",
   "embedding": "Embedding",
   "custom-npm-registry": "Custom NPM Registry",
+  "synced-templates": {
+    "title": "Synced Templates",
+    "href": "/learn/devboxes/synced-templates"
+  },
   "faq": "FAQ"
 }

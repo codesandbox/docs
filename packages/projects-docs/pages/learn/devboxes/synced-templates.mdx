@@ -20,19 +20,22 @@ Synced templates are [templates](https://codesandbox.io/docs/learn/devboxes/temp
 
 CodeSandbox also has [Repositories](https://codesandbox.io/docs/learn/repositories/overview), which are also imported from GitHub repositories. However, there is a key difference between synced templates and repositories.
 
-Repositories are meant for working on a repository. We introduce a workflow to create new branches and pull requests. Synced templates allow you to create a sandbox template from a repository (or folder), and are meant to be used as a template for new sandboxes (or for sharing as an example with others).
+Repositories are meant for working on a repository. We introduce a workflow to create new branches and pull requests. Synced templates allow you to create a Devbox/Sandbox template from a repository (or folder), and are meant to be used as a template for new projects (or for sharing as an example with others).
 
 A good rule of thumb is that if you want to work on a repository, you should import a repository. If you want to create a template from a repository, you should create a synced template from a GitHub repository.
 
 ## Creating a synced template
 
-A synced template URL is essentially the same as the GitHub URL, but `github.com` is replaced with `codesandbox.io/p/devbox/github`. Because of this, you can go to your GitHub repository, and replace `github.com` with `codesandbox.io/p/devbox/github` to create a synced template. We have also introduced three helpers to do this more easily:
+A synced template runs code from a GitHub branch in CodeSandbox and keeps the changes synced with remote. A synced template can either be a Sandbox or a Devbox. You can tell the difference by the way the URL is constructed:
 
-https://codesandbox.io/p/devbox/github/withastro/astro/main/examples/blog
+- A synced template as a Devbox will look something like this: `codesandbox.io/p/devbox/github`.
+- A synced template as a Sandbox will look something like this: `codesandbox.io/p/sandbox/github`.
+
+As explained below, you can create synced templates directly from the GitHub URL or through our GitHub importer tool.
 
 ### Directly from the GitHub URL
 
-First, visit the GitHub repository or folder from which you want to create a synced template. The URL should look something like `https://github.com/owner/repo` for a repository and `https://github.com/owner/repo/tree/main/folder` for a folder.
+First, visit the GitHub repository or folder from which you want to create a synced template. The URL should look like `https://github.com/owner/repo` for a repository and `https://github.com/owner/repo/tree/main/folder` for a folder.
 
 Then, replace `github.com` with `githubbox.com` and press Enter.
 
@@ -40,7 +43,7 @@ This will redirect you to a URL that looks like `https://codesandbox.io/p/devbox
 
 ### Using our GitHub importer
 
-Go to our ["New Sandbox" modal](https://codesandbox.io/s) and click on the "Import template" button. Enter the GitHub URL you want to import in the input field and press "Open URL". This will redirect you to the location of the synced template.
+Go to our ["Repo Import" modal](https://codesandbox.io/dashboard?import_repo=true) and click on "Import template". Enter the GitHub URL you want to import in the input field and press "Open URL". This will redirect you to the location of the synced template.
 
 ### Using a Browser Extension
 
@@ -81,8 +84,10 @@ After you've created this file and opened the synced template at least once, you
 
 ## VM behavior of synced templates
 
-For our [Devboxes](https://codesandbox.io/docs/learn/sandboxes/overview?tab=cloud), we run your sandbox in a microVM. We try to automatically detect from your repository contents whether your project is more suited for a Devbox than a browser sandbox. To force the template to load as a Devbox, you can create a `.devcontainer/devcontainer.json` file in your repository. This file should contain a valid [Devcontainer configuration](https://codesandbox.io/docs/learn/environment/devcontainers) that we'll use to build your Devbox.
+We try to automatically detect from your repository contents whether your project is more suited for a Devbox (which runs in a VM) than a Sandbox (which runs on the browser).
 
-We use memory snapshotting to resume a VM quickly when someone visits it. To ensure that visitors of your sandbox will always get the latest contents of your GitHub repository, we base the memory snapshot on the latest commit of your repository or folder.
+To force the template to load as a Devbox, you can create a `.devcontainer/devcontainer.json` file in your repository. This file should contain a valid [Dev Container configuration](https://codesandbox.io/docs/learn/environment/devcontainers) that we'll use to build your Devbox.
 
-This means that if you create a new commit in your repository, we will discard the memory snapshot of the synced template and will start the sandbox from scratch on next visit. During the VM boot, we will download the latest file contents from the repository. This ensures that visitors to your sandbox will always get the latest contents of your GitHub repository, but it also means that the first visit of your sandbox after a commit can be slower than usual (only for memory; we do still keep the filesystem between invalidations).
+We use memory snapshotting to resume a VM quickly when someone visits it. To ensure that visitors of your Devbox will always get the latest contents of your GitHub repository, we base the memory snapshot on the latest commit of your repository or folder.
+
+This means that if you create a new commit in your repository, we will discard the memory snapshot of the synced template and will start the Devbox from scratch on next visit. During the VM boot, we will download the latest file contents from the repository. This ensures that visitors to your Devbox will always get the latest contents of your GitHub repository, but it also means that the first visit of your Devbox after a commit can be slower than usual (only for memory; we do still keep the filesystem between invalidations).
