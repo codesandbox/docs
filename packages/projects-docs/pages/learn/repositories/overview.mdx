@@ -30,7 +30,7 @@ If you are looking at someone’s PR and want to quickly test a suggestion, simp
 
 ## Understanding repository imports
 
-CodeSandbox handles imported repositories on a per-workspace basis. As a result, any given repository may exist in different states if it has been imported to multiple CodeSandbox workspaces. Additionally, the public version of a repository will always have its own, independent state.
+CodeSandbox handles imported repositories on a per-workspace basis. This means that the changes made to a repository in one workspace will only be visible to users within that workspace until those changes are synced with GitHub. 
 
 Because of the repository access permissions within a workspace, the following scenarios apply:
 
