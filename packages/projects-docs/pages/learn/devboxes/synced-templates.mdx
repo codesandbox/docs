@@ -26,20 +26,12 @@ A good rule of thumb is that if you want to work on a repository, you should imp
 
 ## Creating a synced template
 
-A synced template URL is essentially the same as the GitHub URL, but `github.com` is replaced with a CodeSandbox path.
+A synced template runs code from a GitHub branch in CodeSandbox and keeps the changes synced with remote. A synced template can either be a Sandbox or a Devbox. You can tell the difference by the way the URL is constructed:
 
-We use some heuristics to detect if a given repository should be opened as a synced Sandbox or a synced Devbox.
+- A synced template as a Devbox will look something like this: `codesandbox.io/p/devbox/github`.
+- A synced template as a Sandbox will look something like this: `codesandbox.io/p/sandbox/github`.
 
-In a nutshell:
-
-- To create a synced template as a Devbox, `github.com` is replaced with `codesandbox.io/p/devbox/github`.
-- To create a synced template as a Sandbox, `github.com` is replaced with `codesandbox.io/p/sandbox/github`.
-
-For example, the following URL will open a synced template as a Devbox for the Astro Blog examples folder:
-
-`https://codesandbox.io/p/devbox/github/withastro/astro/main/examples/blog`
-
-We have also introduced three helpers to make it easier to create synced templates, as described below.
+As explained below, you can create synced templates directly from the GitHub URL or through our GitHub importer tool.
 
 ### Directly from the GitHub URL
 
