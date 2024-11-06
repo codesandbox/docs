@@ -1,0 +1,9 @@
+{
+    "index": "Introduction",
+    "guides": "Getting Started",
+  "pricing": "Pricing",
+  "-- cloud-development": {
+    "type": "separator",
+    "title": "API Reference"
+  }
+}

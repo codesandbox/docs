@@ -1,6 +1,10 @@
 {
+  "sdk": {
+    "title": "SDK",
+    "type": "page"
+  },
   "learn": {
-    "title": "Documentation",
+    "title": "Editor",
     "type": "page"
   },
   "tutorial": {
