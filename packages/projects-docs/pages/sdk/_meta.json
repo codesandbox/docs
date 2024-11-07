@@ -1,9 +1,25 @@
 {
-    "index": "Introduction",
-    "guides": "Getting Started",
-  "pricing": "Pricing",
-  "-- cloud-development": {
+  "index": "Introduction",
+  "getting-started": "Getting Started",
+  "support": "Support",
+
+  
+  "-- api-reference": {
     "type": "separator",
     "title": "API Reference"
-  }
+  },
+  "sandboxes": "Sandboxes",
+  "filesystem": "File System",
+  "commands": "Commands",
+  "specs": "Specs",
+  "error-codes": "Error Codes",
+
+  "-- resources": {
+    "type": "separator",
+    "title": "Resources"
+  },
+  "pricing": "Pricing",
+  "use-cases": "Use Cases",
+  "examples": "Example Apps",
+  "faq": "FAQ"
 }
