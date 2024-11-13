@@ -10,7 +10,7 @@ import Hero from "../../../../shared-components/Hero.js";
   subtitle="Programmatically spin up development environments"
 />
 
-CodeSandbox SDK provides an API you can use to quickly create and run isolated development environments quickly and securely to run untrusted code.
+CodeSandbox SDK (beta) provides an API you can use to quickly create and run isolated development environments quickly and securely to run untrusted code.
 
 Under the hood, the SDK uses the microVM infrastructure of CodeSandbox to spin up sandboxes. It supports:
 
@@ -24,15 +24,21 @@ Under the hood, the SDK uses the microVM infrastructure of CodeSandbox to spin u
 ## In a nutshell
 
 ```js
+// 1. Server
 import { CodeSandbox } from "@codesandbox/sdk";
 
 // Create an isolated environment
 const sdk = new CodeSandbox(token);
-const sandbox = await sdk.createSandbox();
+const sandboxInstance = await sdk.sandbox.fork("9qputt");
+```
+
+```js
+// 2. Browser
+import { connectToSandbox } from "@codesandbox/sdk/browser";
+
+// Safely connect sandbox instance in the browser
+const sandbox = await connectToSandbox(sandboxInstance)
 
 // Run any server script
 await sandbox.shells.python.run("print(1+1)");
-
-// End the session (resume it whenever you want)
-await sandbox.hibernate();
 ```

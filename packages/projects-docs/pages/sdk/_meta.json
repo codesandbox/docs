@@ -1,8 +1,12 @@
 {
   "index": "Introduction",
   "getting-started": "Getting Started",
-  "support": "Support",
 
+  "contact": {
+    "title": "Contact Us",
+    "href": "https://codesandbox.io/support#form",
+    "newWindow": true
+  },
   
   "-- api-reference": {
     "type": "separator",
