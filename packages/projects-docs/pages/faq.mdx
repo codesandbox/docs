@@ -32,6 +32,10 @@ There are several ways to set a sandbox as private. One universal way (that work
 
 You can also change the privacy settings from the editor. Click the _Share_ button on the top right and change the privacy drop-down at the top.
 
+## When should I mark my Sandbox as "protected"?
+
+Nobody outside your workspace can edit your Sandboxes, they can only fork it. However, in cases where you want to ensure that even workspace members cannot edit the Sandbox (which could be the case for finished projects), you can mark it as "protected" so it is not accidentally edited.
+
 ## I'm getting a 422 error when importing from GitHub, why?
 
 There are a few possible reasons a repo might throw that error on import. The
@@ -41,6 +45,10 @@ more than 500 modules (files).
 If you think it's something else, or you're unable to solve this yourself, then [get in touch using our support form](https://codesandbox.io/support#form)
 and provide a link to the repo you're importing and we can look into this for
 you.
+
+## I'm getting a CORS error when triggering a request to a Devbox URL, why?
+
+The most common cause of this is your Devbox's privacy settings. Even when your Devbox is private, we still need a preview token to access the preview URLs. Currently, we do not support private Devboxes with public previews. Changing the Devbox privacy to 'Unlisted' often fixes this issue.
 
 ## Why are my start scripts not having an effect?
 
