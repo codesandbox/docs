@@ -12,7 +12,7 @@ import { Callout } from 'nextra-theme-docs'
     <WrapContent>
       ## Which languages and frameworks are supported?
 
-[Devboxes](/learn/devboxes/overview) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack. We provide official templates (with built-in LSP/IntelliSense) for Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node, Deno, and many more (more templates coming soon).
+[Devboxes](/learn/devboxes/overview) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), front-end and full-stack. We provide official templates (with built-in LSP/IntelliSense) for Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node, Deno, and many more (more templates coming soon).
 
 [Sandboxes](/learn/sandboxes/editor-features) are more limited. They support JavaScript/TypeScript projects.
 
@@ -26,15 +26,48 @@ CodeSandbox is designed for Desktop/Laptop operating systems, browsers and displ
 
 Our editor may work on other operating systems and mobile devices. While we will take onboard feedback from users on these platforms, we do not officially support them or recommend them for the optimum CodeSandbox experience.
 
-## How can I make a sandbox private?
+## How can I make a Sandbox private?
 
-There are several ways to set a sandbox as private. One universal way (that works both for sandboxes and devboxes) is to right-click a sandbox from the dashboard and select _Make sandbox private_.
+There are several ways to set a Sandbox as private. One universal way (that works both for sandboxes and devboxes) is to right-click a Sandbox from the dashboard and select _Make Sandbox private_.
 
 You can also change the privacy settings from the editor. Click the _Share_ button on the top right and change the privacy drop-down at the top.
 
 ## When should I mark my Sandbox as "protected"?
 
-Nobody outside your workspace can edit your Sandboxes, they can only fork it. However, in cases where you want to ensure that even workspace members cannot edit the Sandbox (which could be the case for finished projects), you can mark it as "protected" so it is not accidentally edited.
+Nobody outside your workspace can edit your Sandboxes; they can only fork it. However, in cases where you want to ensure that even workspace members cannot edit the Sandbox (which could be the case for finished projects), you can mark it as "protected" so it is not accidentally edited.
+
+## I'm getting a 502 error "It looks like the dev server has not started yet", why?
+
+Devbox [previews](/learn/devboxes/preview) are handled by a task that runs a dev server inside a CodeSandbox VM. Error `502` occurs when that task stops for some reason (some possible reasons being: task was stopped manually; application ran out of memory; the VM is not running). We automatically [hibernate VMs](/learn/environment/vm#memory-snapshotting) (including the preview) after 5 minutes of inactivity for Free users and 30 minutes of inactivity for Pro users, but when someone attempts to access either the code or the preview, we quickly resume the dev server (usually in under 2 seconds) — so "inactivity" is not a cause for the `502` error.
+
+To troubleshoot this error, follow these steps:
+
+- Open the Devbox on the CodeSandbox editor (if you only have access to the preview, forward these instructions to the Devbox author).
+- Confirm that the [dev server task](/learn/devboxes/devtools#previews) is running; start/restart it as needed.
+- Confirm that the preview tab on the right side of the editor doesn't show error `137` (which indicates that the Devbox ran out of memory).
+
+If the problem persists after going through the checks above, please submit a bug report.
+
+## My Devbox is running out of memory; what can I do?
+
+You can increase the specs of the VM running your Devbox to get more memory. Follow these steps:
+
+1. Click the CodeSandbox icon at the top left of the editor.
+2. Click "Virtual Machine".
+3. Under the "VM Specs" dropdown, pick a VM tier and then click "Apply" (if this option doesn't display, please ask a workspace admin to make this change).
+
+<Callout>
+Legacy CodeSandbox Pro plans cannot change VM specs; first, they must be [converted](https://codesandbox.io/upgrade) to our new "usage-based billing" Pro plan.
+</Callout>
+
+## I'm getting a CORS error when triggering a request to a Devbox URL, why?
+
+The most common cause of this is your Devbox's privacy settings. Even when your Devbox is private, we still need a preview token to access the preview URLs. Currently, we do not support private Devboxes with public previews. Changing the Devbox privacy to 'Unlisted' often fixes this issue.
+
+## Why are my start scripts not having an effect?
+
+For performance reasons, we ignore any specified scripts in sandboxes and use a default script instead. If you need to control the scripts, then we
+recommend using a [Devbox](/learn/devboxes/overview).
 
 ## I'm getting a 422 error when importing from GitHub, why?
 
@@ -46,19 +79,9 @@ If you think it's something else, or you're unable to solve this yourself, then 
 and provide a link to the repo you're importing and we can look into this for
 you.
 
-## I'm getting a CORS error when triggering a request to a Devbox URL, why?
-
-The most common cause of this is your Devbox's privacy settings. Even when your Devbox is private, we still need a preview token to access the preview URLs. Currently, we do not support private Devboxes with public previews. Changing the Devbox privacy to 'Unlisted' often fixes this issue.
-
-## Why are my start scripts not having an effect?
-
-For performance reasons, we ignore any specified scripts in sandboxes,
-instead using a default script. If you need to control the scripts, then we
-recommend using a [Devbox](/learn/devboxes/overview).
-
 ## Can I change the Node version used in a Devbox?
 
-Yes, we have instructions on the [VM configuration](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) page that tell you how to change the Node version. All recent server sandboxes run in a Devbox.
+Yes, we have instructions on the [VM configuration](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) page that explain how to change the Node version. All recent server sandboxes run in a Devbox.
 
 ## How can I change the editor's theme?
 
@@ -78,7 +101,7 @@ Devboxes are part of our evolved CodeSandbox experience, so we highly advise you
 
 ## I'm getting a 'Request Entity too Large' error, what should I do?
 
-If you encounter this error when importing or committing, check your sandbox or
+If you encounter this error when importing or committing, check your Sandbox or
 repo for large binary files and remove them.
 
 ## Which CodeSandbox domains should I whitelist on my firewall to ensure CodeSandbox loads correctly?
@@ -101,7 +124,7 @@ No, you don't need to install Docker on your local machine. CodeSandbox has [bui
 
 ### How can I access the database once it's running in a Docker container?
 
-You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database. If you want to connect locally to the database, you can use our VSCode integration to open the Devbox inside VSCode, and then forward the port of the database to localhost.
+You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database. If you want to connect locally to the database, you can use our VS Code integration to open the Devbox inside VS Code, and then forward the port of the database to localhost.
 
 ### Can I use multiple databases in the same CodeSandbox project?
 
@@ -117,7 +140,7 @@ Yes, it's safe to use a database in CodeSandbox with Docker support, as long as 
 
 ### How can I troubleshoot issues with my database in CodeSandbox with Docker support?
 
-If you're having issues with your database, you can check the logs of the container to see if there are any error messages. You can also run commands like `docker ps` and `docker logs` in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
+If you're having issues with your database, you can check the container logs to see if there are any error messages. You can also run commands like `docker ps` and `docker logs` in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
 
 ## Can I push/pull from a GitLab, Azure DevOps, or BitBucket repository?
 
@@ -174,7 +197,7 @@ This happens because the app doesn't provide local shell environments where you 
 
 You may find some of the following answers helpful if you have gone through the sections in this documentation but still haven’t solved your questions:
 
-### I'm getting an error trying to run my sandbox in CodeSandbox for iOS. What could be the cause?
+### I'm getting an error trying to run my Sandbox in CodeSandbox for iOS. What could be the cause?
 
 The root cause of the problem could be either a coding mistake on your side or a dependency trying to do something forbidden by iOS.
 
@@ -182,19 +205,19 @@ For instance, dependencies relying on WebAssembly won't work, as WebAssembly req
 
 Another cause can be that your project or one of its dependencies rely on a native dependency or Node extension, which aren’t supported.
 
-### One of the scripts in my sandbox cannot be run. What could be the cause?
+### One of the scripts in my Sandbox cannot be run. What could be the cause?
 
 Only the scripts that start with `node` or the name of a dependency located inside the `node_modules/.bin` directory are compatible. This happens because CodeSandbox for iOS doesn’t provide a shell environment, so scripts containing an arbitrary bash command won't work.
 
-### I can't see the preview of my sandbox in the web browser. What could be the cause?
+### I can't see the preview of my Sandbox in the web browser. What could be the cause?
 
-The runtime provides a `WEB_PORT` environment variable matching the port used by default by the in-app web browser. If your sandbox doesn't use the port in that environment variable, then you will need to fix the URL in the web browser to load the page on the right port.
+The runtime provides a `WEB_PORT` environment variable matching the port used by default by the in-app web browser. If your Sandbox doesn't use the port in that environment variable, then you will need to fix the URL in the web browser to load the page on the right port.
 
-### Why does my sandbox stop running when I move the app to the background?
+### Why does my Sandbox stop running when I move the app to the background?
 
 This happens because iOS suspends the process while the application is in the background, which also suspends all its activity.
 
-### My sandbox requires Node.js 14 but the app uses Node.js 12. How can I change the Node.js version?
+### My Sandbox requires Node.js 14 but the app uses Node.js 12. How can I change the Node.js version?
 
 The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating the new CodeSandbox experience instead. Stay tuned, as we will be making some updates.
 
