@@ -17,11 +17,11 @@ The SDK can be used to run concurrent VMs to support multiple use cases such as 
 
 The SDK can spin up a sandbox by cloning a template in under 3 seconds. Inside this VM, you can run any code, install any dependencies and even run servers.
 
-The sandboxes run on the same infrastructure as CodeSandbox, which means you can clone, snapshot and restore sandboxes at any point in time (checkpoints).
+The sandboxes run on the same infrastructure as CodeSandbox, which means you can clone, snapshot and restore sandboxes at any point in time (checkpointing).
 
 Under the hood, the SDK uses the microVM infrastructure of CodeSandbox to spin up sandboxes. It supports:
 
-1. Memory snapshot/restore (checkpoints) at any point in time
+1. Memory snapshot/restore (checkpointing) at any point in time
 2. Resume/clone VMs from a snapshot in 3 seconds
 3. VM FS persistence (with `git` version control)
 4. Environment customization using Docker & Docker Compose (Dev Containers)
@@ -52,14 +52,14 @@ const shellInfo = sandbox.shells.run("npx -y serve .");
 
 // Wait for port to open
 const portInfo = await sandbox.ports.waitForPort(3000);
-console.log(portInfo.toPreviewUrl());
+console.log(portInfo.getPreviewUrl());
 
 // And, we can clone(!) the sandbox! This takes 1-3s.
 const sandbox2 = await sandbox.fork();
 
 // Sandbox 2 will have the same processes running as sandbox 1
 const portInfo2 = await sandbox2.ports.waitForPort(3000);
-console.log(portInfo2.toPreviewUrl());
+console.log(portInfo2.getPreviewUrl());
 
 // Finally, we can hibernate the sandbox. This will snapshot the sandbox and stop it.
 // Next time you start the sandbox, it will continue where it left off, as we created a memory snapshot.
