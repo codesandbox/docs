@@ -1,11 +1,28 @@
 ---
-title: Memory Snapshots
-description: Learn how memory snapshots work in the CodeSandbox SDK.
+title: Fork
+description: Learn how forking snapshots work in the CodeSandbox SDK.
 ---
 
-# Memory Snapshots
+# Fork
 
 When you hibernate a sandbox, we keep a memory snapshot of the underlying Firecracker VM. When you start that sandbox, or if any network request is made to the sandbox, we'll restore the memory snapshot and continue from where you left off.
+Because we can snapshot a sandbox, we can also fork it! For example, you can fork a sandbox to create a new sandbox running the same server.
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+const sdk = new CodeSandbox();
+
+const sandbox = await sdk.sandbox.create();
+
+// Run anything on the sandbox
+await sandbox.shells.run('echo test > test.txt');
+
+const sandbox2 = await sandbox.fork();
+
+// Now we have two sandboxes that have the same fs & memory state!
+```
+
+You can use this to add support for checkpoint/restore functionality, or A/B test different agent iterations. At CodeSandbox we use this to enable users to quickly fork shared Sandboxes to their own account.
 
 ## Manually Creating a Memory Snapshot
 
@@ -24,25 +41,9 @@ await sandbox.hibernate();
 
 Creating a memory snapshot can take between 3-10 seconds. Resuming from a memory snapshot takes between 0.5-2 seconds.
 
-## Cloning a Sandbox
+## Live snapshots
 
-Because we can snapshot a sandbox, we can also clone it! For example, you can clone a sandbox to create a new sandbox running the same server.
-
-```ts
-import { CodeSandbox } from '@codesandbox/sdk'
-const sdk = new CodeSandbox();
-
-const sandbox = await sdk.sandbox.create();
-
-// Run anything on the sandbox
-await sandbox.shells.run('echo test > test.txt');
-
-const sandbox2 = await sandbox.fork();
-
-// Now we have two sandboxes that have the same fs & memory state!
-```
-
-You could use this to add support for checkpoint/restore functionality, or A/B test different agent iterations. At CodeSandbox we use this to enable forking of sandboxes. Someone can share a template, and someone else can click "Fork" to create a new sandbox based on the same state.
+If a Sandbox is already running we can still fork its exact current state. This has a small overhead of about 0.5 seconds.
 
 ## Learn More
 

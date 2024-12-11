@@ -52,7 +52,7 @@ const content = await sandbox.fs.readFile("./my-binary-file");
 fs.writeFileSync("./my-binary-file", content);
 ```
 
-You can also download a file or directory by generating a download URL. This download URL is valid for 5 minutes:
+You can also download a file or directory by generating a download URL to a zip file. This download URL is valid for 5 minutes:
 
 ```ts
 const { downloadUrl } = await sandbox.fs.download("./");

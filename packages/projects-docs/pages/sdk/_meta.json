@@ -1,6 +1,7 @@
 {
   "index": "Introduction",
-
+  "use-cases": "Use Cases",
+  "pricing": "Pricing",
   "contact": {
     "title": "Contact Us",
     "href": "https://codesandbox.io/support#form",
@@ -22,14 +23,12 @@
     "type": "separator",
     "title": "Resources"
   },
-  "templates": "Templates",
+  "snapshot-library": "Snapshot Library",
   "snapshot-builder": "Snapshot Builder",
   "environment": "Environment",
   "docker": "Docker & Docker Compose",
   "persistence": "Persistence",
-  "memory-snapshots": "Memory Snapshots",
-  "pricing": "Pricing",
-  "use-cases": "Use Cases",
+  "fork": "Fork",
   "examples": "Example Apps",
   "faq": "FAQ"
 }

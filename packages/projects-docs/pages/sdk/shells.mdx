@@ -18,8 +18,8 @@ You can create an interactive shell that allows you to send commands and receive
 ```ts
 const sandbox = await sdk.sandbox.create();
 
-// Create a new shell (defaults to bash)
-const shell = await sandbox.shells.create();
+// Create a new shell (bash is default)
+const shell = await sandbox.shells.create('bash');
 
 // Listen to shell output
 shell.onShellOut((output) => {

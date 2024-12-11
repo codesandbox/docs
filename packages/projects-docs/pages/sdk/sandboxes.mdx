@@ -37,11 +37,17 @@ This will start the sandbox and connect to it.
 It's possible to connect to a sandbox directly from the browser without sharing your API key with the frontend. You can do this by generating a single-use token from the server:
 
 ```ts
+import express from 'express';
 import { CodeSandbox } from '@codesandbox/sdk'
+
+const app = express();
 const sdk = new CodeSandbox();
 
-// This is from the server
-const startData = await sdk.sandbox.start('sandbox-id');
+app.get('/api/start-sandbox/:id', async (req, res) => {
+  const startData = await sdk.sandbox.start(req.params.id);
+
+  res.json(startData);
+});
 ```
 
 From the browser, you can use this start data to connect to the sandbox:
@@ -50,7 +56,7 @@ From the browser, you can use this start data to connect to the sandbox:
 import { connectToSandbox } from '@codesandbox/sdk/browser'
 
 // Fetch the start data from the server
-const startData = await fetch('/api/start-sandbox').then(res => res.json());
+const startData = await fetch('/api/start-sandbox/some-sandbox-id').then(res => res.json());
 
 const sandbox = await connectToSandbox(startData);
 

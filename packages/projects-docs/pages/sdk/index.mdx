@@ -15,13 +15,13 @@ The SDK can be used to run concurrent VMs to support multiple use cases such as 
 
 ## How it works
 
-The SDK can spin up a sandbox by cloning a template in under 3 seconds. Inside this VM, you can run any code, install any dependencies and even run a server.
+The SDK can spin up a sandbox by cloning a template in under 3 seconds. Inside this VM, you can run any code, install any dependencies and even run servers.
 
-The sandboxes run on the same infrastructure as CodeSandbox, which means you can clone, snapshot and restore sandboxes at any point in time (checkpointing).
+The sandboxes run on the same infrastructure as CodeSandbox, which means you can clone, snapshot and restore sandboxes at any point in time (checkpoints).
 
 Under the hood, the SDK uses the microVM infrastructure of CodeSandbox to spin up sandboxes. It supports:
 
-1. Memory snapshot/restore (checkpointing) at any point in time
+1. Memory snapshot/restore (checkpoints) at any point in time
 2. Resume/clone VMs from a snapshot in 3 seconds
 3. VM FS persistence (with `git` version control)
 4. Environment customization using Docker & Docker Compose (Dev Containers)

@@ -7,23 +7,12 @@ import { Callout } from 'nextra-theme-docs'
 
 # VM Specs
 
-Whenever you start a sandbox, you can specify which VM specs to use. This allows you to customize the VM to your needs. Currently, we support the following VM specs:
-
-| VM size | Credits / hour | Cost / hour | CPU      | RAM    |
-| ------- | -------------- | ----------- | -------- | ------ |
-| Pico    | 7 credits      | $0.126      | 2 cores  | 1 GB   |
-| Nano    | 10 credits     | $0.18       | 2 cores  | 4 GB   |
-| Micro   | 20 credits     | $0.36       | 4 cores  | 8 GB   |
-| Small   | 40 credits     | $0.72       | 8 cores  | 16 GB  |
-| Medium  | 80 credits     | $1.44       | 16 cores | 32 GB  |
-| Large   | 160 credits    | $2.88       | 32 cores | 64 GB  |
-| XLarge  | 320 credits    | $5.76       | 64 cores | 128 GB |
-
-We also allow you to change the VM specs of a running sandbox on the fly, without reboot. This is useful if you want to scale up or down your sandbox dynamically based on workload needs.
+Whenever you start a sandbox, you can specify which VM specs to use. This allows you to customize the VM to your needs. We also allow you to change the VM specs of a running sandbox on the fly,
+without reboot. This is useful if you want to scale up or down your sandbox dynamically based on workload needs.
 
 ## Starting Sandbox with Specs
 
-You can start a sandbox with a specific VM size by passing the `vmSize` option to the `sandbox.create` method:
+You can start a sandbox with a specific VM tier by passing the `vmTier` option to the `sandbox.create` method:
 
 ```ts
 import { CodeSandbox, VMTier } from "@codesandbox/sdk";
@@ -40,7 +29,7 @@ const sandbox = await sdk.sandbox.create({
 });
 ```
 
-This will pick the smallest VM size that can fit the specs you provided.
+This will pick the smallest VM tier that can fit the specs you provided.
 
 ## Changing VM Specs
 
