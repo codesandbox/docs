@@ -15,6 +15,12 @@ Sandboxes have three states of persistence:
 
 Generally, a sandbox will have a memory snapshot for 7 days, a disk snapshot for 2 weeks, and an archive for undetermined time (so far in the last 4 years, we've never deleted an archive).
 
+## Memory
+
+Whenever a sandbox is hibernated, we keep a memory snapshot of the underlying Firecracker VM. Then, when you start that sandbox, or if any network request is made to the sandbox, we'll restore the memory snapshot and continue from where you left off (this takes 0.5-2 seconds).
+
+Memory snapshots are kept for a week (can be longer depending on plan, and disk pressure), after which they'll be deleted. If the sandbox was used in the meantime (either the sandbox was resumed, or the sandbox was forked), the memory snapshot will be kept around and the timer will reset.
+
 ## Disk
 
 Sandboxes have two layers of disk persistence:
@@ -25,10 +31,4 @@ Sandboxes have two layers of disk persistence:
 We keep a `.git` directory in `/persisted` to track the filesystem of the sandbox, which we regularly commit to.
 </Callout>
 
-- `/project/sandbox`: this is the working directory of the sandbox. All files saved in this directory will be persisted between reboots. If the sandbox is not started for more than a week (or longer, depending on plan and disk pressure), we'll commit all files of `/project/sandbox` to `/persisted` and delete the disk. If the persisting of files fails, we won't delete the disk to ensure the user's data is not lost.
-
-## Memory
-
-Whenever a sandbox is hibernated, we keep a memory snapshot of the underlying Firecracker VM. Then, when you start that sandbox, or if any network request is made to the sandbox, we'll restore the memory snapshot and continue from where you left off (this takes 0.5-2 seconds).
-
-Memory snapshots are kept for a week (can be longer depending on plan, and disk pressure), after which they'll be deleted. If the sandbox was used in the meantime (either the sandbox was resumed, or the sandbox was forked), the memory snapshot will be kept around and the timer will reset.
+- `/project/sandbox`: this is the working directory of the sandbox. All files saved in this directory will be persisted between reboots. If the sandbox is not started for more than two weeks (or longer, depending on plan and disk pressure), we'll commit all files of `/project/sandbox` to `/persisted` and delete the disk. If the persisting of those files fails, we won't delete the disk to ensure the user's data is not lost.

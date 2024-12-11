@@ -52,6 +52,13 @@ const content = await sandbox.fs.readFile("./my-binary-file");
 fs.writeFileSync("./my-binary-file", content);
 ```
 
+You can also download a file or directory by generating a download URL. This download URL is valid for 5 minutes:
+
+```ts
+const { downloadUrl } = await sandbox.fs.download("./");
+console.log(downloadUrl);
+```
+
 ### Listing Files & Directories
 
 You can list files & directories in a directory using the `readdir` method.
