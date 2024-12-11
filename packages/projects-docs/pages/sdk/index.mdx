@@ -11,11 +11,11 @@ import Hero from "../../../../shared-components/Hero.js";
 />
 
 CodeSandbox SDK (beta) enables you to quickly create and run isolated sandboxes securely.
-The SDK can be used to run concurrent VMs to support multiple usecases such as AI agents, code interpretation and [more](./usecases.mdx)
+The SDK can be used to run concurrent VMs to support multiple use cases such as AI agents, code interpretation and [more](/sdk/use-cases.mdx)
 
 ## How it works
 
-The API spins up a sandbox with a fresh VM in under 4 seconds. Inside this VM, you can run any code, install any dependencies and even run a server.
+The SDK can spin up a sandbox by cloning a template in under 3 seconds. Inside this VM, you can run any code, install any dependencies and even run a server.
 
 The sandboxes run on the same infrastructure as CodeSandbox, which means you can clone, snapshot and restore sandboxes at any point in time (checkpointing).
 
@@ -69,5 +69,5 @@ await sandbox.hibernate();
 await sandbox2.hibernate();
 
 // Open the sandbox again
-const resumedSandbox = await sdk.openSandbox(sandbox.id);
+const resumedSandbox = await sdk.sandbox.open(sandbox.id);
 ```

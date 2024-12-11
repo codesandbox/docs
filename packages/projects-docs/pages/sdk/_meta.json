@@ -1,6 +1,5 @@
 {
   "index": "Introduction",
-  "getting-started": "Getting Started",
 
   "contact": {
     "title": "Contact Us",
@@ -24,10 +23,11 @@
     "title": "Resources"
   },
   "templates": "Templates",
+  "snapshot-builder": "Snapshot Builder",
   "environment": "Environment",
+  "docker": "Docker & Docker Compose",
   "persistence": "Persistence",
   "memory-snapshots": "Memory Snapshots",
-  "snapshot-builder": "Snapshot Builder",
   "pricing": "Pricing",
   "use-cases": "Use Cases",
   "examples": "Example Apps",

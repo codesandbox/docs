@@ -64,7 +64,7 @@ You can also decide to build the Docker image as part of the snapshot creation p
 
 And creating a `.devcontainer/Dockerfile` with the contents of your Dockerfile.
 
-For more options (like running docker compose, or adding additional features, you can look at the [Dev Container docs](https://containers.dev/implementors/json_reference/).
+For more options (like running docker compose, or adding additional features), you can look at the [Dev Container docs](https://containers.dev/implementors/json_reference/).
 
 ### Prestarting Servers
 
@@ -89,6 +89,8 @@ During the snapshot creation process, we will start `/bin/dev-server` after the 
 
 You can also run more than one task, you can add as many as you’d like. All commands will be run from the project directory.
 
+You can learn more about tasks in our [tasks documentation](/sdk/tasks.mdx).
+
 ### Boot/Setup Tasks
 
 You can configure tasks to run after docker build has been done, but before we run the other tasks. These are called setup tasks or boot tasks. Usually you would put things like dependency installation in here. This can also be done in `.codesandbox/tasks.json`:
@@ -104,6 +106,8 @@ You can configure tasks to run after docker build has been done, but before we r
 
 For any preparation you need to do inside the workspace directory (like building a binary from source files, or installing node_modules), a setup task would be better suited than putting it in the docker image. Also, if for some reason a sandbox starts without a memory snapshot, the setup tasks will also run before it starts any tasks.
 
+You can learn more about setup tasks in our [tasks documentation](/sdk/tasks.mdx).
+
 ## Examples
 
 At CodeSandbox we’ve built many templates that follow this structure. You can find different examples of templates in this repository: https://github.com/codesandbox/sandbox-templates.
@@ -117,3 +121,8 @@ At CodeSandbox we’ve built many templates that follow this structure. You can 
 - Preloading a headless browser
   - You can create a snapshot that has a headless browser (like Playwright) already snapshotted and running inside a VM.
   - This browser can open a websocket port, which you can use to control the browser.
+
+## Future
+
+- We're working on a way to create snapshots in multiple clusters, allowing you to run your sandboxes close to the user.
+- We're working on a tagging system that allows you to use a tag (like `my-snapshot:latest`). This way you don't have to update ids whenever you create a new snapshot.
