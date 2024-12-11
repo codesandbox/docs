@@ -12,9 +12,9 @@ import { Callout } from 'nextra-theme-docs'
     <WrapContent>
       ## Which languages and frameworks are supported?
 
-[Devboxes](/learn/devboxes/overview) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), frontend and full-stack, and officially support (with built-in LSP/IntelliSense) Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node and Deno (more languages coming soon).
+[Devboxes](/learn/devboxes/overview) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), front-end and full-stack. We provide official templates (with built-in LSP/IntelliSense) for Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node, Deno, and many more (more templates coming soon).
 
-[Sandboxes](/learn/sandboxes/editor-features) are more limited. They support JavaScript/TypeScript projects, as well as Node.js.
+[Sandboxes](/learn/sandboxes/editor-features) are more limited. They support JavaScript/TypeScript projects.
 
 [Create a Sandbox or Devbox from a template](https://codesandbox.io/new/), or read more
 about the
@@ -24,31 +24,50 @@ about the
 
 CodeSandbox is designed for Desktop/Laptop operating systems, browsers and display resolutions.
 
-For those who may like to code on the move, we offer an [iOS app](https://codesandbox.io/codesandbox-for-ios) for iPhone and iPad.
-
 Our editor may work on other operating systems and mobile devices. While we will take onboard feedback from users on these platforms, we do not officially support them or recommend them for the optimum CodeSandbox experience.
 
-## How can I make a sandbox private?
+## How can I make a Sandbox private?
 
-There are several ways to set a sandbox as private. One universal way (that works both for sandboxes and devboxes) is to right-click a sandbox from the dashboard and select _Make sandbox private_.
+There are several ways to set a Sandbox as private. One universal way (that works both for Sandboxes and Devboxes) is to right-click a Sandbox from the dashboard and select _Make Sandbox private_.
 
-You can also change the privacy settings from the editor. How you do it will depend on whether you're using a sandbox or a devbox, as shown below.
+You can also change the privacy settings from the editor. Click the _Share_ button on the top right and change the privacy drop-down at the top.
 
-### Make a browser sandbox private
+## When should I mark my Sandbox as "protected"?
 
-The browser editor provides two ways to change the privacy settings:
+Nobody outside your workspace can edit your Sandboxes; they can only fork it. However, in cases where you want to ensure that even workspace members cannot edit the Sandbox (which could be the case for finished projects), you can mark it as "protected" so it is not accidentally edited.
 
-1. Change the privacy drop-down under _Permissions_ in the _Sandbox Info_ tab.
-2. Click the _Share_ button on the top right and change the privacy drop-down at the top.
+## I'm getting a 502 error "It looks like the dev server has not started yet", why?
 
-![Make private in the editor](./learn/images/sandbox-private.jpg)
+Devbox [previews](/learn/devboxes/preview) are handled by a task that runs a dev server inside a CodeSandbox VM. Error `502` occurs when that task stops for some reason (some possible reasons being: task was stopped manually; application ran out of memory; the VM is not running). We automatically [hibernate VMs](/learn/environment/vm#memory-snapshotting) (including the preview) after 5 minutes of inactivity for Free users and 30 minutes of inactivity for Pro users, but when someone attempts to access either the code or the preview, we quickly resume the dev server (usually in under 2 seconds) — so "inactivity" is not a cause for the `502` error.
 
-### Make a Devbox private
+To troubleshoot this error, follow these steps:
 
-The Devbox editor also provides two ways to change the privacy settings:
+- Open the Devbox on the CodeSandbox editor (if you only have access to the preview, forward these instructions to the Devbox author).
+- Confirm that the [dev server task](/learn/devboxes/devtools#previews) is running; start/restart it as needed.
+- Confirm that the preview tab on the right side of the editor doesn't show error `137` (which indicates that the Devbox ran out of memory).
 
-1. Click the chevron on the right side of your Devbox's name at the top of the screen; click _Edit info_ and then change the drop-down next to _Privacy_.
-2. Click the _Share_ button on the top right and change the drop-down under _Permissions_.
+If the problem persists after going through the checks above, please [submit a bug report](https://codesandbox.io/support#form)).
+
+## My Devbox is running out of memory; what can I do?
+
+You can increase the specs of the VM running your Devbox to get more memory. Follow these steps:
+
+1. Click the CodeSandbox icon at the top left of the editor.
+2. Click "Virtual Machine".
+3. Under the "VM Specs" dropdown, pick a VM tier and then click "Apply" (if this option doesn't display, please ask a workspace admin to make this change).
+
+<Callout>
+Legacy CodeSandbox Pro plans cannot change VM specs; first, they must be [converted](https://codesandbox.io/upgrade) to our new "usage-based billing" Pro plan.
+</Callout>
+
+## I'm getting a CORS error when triggering a request to a Devbox URL, why?
+
+The most common cause of this is your Devbox's privacy settings. Even when your Devbox is private, we still need a preview token to access the preview URLs. Currently, we do not support private Devboxes with public previews. Changing the Devbox privacy to 'Unlisted' often fixes this issue.
+
+## Why are my start scripts not having an effect?
+
+For performance reasons, we ignore any specified scripts in Sandboxes and use a default script instead. If you need to control the scripts, then we
+recommend using a [Devbox](/learn/devboxes/overview).
 
 ## I'm getting a 422 error when importing from GitHub, why?
 
@@ -56,46 +75,33 @@ There are a few possible reasons a repo might throw that error on import. The
 most common are: the lack of a `package.json` file, or the project using
 more than 500 modules (files).
 
-If you think it's something else, or you're unable to solve this yourself, then [get in touch using our support form](https://codesandbox.io/support)
+If you think it's something else, or you're unable to solve this yourself, then [get in touch using our support form](https://codesandbox.io/support#form)
 and provide a link to the repo you're importing and we can look into this for
 you.
 
-## Why are my start scripts not having an effect?
-
-For performance reasons, we ignore any specified scripts in sandboxes,
-instead using a default script. If you need to control the scripts, then we
-recommend using a [Devbox](/learn/devboxes/overview).
-
 ## Can I change the Node version used in a Devbox?
 
-Yes, we have instructions on the [VM configuration](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) page that tell you how to change the Node version. All recent server sandboxes run in a Devbox.
+Yes, we have instructions on the [VM configuration](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) page that explain how to change the Node version. All recent server Sandboxes run in a Devbox.
 
 ## How can I change the editor's theme?
 
-To change the [theme of a Devbox](https://codesandbox.io/docs/learn/editors/web/themes), click on the CodeSandbox logo at the top left, then go to Settings > User Preferences, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette).
+To change the theme, click on the CodeSandbox icon at the top left of the editor, then go to Editor > Color Theme, and select a theme from the Themes dropdown. You can also do it from the [command palette](https://codesandbox.io/docs/learn/repositories/commandpalette) by picking the option "Preferences: Color Theme".
 
-On a Sandbox, you can change the theme from File > Preferences > Color Theme in the editor. You can also set a custom VS Code theme on a Sandbox. Open VS Code, Press (CMD or CTRL) +
-SHIFT + P, Enter: '> Developer: Generate Color Scheme From Current Settings',
-copy the contents and paste it into Preferences > Appearance from the top-right
-avatar menu. After completing that, you need to reload the browser and select
-"Custom" as your color theme from File > Preferences > Color Theme.
-
-## Do sandboxes have any limitations?
+## Do Sandboxes have any limitations?
 
 We currently provide [Sandboxes](/learn/sandboxes/editor-features) and [Devboxes](/learn/devboxes/overview). Sandboxes have the following limitations:
 
-- The maximum file upload size is 7MB for Free users and 30MB for Pro users.
-- Imported sandboxes must contain a `package.json` file.
+- Can only run front-end JavaScript or TypeScript projects (servers not supported).
+- Imported Sandboxes must contain a `package.json` file.
+- Lower file upload sizes, which are handled per account (as explained on the [File Upload page](/learn/devboxes/upload#upload-limits)).
 - Cannot use more than 500 modules (files). Note that
   `node_modules` and dependencies do not count toward this limit.
-- The maximum file size that can be opened in the editor is 2MB. Files uploaded
-  that are larger than that still exist but are linked as a static asset.
 
 Devboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
 ## I'm getting a 'Request Entity too Large' error, what should I do?
 
-If you encounter this error when importing or committing, check your sandbox or
+If you encounter this error when importing or committing, check your Sandbox or
 repo for large binary files and remove them.
 
 ## Which CodeSandbox domains should I whitelist on my firewall to ensure CodeSandbox loads correctly?
@@ -110,7 +116,7 @@ If you suspect that your Sandboxes/Devboxes aren't starting due to your firewall
 
 Yes, you can use any database that has a Docker image available with a Devbox. Some popular databases with Docker images include MySQL, PostgreSQL, MongoDB, and Redis.
 
-{/* For ready-to-use examples, check our [Devbox templates](https://codesandbox.io/d/) modal. */}
+{/* For ready-to-use examples, check our [Devbox](https://codesandbox.io/dashboard/recent?create=true) templates. */}
 
 ### Do I need to install Docker on my local machine to use it in CodeSandbox?
 
@@ -118,7 +124,7 @@ No, you don't need to install Docker on your local machine. CodeSandbox has [bui
 
 ### How can I access the database once it's running in a Docker container?
 
-You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database. If you want to connect locally to the database, you can use our VSCode integration to open the Devbox inside VSCode, and then forward the port of the database to localhost.
+You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database. If you want to connect locally to the database, you can use our VS Code integration to open the Devbox inside VS Code, and then forward the port of the database to localhost.
 
 ### Can I use multiple databases in the same CodeSandbox project?
 
@@ -134,27 +140,7 @@ Yes, it's safe to use a database in CodeSandbox with Docker support, as long as 
 
 ### How can I troubleshoot issues with my database in CodeSandbox with Docker support?
 
-If you're having issues with your database, you can check the logs of the container to see if there are any error messages. You can also run commands like `docker ps` and `docker logs` in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
-
-## How can I change the font used in a browser sandbox?
-
-Ensure the font you want to use has been installed on your computer,
-then put the name of it first in the comma-separated list under 'Editor: Font Family' from
-File > Preferences > Settings in the editor.
-
-<Callout>
-This method only applies to legacy sandboxes.
-</Callout>
-
-## Why is my code in an infinite loop that doesn't allow me to edit?
-
-While we do have infinite loop protection as a
-[configurable option](https://codesandbox.io/docs/learn/sandboxes/configuration) it doesn't
-prevent all scenarios where infinite loops can occur, such as with incomplete
-code. When this happens, you can append `runonclick=1` to the editor URL to stop
-the code from being automatically executed, enabling you to edit your code to
-resolve it. For example:
-[https://codesandbox.io/s/new?runonclick=1](https://codesandbox.io/s/new?runonclick=1)
+If you're having issues with your database, you can check the container logs to see if there are any error messages. You can also run commands like `docker ps` and `docker logs` in the terminal to get more information about the container. Additionally, you can ask for help on the CodeSandbox community forums or consult the documentation of the specific database you're using.
 
 ## Can I push/pull from a GitLab, Azure DevOps, or BitBucket repository?
 
@@ -190,7 +176,7 @@ Yes. Follow the steps below:
 
 ## More Questions?
 
-If you have additional questions or need support, please use the community [Discord server](https://discord.gg/R32XxEGp4s).
+If you have additional questions or need support, please post them in our [community platform](https://www.codesandbox.community/c/ask-community/).
 
     </WrapContent>
     <WrapContent>
@@ -211,7 +197,7 @@ This happens because the app doesn't provide local shell environments where you 
 
 You may find some of the following answers helpful if you have gone through the sections in this documentation but still haven’t solved your questions:
 
-### I'm getting an error trying to run my sandbox in CodeSandbox for iOS. What could be the cause?
+### I'm getting an error trying to run my Sandbox in CodeSandbox for iOS. What could be the cause?
 
 The root cause of the problem could be either a coding mistake on your side or a dependency trying to do something forbidden by iOS.
 
@@ -219,19 +205,19 @@ For instance, dependencies relying on WebAssembly won't work, as WebAssembly req
 
 Another cause can be that your project or one of its dependencies rely on a native dependency or Node extension, which aren’t supported.
 
-### One of the scripts in my sandbox cannot be run. What could be the cause?
+### One of the scripts in my Sandbox cannot be run. What could be the cause?
 
 Only the scripts that start with `node` or the name of a dependency located inside the `node_modules/.bin` directory are compatible. This happens because CodeSandbox for iOS doesn’t provide a shell environment, so scripts containing an arbitrary bash command won't work.
 
-### I can't see the preview of my sandbox in the web browser. What could be the cause?
+### I can't see the preview of my Sandbox in the web browser. What could be the cause?
 
-The runtime provides a `WEB_PORT` environment variable matching the port used by default by the in-app web browser. If your sandbox doesn't use the port in that environment variable, then you will need to fix the URL in the web browser to load the page on the right port.
+The runtime provides a `WEB_PORT` environment variable matching the port used by default by the in-app web browser. If your Sandbox doesn't use the port in that environment variable, then you will need to fix the URL in the web browser to load the page on the right port.
 
-### Why does my sandbox stop running when I move the app to the background?
+### Why does my Sandbox stop running when I move the app to the background?
 
 This happens because iOS suspends the process while the application is in the background, which also suspends all its activity.
 
-### My sandbox requires Node.js 14 but the app uses Node.js 12. How can I change the Node.js version?
+### My Sandbox requires Node.js 14 but the app uses Node.js 12. How can I change the Node.js version?
 
 The application uses a Node.js port that hasn’t been upgraded to Node.js 14 as we have been focused on integrating the new CodeSandbox experience instead. Stay tuned, as we will be making some updates.
 
@@ -247,7 +233,7 @@ You likely have a protected branch selected (i.e. `main`). Forking a branch will
 
 ## I can't log in to my account - what should I do?
 
-If you're having trouble logging in, fill out our [Support form](https://codesandbox.io/support) by picking "Account Management" and "Login Issues". This will ensure we prioritize your request.
+If you're having trouble logging in, fill out our [Support form](https://codesandbox.io/support#form) by picking "Account Management" and "Login Issues". This will ensure we prioritize your request.
 
 ## How can I update my account's name and username?
 
@@ -287,7 +273,7 @@ To validate your identity and request the email update, follow these steps:
 
 1. Log in to your existing CodeSandbox account. From the Dashboard, click your avatar at the top right, then "User settings", and note the username and email you see right next to your avatar in that new modal.
 
-2. Fill out our [Support form](https://codesandbox.io/support) by picking "Account Management" and "Change Email Address". In the text field, share the account's username and current email address.
+2. Fill out our [Support form](https://codesandbox.io/support#form) by picking "Account Management" and "Change Email Address". In the text field, share the account's username and current email address.
 
 3. Send another email to support@codesandbox.io from your new email address while referencing your intention to update the account's email address (feel free to include your current account's email address in CC).
 
@@ -320,11 +306,15 @@ You can delete your account from your [Dashboard](https://codesandbox.io/dashboa
 
 ## How can I exercise my right to be forgotten?
 
-Fill out our [Support form](https://codesandbox.io/support) by picking "Account Management" and "Data Deletion Request". In the text field, share the account's username and current email address, so we have proof of your ownership.
+Fill out our [Support form](https://codesandbox.io/support#form) by picking "Account Management" and "Data Deletion Request". In the text field, share the account's username and current email address, so we have proof of your ownership.
 
 </WrapContent>
 
 <WrapContent>
+
+## How can I convert my legacy Pro subscription to usage-based billing?
+
+The easiest way to convert a legacy Pro subscription to usage-based billing is to open our [Upgrade page](https://codesandbox.io/upgrade) and follow the steps to upgrade the relevant workspace.
 
 ## How can I edit my billing information?
 
@@ -346,7 +336,7 @@ First, check if the payment method associated with your subscription has expired
 
 You can check or edit your payment methods from the "Overview" tab of your [Workspace Settings](https://codesandbox.io/t/overview) by clicking on "Edit billing information", under "CodeSandbox Pro".
 
-If everything seems to be in order but you're still having issues with the payment, fill out our [Support form](https://codesandbox.io/support) by picking "Pro Subscriptions" and "Payment Problems". This will ensure we prioritize your request.
+If everything seems to be in order but you're still having issues with the payment, fill out our [Support form](https://codesandbox.io/support#form) by picking "Pro Subscriptions" and "Payment Problems". This will ensure we prioritize your request.
 
 ## Can I change my subscription?
 
@@ -368,7 +358,7 @@ Absolutely! You can choose to keep your legacy Pro plan until further notice. In
 
 All your invoices will be automatically sent to the email address associated with your subscription. If, for some reason, you do not have access to those emails, you can request these invoices manually:
 
-1. Fill out our [Support form](https://codesandbox.io/support) by picking "Pro Subscriptions" and "More Information".
+1. Fill out our [Support form](https://codesandbox.io/support#form) by picking "Pro Subscriptions" and "More Information".
 2. In the text field, provide details about the subscription and additional information that serves as proof of your association to it (transaction ID, last four digits of credit card, date and amount of the last charge).
 3. Submit the request.
 
@@ -384,7 +374,7 @@ You can cancel your Pro subscription from the "Overview" tab of your [Workspace 
 
 ## How can I get a refund?
 
-As specified in our [Terms of Service](https://codesandbox.io/legal/terms), we typically do not offer refunds. However, users in the EU or Turkey can [request](https://codesandbox.io/support) a refund within 14 days of their initial purchase.
+As specified in our [Terms of Service](https://codesandbox.io/legal/terms), we typically do not offer refunds. However, users in the EU or Turkey can [request](https://codesandbox.io/support#form) a refund within 14 days of their initial purchase.
 
 Please note that the refund option is no longer available if you've used up to 50 credits after your Pro subscription or add-on.
 
