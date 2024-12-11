@@ -2,7 +2,7 @@ import { useRef, useCallback, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import "intersection-observer";
 
-export default ({ src, caption, ratio }) => {
+export default ({ src, caption, ratio, autoPlay = true, playsInline = true, controls = false }) => {
   const [inViewRef, inView] = useInView({
     threshold: 1,
   });
@@ -46,8 +46,9 @@ export default ({ src, caption, ratio }) => {
         // style={{ position: "absolute", top: 0, left: 0 }}
         loop
         muted
-        autoPlay
-        playsInline
+        controls={controls}
+        autoPlay={autoPlay}
+        playsInline={playsInline}
         ref={setRefs}
       >
         <source src={src} type="video/mp4" />

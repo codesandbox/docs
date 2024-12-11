@@ -1,0 +1,318 @@
+---
+title: Tasks & Setup
+description: Learn how the CodeSandbox SDK's tasks work.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Tasks
+
+The Tasks API allows you to manage and run predefined commands in your sandbox. Tasks are typically defined in your project's configuration and can include development servers, build processes, tests, or any other command-line operations.
+
+<Callout type="warning" emoji="⚠️">
+We might still change the Task API in the future to make it better suited for the SDK, let us know if you have any feedback or suggestions!
+</Callout>
+
+## Configuration
+
+Tasks are configured in your project's `.codesandbox/tasks.json` file. This file defines both setup tasks that run when the sandbox starts, and regular tasks that can be run on-demand.
+
+### Setup Tasks
+
+Setup tasks run in order when initializing your sandbox. They're typically used for installation and preparation steps:
+
+```json
+{
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "pnpm install"
+    },
+    {
+      "name": "Copy Environment File",
+      "command": "cp .env.example .env"
+    },
+    "pnpm run build"  // Short form for { "name": "pnpm run build", "command": "pnpm run build" }
+  ]
+}
+```
+
+### Regular Tasks
+
+Regular tasks can be run at any time and support more configuration options:
+
+```json
+{
+  "tasks": {
+    "dev": {
+      "name": "Development Server",
+      "command": "pnpm dev",
+      "runAtStart": true,
+      "preview": {
+        "port": 3000
+      },
+      "restartOn": {
+        "files": ["package.json", "pnpm-lock.yaml"], // Restart when package.json or pnpm-lock.yaml changes
+        "clone": true, // Restart right after this VM was cloned from another VM
+        "resume": false // Restart when sandbox resumes from hibernation
+      }
+    },
+    "build": {
+      "name": "Production Build",
+      "command": "pnpm build",
+      "preview": {
+        "port": 4000
+      }
+    },
+    "test": {
+      "name": "Run Tests",
+      "command": "pnpm test",
+      "restartOn": {
+        "files": ["tests/**/*"]
+      }
+    }
+  }
+}
+```
+
+### Task Options
+
+Each task can have the following options:
+
+- `name`: Display name for the task
+- `command`: The command to execute
+- `runAtStart`: Whether to run the task when the sandbox starts
+- `preview`: Configuration for task preview
+  - `port`: Port number to preview
+- `restartOn`: Configure when the task should restart
+  - `files`: Array of file patterns that trigger restart when changed
+  - `clone`: Restart when this VM was cloned from another VM
+  - `resume`: Restart when sandbox resumes from hibernation
+
+### Example Configuration
+
+Here's a more complete example showing various task configurations:
+
+```json
+{
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "pnpm install"
+    },
+    {
+      "name": "Copy Environment",
+      "command": "cp .env.example .env.local"
+    }
+  ],
+  "tasks": {
+    "dev": {
+      "name": "Development",
+      "command": "pnpm dev",
+      "runAtStart": true,
+      "preview": {
+        "port": 3000,
+        "prLink": "direct"
+      },
+      "restartOn": {
+        "files": ["package.json", ".env.local"],
+        "branch": false,
+        "resume": false
+      }
+    },
+    "storybook": {
+      "name": "Storybook",
+      "command": "pnpm storybook",
+      "preview": {
+        "port": 6006
+      }
+    },
+    "test:watch": {
+      "name": "Test Watch",
+      "command": "pnpm test:watch",
+      "restartOn": {
+        "files": ["tests/**/*", "src/**/*.test.*"]
+      }
+    },
+    "typecheck": {
+      "name": "Type Check",
+      "command": "pnpm typecheck"
+    },
+    "lint:fix": {
+      "name": "Fix Lint Issues",
+      "command": "pnpm lint --fix"
+    }
+  }
+}
+```
+
+## Setup Tasks
+
+Setup tasks run automatically when a sandbox starts. They typically handle installation of dependencies and initial builds. You can monitor and control setup tasks using the Setup API:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Listen to setup progress
+sandbox.setup.onSetupProgressUpdate((progress) => {
+  console.log(`Setup progress: ${progress.currentStepIndex + 1}/${progress.steps.length}`);
+  console.log(`Current step: ${progress.steps[progress.currentStepIndex].name}`);
+});
+
+// Get current progress
+const progress = await sandbox.setup.getProgress();
+console.log(`Setup state: ${progress.state}`);
+
+// Wait for setup to finish
+const result = await sandbox.setup.waitForFinish();
+if (result.state === "FINISHED") {
+  console.log("Setup completed successfully");
+}
+```
+
+### Setup Tasks vs Docker Build: When to Use Which?
+
+Setup tasks are used for any preparation work needed in the `/project/sandbox` directory, such as:
+
+- Installing dependencies
+- Building assets
+- Running initial compilations
+
+Docker build, on the other hand, should be used for:
+
+- Setting up the container environment
+- Installing system-level dependencies
+- Configuring global tools
+
+This separation exists because the `/project/sandbox` directory is only available after the container starts.
+
+### Setup Progress
+
+The setup progress includes the following information:
+
+```ts
+type SetupProgress = {
+  state: "IDLE" | "IN_PROGRESS" | "FINISHED" | "STOPPED";
+  steps: {
+    name: string;
+    command: string;
+    shellId: string | null;
+    finishStatus: "SUCCEEDED" | "FAILED" | "SKIPPED" | null;
+  }[];
+  currentStepIndex: number;
+};
+```
+
+## Tasks
+
+The Tasks API is available under `sandbox.tasks`. It provides methods for listing, retrieving, and running tasks in your sandbox.
+
+<Callout>
+Regular tasks are defined in the `tasks` section of your `tasks.json` file. Each task has a unique ID and can be configured to run automatically when the sandbox starts by setting `runAtStart: true`. They will start after setup has completed.
+</Callout>
+
+### Listing Tasks
+
+You can get all available tasks in your sandbox:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Get all tasks
+const tasks = await sandbox.tasks.getTasks();
+for (const task of tasks) {
+  console.log(`Task: ${task.name} (${task.command})`);
+}
+```
+
+### Running Tasks
+
+You can run a task using its ID:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Run a specific task
+const task = await sandbox.tasks.runTask("dev");
+console.log(`Started task: ${task.name}`);
+
+// If the task opens a port, you can access it
+if (task.ports.length > 0) {
+  const port = task.ports[0];
+  console.log(`Preview available at: ${port.getPreviewUrl()}`);
+}
+```
+
+### Getting Task Information
+
+You can get information about a specific task:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Get a specific task
+const task = await sandbox.tasks.getTask("build");
+if (task) {
+  console.log(`Task: ${task.name}`);
+  console.log(`Command: ${task.command}`);
+  console.log(`Runs at start: ${task.runAtStart}`);
+
+  if (task.shellId) {
+    console.log("Task is currently running");
+  }
+}
+```
+
+## Examples
+
+### Starting a Development Server
+
+Here's an example of running a development server task and waiting for it to be ready:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Get the dev task
+const task = await sandbox.tasks.getTask("dev");
+if (!task) {
+  throw new Error("Dev task not found");
+}
+
+// Run the task
+await sandbox.tasks.runTask(task.id);
+
+// If the task has a preview port configured
+if (task.preview?.port) {
+  // Wait for the port to open
+  const portInfo = await sandbox.ports.waitForPort(task.preview.port);
+  console.log(`Dev server ready at: ${portInfo.getPreviewUrl()}`);
+}
+```
+
+### Running Multiple Tasks
+
+You can run multiple tasks and monitor their ports:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Get all tasks that should run at start
+const tasks = await sandbox.tasks.getTasks();
+
+// Run all startup tasks
+for (const task of tasks) {
+  console.log(`Starting ${task.name}...`);
+  sandbox.tasks.runTask(task.id);
+}
+
+// Monitor ports for all tasks
+sandbox.ports.onDidPortOpen((portInfo) => {
+  const task = tasks.find(t =>
+    t.preview?.port === portInfo.port
+  );
+
+  if (task) {
+    console.log(`${task.name} is ready at: ${portInfo.getPreviewUrl()}`);
+  }
+});
+```

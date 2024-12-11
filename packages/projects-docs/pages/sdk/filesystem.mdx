@@ -1,0 +1,88 @@
+---
+title: File System
+description: Learn how the CodeSandbox SDK's file system works.
+---
+
+# File System
+
+Every sandbox has a persistent file system under `/project/sandbox`. By default, the working directory is `/project/sandbox`. All files saved in `/project/sandbox` have `git` source control and will be persisted between reboots. Whenever we hibernate or shutdown a sandbox, we'll create a commit to track the filesystem of the sandbox.
+
+Refer to the [Environment](/sdk/environment) section for more information about how we store files and other resources.
+
+## API
+
+The API of the filesystem is similar to the Node.js fs module. You can find the API under `sandbox.fs`. All filesystem
+operations are relative to the workspace directory of the sandbox (which is `/project/sandbox` by default).
+
+### Writing & Reading Files
+
+You can read & write files using an api that's similer to the Node.js fs module:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Writing text files
+await sandbox.fs.writeTextFile("./hello.txt", "Hello, world!");
+
+// Reading text files
+const content = await sandbox.fs.readTextFile("./hello.txt");
+console.log(content);
+
+// Writing binary files
+await sandbox.fs.writeFile("./hello.bin", new Uint8Array([1, 2, 3]));
+
+// Reading binary files
+const content = await sandbox.fs.readFile("./hello.bin");
+console.log(content);
+```
+
+### Uploading & Downloading Files
+
+Uploading and downloading files can be done using the same methods as writing and reading files.
+
+```ts
+import fs from "node:fs";
+
+const sandbox = await sdk.sandbox.create();
+
+const myBinaryFile = fs.readFileSync("./my-binary-file");
+await sandbox.fs.writeFile("./my-binary-file", myBinaryFile);
+
+const content = await sandbox.fs.readFile("./my-binary-file");
+fs.writeFileSync("./my-binary-file", content);
+```
+
+### Listing Files & Directories
+
+You can list files & directories in a directory using the `readdir` method.
+
+```ts
+const filesOrDirs = await sandbox.fs.readdir("./");
+
+console.log(filesOrDirs);
+```
+
+### Copying, Renaming & Deleting Files
+
+You can copy, rename & delete files using the `copy`, `rename` & `remove` methods.
+
+```ts
+await sandbox.fs.copy("./hello.txt", "./hello-copy.txt");
+await sandbox.fs.rename("./hello-copy.txt", "./hello-renamed.txt");
+await sandbox.fs.remove("./hello-renamed.txt");
+```
+
+### Watching Files
+
+You can watch files for file changes, additions and deletions using the `watch` method.
+
+```ts
+const watcher = await sandbox.fs.watch("./", { recursive: true, excludes: [".git"] });
+
+watcher.onEvent((event) => {
+  console.log(event);
+});
+
+// When you're done, you can stop the watcher
+watcher.dispose();
+```

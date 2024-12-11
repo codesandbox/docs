@@ -1,23 +1,61 @@
 ---
 title: Pricing
+description: Learn how CodeSandbox SDK is priced, find your ideal plan, and estimate your bill.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
 # Pricing
 
-CodeSandbox SDK is based on two main components:
+CodeSandbox SDK is priced according to the [CodeSandbox plans](https://codesandbox.io/pricing). The SDK follows two main pricing components:
 
-- VM credits (used to measure minutes of runtime of VMs created with the SDK)
-- Rate limit tier (in case you require rate limits beyond our default)
+- **VM credits**: Credits serve as the unit of measurement for VM runtime. One credit equates to a specific amount of resources used per hour, depending on the specs of the VM you are using. VM credits follow a pay-as-you-go approach and are priced at $0.018 per credit. Learn more about credits [here](/learn/credit-usage/credits).
 
-## VM credits pricing
+- **VM concurrency**: This defines the maximum number of VMs you can run simultaneously with the SDK. As explored below, each CodeSandbox plan has a different VM concurrency limit.
 
-We price VM credits depending on the size of the VM being run.
+<Callout>We use minutes as the smallest unit of measurement for VM credits. E.g.: if a VM runs for 3 minutes and 25 seconds, we bill the equivalent of 4 minutes of VM runtime.</Callout>
 
-existing CodeSandbox pricing for VMs, with the addition
+## VM credit prices by VM size
 
-Overview:
+Below is a summary of how many VM credits are used per hour of runtime in each of our available VM sizes. Note that, by default, we recommend using the Pico VM size, as it should provide enough resources for most workflows that require basic code interpretation.
 
-- Pay-as-you-go for VM runtime (VM credits)
-- Add-ons for higher rate limits
+| VM size | Credits / hour | Cost / hour | CPU      | RAM    |
+| ------- | -------------- | ----------- | -------- | ------ |
+| Pico    | 7 credits      | $0.126      | 2 cores  | 1 GB   |
+| Nano    | 10 credits     | $0.18       | 2 cores  | 4 GB   |
+| Micro   | 20 credits     | $0.36       | 4 cores  | 8 GB   |
+| Small   | 40 credits     | $0.72       | 8 cores  | 16 GB  |
+| Medium  | 80 credits     | $1.44       | 16 cores | 32 GB  |
+| Large   | 160 credits    | $2.88       | 32 cores | 64 GB  |
+| XLarge  | 320 credits    | $5.76       | 64 cores | 128 GB |
+
+## Concurrent VMs
+
+To pick the most suitable plan for your use case, consider how many concurrent VMs you require and pick the corresponding plan:
+
+- Free plan: 5 concurrent VMs
+- Pro plan: 20 concurrent VMs
+- Builder plan: 100 concurrent VMs
+- Enterprise plan: custom concurrent VMs
+
+In case you expect a a high volume of VM runtime, our Enterprise plan also provides special discounts (up to 50% off) on VM credits.
+
+## Estimating your bill
+
+To estimate your bill, you must consider:
+
+- The base price of your CodeSandbox plan.
+- The number of included VM credits on that plan.
+- How many VM credits you expect to require.
+
+As an example, let's say you are planning to run 80 concurrent VMs on average, each running 3 hours per day, every day, on the Pico VM size. Here's the breakdown:
+
+- You will need a Builder plan (which allows up to 100 concurrent VMs).
+- You will use a total of 50,400 VM credits per month (80 VMs x 3 hours/day x 30 days x 7 credits/hour).
+- Your Builder plan includes 1100 free VM credits each month, so you will purchase 49,300 VM credits (50,400 - 1100).
+
+Based on this, your expected bill for that month is:
+
+- Base price of Builder plan: $170
+- Total price of VM credits: $887.40 (49,300 VM credits x $0.018/credit)
+- Total bill: $1057.40

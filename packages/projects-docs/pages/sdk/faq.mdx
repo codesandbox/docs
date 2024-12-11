@@ -1,5 +1,6 @@
 ---
 title: FAQs
+description: Find answers to common questions about the CodeSandbox SDK.
 ---
 
 import { Callout } from 'nextra-theme-docs'
@@ -8,7 +9,7 @@ import { Callout } from 'nextra-theme-docs'
 
 ## Do I need a CodeSandbox workspace to be able to use the SDK?
 
-Yes. You need a CodeSandbox API key to use CodeSandbox SDK, which you can get by creating a CodeSandbox account.
+Yes. You need a CodeSandbox API key to use CodeSandbox SDK, which you can get by [creating a CodeSandbox account](https://codesandbox.io/signin).
 
 ## How can I revoke my API key?
 
@@ -16,7 +17,7 @@ To revoke an API key, go to the "Permissions" tab of your [Workspace Settings](h
 
 ## I have hit a rate limit - what should I do?
 
-Please [contact us](https://codesandbox.io/support#form) so we can lift the limit.
+Please subscribe to a CodeSandbox plan that includes the most suitable rate limit for you. In case you're on our Builder plan already, please [contact us](https://webforms.pipedrive.com/f/72gS7iXoP8qjL8Ku9HZQcN5UKpUpZkgKRCjhbqREjCOYyBgzrCKCr7Mys5AyczOHBN) to discuss an Enterprise plan.
 
 ## Can I change the specs of the VMs?
 
@@ -31,3 +32,15 @@ We are also SOC 2 Type II compliant.
 ## Is it possible to self-host CodeSandbox SDK?
 
 No, for now we don't provide a self-host option.
+
+## Are there any SDK rate limits?
+
+Yes. The SDK has rate limits on concurrent VMs, number of requests per hour, and number of sandboxes created per hour. These limits vary depending on the CodeSandbox plan, as explained on our [Pricing page](https://codesandbox.io/pricing).
+
+## Can I use the same CodeSandbox plan for SDK and non-SDK usage?
+
+Yes. Your CodeSandbox plan will allow you to use both, so you can leverage the SDK for programmatic sandbox creation, while still allowing your team to use CodeSandbox for their development.
+
+## Does the CodeSandbox SDK use CodeSandbox Sandboxes or Devboxes?
+
+While the SDK code only mentions "sandbox", the actual environments that it uses are officially called "Devboxes" (which use VMs). So, if you need more details about these VMs, please always refer to "[Devbox](/learn/devboxes/overview)" section of the CodeSandbox documentation and pricing.

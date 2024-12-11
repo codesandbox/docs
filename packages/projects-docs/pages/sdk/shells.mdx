@@ -1,0 +1,115 @@
+---
+title: Shells
+description: Learn how the CodeSandbox SDK's shells work.
+---
+
+# Shells
+
+The Shell API allows you to create, manage and interact with shell processes in your sandbox. You can create interactive shells, run commands, and execute code in different programming languages.
+
+## API
+
+The Shell API is available under `sandbox.shells`. It provides methods for creating shells, running commands, and managing shell instances.
+
+### Creating Interactive Shells
+
+You can create an interactive shell that allows you to send commands and receive output:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Create a new shell (defaults to bash)
+const shell = await sandbox.shells.create();
+
+// Listen to shell output
+shell.onShellOut((output) => {
+  console.log(output);
+});
+
+// Send commands to the shell
+await shell.write("echo 'Hello, world!'");
+
+// Kill the shell when done
+await shell.kill();
+```
+
+### Running Commands
+
+For simple command execution, you can use the `run` method which returns a promise with the command's output:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Run a single command
+const command = sandbox.shells.run("npm install");
+
+// Listen to real-time output
+command.onOutput((output) => {
+  console.log(output);
+});
+
+// Optionally cancel the command if it's not finished
+if (Math.random() > 0.5) {
+  command.kill();
+}
+
+// Wait for completion and get results
+const result = await command;
+console.log(result.output, result.exitCode);
+```
+
+### Language Interpreters
+
+The Shell API includes built-in support for running code in different programming languages:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Run JavaScript code
+const jsResult = await sandbox.shells.js.run(`
+  console.log("Hello from Node.js!");
+`);
+
+// Run Python code
+const pythonResult = await sandbox.shells.python.run(`
+  print("Hello from Python!")
+`);
+```
+
+These interpreters are built on top of the `run` method, so you can use the same options and event listeners. Currently, we only support `python` and `js` interpreters, but we're working on adding more. In the meantime you can use the `run` method to run any command.
+
+### Managing Shell Instances
+
+You can list and reconnect to existing shells:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Get all shells
+const shells = await sandbox.shells.getShells();
+
+// Reconnect to an existing shell
+const shell = await sandbox.shells.open(shellId);
+
+// Check shell status and info
+console.log(shell.status); // "RUNNING" | "FINISHED" | "ERROR" | "KILLED" | "RESTARTING"
+console.log(shell.exitCode);
+console.log(shell.getOutput());
+```
+
+## Examples
+
+### Starting a server and waiting for the port to open
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+const shell = await sandbox.shells.create();
+
+// Run in background by not awaiting the command
+shell.run("npx serve -y .");
+
+const portInfo = await shell.waitForPort(3000);
+
+console.log(portInfo.getPreviewUrl());
+```

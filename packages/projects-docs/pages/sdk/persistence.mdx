@@ -1,0 +1,34 @@
+---
+title: Persistence
+description: Learn how the persistence of sandboxes works.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Persistence
+
+Sandboxes have three states of persistence:
+
+- **Memory**: the sandbox has a memory snapshot and will be restored from memory when started. This takes 1-2 seconds.
+- **Disk**: the sandbox has a disk snapshot, but needs to boot from scratch. This takes 5-20 seconds.
+- **Archived**: the sandbox has no disk, and will be recreated from our archive storage. This takes 20-60 seconds.
+
+Generally, a sandbox will have a memory snapshot for 7 days, a disk snapshot for 2 weeks, and an archive for undetermined time (so far in the last 4 years, we've never deleted an archive).
+
+## Disk
+
+Sandboxes have two layers of disk persistence:
+
+- `/persisted`: contains our archive of the sandbox. If you start a sandbox after a year of inactivity, the `/persisted` directory will still be there. Because of this, it's smaller than the `/project/sandbox` directory.
+
+<Callout>
+We keep a `.git` directory in `/persisted` to track the filesystem of the sandbox, which we regularly commit to.
+</Callout>
+
+- `/project/sandbox`: this is the working directory of the sandbox. All files saved in this directory will be persisted between reboots. If the sandbox is not started for more than a week (or longer, depending on plan and disk pressure), we'll commit all files of `/project/sandbox` to `/persisted` and delete the disk. If the persisting of files fails, we won't delete the disk to ensure the user's data is not lost.
+
+## Memory
+
+Whenever a sandbox is hibernated, we keep a memory snapshot of the underlying Firecracker VM. Then, when you start that sandbox, or if any network request is made to the sandbox, we'll restore the memory snapshot and continue from where you left off (this takes 0.5-2 seconds).
+
+Memory snapshots are kept for a week (can be longer depending on plan, and disk pressure), after which they'll be deleted. If the sandbox was used in the meantime (either the sandbox was resumed, or the sandbox was forked), the memory snapshot will be kept around and the timer will reset.

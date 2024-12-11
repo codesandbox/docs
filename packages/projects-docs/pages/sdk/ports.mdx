@@ -1,0 +1,130 @@
+---
+title: Ports
+description: Learn how you can interact with ports in your sandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Ports
+
+The Ports API allows you to monitor and interact with HTTP ports in your sandbox. This is particularly useful when working with development servers or any other services that listen on specific ports.
+
+Whenever a port is opened within a sandbox, we'll automatically expose it under `https://<sandbox-id>-<port>.csb.app`.
+
+<Callout>
+If the sandbox is private, we'll ask the user to sign in to open the preview. We're currently working on an API to allow creating signed URLs for private sandboxes, or selecting which ports are exposed and which are closed.
+</Callout>
+
+Also, we'll automatically resume a sandbox whenever a port is accessed while the sandbox is hibernated.
+
+## API
+
+The Ports API is available under `sandbox.ports`. It provides methods for monitoring port activity and getting preview URLs for web services.
+
+### Monitoring Ports
+
+You can listen for ports being opened and closed in your sandbox:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Listen for ports being opened
+const listener1 = sandbox.ports.onDidPortOpen((portInfo) => {
+  console.log(`Port ${portInfo.port} opened`);
+  console.log(`Preview URL: ${portInfo.getPreviewUrl()}`);
+});
+
+// Listen for ports being closed
+const listener2 = sandbox.ports.onDidPortClose((port) => {
+  console.log(`Port ${port} closed`);
+});
+
+// Remove listeners when done
+listener1.dispose();
+listener2.dispose();
+```
+
+### Getting Port Information
+
+You can get information about currently opened ports:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Get all opened ports
+const openPorts = sandbox.ports.getOpenedPorts();
+for (const port of openPorts) {
+  console.log(`Port ${port.port} is open at ${port.hostname}`);
+}
+
+// Get preview URL for a specific port
+const previewUrl = sandbox.ports.getPreviewUrl(3000);
+if (previewUrl) {
+  console.log(`Preview available at: ${previewUrl}`);
+}
+```
+
+### Waiting for Ports
+
+When starting services, you often need to wait for a port to become available:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Start a development server
+sandbox.shells.run("npm run dev");
+
+// Wait for the dev server port to open
+const portInfo = await sandbox.ports.waitForPort(3000);
+console.log(`Dev server is ready at: ${portInfo.getPreviewUrl()}`);
+```
+
+## Examples
+
+### Starting a Web Server
+
+Here's a complete example of starting a web server and getting its preview URL:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Start the server
+sandbox.shells.run("npx serve -y .");
+
+// Wait for the server to be ready
+const portInfo = await sandbox.ports.waitForPort(3000);
+
+// Get the preview URL with custom protocol
+const httpUrl = portInfo.getPreviewUrl("http://");
+const httpsUrl = portInfo.getPreviewUrl(); // defaults to https://
+
+console.log(`Server is running at:
+- HTTP:  ${httpUrl}
+- HTTPS: ${httpsUrl}`);
+```
+
+### Monitoring Multiple Ports
+
+When working with multiple services, you might want to monitor several ports:
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Start monitoring before launching services
+sandbox.ports.onDidPortOpen((portInfo) => {
+  switch (portInfo.port) {
+    case 3000:
+      console.log("Frontend server ready");
+      break;
+    case 3001:
+      console.log("API server ready");
+      break;
+    case 5432:
+      console.log("Database ready");
+      break;
+  }
+});
+
+// Start your services
+sandbox.shells.run("npm run start:all");
+```

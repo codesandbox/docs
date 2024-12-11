@@ -453,3 +453,92 @@ html[class~="dark"] article pre {
   background-color: var(--neutral-dark-medium) !important;
   border: none;
 }
+
+/* Templates List
+  ------------------------ */
+.templates-list {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+html[class~="dark"] .templates-list {
+  --template-border: var(--neutral-dark-opacity);
+  --template-title: var(--neutral-light-high);
+  --template-id-bg: var(--neutral-dark-high);
+  --template-id-text: var(--neutral-light-base);
+  --template-description: var(--neutral-light-base);
+}
+
+html[class~="light"] .templates-list {
+  --template-border: var(--neutral-light-opacity);
+  --template-title: var(--neutral-dark-base);
+  --template-id-bg: var(--neutral-light-high);
+  --template-id-text: var(--neutral-dark-base);
+  --template-description: var(--neutral-light-base);
+}
+
+.templates-list .template-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  border-bottom: 1px solid var(--template-border);
+}
+
+.templates-list .template-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 1rem;
+  border-radius: 6px;
+}
+
+html[class~="light"] .templates-list .template-icon {
+  background-color: var(--neutral-light-base);
+  padding: 4px;
+  border: 1px solid var(--neutral-light-base);
+}
+
+html[class~="dark"] .templates-list .template-icon {
+  background-color: transparent;
+  padding: 0;
+}
+
+.templates-list .template-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.templates-list .template-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.templates-list .template-title {
+  font-weight: 500;
+  color: var(--template-title);
+  text-decoration: none;
+}
+
+.templates-list .template-title:hover {
+  text-decoration: underline;
+}
+
+.templates-list .template-id {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  background-color: var(--template-id-bg);
+  border: none;
+  border-radius: 4px;
+  color: var(--template-id-text);
+  cursor: pointer;
+  min-width: 80px;
+  text-align: center;
+}
+
+.templates-list .template-description {
+  font-size: 0.875rem;
+  color: var(--template-description);
+  line-height: 1.25rem;
+}

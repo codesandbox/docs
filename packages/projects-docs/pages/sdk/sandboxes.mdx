@@ -1,0 +1,106 @@
+---
+title: Sandboxes
+description: Learn how to create sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Sandboxes
+
+Sandboxes are the main building block of the CodeSandbox SDK. They represent a single project that you can run, fork, and modify. They are backed by a Firecracker VM. Sandboxes are completely isolated, and persisted, so you can securely run untrusted code in them.
+
+## Creating a Sandbox
+
+You can create a sandbox by calling `sandbox.create()`:
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+const sdk = new CodeSandbox();
+
+const sandbox = await sdk.sandbox.create();
+```
+
+If no argument is provided to `sandbox.create()`, we'll create a sandbox based on our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a template id, either from [our collection of templates](/sdk/templates) or by creating your own snapshot using our [Snapshot Builder](/sdk/snapshot-builder).
+
+## Opening an Existing Sandbox
+
+You can also open an existing sandbox by calling `sandbox.open()`:
+
+```ts
+const sandbox = await sdk.sandbox.open('sandbox-id');
+```
+
+This will start the sandbox and connect to it.
+
+## Opening a Sandbox from the Browser
+
+It's possible to connect to a sandbox directly from the browser without sharing your API key with the frontend. You can do this by generating a single-use token from the server:
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+const sdk = new CodeSandbox();
+
+// This is from the server
+const startData = await sdk.sandbox.start('sandbox-id');
+```
+
+From the browser, you can use this start data to connect to the sandbox:
+
+```ts
+import { connectToSandbox } from '@codesandbox/sdk/browser'
+
+// Fetch the start data from the server
+const startData = await fetch('/api/start-sandbox').then(res => res.json());
+
+const sandbox = await connectToSandbox(startData);
+
+// Now you can do whatever you normally do using the SDK
+await sandbox.fs.writeFile('./index.html', '<h1>Hello World</h1>');
+sandbox.shells.run('npx -y serve .')
+console.log((await sandbox.ports.waitForPort(3000)).getPreviewUrl())
+```
+
+<Callout>
+Some APIs are not available when connecting from the browser. For example, you can't hibernate, shutdown or fork a sandbox.
+</Callout>
+
+## Hibernation & Hibernation Timeout
+
+When you're done with a sandbox, you can hibernate it. This will save the memory state of the sandbox, so it will resume from the same state when you start it again.
+
+```ts
+await sandbox.hibernate();
+```
+
+When starting a sandbox, you can also set a hibernation timeout between 1 minute and 24 hours. By default this timeout is 5 minutes for free users, and 30 minutes for paid users.
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+const sdk = new CodeSandbox();
+
+const sandbox = await sdk.sandbox.create({
+  hibernationTimeoutSeconds: 60 * 60 * 1 // 1 hour
+});
+```
+
+When you set a hibernation timeout, the sandbox will hibernate after the specified period of inactivity (no calls from the SDK). While the SDK remains connected, we recommend either explicitly hibernating the sandbox or disconnecting from it when you're done using it. Since resuming only takes a few seconds, you can be aggressive with hibernation to conserve resources.
+
+## Disconnecting from a Sandbox
+
+Alternatively, you can disconnect from the sandbox. In this case, it will automatically hibernate after the timeout:
+
+```ts
+await sandbox.disconnect();
+```
+
+You can do this if you want a user to still interact with the sandbox, but don't need to keep the SDK connected.
+
+## Shutdown
+
+Finally, you can also shutdown a sandbox. This will shut down the sandbox without creating a memory snapshot. Next time the sandbox is started, it will boot from a clean state (but your files in `/project/sandbox` will be preserved).
+
+```ts
+await sandbox.shutdown();
+```
+
+Generally you should shutdown a sandbox if you want to start from a clean state.

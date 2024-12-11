@@ -7,21 +7,27 @@
     "href": "https://codesandbox.io/support#form",
     "newWindow": true
   },
-  
+
   "-- api-reference": {
     "type": "separator",
     "title": "API Reference"
   },
   "sandboxes": "Sandboxes",
   "filesystem": "File System",
-  "commands": "Commands",
-  "specs": "Specs",
-  "error-codes": "Error Codes",
+  "shells": "Shells",
+  "ports": "Ports & Previews",
+  "tasks": "Tasks & Setup",
+  "specs": "VM Specs",
 
   "-- resources": {
     "type": "separator",
     "title": "Resources"
   },
+  "templates": "Templates",
+  "environment": "Environment",
+  "persistence": "Persistence",
+  "memory-snapshots": "Memory Snapshots",
+  "snapshot-builder": "Snapshot Builder",
   "pricing": "Pricing",
   "use-cases": "Use Cases",
   "examples": "Example Apps",
