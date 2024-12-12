@@ -2,6 +2,10 @@
   "index": "Introduction",
   "guides": "Getting Started",
   "editors": "Editors",
+  "sdk": {
+    "title": "SDK",
+    "href": "/sdk/"
+  },
   "-- cloud-development": {
     "type": "separator",
     "title": "Cloud Development"
