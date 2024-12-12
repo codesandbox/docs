@@ -1,0 +1,148 @@
+---
+title: Docker & Dev Containers
+description: Learn how to configure your sandbox environment using Dev Containers.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Dev Containers
+
+CodeSandbox natively supports the [Dev Containers specification](https://containers.dev/), allowing you to customize your sandbox, install system-level dependencies, and run additional services.
+
+## Configuration
+
+To configure your sandbox environment, create a `.devcontainer/devcontainer.json` file inside the root of the sandbox:
+
+```json
+{
+  "name": "Node.js",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {}
+  }
+}
+```
+
+In this example, we're installing Node v18 as base, with Python on top using Dev Container Features.
+
+Alternatively, you can use a `Dockerfile` to build the Docker image when the sandbox boots:
+
+```json
+{
+  "name": "Node.js",
+  "build": {
+    "dockerfile": "./Dockerfile"
+  }
+}
+```
+
+### Using Dev Containers in the SDK
+
+When creating a sandbox, all shells will automatically run inside the Docker container specified in the Dev Container configuration.
+
+```ts
+const sandbox = await sdk.sandbox.create({
+  template: "node" // Template with Dev Container configuration
+});
+
+await sandbox.shells.run("node --version");
+```
+
+Since we use memory snapshots, the Docker container will already be running when you run your shell.
+
+## Docker Compose
+
+You can run additional services using Docker Compose by adding a `docker-compose.yml` configuration to your Dev Container:
+
+```json
+{
+  "name": "Full Stack App",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace"
+}
+```
+
+With a corresponding `docker-compose.yml`:
+
+```yaml
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/javascript-node:18
+    command: sleep infinity
+
+  db:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+```
+
+### Using Docker Compose in the SDK
+
+The SDK will automatically start all services defined in your Docker Compose configuration:
+
+```ts
+const sandbox = await sdk.sandbox.create({
+  template: "fullstack" // Template with Dev Container configuration
+});
+
+// Wait for all services to be ready
+await sandbox.setup.waitForFinish();
+
+// You can now connect to the services
+const portInfo = await sandbox.ports.waitForPort(5432);
+console.log(`Database available at: ${portInfo.hostname}:${portInfo.port}`);
+```
+
+## Examples
+
+### Full-Stack Development Environment
+
+Here's an example of setting up a full-stack development environment with Node.js and PostgreSQL:
+
+```ts
+const sandbox = await sdk.sandbox.create({
+  template: "fullstack"
+});
+
+// Wait for environment setup
+const progress = await sandbox.setup.waitForFinish();
+if (progress.state !== "FINISHED") {
+  throw new Error("Environment setup failed");
+}
+
+// Start the development server
+const devTask = await sandbox.tasks.runTask("dev");
+
+// Wait for both the app and database to be ready
+const [appPort, dbPort] = await Promise.all([
+  sandbox.ports.waitForPort(3000),
+  sandbox.ports.waitForPort(5432)
+]);
+
+console.log(`
+App running at: ${appPort.getPreviewUrl()}
+Database available at: ${dbPort.hostname}:${dbPort.port}
+`);
+```
+
+### Custom Environment with System Dependencies
+
+Example of a sandbox that needs specific system packages:
+
+```ts
+const sandbox = await sdk.sandbox.create({
+  template: "custom-env"
+});
+
+// The Dev Container will install required packages during setup
+await sandbox.setup.waitForFinish();
+
+// Run a command that uses the installed packages
+const result = await sandbox.shells.run("ffmpeg -version");
+console.log(result.output);
+```
+
+For more information about Dev Container configuration options and features, visit the [Dev Container specification](https://containers.dev/). Also, take a look at our [snapshot builder](/sdk/snapshot-builder.mdx) to learn how to create efficient snapshots with preloaded Docker images.

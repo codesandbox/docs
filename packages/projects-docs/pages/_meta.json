@@ -1,14 +1,20 @@
 {
   "learn": {
-    "title": "Documentation",
+    "title": "Editor",
+    "type": "page"
+  },
+  "sdk": {
+    "title": "SDK",
     "type": "page"
   },
   "tutorial": {
     "title": "Tutorial",
-    "type": "page"
+    "type": "page",
+    "display": "hidden"
   },
   "faq": {
     "title": "FAQ",
-    "type": "page"
+    "type": "page",
+    "display": "hidden"
   }
 }

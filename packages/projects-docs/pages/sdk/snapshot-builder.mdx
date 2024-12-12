@@ -1,0 +1,128 @@
+---
+title: Snapshot Builder
+description: Learn how to create your own templates with the CodeSandbox SDK.
+---
+
+import Video from '../../../../shared-components/Video'
+
+# Snapshot Builder
+
+If you’re using CodeSandbox SDK, there’s a big chance that you want to customize the base environment of your sandboxes. You might want to preload a custom Docker image, or prestart a server that should be available as soon as you create a sandbox.
+
+You can use our CLI to create a memory snapshot that has all this data preloaded. This CLI will build a sandbox based on a folder, load the docker image, start the servers and finally create a memory snapshot that can be used when creating new sandboxes.
+
+New sandboxes can be created from this memory snapshot, which means that new sandboxes will “hit the ground running” with the servers running during snapshot creation. Creating a sandbox from a memory snapshot takes 1-3 seconds.
+
+<Video controls={true} autoPlay={false} playsInline={false} src="../../snapshot-builder.mp4" />
+
+## Creating a snapshot
+
+Install the CodeSandbox SDK globally to enable the CLI:
+
+```sh
+npm i -g @codesandbox/sdk@latest
+```
+
+Then create a directory with the files you want to have available inside your sandboxes.
+
+Finally, run:
+
+```jsx
+$ CSB_API_KEY=KEY csb build <path>
+abcde1
+```
+
+This will create a fresh sandbox, upload the files of your directory, start necessary servers and finally snapshot the sandbox to return the id you can use. You can then pass this id when creating new sandboxes:
+
+```jsx
+const sdk = new CodeSandbox(process.env.CSB_API_KEY);
+
+const sandbox = await sdk.sandbox.create({ template: 'abcde1' });
+```
+
+### Custom Docker Image
+
+CodeSandbox uses [Dev Containers](https://containers.dev/) for configuring Docker or Docker Compose for an environment. You can configure Docker by creating a `.devcontainer/devcontainer.json` file inside your snapshot folder with these contents:
+
+```json
+{
+  "image": "ubuntu:22.04"
+}
+```
+
+When we boot the sandbox, we’ll make sure that the docker image is pulled (or built) and we’ll make sure that all shells will start within this container. The `/project/sandbox` folder is mounted inside the container.
+
+You can also decide to build the Docker image as part of the snapshot creation process. You can do this by defining this in your `.devcontainer/devcontainer.json`:
+
+```json
+{
+  "build": {
+		"dockerfile": "Dockerfile"
+  }
+}
+```
+
+And creating a `.devcontainer/Dockerfile` with the contents of your Dockerfile.
+
+For more options (like running docker compose, or adding additional features), you can look at the [Dev Container docs](https://containers.dev/implementors/json_reference/).
+
+### Prestarting Servers
+
+If you have a server, agent or dev server that you want to run as part of your snapshot, you can do that by defining a `.codesandbox/tasks.json`. Let’s say you want to run your own dev server, the contents can be this:
+
+```json
+{
+  "tasks": {
+    "dev-server": {
+      "name": "Dev Server",
+      "command": "/bin/dev-server --port 3000",
+      "preview": {
+        "port": 3000
+      },
+      "runAtStart": true
+    }
+  }
+}
+```
+
+During the snapshot creation process, we will start `/bin/dev-server` after the Docker container has been started, and we will wait until port 3000 resolves before creating a memory snapshot. Then, whenever a new sandbox is created from this snapshot, the dev server will already be running.
+
+You can also run more than one task, you can add as many as you’d like. All commands will be run from the project directory.
+
+You can learn more about tasks in our [tasks documentation](/sdk/tasks.mdx).
+
+### Boot/Setup Tasks
+
+You can configure tasks to run after docker build has been done, but before we run the other tasks. These are called setup tasks or boot tasks. Usually you would put things like dependency installation in here. This can also be done in `.codesandbox/tasks.json`:
+
+```json
+{
+  "setupTasks": [
+    "npm install",
+    "npm build"
+  ]
+}
+```
+
+For any preparation you need to do inside the workspace directory (like building a binary from source files, or installing node_modules), a setup task would be better suited than putting it in the docker image. Also, if for some reason a sandbox starts without a memory snapshot, the setup tasks will also run before it starts any tasks.
+
+You can learn more about setup tasks in our [tasks documentation](/sdk/tasks.mdx).
+
+## Examples
+
+At CodeSandbox we’ve built many templates that follow this structure. You can find different examples of templates in this repository: https://github.com/codesandbox/sandbox-templates.
+
+## Strategies & Ideas
+
+- Preloading certain npm modules by preloading them in the cache, making `pnpm install` close to instant
+  - You can do this by creating a shell script that runs `pnpm store add` for all popular packages. For example: `pnpm store add react@18.3.1 react-dom@18.3.1`.
+  - Then, as part of your Docker image or [boot tasks](https://www.notion.so/SDK-Snapshot-Builder-151b878aad1a808abcd8fda5a62e6e41?pvs=21), you can run that script to preload the image with the pnpm packages.
+  - Now, when the user runs `pnpm add react`, it should be close to instant because the packages are already available.
+- Preloading a headless browser
+  - You can create a snapshot that has a headless browser (like Playwright) already snapshotted and running inside a VM.
+  - This browser can open a websocket port, which you can use to control the browser.
+
+## Future
+
+- We're working on a way to create snapshots in multiple clusters, allowing you to run your sandboxes close to the user.
+- We're working on a tagging system that allows you to use a tag (like `my-snapshot:latest`). This way you don't have to update ids whenever you create a new snapshot.

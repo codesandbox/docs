@@ -2,6 +2,10 @@
   "index": "Introduction",
   "guides": "Getting Started",
   "editors": "Editors",
+  "sdk": {
+    "title": "SDK",
+    "href": "/sdk/"
+  },
   "-- cloud-development": {
     "type": "separator",
     "title": "Cloud Development"
@@ -29,5 +33,13 @@
     "title": "More"
   },
   "ci": "CodeSandbox CI",
-  "explore": "Discover Page"
+  "explore": "Discover Page",
+  "tutorials": {
+    "title": "Tutorials",
+    "href": "/tutorial/getting-started-with-dev-containers"
+  },
+  "faq": {
+    "title": "FAQ",
+    "href": "/faq"
+  }
 }

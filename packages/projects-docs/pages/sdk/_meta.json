@@ -1,0 +1,33 @@
+{
+  "index": "Introduction",
+  "use-cases": "Use Cases",
+  "pricing": "Pricing",
+  "contact": {
+    "title": "Contact Us",
+    "href": "https://codesandbox.io/support#form",
+    "newWindow": true
+  },
+
+  "-- api-reference": {
+    "type": "separator",
+    "title": "API Reference"
+  },
+  "sandboxes": "Sandboxes",
+  "filesystem": "File System",
+  "shells": "Shells",
+  "ports": "Ports & Previews",
+  "tasks": "Tasks & Setup",
+  "specs": "VM Specs",
+
+  "-- resources": {
+    "type": "separator",
+    "title": "Resources"
+  },
+  "snapshot-library": "Snapshot Library",
+  "snapshot-builder": "Snapshot Builder",
+  "environment": "Environment",
+  "docker": "Docker & Docker Compose",
+  "persistence": "Persistence",
+  "fork": "Fork",
+  "faq": "FAQ"
+}
