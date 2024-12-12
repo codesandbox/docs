@@ -29,6 +29,5 @@
   "docker": "Docker & Docker Compose",
   "persistence": "Persistence",
   "fork": "Fork",
-  "examples": "Example Apps",
   "faq": "FAQ"
 }
