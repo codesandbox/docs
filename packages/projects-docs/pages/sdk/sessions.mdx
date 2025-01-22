@@ -21,34 +21,56 @@ await sandbox.fs.writeTextFile('test.txt', 'Hello World');
 When you run `whoami`, it will say you're `root`. That's because we run every session inside a Docker container where you are `root`. The container itself, however, is started as the user of your session.
 </Callout>
 
-Now, let's say you want another user to connect with the sandbox as well but don't want them to act on behalf of your session. You want them to have different permissions or to isolate their actions from your user. In that case, you can create a new session.
+Now, let's say you want another user to connect with the sandbox as well but don't want them to act on behalf of your global session. Perhaps you want them to have different permissions, or you want to isolate their actions from the global session. In that case, you can create a new session.
 
 ```ts
 const sandbox = await sdk.sandbox.create();
 
 // Now create a new session that only has read access to the sandbox.
-const session = await sandbox.session.create('anonymous', {
-  permission: 'read',
-});
+const session = await sandbox.sessions.createReadOnly();
 
-// I have access to the same API as the `pitcher-host` user, but I can't write to the file system.
+// I have access to the normal sandbox api, but I only have read access
+// This means I cannot write files or open shells, but I _can_ read them
 await session.fs.writeTextFile('test.txt', 'Hello World'); // This will throw an error.
 await session.fs.readTextFile('test.txt'); // This will work.
 
-// All my actions will be done by the `csb-session-anonymous` user.
+// I can also create sessions with write access
+const session2 = await sandbox.sessions.create('my-session-id', {
+  permission: 'write',
+});
+await session2.fs.writeTextFile('test.ext', 'Hello World'); // This will work
 ```
 
-Creating a session with the same id as before (e.g., `anonymous`) will return the same session object. This means that you can also allow multiple users to interact with a sandbox through the same session.
+If you create a session with the same id as before (e.g., `my-session-id`), we will reuse the existing session.
 
-## Use Cases
+## Sessions Inside the Browser
 
-At CodeSandbox, we use this API to support two features:
+By default, we will automatically connect to the session when calling `sandbox.sessions.create()`. However, if you want to connect from the browser, you can instead create a session on the server and share a token to the browser, which the browser can then use to connect. Here is an example:
 
-1. Allow multiple users to connect to the same branch and collaboratively edit files without the ability to affect each other.
-2. Allow for read-only sessions to view a sandbox without the ability to start new shells or update files.
+```ts
+const sandbox = await sdk.sandbox.create();
+
+const sessionInfo = sandbox.sessions.create('my-new-session', { permission: 'write', autoConnect: false });
+
+// Now pass sessionInfo to the browser, and inside the browser do:
+
+import { connectToSandbox } from '@codesandbox/sdk/browser';
+
+const session = await connectToSandbox(sessionInfo);
+```
 
 ## Storage
 
-Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder) other users will be able to see it. There are some exceptions to this:
+Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder) other users will be able to see it. There is one exception to this the `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
 
-- The `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to the files inside this folder.
+## Use Cases
+
+You can use this API for multiple use cases:
+
+### Shared Branches / Sandboxes
+
+When building a collaborative code editor, you can allow multiple users to connect to the same branch and collaboratively edit files without the ability to affect each other. Every user can have their own secrets (like git token) stored in `~/.private` so they can commit and pull with their own credentials without sharing those credentials with others.
+
+### Anonymous Previews
+
+If you want to share a sandbox with someone else, and give them access to reading files & shells, you can create a read-only session when they connect to the sandbox. This way they can see what's running, and how it works, but they cannot change the code. If they want to make changes, you can call `sandbox.fork()` to create a copy and give them access to a write session there.
