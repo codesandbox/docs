@@ -45,7 +45,7 @@ If you create a session with the same id as before (e.g., `my-session-id`), we w
 
 ## Sessions Inside the Browser
 
-By default, we will automatically connect to the session when calling `sandbox.sessions.create()`. However, if you want to connect from the browser, you can instead create a session on the server and share a token to the browser, which the browser can then use to connect. Here is an example:
+By default, we will automatically connect to the session when calling `sandbox.sessions.create()`. However, if you want to connect from the browser, you can instead create a session on the server and share a token with the browser, which the browser can then use to connect. Here is an example:
 
 ```ts
 const sandbox = await sdk.sandbox.create();
@@ -61,7 +61,7 @@ const session = await connectToSandbox(sessionInfo);
 
 ## Storage
 
-Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder) other users will be able to see it. There is one exception to this the `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
+Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder), other users will be able to see it. There is one exception to this the `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
 
 ## Use Cases
 
@@ -69,8 +69,8 @@ You can use this API for multiple use cases:
 
 ### Shared Branches / Sandboxes
 
-When building a collaborative code editor, you can allow multiple users to connect to the same branch and collaboratively edit files without the ability to affect each other. Every user can have their own secrets (like git token) stored in `~/.private` so they can commit and pull with their own credentials without sharing those credentials with others.
+When building a collaborative code editor, you can allow multiple users to connect to the same branch and collaboratively edit files without the ability to affect each other. Every user can have their own secrets (like git token) stored in `~/.private` so they can commit and pull with their own credentials without sharing those with others.
 
 ### Anonymous Previews
 
-If you want to share a sandbox with someone else, and give them access to reading files & shells, you can create a read-only session when they connect to the sandbox. This way they can see what's running, and how it works, but they cannot change the code. If they want to make changes, you can call `sandbox.fork()` to create a copy and give them access to a write session there.
+If you want to share a sandbox with someone else and give them access to reading files & shells, you can create a read-only session when they connect to the sandbox. This way, they can see what's running and how it works, but they cannot change the code. If they want to make changes, you can call `sandbox.fork()` to create a copy and give them access to a write session there.
