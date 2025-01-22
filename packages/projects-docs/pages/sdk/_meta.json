@@ -17,6 +17,7 @@
   "shells": "Shells",
   "ports": "Ports & Previews",
   "tasks": "Tasks & Setup",
+  "sessions": "Sessions",
   "specs": "VM Specs",
 
   "-- resources": {

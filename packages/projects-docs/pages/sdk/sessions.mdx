@@ -1,0 +1,54 @@
+---
+title: Sessions
+description: Sessions allows for creating multiple users inside a single sandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Sessions
+
+Normally, when you create a sandbox, we create a single user (called `pitcher-host`) inside the sandbox which you can use to interact with the sandbox. This user has write access to any API. We refer to this session as the "global" session.
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Now I have a session where I act as `pitcher-host` user.
+// Any action I do will be done as `pitcher-host` user.
+await sandbox.fs.writeTextFile('test.txt', 'Hello World');
+```
+
+<Callout>
+When you run `whoami`, it will say you're `root`. That's because we run every session inside a Docker container where you are root. The container itself, however, is started as the user of your session.
+</Callout>
+
+Now let's say you want another user to connect with the sandbox as well, but you don't want them to act on behalf of your session. You want them to have different permissions, or you want their actions to be isolated from your user. In that case, you can create a new session.
+
+```ts
+const sandbox = await sdk.sandbox.create();
+
+// Now create a new session that only has read access to the sandbox.
+const session = await sandbox.session.create('anonymous', {
+  permission: 'read',
+});
+
+// I have access to the same API as the `pitcher-host` user, but I can't write to the file system.
+await session.fs.writeTextFile('test.txt', 'Hello World'); // This will throw an error.
+await session.fs.readTextFile('test.txt'); // This will work.
+
+// All actions I do will be done by the `csb-session-anonymous` user.
+```
+
+When you create a session with the same id as before (e.g. `anonymous`), it will return the same session object. This means that you can also allow multiple users to interact with a sandbox through the same session.
+
+## Use Cases
+
+At CodeSandbox, we use this API to support two features:
+
+1. Allow multiple users to connect to the same branch, and collaboratively edit files without the ability to affect each other.
+2. Allow for read-only sessions to look at a sandbox, without the ability to start new shells or update files.
+
+## Storage
+
+Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder, or even the home folder, other users will be able to see this file. There are some exceptions to this:
+
+- The `~/.private` folder will be private to each session. No other session (including the global session) will be able to read or write to the files inside this folder.
