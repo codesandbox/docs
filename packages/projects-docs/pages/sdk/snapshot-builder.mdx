@@ -108,6 +108,10 @@ For any preparation you need to do inside the workspace directory (like building
 
 You can learn more about setup tasks in our [tasks documentation](/sdk/tasks.mdx).
 
+### Setup Tasks vs Dockerfile
+
+When would you configure something in the Dockerfile, and when would you configure something in setup tasks? As a rule of thumb, if something is configured in relation to the environment (like installing Node, or installing Postgres, or installing Bun), it should go into the Dockerfile. If something is related to the project setup (installing dependencies, building a binary), it should be inside setup tasks.
+
 ## Examples
 
 At CodeSandbox we’ve built many templates that follow this structure. You can find different examples of templates in this repository: https://github.com/codesandbox/sandbox-templates.
