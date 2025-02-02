@@ -61,7 +61,11 @@ const session = await connectToSandbox(sessionInfo);
 
 ## Storage
 
-Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder), other users will be able to see it. There is one exception to this the `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
+Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder), other users will be able to see it. There is one exception to this: the `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
+
+<Callout>
+The `~/.private` folder will not be persisted between restarts of the sandbox. This means that files inside this folder will disappear between restarts. 
+</Callout
 
 ## Use Cases
 
