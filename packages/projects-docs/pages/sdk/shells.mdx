@@ -19,10 +19,10 @@ You can create an interactive shell that allows you to send commands and receive
 const sandbox = await sdk.sandbox.create();
 
 // Create a new shell (bash is default)
-const shell = await sandbox.shells.create('bash');
+const shell = sandbox.shells.create('bash');
 
 // Listen to shell output
-shell.onShellOut((output) => {
+const shellListenDisposer = shell.onOutput((output) => {
   console.log(output);
 });
 
@@ -31,6 +31,9 @@ await shell.write("echo 'Hello, world!'");
 
 // Kill the shell when done
 await shell.kill();
+
+// Dispose the listener when done
+shellListenDisposer.dispose();
 ```
 
 ### Running Commands
