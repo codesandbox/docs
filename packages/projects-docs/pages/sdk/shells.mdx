@@ -3,6 +3,8 @@ title: Shells
 description: Learn how the CodeSandbox SDK's shells work.
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 # Shells
 
 The Shell API allows you to create, manage and interact with shell processes in your sandbox. You can create interactive shells, run commands, and execute code in different programming languages.
@@ -27,7 +29,7 @@ const shellListenDisposer = shell.onOutput((output) => {
 });
 
 // Send commands to the shell
-await shell.write("echo 'Hello, world!'");
+await shell.write("echo 'Hello, world!'\n");
 
 // Kill the shell when done
 await shell.kill();
@@ -35,6 +37,10 @@ await shell.kill();
 // Dispose the listener when done
 shellListenDisposer.dispose();
 ```
+
+<Callout emoji="💡">
+We recommend to use `sandbox.shells.create` when you want to create an interactive terminal that the user can interact with. We recommend using `sandbox.shells.run` if you want to run a specific command (like `npm run build` or `npm run dev`).
+</Callout>
 
 ### Running Commands
 
@@ -107,10 +113,8 @@ console.log(shell.getOutput());
 ```ts
 const sandbox = await sdk.sandbox.create();
 
-const shell = await sandbox.shells.create();
-
 // Run in background by not awaiting the command
-shell.run("npx serve -y .");
+const shell = sandbox.shells.run("npx -y serve .");
 
 const portInfo = await shell.waitForPort(3000);
 
