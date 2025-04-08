@@ -50,7 +50,7 @@ By default, we will automatically connect to the session when calling `sandbox.s
 ```ts
 const sandbox = await sdk.sandbox.create();
 
-const sessionInfo = sandbox.sessions.create('my-new-session', { permission: 'write', autoConnect: false });
+const sessionInfo = await sandbox.sessions.create('my-new-session', { permission: 'write', autoConnect: false });
 
 // Now pass sessionInfo to the browser, and inside the browser do:
 
