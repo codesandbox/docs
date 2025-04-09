@@ -28,7 +28,7 @@
   "snapshot-builder": "Snapshot Builder",
   "environment": "Environment",
   "docker": "Docker & Docker Compose",
-  "persistence": "Persistence",
+  "persistence": "Persistence and Bootup",
   "fork": "Fork",
   "faq": "FAQ"
 }
