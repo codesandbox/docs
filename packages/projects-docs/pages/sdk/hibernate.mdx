@@ -1,0 +1,30 @@
+---
+title: Hibernate
+description: Learn how to hibernate sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Hibernate
+
+When you're done with a sandbox, you can hibernate it. This will save the memory state of the sandbox, so it will resume from the same state when you start it again.
+
+```ts
+const sandbox = sdk.sandbox.ref('sandbox-id')
+
+await sandbox.hibernate();
+```
+
+When creating or restarting a sandbox, you can also set a hibernation timeout between 1 minute and 24 hours. By default this timeout is 5 minutes for free users, and 30 minutes for paid users.
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+const sdk = new CodeSandbox();
+
+const sandbox = await sdk.sandbox.create({
+  type: 'template',
+  hibernationTimeoutSeconds: 60 * 60 * 1 // 1 hour
+});
+```
+
+When you set a hibernation timeout, the sandbox will hibernate after the specified period of inactivity (no calls from the SDK). While the SDK remains connected, we recommend either explicitly hibernating the sandbox or disconnecting from it when you're done using it. Since resuming only takes a few seconds, you can be aggressive with hibernation to conserve resources.

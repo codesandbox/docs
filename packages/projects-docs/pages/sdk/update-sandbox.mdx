@@ -1,0 +1,24 @@
+---
+title: Update Sandbox
+description: Learn how to keep Sandboxes up to date with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Update Sandbox
+
+Every Sandbox has an agent running on it. This agent is the what allows you to interact with the Sandbox environment
+When a new version of the agent is published existing sandboxes needs to restart to get that new version.
+
+You can check if the current sandbox is up to date using `isUpToDate()`
+
+```ts
+const sandbox = sdk.sandbox.ref('sandbox-id')
+const isUpToDate = await sandbox.isUpToDate()
+
+if (!isUpToDate) {
+    await sandbox.restart()
+}
+```
+
+It is up to you deciding on the best user experience. At CodeSandbox we would show a notification when the agent was out of date and the user could choose when to update.

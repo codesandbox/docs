@@ -4,6 +4,7 @@ description: Learn how CodeSandbox works and the different types of projects you
 ---
 
 import Hero from "../../../../shared-components/Hero.js";
+import { Callout } from 'nextra-theme-docs'
 
 <Hero
   title="CodeSandbox SDK"
@@ -42,23 +43,25 @@ Now you can create a sandbox and run a server:
 import { CodeSandbox } from "@codesandbox/sdk";
 
 const sdk = new CodeSandbox(process.env.CSB_API_KEY!);
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create()
+let session = await sandbox.connect()
 
-await sandbox.shells.python.run("print(1+1)");
-await sandbox.shells.run('echo "Hello World"');
+await session.shells.python.run("print(1+1)");
+await session.shells.run('echo "Hello World"');
 
 // We can also start shells in the background by not awaiting them
-const shellInfo = sandbox.shells.run("npx -y serve .");
+const shellInfo = session.shells.run("npx -y serve .");
 
 // Wait for port to open
-const portInfo = await sandbox.ports.waitForPort(3000);
+const portInfo = await session.ports.waitForPort(3000);
 console.log(portInfo.getPreviewUrl());
 
 // And, we can clone(!) the sandbox! This takes 1-3s.
-const sandbox2 = await sandbox.fork();
+const sandbox2 = await sandbox.fork()
+session = await sandbox2.connect()
 
 // Sandbox 2 will have the same processes running as sandbox 1
-const portInfo2 = await sandbox2.ports.waitForPort(3000);
+const portInfo2 = await session.ports.waitForPort(3000);
 console.log(portInfo2.getPreviewUrl());
 
 // Finally, we can hibernate the sandbox. This will snapshot the sandbox and stop it.
@@ -68,6 +71,11 @@ console.log(portInfo2.getPreviewUrl());
 await sandbox.hibernate();
 await sandbox2.hibernate();
 
-// Open the sandbox again
-const resumedSandbox = await sdk.sandbox.open(sandbox.id);
+// Resume the sandbox
+await sandbox.resume()
+session = await sandbox.connect()
 ```
+
+<Callout>
+The `connect` method connects you to the sandbox with a websocket connection, but you can also use `rest`, `json` or `ssh` for other types of connections.
+</Callout>

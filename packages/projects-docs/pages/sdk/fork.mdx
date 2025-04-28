@@ -13,9 +13,10 @@ import { CodeSandbox } from '@codesandbox/sdk'
 const sdk = new CodeSandbox();
 
 const sandbox = await sdk.sandbox.create();
+const session = sandbox.createSession()
 
 // Run anything on the sandbox
-await sandbox.shells.run('echo test > test.txt');
+await session.shells.run('echo test > test.txt');
 
 const sandbox2 = await sandbox.fork();
 

@@ -31,7 +31,7 @@ You can obtain a preview token by calling `sandbox.previewTokens.create`. You ca
 // Create a preview token with a custom expiration time
 const previewToken = await sandbox.previewTokens.create({
   expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 1 week from now
-});
+})
 
 // Let's say that the sandbox is running something on port 3000
 const port = await sandbox.ports.waitForPort(3000);
@@ -100,7 +100,7 @@ const signedUrl = port.getSignedPreviewUrl(token);
 In some cases, a private sandbox might be running an API server that you want to access. In those cases, you should put the preview token in the `csb-preview-token` header.
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect()
 
 // Start a development server
 sandbox.shells.run("npm run dev");
@@ -129,7 +129,7 @@ The Ports API is available under `sandbox.ports`. It provides methods for monito
 You can listen for ports being opened and closed in your sandbox:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Listen for ports being opened
 const listener1 = sandbox.ports.onDidPortOpen((portInfo) => {
@@ -152,7 +152,7 @@ listener2.dispose();
 You can get information about currently opened ports:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Get all opened ports
 const openPorts = sandbox.ports.getOpenedPorts();
@@ -172,7 +172,7 @@ if (previewUrl) {
 When starting services, you often need to wait for a port to become available:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Start a development server
 sandbox.shells.run("npm run dev");
@@ -189,7 +189,7 @@ console.log(`Dev server is ready at: ${portInfo.getPreviewUrl()}`);
 Here's a complete example of starting a web server and getting its preview URL:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Start the server
 sandbox.shells.run("npx serve -y .");
@@ -211,7 +211,7 @@ console.log(`Server is running at:
 When working with multiple services, you might want to monitor several ports:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Start monitoring before launching services
 sandbox.ports.onDidPortOpen((portInfo) => {

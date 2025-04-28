@@ -151,7 +151,7 @@ Here's a more complete example showing various task configurations:
 Setup tasks run automatically when a sandbox starts. They typically handle installation of dependencies and initial builds. You can monitor and control setup tasks using the Setup API:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect()
 
 // Listen to setup progress
 sandbox.setup.onSetupProgressUpdate((progress) => {
@@ -216,7 +216,7 @@ Regular tasks are defined in the `tasks` section of your `tasks.json` file. Each
 You can get all available tasks in your sandbox:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Get all tasks
 const tasks = await sandbox.tasks.getTasks();
@@ -230,7 +230,7 @@ for (const task of tasks) {
 You can run a task using its ID:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Run a specific task
 const task = await sandbox.tasks.runTask("dev");
@@ -248,7 +248,7 @@ if (task.ports.length > 0) {
 You can get information about a specific task:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Get a specific task
 const task = await sandbox.tasks.getTask("build");
@@ -270,7 +270,7 @@ if (task) {
 Here's an example of running a development server task and waiting for it to be ready:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Get the dev task
 const task = await sandbox.tasks.getTask("dev");
@@ -294,7 +294,7 @@ if (task.preview?.port) {
 You can run multiple tasks and monitor their ports:
 
 ```ts
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandbox.create().connect();
 
 // Get all tasks that should run at start
 const tasks = await sandbox.tasks.getTasks();
