@@ -27,8 +27,8 @@ import { CodeSandbox } from '@codesandbox/sdk'
 const sdk = new CodeSandbox();
 
 const sandbox = await sdk.sandbox.create({
-    type: 'template',
-    template: 'some-sandbox-id'
+    source: 'template',
+    id: 'some-sandbox-id'
 });
 ```
 
@@ -46,7 +46,7 @@ You can create a Sandbox from a git repository as well.
 
 ```ts
 const sandbox = await sdk.sandbox.create({
-    type: 'git',
+    source: 'git',
     url: '',
     accessToken: ''
 });
@@ -58,7 +58,7 @@ You can create a Sandbox inline as well. We will hash the files and use it as a 
 
 ```ts
 const sandbox = await sdk.sandbox.create({
-    type: 'json',
+    source: 'json',
     files: {
         'src/index.js': 'console.log("Hello World")'
     },
