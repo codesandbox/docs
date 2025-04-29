@@ -20,7 +20,7 @@ You can read & write files using an api that's similer to the Node.js fs module:
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const session = await sandbox.createSession()
+const session = await sandbox.connect()
 
 // Writing text files
 await session.fs.writeTextFile("./hello.txt", "Hello, world!");
@@ -44,19 +44,20 @@ Uploading and downloading files can be done using the same methods as writing an
 ```ts
 import fs from "node:fs";
 
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 const myBinaryFile = fs.readFileSync("./my-binary-file");
-await sandbox.fs.writeFile("./my-binary-file", myBinaryFile);
+await session.fs.writeFile("./my-binary-file", myBinaryFile);
 
-const content = await sandbox.fs.readFile("./my-binary-file");
+const content = await session.fs.readFile("./my-binary-file");
 fs.writeFileSync("./my-binary-file", content);
 ```
 
 You can also download a file or directory by generating a download URL to a zip file. This download URL is valid for 5 minutes:
 
 ```ts
-const { downloadUrl } = await sandbox.fs.download("./");
+const { downloadUrl } = await session.fs.download("./");
 console.log(downloadUrl);
 ```
 
@@ -65,7 +66,7 @@ console.log(downloadUrl);
 You can list files & directories in a directory using the `readdir` method.
 
 ```ts
-const filesOrDirs = await sandbox.fs.readdir("./");
+const filesOrDirs = await session.fs.readdir("./");
 
 console.log(filesOrDirs);
 ```
@@ -75,9 +76,9 @@ console.log(filesOrDirs);
 You can copy, rename & delete files using the `copy`, `rename` & `remove` methods.
 
 ```ts
-await sandbox.fs.copy("./hello.txt", "./hello-copy.txt");
-await sandbox.fs.rename("./hello-copy.txt", "./hello-renamed.txt");
-await sandbox.fs.remove("./hello-renamed.txt");
+await session.fs.copy("./hello.txt", "./hello-copy.txt");
+await session.fs.rename("./hello-copy.txt", "./hello-renamed.txt");
+await session.fs.remove("./hello-renamed.txt");
 ```
 
 ### Watching Files
@@ -85,7 +86,7 @@ await sandbox.fs.remove("./hello-renamed.txt");
 You can watch files for file changes, additions and deletions using the `watch` method.
 
 ```ts
-const watcher = await sandbox.fs.watch("./", { recursive: true, excludes: [".git"] });
+const watcher = await session.fs.watch("./", { recursive: true, excludes: [".git"] });
 
 watcher.onEvent((event) => {
   console.log(event);

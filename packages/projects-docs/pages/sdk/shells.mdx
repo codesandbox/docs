@@ -18,10 +18,11 @@ The Shell API is available under `sandbox.shells`. It provides methods for creat
 You can create an interactive shell that allows you to send commands and receive output:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect()
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Create a new shell (bash is default)
-const shell = sandbox.shells.create('bash')
+const shell = session.shells.create('bash')
 
 // Listen to shell output
 const shellListenDisposer = shell.onOutput((output) => {
@@ -47,10 +48,11 @@ We recommend to use `sandbox.shells.create` when you want to create an interacti
 For simple command execution, you can use the `run` method which returns a promise with the command's output:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Run a single command
-const command = sandbox.shells.run("npm install");
+const command = session.shells.run("npm install");
 
 // Listen to real-time output
 command.onOutput((output) => {
@@ -72,15 +74,16 @@ console.log(result.output, result.exitCode);
 The Shell API includes built-in support for running code in different programming languages:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Run JavaScript code
-const jsResult = await sandbox.shells.js.run(`
+const jsResult = await session.shells.js.run(`
   console.log("Hello from Node.js!");
 `);
 
 // Run Python code
-const pythonResult = await sandbox.shells.python.run(`
+const pythonResult = await session.shells.python.run(`
   print("Hello from Python!")
 `);
 ```
@@ -92,13 +95,14 @@ These interpreters are built on top of the `run` method, so you can use the same
 You can list and reconnect to existing shells:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Get all shells
-const shells = await sandbox.shells.getShells();
+const shells = await session.shells.getShells();
 
 // Reconnect to an existing shell
-const shell = await sandbox.shells.open(shellId);
+const shell = await session.shells.open(shellId);
 
 // Check shell status and info
 console.log(shell.status); // "RUNNING" | "FINISHED" | "ERROR" | "KILLED" | "RESTARTING"
@@ -111,10 +115,11 @@ console.log(shell.getOutput());
 ### Starting a server and waiting for the port to open
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Run in background by not awaiting the command
-const shell = sandbox.shells.run("npx -y serve .");
+const shell = session.shells.run("npx -y serve .");
 
 const portInfo = await shell.waitForPort(3000);
 

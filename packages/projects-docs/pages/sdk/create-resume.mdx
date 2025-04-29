@@ -1,0 +1,83 @@
+---
+title: Create Sandbox
+description: Learn how to create sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Create Sandbox
+
+Sandboxes are the main building block of the CodeSandbox SDK. They represent a single project that you can run, fork, and modify. They are backed by a Firecracker VM. Sandboxes are completely isolated, and persisted, so you can securely run untrusted code in them.
+
+## Creating a Sandbox
+
+You can create a sandbox by calling `sandbox.create()`:
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+const sdk = new CodeSandbox();
+
+const sandbox = await sdk.sandbox.create();
+```
+
+If no argument is provided to `sandbox.create()`, we'll create a sandbox based on our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own snapshot using our [Snapshot Builder](/sdk/snapshot-builder). Additionally you can choose other sources like [Git](/sdk/sandbox#git) or [Files](/sdk/sandbox#files).
+
+The `sandbox` object represents the instance of a sandbox running in our infrastructure. You can use it to manage the sandbox and connect to it. In addition to its methods it has the following properties:
+
+- `id`: The unique identifier of the sandbox.
+- `isUpToDate`: Whether the sandbox is up to date with the latest agent version.
+- `cluster`: The cluster the sandbox is running on.
+
+### Create from Template
+
+```ts
+const sandbox = await sdk.sandbox.create({
+    source: 'template',
+    id: 'some-sandbox-id'
+})
+```
+
+### Create from Git
+
+```ts
+const sandbox = await sdk.sandbox.create({
+    source: 'git',
+    url: 'https://...',
+    branch: 'main'
+})
+```
+
+### Create from Files
+
+```ts
+const sandbox = await sdk.sandbox.create({
+    source: 'files',
+    files: {
+        'index.js': 'console.log("Hello World")'
+    }
+})
+```
+
+### Additional options
+
+For any of the above sources you can also pass the following options:
+
+```ts
+const sandbox = await sdk.sandbox.create({
+    source: 'template',
+    title: 'my-sandbox',
+    description: 'My sandbox',
+    tags: ['my-tag'],
+
+})
+```
+
+## Resume Existing Sandbox
+
+Resume an existing sandbox by calling `sdk.sandbox.resume(id)`:
+
+```ts
+const sandbox = await sdk.sandbox.resume('sandbox-id');
+```
+
+This will resume the sandbox from hibernation and let you connect to it.

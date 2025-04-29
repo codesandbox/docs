@@ -7,23 +7,15 @@ import { Callout } from 'nextra-theme-docs'
 
 # Sessions
 
-To interact with a Sandbox you have to create a session. The SDK offers different types of sessions depending on your needs:
-
-- **WebSocket**: A long lived WebSocket connection with minimum overhead to message passing. Can listen to port changes, shell outputs etc. Can be used in the browser
-- **Browser**: The same long lived WebSocket connection, but in the browser
-- **Rest**: When you do not want to manage a connection, but rather do one off request/response
-- **Ssh**: When you want to interact with the full environment at low level
-
 By default a session is bound to a user called `pitcher-host`. This user has write access to any API. We refer to this session as the "global" session.
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const session = await sandbox.createSession()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
 // Now I have a session where I act as `pitcher-host` user.
 // Any action I do will be done as `pitcher-host` user.
-await client.fs.writeTextFile('test.txt', 'Hello World');
+await session.fs.writeTextFile('test.txt', 'Hello World');
 ```
 
 <Callout>
@@ -35,8 +27,8 @@ But you can choose to create your own user sessions with specific permissions. L
 ```ts
 // Now create a new session that only has read access to the sandbox
 const sandbox = await sdk.sandbox.create()
-const session = await sandbox.createWebSocketSession({
-  user: 'anonymous',
+const session = await sandbox.connect({
+  id: 'anonymous',
   permission: 'read'
 })
 
@@ -46,8 +38,8 @@ await session.fs.writeTextFile('test.txt', 'Hello World'); // This will throw an
 await session.fs.readTextFile('test.txt'); // This will work.
 
 // I can also create sessions with write access
-const session2 = await sandbox.createWebSocketSession({
-  user: 'some-user-reference',
+const session2 = await sandbox.connect({
+  id: 'some-user-reference',
   permission: 'write',
 });
 await session2.fs.writeTextFile('test.ext', 'Hello World'); // This will work
@@ -63,16 +55,15 @@ The `~/.private` folder will not be persisted between restarts of the sandbox. T
 
 ## Sessions in the Browser
 
-If you want your users to connect to the Sandbox from the browser you can rather create a browser session and pass it to the client.
+If you want your users to connect to the Sandbox from the browser you can rather create an endpoint that responds with a browser session:
 
 ```ts
-const sandbox = await sdk.sandbox.ref('sandbox-id');
+export const GET = async ({ params }) => {
+  const sandbox = await sdk.sandbox.resume(params.sandboxId);
+  const session = await sandbox.createBrowserSession();
 
-// Pass this session to the browser
-const session = await sandbox.createBrowserSession({
-  user: 'some-user-reference',
-  permission: 'write'
-});
+  return session
+}
 ```
 
 And in the browser:
@@ -80,7 +71,11 @@ And in the browser:
 ```ts
 import { connectToSandbox } from '@codesandbox/sdk/browser';
 
-const session = await connectToSandbox(sessionFromServer);
+const session = await connectToSandbox(() =>
+  fetch(`/api/sandboxes/123`).then(res => res.json())
+);
+
+await session.fs.writeTextFile('test.txt', 'Hello World');
 ```
 
 ## Sessions using Rest
@@ -89,23 +84,8 @@ The sandboxes also expose a Rest api which can be a more useful protocol to use 
 is not as extensive, but supports most features.
 
 ```ts
-const sandbox = sdk.sandbox.ref('sandbox-id')
-const session = sandbox.createRestSession({
-  user: 'some-user-reference',
-  permission: 'write'
-})
+const sandbox = await sdk.sandbox.resume('sandbox-id')
+const session = await sandbox.createRestSession()
 
 await session.fs.writeTextFile({ path: 'test.ext', content: 'Hello World' })
-```
-
-## Sessions using Ssh
-
-Not sure the use case here or how it works.
-
-```ts
-const sandbox = sdk.sandbox.ref('sandbox-id')
-const session = sandbox.createSshSession({
-  user: 'some-user-reference',
-  permission: 'write'
-})
 ```

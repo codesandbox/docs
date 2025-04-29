@@ -13,10 +13,9 @@ When a new version of the agent is published existing sandboxes needs to restart
 You can check if the current sandbox is up to date using `isUpToDate()`
 
 ```ts
-const sandbox = sdk.sandbox.ref('sandbox-id')
-const isUpToDate = await sandbox.isUpToDate()
+const sandbox = await sdk.sandbox.resume('sandbox-id')
 
-if (!isUpToDate) {
+if (!sandbox.isUpToDate) {
     await sandbox.restart()
 }
 ```
