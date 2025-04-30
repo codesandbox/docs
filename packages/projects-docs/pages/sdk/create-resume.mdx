@@ -22,7 +22,7 @@ const sandbox = await sdk.sandbox.create();
 
 If no argument is provided to `sandbox.create()`, we'll create a sandbox based on our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own snapshot using our [Snapshot Builder](/sdk/snapshot-builder). Additionally you can choose other sources like [Git](/sdk/sandbox#git) or [Files](/sdk/sandbox#files).
 
-The `sandbox` object represents the instance of a sandbox running in our infrastructure. You can use it to manage the sandbox and connect to it. In addition to its methods it has the following properties:
+The `sandbox` object represents the instance of a sandbox running in our infrastructure. The methods available here requires the Sandbox to be running. Additionally you have:
 
 - `id`: The unique identifier of the sandbox.
 - `isUpToDate`: Whether the sandbox is up to date with the latest agent version.

@@ -40,6 +40,8 @@ This will pick the smallest VM tier that can fit the specs you provided.
 You can change the VM specs of a running sandbox by calling the `sandbox.updateTier` method:
 
 ```ts
+const sandbox = await sdk.sandbox.resume('some-id')
+
 await sandbox.updateTier(VMTier.Medium);
 ```
 

@@ -18,7 +18,7 @@ const session = await sandbox.connect()
 // Run anything on the sandbox
 await session.shells.run('echo test > test.txt');
 
-const sandbox2 = await sandbox.fork();
+const sandbox2 = await sdk.sandbox.fork(sandbox.id);
 
 // Now we have two sandboxes that have the same fs & memory state!
 ```
@@ -37,7 +37,7 @@ const sandbox = await sdk.sandbox.create();
 
 // Do work
 
-await sandbox.hibernate();
+await sdk.sandbox.hibernate(sandbox.id);
 ```
 
 Creating a memory snapshot can take between 3-10 seconds. Resuming from a memory snapshot takes between 0.5-2 seconds.

@@ -12,7 +12,7 @@ Restarting a Sandbox starts it from a clean slate. It will install and build its
 ```ts
 const sandbox = await sdk.sandbox.resume('sandbox-id')
 
-await sandbox.restart();
+await sdk.sandbox.restart(sandbox.id);
 ```
 
 ## Shutdown
@@ -22,7 +22,7 @@ You can also shutdown a sandbox. This will shut down the sandbox without creatin
 ```ts
 const sandbox = await sdk.sandbox.resume('sandbox-id')
 
-await sandbox.shutdown();
+await sdk.sandbox.shutdown(sandbox.id);
 ```
 
 Generally you should shutdown a sandbox if you want to start from a clean state.

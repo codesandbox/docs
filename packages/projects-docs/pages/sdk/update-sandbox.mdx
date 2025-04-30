@@ -16,7 +16,7 @@ You can check if the current sandbox is up to date using `isUpToDate()`
 const sandbox = await sdk.sandbox.resume('sandbox-id')
 
 if (!sandbox.isUpToDate) {
-    await sandbox.restart()
+    await sdk.sandbox.restart(sandbox.id)
 }
 ```
 

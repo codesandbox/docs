@@ -12,7 +12,7 @@ When you're done with a sandbox, you can hibernate it. This will save the memory
 ```ts
 const sandbox = await sdk.sandbox.resume('sandbox-id')
 
-await sandbox.hibernate();
+await sdk.sandbox.hibernate(sandbox.id);
 ```
 
 When creating or restarting a sandbox, you can also set a hibernation timeout between 1 minute and 24 hours. By default this timeout is 5 minutes for free users, and 30 minutes for paid users.
