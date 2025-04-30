@@ -44,24 +44,24 @@ import { CodeSandbox } from "@codesandbox/sdk";
 
 const sdk = new CodeSandbox(process.env.CSB_API_KEY!);
 const sandbox = await sdk.sandbox.create()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
-await client.shells.python.run("print(1+1)");
-await client.shells.run('echo "Hello World"');
+await session.shells.python.run("print(1+1)");
+await session.shells.run('echo "Hello World"');
 
 // We can also start shells in the background by not awaiting them
-const shellInfo = client.shells.run("npx -y serve .");
+const shellInfo = session.shells.run("npx -y serve .");
 
 // Wait for port to open
-const portInfo = await client.ports.waitForPort(3000);
+const portInfo = await session.ports.waitForPort(3000);
 console.log(portInfo.url);
 
 // And, we can clone(!) the sandbox! This takes 1-3s.
 const sandbox2 = await sdk.sandbox.fork(sandbox.id)
-const client2 = await sandbox2.connect()
+const session2 = await sandbox2.connect()
 
 // Sandbox 2 will have the same processes running as sandbox 1
-const portInfo2 = await client2.ports.waitForPort(3000);
+const portInfo2 = await session2.ports.waitForPort(3000);
 console.log(portInfo2.url);
 
 // Finally, we can hibernate the sandbox. This will snapshot the sandbox and stop it.

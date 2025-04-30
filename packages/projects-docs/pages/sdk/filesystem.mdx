@@ -20,20 +20,20 @@ You can read & write files using an api that's similer to the Node.js fs module:
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
 // Writing text files
-await client.fs.writeTextFile("./hello.txt", "Hello, world!");
+await session.fs.writeTextFile("./hello.txt", "Hello, world!");
 
 // Reading text files
-const content = await client.fs.readTextFile("./hello.txt");
+const content = await session.fs.readTextFile("./hello.txt");
 console.log(content);
 
 // Writing binary files
-await client.fs.writeFile("./hello.bin", new Uint8Array([1, 2, 3]));
+await session.fs.writeFile("./hello.bin", new Uint8Array([1, 2, 3]));
 
 // Reading binary files
-const content = await client.fs.readFile("./hello.bin");
+const content = await session.fs.readFile("./hello.bin");
 console.log(content);
 ```
 
@@ -45,12 +45,12 @@ Uploading and downloading files can be done using the same methods as writing an
 import fs from "node:fs";
 
 const sandbox = await sdk.sandbox.create()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
 const myBinaryFile = fs.readFileSync("./my-binary-file");
-await client.fs.writeFile("./my-binary-file", myBinaryFile);
+await session.fs.writeFile("./my-binary-file", myBinaryFile);
 
-const content = await client.fs.readFile("./my-binary-file");
+const content = await session.fs.readFile("./my-binary-file");
 fs.writeFileSync("./my-binary-file", content);
 ```
 
@@ -66,7 +66,7 @@ console.log(downloadUrl);
 You can list files & directories in a directory using the `readdir` method.
 
 ```ts
-const filesOrDirs = await client.fs.readdir("./");
+const filesOrDirs = await session.fs.readdir("./");
 
 console.log(filesOrDirs);
 ```
@@ -76,9 +76,9 @@ console.log(filesOrDirs);
 You can copy, rename & delete files using the `copy`, `rename` & `remove` methods.
 
 ```ts
-await client.fs.copy("./hello.txt", "./hello-copy.txt");
-await client.fs.rename("./hello-copy.txt", "./hello-renamed.txt");
-await client.fs.remove("./hello-renamed.txt");
+await session.fs.copy("./hello.txt", "./hello-copy.txt");
+await session.fs.rename("./hello-copy.txt", "./hello-renamed.txt");
+await session.fs.remove("./hello-renamed.txt");
 ```
 
 ### Watching Files

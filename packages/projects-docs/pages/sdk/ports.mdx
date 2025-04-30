@@ -27,16 +27,16 @@ You can listen for ports being opened and closed in your sandbox:
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
 // Listen for ports being opened
-const listener1 = client.ports.onDidPortOpen((portInfo) => {
+const listener1 = session.ports.onDidPortOpen((portInfo) => {
   console.log(`Port ${portInfo.port} opened`);
   console.log(`Preview URL: ${portInfo.getPreviewUrl()}`);
 });
 
 // Listen for ports being closed
-const listener2 = client.ports.onDidPortClose((port) => {
+const listener2 = session.ports.onDidPortClose((port) => {
   console.log(`Port ${port} closed`);
 });
 
@@ -51,16 +51,16 @@ You can get information about currently opened ports:
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
 // Get all opened ports
-const openPorts = client.ports.getOpenedPorts();
+const openPorts = session.ports.getOpenedPorts();
 for (const port of openPorts) {
   console.log(`Port ${port.port} is open at ${port.hostname}`);
 }
 
 // Get preview URL for a specific port
-const previewUrl = client.ports.getPreviewUrl(3000);
+const previewUrl = session.ports.getPreviewUrl(3000);
 if (previewUrl) {
   console.log(`Preview available at: ${previewUrl}`);
 }
@@ -72,13 +72,13 @@ When starting services, you often need to wait for a port to become available:
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
 // Start a development server
-client.shells.run("npm run dev");
+session.shells.run("npm run dev");
 
 // Wait for the dev server port to open
-const portInfo = await client.ports.waitForPort(3000);
+const portInfo = await session.ports.waitForPort(3000);
 console.log(`Dev server is ready at: ${portInfo.getPreviewUrl()}`);
 ```
 
@@ -90,13 +90,13 @@ Here's a complete example of starting a web server and getting its preview URL:
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
 // Start the server
-client.shells.run("npx serve -y .");
+session.shells.run("npx serve -y .");
 
 // Wait for the server to be ready
-const portInfo = await client.ports.waitForPort(3000);
+const portInfo = await session.ports.waitForPort(3000);
 
 // Get the preview URL with custom protocol
 const httpUrl = portInfo.getPreviewUrl("http://");
@@ -113,10 +113,10 @@ When working with multiple services, you might want to monitor several ports:
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const client = await sandbox.connect()
+const session = await sandbox.connect()
 
 // Start monitoring before launching services
-client.ports.onDidPortOpen((portInfo) => {
+session.ports.onDidPortOpen((portInfo) => {
   switch (portInfo.port) {
     case 3000:
       console.log("Frontend server ready");
@@ -131,5 +131,5 @@ client.ports.onDidPortOpen((portInfo) => {
 });
 
 // Start your services
-client.shells.run("npm run start:all");
+session.shells.run("npm run start:all");
 ```

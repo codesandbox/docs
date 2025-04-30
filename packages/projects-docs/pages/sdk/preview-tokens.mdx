@@ -13,15 +13,15 @@ If a sandbox is private, its previews won't be accessible unless a preview token
 - A header: `csb-preview-token: :token`
 - A cookie: `csb_preview_token=:token`
 
-You can obtain a preview token by calling `sandbox.previewTokens.create`. You can also set a custom expiration time for the token:
+You can obtain a preview token by calling `sdk.previewTokens.create`. You can also set a custom expiration time for the token:
 
 ```ts
-const previewToken = await sdk.sandbox.previewTokens.create('some-sandbox-id', {
+const previewToken = await sdk.previewTokens.create('some-sandbox-id', {
   expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 1 week from now
 })
 
 // Pass in the port and token to create the url for the a preview
-const signedUrl = sdk.sandbox.previewTokens.getSignedPreviewUrl(3000, previewToken.token)
+const signedUrl = sdk.previewTokens.getSignedPreviewUrl(3000, previewToken.token)
 
 // This URL will have access to the sandbox until the token expires
 console.log(signedUrl);
@@ -72,9 +72,9 @@ Instead, you can generate a preview token on the server, and then pass that to t
 
 ```ts
 export const POST = async ({ params, body }) => {
-  const previewToken = await sdk.sandbox.previewTokens.create(params.id);
+  const previewToken = await sdk.previewTokens.create(params.id);
 
-  return sdk.sandbox.previewTokens.getSignedPreviewUrl(body.port, previewToken.token)
+  return sdk.previewTokens.getSignedPreviewUrl(body.port, previewToken.token)
 }
 
 // In the browser ask for the signed url when it makes most sense, here
@@ -100,7 +100,7 @@ client.shells.run("npm run dev");
 const portInfo = await client.ports.waitForPort(3000);
 
 // Generate the preview token
-const previewToken = await sdk.sandbox.previewTokens.create(sandbox.id);
+const previewToken = await sdk.previewTokens.create(sandbox.id);
 const url = 'https://' + portInfo.url
 
 const response = await fetch(url, {

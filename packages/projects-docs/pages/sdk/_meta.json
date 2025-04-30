@@ -13,7 +13,7 @@
     "title": "Sandboxes"
   },
   "create-resume": "Create & Resume",
-  "sessions-clients": "Sessions & Clients",
+  "sessions": "Sessions",
   "preview-tokens": "Preview Tokens",
   "hibernate": "Hibernate",
   "fork": "Fork",
@@ -22,19 +22,20 @@
   "persistence": "Persistence",
   "update-sandbox": "Update Sandbox",
 
-  "-- connect-reference": {
+  "-- websocket-sessions": {
     "type": "separator",
-    "title": "Connect"
+    "title": "WebSocket Sessions"
   },
   "connect": "Connect",
+  "browser": "Connect Browser",
   "filesystem": "File System",
   "shells": "Shells",
   "ports": "Ports",
   "tasks": "Tasks & Setup",
 
-  "-- rest-session": {
+  "-- rest-sessions": {
     "type": "separator",
-    "title": "Rest"
+    "title": "Rest Sessions"
   },
 
   "-- resources": {

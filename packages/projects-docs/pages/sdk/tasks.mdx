@@ -151,20 +151,21 @@ Here's a more complete example showing various task configurations:
 Setup tasks run automatically when a sandbox starts. They typically handle installation of dependencies and initial builds. You can monitor and control setup tasks using the Setup API:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect()
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Listen to setup progress
-sandbox.setup.onSetupProgressUpdate((progress) => {
+session.setup.onSetupProgressUpdate((progress) => {
   console.log(`Setup progress: ${progress.currentStepIndex + 1}/${progress.steps.length}`);
   console.log(`Current step: ${progress.steps[progress.currentStepIndex].name}`);
 });
 
 // Get current progress
-const progress = await sandbox.setup.getProgress();
+const progress = await session.setup.getProgress();
 console.log(`Setup state: ${progress.state}`);
 
 // Wait for setup to finish
-const result = await sandbox.setup.waitForFinish();
+const result = await session.setup.waitForFinish();
 if (result.state === "FINISHED") {
   console.log("Setup completed successfully");
 }
@@ -216,10 +217,11 @@ Regular tasks are defined in the `tasks` section of your `tasks.json` file. Each
 You can get all available tasks in your sandbox:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Get all tasks
-const tasks = await sandbox.tasks.getTasks();
+const tasks = await session.tasks.getTasks();
 for (const task of tasks) {
   console.log(`Task: ${task.name} (${task.command})`);
 }
@@ -230,16 +232,17 @@ for (const task of tasks) {
 You can run a task using its ID:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Run a specific task
-const task = await sandbox.tasks.runTask("dev");
+const task = await session.tasks.runTask("dev");
 console.log(`Started task: ${task.name}`);
 
 // If the task opens a port, you can access it
 if (task.ports.length > 0) {
   const port = task.ports[0];
-  console.log(`Preview available at: ${port.getPreviewUrl()}`);
+  console.log(`Preview available at: ${port.url}`);
 }
 ```
 
@@ -248,10 +251,11 @@ if (task.ports.length > 0) {
 You can get information about a specific task:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Get a specific task
-const task = await sandbox.tasks.getTask("build");
+const task = await session.tasks.getTask("build");
 if (task) {
   console.log(`Task: ${task.name}`);
   console.log(`Command: ${task.command}`);
@@ -270,22 +274,23 @@ if (task) {
 Here's an example of running a development server task and waiting for it to be ready:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Get the dev task
-const task = await sandbox.tasks.getTask("dev");
+const task = await session.tasks.getTask("dev");
 if (!task) {
   throw new Error("Dev task not found");
 }
 
 // Run the task
-await sandbox.tasks.runTask(task.id);
+await session.tasks.runTask(task.id);
 
 // If the task has a preview port configured
 if (task.preview?.port) {
   // Wait for the port to open
-  const portInfo = await sandbox.ports.waitForPort(task.preview.port);
-  console.log(`Dev server ready at: ${portInfo.getPreviewUrl()}`);
+  const portInfo = await session.ports.waitForPort(task.preview.port);
+  console.log(`Dev server ready at: ${portInfo.url}`);
 }
 ```
 
@@ -294,25 +299,26 @@ if (task.preview?.port) {
 You can run multiple tasks and monitor their ports:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
 
 // Get all tasks that should run at start
-const tasks = await sandbox.tasks.getTasks();
+const tasks = await session.tasks.getTasks();
 
 // Run all startup tasks
 for (const task of tasks) {
   console.log(`Starting ${task.name}...`);
-  sandbox.tasks.runTask(task.id);
+  await session.tasks.runTask(task.id);
 }
 
 // Monitor ports for all tasks
-sandbox.ports.onDidPortOpen((portInfo) => {
+session.ports.onDidPortOpen((portInfo) => {
   const task = tasks.find(t =>
     t.preview?.port === portInfo.port
   );
 
   if (task) {
-    console.log(`${task.name} is ready at: ${portInfo.getPreviewUrl()}`);
+    console.log(`${task.name} is ready at: ${portInfo.url}`);
   }
 });
 ```
