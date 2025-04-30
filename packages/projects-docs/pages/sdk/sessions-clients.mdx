@@ -1,21 +1,21 @@
 ---
-title: Sessions
-description: Sessions allow you to create multiple users inside a single sandbox.
+title: Sessions & Clients
+description: Learn how to connect to Sandboxes with the CodeSandbox SDK.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# Sessions
+# Sessions & Clients
 
 By default a session is bound to a user called `pitcher-host`. This user has write access to any API. We refer to this session as the "global" session.
 
 ```ts
 const sandbox = await sdk.sandbox.create()
-const session = await sandbox.connect()
+const client = await sandbox.connect()
 
 // Now I have a session where I act as `pitcher-host` user.
 // Any action I do will be done as `pitcher-host` user.
-await session.fs.writeTextFile('test.txt', 'Hello World');
+await client.fs.writeTextFile('test.txt', 'Hello World');
 ```
 
 <Callout>
@@ -25,27 +25,27 @@ When you run `whoami`, it will say you're `root`. That's because we run every se
 But you can choose to create your own user sessions with specific permissions. Let's say you want a user to connect with the sandbox but don't want them to act on behalf of your global session. Perhaps you want them to have different permissions, or you want to isolate their actions from the global session.
 
 ```ts
-// Now create a new session that only has read access to the sandbox
+// Now configure a session that only has read access to the sandbox
 const sandbox = await sdk.sandbox.create()
-const session = await sandbox.connect({
+const client = await sandbox.connect({
   id: 'anonymous',
   permission: 'read'
 })
 
 // I have access to the normal sandbox api, but I only have read access
 // This means I cannot write files or open shells, but I _can_ read them
-await session.fs.writeTextFile('test.txt', 'Hello World'); // This will throw an error.
-await session.fs.readTextFile('test.txt'); // This will work.
+await client.fs.writeTextFile('test.txt', 'Hello World'); // This will throw an error.
+await client.fs.readTextFile('test.txt'); // This will work.
 
 // I can also create sessions with write access
-const session2 = await sandbox.connect({
+const client2 = await sandbox.connect({
   id: 'some-user-reference',
   permission: 'write',
 });
-await session2.fs.writeTextFile('test.ext', 'Hello World'); // This will work
+await client2.fs.writeTextFile('test.ext', 'Hello World'); // This will work
 ```
 
-## Storage
+### Storage
 
 Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder), other users will be able to see it. There is one exception to this: the `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
 
@@ -53,13 +53,14 @@ Every session will have the same filesystem as the global session. This means th
 The `~/.private` folder will not be persisted between restarts of the sandbox. This means that files inside this folder will disappear between restarts. 
 </Callout>
 
-## Sessions in the Browser
+## Browser Client
 
 If you want your users to connect to the Sandbox from the browser you can rather create an endpoint that responds with a browser session:
 
 ```ts
 export const GET = async ({ params }) => {
   const sandbox = await sdk.sandbox.resume(params.sandboxId);
+  // Also default to global session, but can configure custom session
   const session = await sandbox.createBrowserSession();
 
   return session
@@ -71,21 +72,23 @@ And in the browser:
 ```ts
 import { connectToSandbox } from '@codesandbox/sdk/browser';
 
-const session = await connectToSandbox(() =>
-  fetch(`/api/sandboxes/123`).then(res => res.json())
-);
+const client = await connectToSandbox({
+  id: 'some-sandbox',
+  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json())
+});
 
-await session.fs.writeTextFile('test.txt', 'Hello World');
+await client.fs.writeTextFile('test.txt', 'Hello World');
 ```
 
-## Sessions using Rest
+## Rest Client
 
 The sandboxes also expose a Rest api which can be a more useful protocol to use as you do not have to manage an ongoing connection. The Rest session
 is not as extensive, but supports most features.
 
 ```ts
 const sandbox = await sdk.sandbox.resume('sandbox-id')
-const session = await sandbox.createRestSession()
+// Also defaults to global session, but can configure custom session
+const client = await sandbox.createRestClient()
 
-await session.fs.writeTextFile({ path: 'test.ext', content: 'Hello World' })
+await client.fs.writeTextFile({ path: 'test.ext', content: 'Hello World' })
 ```

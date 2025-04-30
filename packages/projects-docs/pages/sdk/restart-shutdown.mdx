@@ -10,7 +10,7 @@ description: Learn how to restart and shutdown sandboxes with the CodeSandbox SD
 Restarting a Sandbox starts it from a clean slate. It will install and build its configured resources and also run with the last version of the agent.
 
 ```ts
-const sandbox = sdk.sandbox.ref('sandbox-id')
+const sandbox = await sdk.sandbox.resume('sandbox-id')
 
 await sandbox.restart();
 ```
@@ -20,7 +20,7 @@ await sandbox.restart();
 You can also shutdown a sandbox. This will shut down the sandbox without creating a memory snapshot. Next time the sandbox is started, it will boot from a clean state (but your files in `/project/sandbox` will be preserved).
 
 ```ts
-const sandbox = sdk.sandbox.ref('sandbox-id')
+const sandbox = await sdk.sandbox.resume('sandbox-id')
 
 await sandbox.shutdown();
 ```

@@ -13,7 +13,8 @@
     "title": "Sandboxes"
   },
   "create-resume": "Create & Resume",
-  "sessions": "Sessions",
+  "sessions-clients": "Sessions & Clients",
+  "preview-tokens": "Preview Tokens",
   "hibernate": "Hibernate",
   "fork": "Fork",
   "restart-shutdown": "Restart & Shutdown",
@@ -28,7 +29,7 @@
   "connect": "Connect",
   "filesystem": "File System",
   "shells": "Shells",
-  "ports": "Ports & Previews",
+  "ports": "Ports",
   "tasks": "Tasks & Setup",
 
   "-- rest-session": {

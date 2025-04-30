@@ -12,115 +12,10 @@ The Ports API allows you to monitor and interact with HTTP ports in your sandbox
 Whenever a port is opened within a sandbox, we'll automatically expose it under `https://<sandbox-id>-<port>.csb.app`.
 
 <Callout>
-If the sandbox is private, we'll ask the user to sign in to open the preview. We're currently working on an API to allow creating signed URLs for private sandboxes, or selecting which ports are exposed and which are closed.
+If the sandbox is private you need to use the [preview tokens](./preview-tokens).
 </Callout>
 
 Also, we'll automatically resume a sandbox whenever a port is accessed while the sandbox is hibernated.
-
-## Private Previews (Preview Tokens)
-
-If a sandbox is private, its previews won't be accessible unless a preview token is provided. A preview token can be provided through:
-
-- The url: `https://:id-:port.csb.app?preview_token=:token`
-- A header: `csb-preview-token: :token`
-- A cookie: `csb_preview_token=:token`
-
-You can obtain a preview token by calling `sandbox.previewTokens.create`. You can also set a custom expiration time for the token:
-
-```ts
-// Create a preview token with a custom expiration time
-const sandbox = await sdk.sandbox.resume('some-id')
-const session = await sandbox.connect()
-const previewToken = await sandbox.previewTokens.create({
-  expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 1 week from now
-})
-
-// Let's say that the sandbox is running something on port 3000
-const port = await sandbox.ports.waitForPort(3000);
-
-// Get the signed preview URL for that port using the preview token we just generated
-const signedUrl = port.getSignedPreviewUrl(previewToken.token);
-
-// This URL will have access to the sandbox until the token expires
-console.log(signedUrl);
-
-// When you open this URL in the browser, we will automatically put the preview token in a
-// cookie so subsequent requests from the same browser don't require the token.
-```
-
-If you want to revoke a token, you can call `sandbox.previewTokens.list` to get the token's ID and then call `sandbox.previewTokens.revoke` with the ID.
-
-### Managing Preview Tokens (CLI)
-
-The CLI allows you to manage preview tokens of a sandbox. You can list, revoke and update preview tokens.
-
-```
-$ csb sandbox preview-tokens :sandbox-id list
- ID                           PREFIX        LAST USED   EXPIRES
- prv_Hca52PUyFHVJsGkciXXbEq   prv_v1_8uKY   Never       Never
- prv_HbE8wC6veXWwcazFYrdUfy   prv_v1__ki7   Never       Never
- prv_MWMhMjbQiY3jSagfaG6D7R   prv_v1_i7iI   Never       Never
-```
-
-You can also revoke a preview token this way:
-
-```
-$ csb sandbox preview-tokens :sandbox-id revoke prv_Hca52PUyFHVJsGkciXXbEq
-```
-
-If you want to revoke all preview tokens for a sandbox, you can do so with:
-
-```
-$ csb sandbox preview-tokens :sandbox-id revoke --all
-```
-
-And you can update the expiration time of a preview token:
-
-```
-$ csb sandbox preview-tokens :sandbox-id update prv_Hca52PUyFHVJsGkciXXbEq --expires-at 2025-03-01
-```
-
-### Running from the Browser
-
-When you use the SDK [in the browser](https://codesandbox.io/docs/sdk/sandboxes#opening-a-sandbox-from-the-browser), you cannot generate a preview token from the browser, because it requires an API key.
-
-Instead, you can generate a preview token on the server, and then pass that to the browser.
-
-```ts
-const previewToken = await sdk.sandbox.previewTokens.create('sandbox-id');
-
-// Then pass `previewToken.token` to the browser
-// In the browser
-const token = '...';
-
-const port = await sandbox.ports.waitForPort(3000);
-const signedUrl = port.getSignedPreviewUrl(token);
-```
-
-### Using the Token for API Requests
-
-In some cases, a private sandbox might be running an API server that you want to access. In those cases, you should put the preview token in the `csb-preview-token` header.
-
-```ts
-const sandbox = await sdk.sandbox.create().connect()
-
-// Start a development server
-sandbox.shells.run("npm run dev");
-
-// Wait for the dev server port to open
-const portInfo = await sandbox.ports.waitForPort(3000);
-
-// Generate the preview token
-const previewToken = await sandbox.previewTokens.create();
-
-const url = portInfo.getPreviewUrl();
-
-const response = await fetch(url, {
-  headers: {
-    'csb-preview-token': previewToken.token,
-  },
-});
-```
 
 ## API
 
@@ -131,16 +26,17 @@ The Ports API is available under `sandbox.ports`. It provides methods for monito
 You can listen for ports being opened and closed in your sandbox:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const client = await sandbox.connect()
 
 // Listen for ports being opened
-const listener1 = sandbox.ports.onDidPortOpen((portInfo) => {
+const listener1 = client.ports.onDidPortOpen((portInfo) => {
   console.log(`Port ${portInfo.port} opened`);
   console.log(`Preview URL: ${portInfo.getPreviewUrl()}`);
 });
 
 // Listen for ports being closed
-const listener2 = sandbox.ports.onDidPortClose((port) => {
+const listener2 = client.ports.onDidPortClose((port) => {
   console.log(`Port ${port} closed`);
 });
 
@@ -154,16 +50,17 @@ listener2.dispose();
 You can get information about currently opened ports:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const client = await sandbox.connect()
 
 // Get all opened ports
-const openPorts = sandbox.ports.getOpenedPorts();
+const openPorts = client.ports.getOpenedPorts();
 for (const port of openPorts) {
   console.log(`Port ${port.port} is open at ${port.hostname}`);
 }
 
 // Get preview URL for a specific port
-const previewUrl = sandbox.ports.getPreviewUrl(3000);
+const previewUrl = client.ports.getPreviewUrl(3000);
 if (previewUrl) {
   console.log(`Preview available at: ${previewUrl}`);
 }
@@ -174,13 +71,14 @@ if (previewUrl) {
 When starting services, you often need to wait for a port to become available:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const client = await sandbox.connect()
 
 // Start a development server
-sandbox.shells.run("npm run dev");
+client.shells.run("npm run dev");
 
 // Wait for the dev server port to open
-const portInfo = await sandbox.ports.waitForPort(3000);
+const portInfo = await client.ports.waitForPort(3000);
 console.log(`Dev server is ready at: ${portInfo.getPreviewUrl()}`);
 ```
 
@@ -191,13 +89,14 @@ console.log(`Dev server is ready at: ${portInfo.getPreviewUrl()}`);
 Here's a complete example of starting a web server and getting its preview URL:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const client = await sandbox.connect()
 
 // Start the server
-sandbox.shells.run("npx serve -y .");
+client.shells.run("npx serve -y .");
 
 // Wait for the server to be ready
-const portInfo = await sandbox.ports.waitForPort(3000);
+const portInfo = await client.ports.waitForPort(3000);
 
 // Get the preview URL with custom protocol
 const httpUrl = portInfo.getPreviewUrl("http://");
@@ -213,10 +112,11 @@ console.log(`Server is running at:
 When working with multiple services, you might want to monitor several ports:
 
 ```ts
-const sandbox = await sdk.sandbox.create().connect();
+const sandbox = await sdk.sandbox.create()
+const client = await sandbox.connect()
 
 // Start monitoring before launching services
-sandbox.ports.onDidPortOpen((portInfo) => {
+client.ports.onDidPortOpen((portInfo) => {
   switch (portInfo.port) {
     case 3000:
       console.log("Frontend server ready");
@@ -231,5 +131,5 @@ sandbox.ports.onDidPortOpen((portInfo) => {
 });
 
 // Start your services
-sandbox.shells.run("npm run start:all");
+client.shells.run("npm run start:all");
 ```
