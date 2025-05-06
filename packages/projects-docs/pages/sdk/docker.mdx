@@ -123,7 +123,7 @@ const [appPort, dbPort] = await Promise.all([
 ]);
 
 console.log(`
-App running at: ${appPort.getPreviewUrl()}
+App running at: ${appPort.url}
 Database available at: ${dbPort.hostname}:${dbPort.port}
 `);
 ```

@@ -32,7 +32,7 @@ const session = await sandbox.connect()
 // Listen for ports being opened
 const listener1 = session.ports.onDidPortOpen((portInfo) => {
   console.log(`Port ${portInfo.port} opened`);
-  console.log(`Preview URL: ${portInfo.getPreviewUrl()}`);
+  console.log(`Preview URL: ${portInfo.url}`);
 });
 
 // Listen for ports being closed
@@ -56,13 +56,7 @@ const session = await sandbox.connect()
 // Get all opened ports
 const openPorts = session.ports.getOpenedPorts();
 for (const port of openPorts) {
-  console.log(`Port ${port.port} is open at ${port.hostname}`);
-}
-
-// Get preview URL for a specific port
-const previewUrl = session.ports.getPreviewUrl(3000);
-if (previewUrl) {
-  console.log(`Preview available at: ${previewUrl}`);
+  console.log(`Port ${port.port} is open at ${port.url}`);
 }
 ```
 
@@ -79,7 +73,7 @@ session.shells.run("npm run dev");
 
 // Wait for the dev server port to open
 const portInfo = await session.ports.waitForPort(3000);
-console.log(`Dev server is ready at: ${portInfo.getPreviewUrl()}`);
+console.log(`Dev server is ready at: ${portInfo.url}`);
 ```
 
 ## Examples
@@ -98,13 +92,8 @@ session.shells.run("npx serve -y .");
 // Wait for the server to be ready
 const portInfo = await session.ports.waitForPort(3000);
 
-// Get the preview URL with custom protocol
-const httpUrl = portInfo.getPreviewUrl("http://");
-const httpsUrl = portInfo.getPreviewUrl(); // defaults to https://
-
-console.log(`Server is running at:
-- HTTP:  ${httpUrl}
-- HTTPS: ${httpsUrl}`);
+// Apply protocol to the url
+const url = 'https://' + portInfo.url
 ```
 
 ### Monitoring Multiple Ports

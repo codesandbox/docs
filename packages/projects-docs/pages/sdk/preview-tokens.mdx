@@ -21,7 +21,7 @@ const previewToken = await sdk.previewTokens.create('some-sandbox-id', {
 })
 
 // Pass in the port and token to create the url for the a preview
-const signedUrl = sdk.previewTokens.getSignedPreviewUrl(3000, previewToken.token)
+const signedUrl = sdk.previewTokens.getSignedPreviewUrl(previewToken, 3000)
 
 // This URL will have access to the sandbox until the token expires
 console.log(signedUrl);
@@ -74,7 +74,7 @@ Instead, you can generate a preview token on the server, and then pass that to t
 export const POST = async ({ params, body }) => {
   const previewToken = await sdk.previewTokens.create(params.id);
 
-  return sdk.previewTokens.getSignedPreviewUrl(body.port, previewToken.token)
+  return sdk.previewTokens.getSignedPreviewUrl(previewToken, body.port)
 }
 
 // In the browser ask for the signed url when it makes most sense, here

@@ -28,6 +28,7 @@
   },
   "connect": "Connect",
   "browser": "Connect Browser",
+  "previews": "Previews",
   "filesystem": "File System",
   "shells": "Shells",
   "ports": "Ports",

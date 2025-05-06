@@ -123,5 +123,5 @@ const shell = session.shells.run("npx -y serve .");
 
 const portInfo = await shell.waitForPort(3000);
 
-console.log(portInfo.getPreviewUrl());
+console.log(portInfo.url);
 ```
