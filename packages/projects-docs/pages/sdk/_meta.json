@@ -30,7 +30,9 @@
   "browser": "Connect Browser",
   "previews": "Previews",
   "filesystem": "File System",
-  "shells": "Shells",
+  "terminals": "Terminals",
+  "commands": "Commands",
+  "interpreters": "Interpreters",
   "ports": "Ports",
   "tasks": "Tasks & Setup",
 
