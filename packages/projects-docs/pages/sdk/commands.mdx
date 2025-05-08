@@ -1,0 +1,62 @@
+---
+title: Commands
+description: Learn how the CodeSandbox SDK's commands work.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Commands
+
+The Commands API allows you to run commands in your sandbox. A command is also a shell, but unlike a terminal it will clean itself up when the command is executed.
+
+## API
+
+The Commands API is available under `sandbox.commands`.
+
+### Running Commands
+
+```ts
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
+
+// Run a single command
+const command = session.commands.run("npm install");
+
+// Listen to real-time output
+command.onOutput((output) => {
+  console.log(output);
+});
+
+// Optionally cancel the command if it's not finished
+if (Math.random() > 0.5) {
+  command.kill();
+}
+
+// Wait for completion and get results, it will throw if
+// the command resulted in an error
+const output = await command.getOutput();
+
+console.log(output);
+```
+
+## Long running commands
+
+Some commands are long running, like starting a server. In this case you can use the `waitForPort` method to wait for the port to open:
+
+```ts
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
+
+// Run a long running command
+const command = session.commands.run("npx -y serve .");
+
+// You will need to manually kill it
+command.kill()
+
+// Or you can also restart a command that is already running
+command.restart()
+```
+
+<Callout>
+Just like terminals, commands can also run beyond the current session. Use `session.commands.getAll()` to retrieve any existing commands.
+</Callout>

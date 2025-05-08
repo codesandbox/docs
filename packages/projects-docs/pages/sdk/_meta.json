@@ -8,17 +8,38 @@
     "newWindow": true
   },
 
-  "-- api-reference": {
+  "-- sandboxes": {
     "type": "separator",
-    "title": "API Reference"
+    "title": "Sandboxes"
   },
-  "sandboxes": "Sandboxes",
-  "filesystem": "File System",
-  "shells": "Shells",
-  "ports": "Ports & Previews",
-  "tasks": "Tasks & Setup",
+  "create-resume": "Create & Resume",
   "sessions": "Sessions",
+  "preview-tokens": "Preview Tokens",
+  "hibernate": "Hibernate",
+  "fork": "Fork",
+  "restart-shutdown": "Restart & Shutdown",
   "specs": "VM Specs",
+  "persistence": "Persistence",
+  "update-sandbox": "Update Sandbox",
+
+  "-- websocket-sessions": {
+    "type": "separator",
+    "title": "WebSocket Sessions"
+  },
+  "connect": "Connect",
+  "browser": "Connect Browser",
+  "previews": "Previews",
+  "filesystem": "File System",
+  "terminals": "Terminals",
+  "commands": "Commands",
+  "interpreters": "Interpreters",
+  "ports": "Ports",
+  "tasks": "Tasks & Setup",
+
+  "-- rest-sessions": {
+    "type": "separator",
+    "title": "Rest Sessions"
+  },
 
   "-- resources": {
     "type": "separator",
@@ -28,7 +49,5 @@
   "snapshot-builder": "Snapshot Builder",
   "environment": "Environment",
   "docker": "Docker & Docker Compose",
-  "persistence": "Persistence",
-  "fork": "Fork",
   "faq": "FAQ"
 }

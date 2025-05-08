@@ -1,0 +1,70 @@
+---
+title: Terminals
+description: Learn how the CodeSandbox SDK's terminals work.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Terminals
+
+The Terminals API allows you to create, manage and interact with terminal processes in your sandbox. A terminal is a shell process which you can write to, listen to and is often combined with xTerm in the browser to allow users to get a full terminal experience.
+
+## API
+
+The Terminals API is available under `sandbox.terminals`.
+
+### Creating Terminals
+
+You can create an interactive terminal that allows you to write, run commands and receive output:
+
+```ts
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
+
+// Create a new terminal (bash is default)
+const terminal = session.terminals.create()
+
+// Listen to terminal output
+const onOutputDisposer = terminal.onOutput((output) => {
+  console.log(output);
+});
+
+// Run commands
+await terminal.run("echo 'Hello, world!'");
+
+// Kill the terminal when done
+await terminal.kill();
+
+// Dispose the listener when done
+onOutputDisposer.dispose();
+```
+
+<Callout emoji="💡">
+Typically you want terminals to live beyond the immediate session of the user. Use the `session.terminals.getAll()` method to retrieve any existing terminals.
+</Callout>
+
+### Browser Terminal
+
+The terminal API is often combined with [xTerm](https://www.npmjs.com/package/@xterm/xterm) to allow users to get a full terminal experience.
+
+```ts
+import { connectToSandbox } from "@codesandbox/sdk/browser";
+import { Terminal } from '@xterm/xterm'
+
+const session = await connectToSandbox({
+  id: 'sandbox-id',
+  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+})
+const terminal = await session.terminals.create()
+const xterm = new Terminal()
+
+xterm.open(document.getElementById('terminal'))
+
+terminal.onOutput((output) => {
+  xterm.write(output)
+});
+
+xterm.onData((data) => {
+  terminal.write(data)
+})
+```
