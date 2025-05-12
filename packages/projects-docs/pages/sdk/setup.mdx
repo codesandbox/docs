@@ -35,38 +35,27 @@ Setup tasks run automatically when a sandbox starts. They typically handle insta
 const sandbox = await sdk.sandbox.create()
 const session = await sandbox.connect()
 
-// Listen to setup progress
-session.setup.onSetupProgressUpdate((progress) => {
-  console.log(`Setup progress: ${progress.currentStepIndex + 1}/${progress.steps.length}`);
-  console.log(`Current step: ${progress.steps[progress.currentStepIndex].name}`);
-});
+console.log(`Setup status: ${session.setup.status}`);
 
-// Get current progress
-const progress = await session.setup.getProgress();
-console.log(`Setup state: ${progress.state}`);
+// Wait for the whole thing to finish
+await session.setup.waitForFinish()
 
-// Wait for setup to finish
-const result = await session.setup.waitForFinish();
-if (result.state === "FINISHED") {
-  console.log("Setup completed successfully");
+// Or handle each step
+const steps = await session.setup.getSteps()
+
+for (const step of steps) {
+  console.log(`Step: ${step.name}`);
+  console.log(`Command: ${step.command}`);
+  console.log(`Status: ${step.status}`);
+
+  const output = await step.open()
+
+  output.onOutput((output) => {
+    console.log(output)
+  })
+
+  await step.waitForFinish()
 }
-```
-
-### Setup Progress
-
-The setup progress includes the following information:
-
-```ts
-type SetupProgress = {
-  state: "IDLE" | "IN_PROGRESS" | "FINISHED" | "STOPPED";
-  steps: {
-    name: string;
-    command: string;
-    shellId: string | null;
-    finishStatus: "SUCCEEDED" | "FAILED" | "SKIPPED" | null;
-  }[];
-  currentStepIndex: number;
-};
 ```
 
 ## Setup Tasks vs Docker Build: When to Use Which?

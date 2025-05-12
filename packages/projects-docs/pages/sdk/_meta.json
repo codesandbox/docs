@@ -40,17 +40,17 @@
   "tasks": "Tasks",
   "setup": "Setup",
 
-  "-- rest-sessions": {
+  "-- CLI": {
     "type": "separator",
-    "title": "Rest Sessions"
+    "title": "CLI"
   },
+  "build-templates": "Build Templates",
 
   "-- resources": {
     "type": "separator",
     "title": "Resources"
   },
   "snapshot-library": "Snapshot Library",
-  "snapshot-builder": "Snapshot Builder",
   "environment": "Environment",
   "docker": "Docker & Docker Compose",
   "faq": "FAQ"

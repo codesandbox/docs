@@ -171,3 +171,16 @@ task.onOutput((output) => {
 })
 const output = await task.open()
 ```
+
+### Listen for port
+
+If your task opens a port, you can listen for it to open:
+
+```ts
+const port = await task.waitForPort()
+console.log(`Preview available at: ${port.url}`);
+```
+
+<Callout>
+A task can theoretically open multiple ports, but currently only the first port is exposed.
+</Callout>
