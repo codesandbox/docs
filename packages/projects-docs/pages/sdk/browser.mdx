@@ -65,11 +65,21 @@ const session = await connectToSandbox({
 
 ## Disconnecting the Session
 
-Disconnecting the session will end the session and automatically hibernate the sandbox after a timeout.
+Disconnecting the session will end the session and automatically hibernate the sandbox after a timeout. You can alternatively hibernate the sandbox explicitly from the server.
 
 ```ts
-const sandbox = await sdk.sandbox.resume('sandbox-id')
-const session = await sandbox.connect()
+import { connectToSandbox } from '@codesandbox/sdk/browser'
 
-await session.disconnect();
+const session = await connectToSandbox({
+  id: '123',
+  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+})
+
+// Disconnect returns a promise that resolves when the session is disconnected
+session.disconnect();
+
+// Optionally hibernate the sandbox explicitly
+fetch('/api/sandboxes/' + sandbox.id + '/hibernate', {
+  method: 'POST'
+})
 ```

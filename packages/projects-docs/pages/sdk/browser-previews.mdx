@@ -1,31 +1,28 @@
 ---
-title: Previews
+title: Browser Previews
 description: Learn how you can interact with previews in your sandbox.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# Previews
+# Browser Previews
 
-The previews API allows you to create and interact with previews in the browser. You can navigate, listen to messages and even inject custom code into the preview.
-
-<Callout>
-The previews only works in the browser session.
-</Callout>
+The browser previews API allows you to create and interact with previews in the browser. You can navigate, listen to messages and even inject custom code into the preview.
 
 ## API
 
 ```ts
-const session = await connectToSandbox({
-    id: sandboxId,
-    getSession: (id) => fetchJson('/browser-sessions/' + id)
-})
+import { createPreview } from '@codesandbox/sdk/browser'
 
-const port = await session.ports.waitForPort(5173)
-const preview = session.previews.create('https://' + port.url)
+const { url } = await fetch('/api/preview-tokens/' + sandboxId).then(res => res.json())
+const preview = createPreview(url)
 
-document.querySelector('#preview-container').append(preview.iframe)
+document.querySelector('#preview-container').appendChild(preview.iframe)
 ```
+
+<Callout>
+If you are running public previews you can also just use the port url directly without a preview token.
+</Callout>
 
 ## Messages
 
@@ -89,3 +86,7 @@ preview.injectAndInvoke(function MyInjectedFunction({ previewProtocol, previewWi
     message: 'Hello World'
 })
 ```
+
+<Callout>
+Note that the function passed to `injectAndInvoke` will be stringified and sent to the preview. Be careful about your build tool transforming this function into invalid code.
+</Callout>

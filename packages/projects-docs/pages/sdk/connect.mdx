@@ -24,5 +24,7 @@ Disconnecting the session will end the session and automatically hibernate the s
 const sandbox = await sdk.sandbox.resume('sandbox-id')
 const session = await sandbox.connect()
 
-await session.disconnect();
+// Disconnect returns a promise of when all pending
+// messages are handled and socket is actually disconnected
+session.disconnect();
 ```

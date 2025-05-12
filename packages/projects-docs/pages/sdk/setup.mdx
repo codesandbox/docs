@@ -1,0 +1,86 @@
+---
+title: Setup
+description: Learn how the CodeSandbox SDK's setup work.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Setup
+
+Setup tasks are configured in your project's `.codesandbox/tasks.json` file. This file defines both setup tasks that run when the sandbox starts, and regular tasks that can be run on-demand.
+
+Setup tasks run in order when initializing your sandbox. They're typically used for installation and preparation steps:
+
+```json
+{
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "pnpm install"
+    },
+    {
+      "name": "Copy Environment File",
+      "command": "cp .env.example .env"
+    },
+    "pnpm run build"  // Short form for { "name": "pnpm run build", "command": "pnpm run build" }
+  ]
+}
+```
+
+## API
+
+Setup tasks run automatically when a sandbox starts. They typically handle installation of dependencies and initial builds. You can monitor and control setup tasks using the Setup API:
+
+```ts
+const sandbox = await sdk.sandbox.create()
+const session = await sandbox.connect()
+
+// Listen to setup progress
+session.setup.onSetupProgressUpdate((progress) => {
+  console.log(`Setup progress: ${progress.currentStepIndex + 1}/${progress.steps.length}`);
+  console.log(`Current step: ${progress.steps[progress.currentStepIndex].name}`);
+});
+
+// Get current progress
+const progress = await session.setup.getProgress();
+console.log(`Setup state: ${progress.state}`);
+
+// Wait for setup to finish
+const result = await session.setup.waitForFinish();
+if (result.state === "FINISHED") {
+  console.log("Setup completed successfully");
+}
+```
+
+### Setup Progress
+
+The setup progress includes the following information:
+
+```ts
+type SetupProgress = {
+  state: "IDLE" | "IN_PROGRESS" | "FINISHED" | "STOPPED";
+  steps: {
+    name: string;
+    command: string;
+    shellId: string | null;
+    finishStatus: "SUCCEEDED" | "FAILED" | "SKIPPED" | null;
+  }[];
+  currentStepIndex: number;
+};
+```
+
+## Setup Tasks vs Docker Build: When to Use Which?
+
+Setup tasks are used for any preparation work needed in the `/project/sandbox` directory, such as:
+
+- Installing dependencies
+- Building assets
+- Running initial compilations
+
+Docker build, on the other hand, should be used for:
+
+- Setting up the container environment
+- Installing system-level dependencies
+- Configuring global tools
+
+This separation exists because the `/project/sandbox` directory is only available after the container starts.

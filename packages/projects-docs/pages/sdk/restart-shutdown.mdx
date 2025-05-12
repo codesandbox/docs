@@ -3,6 +3,8 @@ title: Restart & Shutdown
 description: Learn how to restart and shutdown sandboxes with the CodeSandbox SDK.
 ---
 
+import { Callout } from 'nextra-theme-docs'
+
 # Restart & Shutdown
 
 ## Restart
@@ -10,10 +12,14 @@ description: Learn how to restart and shutdown sandboxes with the CodeSandbox SD
 Restarting a Sandbox starts it from a clean slate. It will install and build its configured resources and also run with the last version of the agent.
 
 ```ts
-const sandbox = await sdk.sandbox.resume('sandbox-id')
+let sandbox = await sdk.sandbox.resume('sandbox-id')
 
-await sdk.sandbox.restart(sandbox.id);
+sandbox = await sdk.sandbox.restart(sandbox.id);
 ```
+
+<Callout>
+Note that when restarting you get a new reference to the Sandbox. You will need to create a new session from that new reference.
+</Callout>
 
 ## Shutdown
 

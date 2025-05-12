@@ -14,27 +14,31 @@
   },
   "create-resume": "Create & Resume",
   "sessions": "Sessions",
-  "preview-tokens": "Preview Tokens",
   "hibernate": "Hibernate",
   "fork": "Fork",
   "restart-shutdown": "Restart & Shutdown",
   "specs": "VM Specs",
   "persistence": "Persistence",
   "update-sandbox": "Update Sandbox",
-
+  "-- previews": {
+    "type": "separator",
+    "title": "Previews"
+  },
+  "preview-tokens": "Preview Tokens",
+  "browser-previews": "Browser Previews",
   "-- websocket-sessions": {
     "type": "separator",
     "title": "WebSocket Sessions"
   },
   "connect": "Connect",
   "browser": "Connect Browser",
-  "previews": "Previews",
   "filesystem": "File System",
   "terminals": "Terminals",
   "commands": "Commands",
   "interpreters": "Interpreters",
   "ports": "Ports",
-  "tasks": "Tasks & Setup",
+  "tasks": "Tasks",
+  "setup": "Setup",
 
   "-- rest-sessions": {
     "type": "separator",

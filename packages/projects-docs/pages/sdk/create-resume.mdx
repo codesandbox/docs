@@ -44,17 +44,11 @@ const sandbox = await sdk.sandbox.create({
 const sandbox = await sdk.sandbox.create({
     source: 'git',
     url: 'https://...',
-    branch: 'main'
-})
-```
-
-### Create from Files
-
-```ts
-const sandbox = await sdk.sandbox.create({
-    source: 'files',
-    files: {
-        'index.js': 'console.log("Hello World")'
+    branch: 'main',
+    async setup(session) {
+        await session.commands.run('pnpm install')
+        await session.commands.run('pnpm run dev')
+        await session.ports.waitForPort(5173)
     }
 })
 ```

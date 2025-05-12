@@ -28,3 +28,7 @@ const sandbox = await sdk.sandbox.create({
 ```
 
 When you set a hibernation timeout, the sandbox will hibernate after the specified period of inactivity (no calls from the SDK). While the SDK remains connected, we recommend either explicitly hibernating the sandbox or disconnecting from it when you're done using it. Since resuming only takes a few seconds, you can be aggressive with hibernation to conserve resources.
+
+<Callout>
+If you resume a Sandbox during hibernation it will first finish creating the snapshot and then resume. That means very aggressive hibernation can create some inconsistency in resume times.
+</Callout>
