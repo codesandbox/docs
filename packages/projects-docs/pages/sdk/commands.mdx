@@ -19,7 +19,7 @@ The Commands API is available under `sandbox.commands`.
 const sandbox = await sdk.sandbox.create()
 const session = await sandbox.connect()
 
-// Run until completion
+// Run until completion, also supports an array of commands
 const output = await session.commands.run("npm install");
 
 console.log(output)
