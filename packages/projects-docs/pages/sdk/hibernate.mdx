@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Hibernate
 
-When you're done with a sandbox, you can hibernate it. This will save the memory state of the sandbox, so it will resume from the same state when you start it again.
+When you're done with a sandbox, you can tell it to hibernate. This will save the memory state of the sandbox, so it will resume from the same state when you start it again.
 
 ```ts
 const sandbox = await sdk.sandbox.resume('sandbox-id')
@@ -27,8 +27,8 @@ const sandbox = await sdk.sandbox.create({
 });
 ```
 
-When you set a hibernation timeout, the sandbox will hibernate after the specified period of inactivity (no calls from the SDK). While the SDK remains connected, we recommend either explicitly hibernating the sandbox or disconnecting from it when you're done using it. Since resuming only takes a few seconds, you can be aggressive with hibernation to conserve resources.
+When you set a hibernation timeout, the sandbox will hibernate after the specified period of inactivity (no calls from the SDK). While the SDK remains connected, we recommend either explicitly hibernating the sandbox or disconnecting from it when you're done using it. Resuming only takes a few seconds, so you can be aggressive with hibernation to conserve resources.
 
 <Callout>
-If you resume a Sandbox during hibernation it will first finish creating the snapshot and then resume. That means very aggressive hibernation can create some inconsistency in resume times.
+If you resume a Sandbox while it's entering hibernation, it will finish creating the snapshot before resuming. This does mean that there can be some inconsistency in resume times if you try to restart your Sandboxes too soon after telling them to hibernate.
 </Callout>

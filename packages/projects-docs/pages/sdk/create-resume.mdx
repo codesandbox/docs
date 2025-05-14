@@ -7,11 +7,13 @@ import { Callout } from 'nextra-theme-docs'
 
 # Create Sandbox
 
-Sandboxes are the main building block of the CodeSandbox SDK. They represent a single project that you can run, fork, and modify. They are backed by a Firecracker VM. Sandboxes are completely isolated, and persisted, so you can securely run untrusted code in them.
+Sandboxes are the main building blocks of the CodeSandbox SDK. Each one represents a single project that you can run, fork, and modify. 
+
+Every Sandbox is backed by a Firecracker VM, and is completely isolated and persisted. Providing you with a secure environment to run untrusted code.
 
 ## Creating a Sandbox
 
-You can create a sandbox by calling `sandbox.create()`:
+To create a sandbox, call `sandbox.create()`:
 
 ```ts
 import { CodeSandbox } from '@codesandbox/sdk'
@@ -21,13 +23,6 @@ const sandbox = await sdk.sandbox.create();
 ```
 
 If no argument is provided to `sandbox.create()`, we'll create a sandbox based on our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own snapshot using our [Snapshot Builder](/sdk/snapshot-builder). Additionally you can choose other sources like [Git](/sdk/sandbox#git) or [Files](/sdk/sandbox#files).
-
-The `sandbox` object represents the instance of a sandbox running in our infrastructure. The methods available here requires the Sandbox to be running. Additionally you have:
-
-- `id`: The unique identifier of the sandbox.
-- `isUpToDate`: Whether the sandbox is up to date with the latest agent version.
-- `cluster`: The cluster the sandbox is running on.
-- `bootupType`: The type of bootup, `RUNNING`, `CLEAN`, `RESUME` or `FORK`.
 
 ### Create from Template
 
@@ -74,16 +69,24 @@ const sandbox = await sdk.sandbox.create({
 })
 ```
 
-## Resume Existing Sandbox
+## Sandbox Properties
+The `sandbox` object represents the instance of a sandbox running in our infrastructure. The methods detailed below require the Sandbox to be running.
 
-Resume an existing sandbox by calling `sdk.sandbox.resume(id)`:
+Each Sandbox has the following properties, with information about it's own instance:
+
+- `id`: The unique identifier of the sandbox.
+- `isUpToDate`: Whether the sandbox is up to date with the latest agent version.
+- `cluster`: The cluster the sandbox is running on.
+- `bootupType`: The type of bootup, `RUNNING`, `CLEAN`, `RESUME` or `FORK`.
+
+## Resume an Existing Sandbox
+
+To resume an existing sandbox from hibernation and connect to it call: `sdk.sandbox.resume(id)`:
 
 ```ts
 const sandbox = await sdk.sandbox.resume('sandbox-id');
 ```
 
-This will resume the sandbox from hibernation and let you connect to it.
-
 <Callout>
-Note that when you resume a Sandbox it could be starting from a clean slate. This typically happens for Sandboxes that are around a week old without usage. That means its setup is going to run. Read more about [Setup](/sdk/setup) to learn more about this.
+Sandboxes that have been dormant for a week may take longer to start as they will need to run their [setup](/sdk/setup) before resuming. 
 </Callout>

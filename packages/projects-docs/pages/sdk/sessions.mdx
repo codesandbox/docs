@@ -14,18 +14,20 @@ const sandbox = await sdk.sandbox.create()
 // "connect" creates a WebSocketSession
 const session = await sandbox.connect()
 
-// Now I have a session where I act as `pitcher-host` user.
-// Any action I do will be done as `pitcher-host` user.
+// Now you have a session where you act as the `pitcher-host` user.
+// Any action you do will be done as `pitcher-host` user.
 await session.fs.writeTextFile('test.txt', 'Hello World');
 ```
 
 <Callout>
-When you run `whoami`, it will say you're `root`. That's because we run every session inside a Docker container where you are `root`. The container itself, however, is started as the user of your session.
+When you run `whoami`, it will say that you are `root`. That's because we run every session inside a Docker container where you are `root`. However the container itself is started as the user of your session.
 </Callout>
 
 ## Custom Sessions
 
-But you can choose to create your own user sessions with specific permissions, git access and even environment variables. Let's say you want a user to connect with the sandbox but don't want them to act on behalf of your global session. Perhaps you want them to have different permissions, or you want to isolate their actions from the global session.
+You can choose to create your own user sessions with specific permissions, git access and even environment variables. Giving you the ability to align your SDK usage with best practice access control principles.
+
+With the SDK, you get to decide where a user can act on behalf of your global session when they connect. You can select which permissions to grant them, and you can even isolate their actions from the global session.
 
 ### Permissions
 
@@ -47,7 +49,7 @@ await session.fs.readTextFile('test.txt'); // This will work.
 
 ### Git
 
-By passing the users git access token the user will be able to use git commands inside the sandbox and access whatever the git token gives them access to.
+Passing the users git access token allows the user to use git commands inside the sandbox. Their permission level will be inherited from the git token. 
 
 ```ts
 const sandbox = await sdk.sandbox.create()
@@ -63,7 +65,7 @@ const session = await sandbox.connect({
 
 ### Environment variables
 
-By passing environment variables these variables will be available to the user inside the commands and terminals run by the user.
+If you pass environment variables, these variables will be available to the user inside the commands and terminals that they run in the Sandbox.
 
 ```ts
 const sandbox = await sdk.sandbox.create()
@@ -80,7 +82,7 @@ console.log(output) // bar
 
 ### Storage
 
-Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder), other users will be able to see it. There is one exception to this: the `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
+Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder), other users will be able to see it with one exception. The `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
 
 <Callout>
 The `~/.private` folder will not be persisted between restarts of the sandbox. This means that files inside this folder will disappear between restarts. 
@@ -88,7 +90,7 @@ The `~/.private` folder will not be persisted between restarts of the sandbox. T
 
 ## Browser Session
 
-If you want your users to connect to the Sandbox from the browser you can rather create an endpoint that responds with a browser session:
+If you want your users to connect to the Sandbox from the browser you can create an endpoint that responds with a browser session:
 
 ```ts
 export const GET = async ({ params }) => {

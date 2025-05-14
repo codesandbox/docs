@@ -5,40 +5,44 @@ description: Learn the main use cases for CodeSandbox SDK and get inspired to bu
 
 # Use Cases
 
-Overall, CodeSandbox SDK is a good fit with any project that requires any of the following:
+CodeSandbox SDK has been designed to help you build and launch any projects that require: 
 
+- An isolated code interpreter.
 - Running multiple development environments at scale.
-- Acess to an isolated code interpreter.
 - Access to a sandboxed environment.
 
-There are hundreds of use cases that can benefit from these three features. Below are some of the most interesting ones we've come across recently.
+There are hundreds of use cases that can benefit from these three features. Below are some of the most interesting ones we've come across so far:
 
-## Code interpretation
+## Code Interpretation
 
-Because CodeSandbox SDK allows programmatically spinning up sandboxes (VMs) to execute code in, it provides an ideal environment to interpret code, both for simple and complex tasks.
+CodeSandbox SDK allows programmatically spinning up sandboxes (VMs) to execute code in. Providing an ideal environment to interpret code, for both for simple and complex tasks.
 
-Because these sandboxes exist in total isolation, you can run untrusted code without worrying about it affecting your system.
+As these sandboxes exist in total isolation, you can run untrusted code without worrying about it affecting your system.
 
-Many of the CodeSandbox SDK early adopters, such as Blackbox AI, are leveraging this to bring code interpretation capabilities to their generative AI applications. We highly recommend following the [guide by Together AI](https://docs.together.ai/docs/code-execution) to get CodeSandbox SDK running seamlessly with any of the leading open-source LLMs.
+Many early adopters, such as Blackbox AI, are leveraging the power of CodeSandbox SDK to bring code interpretation capabilities to their generative AI applications. We highly recommend following the [guide by Together AI](https://docs.together.ai/docs/code-execution) to get CodeSandbox SDK running seamlessly with any of the leading open-source LLMs.
 
 ## AI Agents
 
-Agentic workflows are a fast-emerging use case that can benefit immensely from CodeSandbox SDK.
+Agentic workflows are a fast-emerging use case that benefit immensely from CodeSandbox SDK.
 
-You can give each agents a sandbox to resolve user prompts, or create autonomous agents running on sandboxes. This ensures they are securely isolated from your system but still can interact with each other as required.
+Using the SDK, You can give each agent a sandbox to resolve user prompts, or you can create autonomous agents running on sandboxes. 
 
-You can run multiple agents in parallel without them interfering with each other. Using the forking mechanism, you can also A/B test different agents.
+Doing this ensures they are securely isolated from your system, while still allowing them to interact with each other as required.
+
+You can also run multiple agents in parallel, if you want to avoid interaction entirely. 
+
+Using the forking mechanism, you can also A/B test different agents.
 
 ## Development environments
 
-With the SDK, you can programmatically provision a sandbox for anyone who needs an environment to code in. This way, you can run multiple development environments in parallel without them interfering with each other.
+You can also use the SDK to programmatically provision a sandbox for anybody who needs an environment to code. Allowing you to run multiple development environments in parallel without them interfering with each other.
 
-With this, you can essentially create your own CodeSandbox for your team/company/school!
+With the SDK, you can essentially create your own CodeSandbox for your team/company/school!
 
 ## CI/CD
 
 CodeSandbox SDK is a worthy successor to CodeSandbox CI.
 
-With the SDK, you can set up your own CI/CD implementation to run tests inside a sandbox and hibernate the sandbox when the tests are done. This way, you can quickly start the sandbox again when you need to run the tests again or evaluate the results.
+With the SDK, you can set up your own CI/CD implementation to run tests inside a sandbox and hibernate the sandbox when the tests are done. With our snapshotting technology, you can quickly pick up where you left off if you start the sandbox again to re-run your tests or evaluate the results.
 
 You can also use the SDK to create 1 sandbox that runs your CI/CD preparation, and then clone it multiple times to run your tests in parallel.

@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Connect Browser
 
-Connecting to a Sandbox in the browser requires some collaboration with your server. Create an endpoint that will resume the sandbox and create a browser session:
+Connecting to a Sandbox in the browser requires some collaboration with your server. Create an endpoint that will resume the sandbox and then create a browser session:
 
 ```ts
 export const GET = async ({ params }) => {
@@ -18,7 +18,7 @@ export const GET = async ({ params }) => {
 }
 ```
 
-And in the browser:
+Then in the browser:
 
 ```ts
 import { connectToSandbox } from '@codesandbox/sdk/browser';
@@ -31,7 +31,7 @@ const session = await connectToSandbox({
 await session.fs.writeTextFile('test.txt', 'Hello World');
 ```
 
-The Browser sessions automatically manages the connection and will reconnect if the connection is lost. This is controlled by an option called `onFocusChange`.
+The Browser session automatically manages the connection and will reconnect if the connection is lost. This is controlled by an option called `onFocusChange`.
 
 ```ts
 const session = await connectToSandbox({
@@ -51,7 +51,7 @@ const session = await connectToSandbox({
 });
 ```
 
-By telling the browser session when it is in focus it will automatically reconnect when hibernated, unless you explicitly disconnected the session.
+If you tell the browser session when it is in focus it will automatically reconnect when hibernated. Unless you explicitly disconnect the session.
 
 While the `connectToSandbox` promise is resolving you can also listen to initialization events to show a loading state:
 
@@ -65,7 +65,7 @@ const session = await connectToSandbox({
 
 ## Disconnecting the Session
 
-Disconnecting the session will end the session and automatically hibernate the sandbox after a timeout. You can alternatively hibernate the sandbox explicitly from the server.
+Disconnecting the session will end the session and automatically hibernate the sandbox after a timeout. You can also hibernate the sandbox explicitly from the server.
 
 ```ts
 import { connectToSandbox } from '@codesandbox/sdk/browser'

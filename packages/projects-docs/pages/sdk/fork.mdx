@@ -5,8 +5,12 @@ description: Learn how forking snapshots work in the CodeSandbox SDK.
 
 # Fork
 
-When you hibernate a sandbox, we keep a memory snapshot of the underlying Firecracker VM. When you start that sandbox, or if any network request is made to the sandbox, we'll restore the memory snapshot and continue from where you left off.
-Because we can snapshot a sandbox, we can also fork it! For example, you can fork a sandbox to create a new sandbox running the same server.
+When you hibernate a sandbox, we create and save a snapshot of the underlying Firecracker VM. 
+
+If you call `sdk.sandbox.resume(id)` or a network request is made to the Sandbox, we restore the snapshot. Allowing you to continue from exactly where you left off.
+
+As we already have a snapshot, we can also use it to create a fork of your project in a new Sandbox. So you can create multiple instances without having to do all the set up work every time.
+
 
 ```ts
 import { CodeSandbox } from '@codesandbox/sdk'

@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Ports
 
-The Ports API allows you to monitor and interact with HTTP ports in your sandbox. This is particularly useful when working with development servers or any other services that listen on specific ports.
+The Ports API allows you to monitor and interact with HTTP ports in your sandbox. This is particularly useful when working with development servers or any other services that need to listen on specific ports.
 
 Whenever a port is opened within a sandbox, we'll automatically expose it under `https://<sandbox-id>-<port>.csb.app`.
 
@@ -15,7 +15,7 @@ Whenever a port is opened within a sandbox, we'll automatically expose it under 
 If the sandbox is private you need to use the [preview tokens](./preview-tokens).
 </Callout>
 
-Also, we'll automatically resume a sandbox whenever a port is accessed while the sandbox is hibernated.
+We automatically resume a sandbox whenever a port is accessed while the sandbox is hibernated.
 
 ## API
 
@@ -98,7 +98,7 @@ const url = 'https://' + portInfo.url
 
 ### Monitoring Multiple Ports
 
-When working with multiple services, you might want to monitor several ports:
+When working with multiple services, you might need to monitor several ports:
 
 ```ts
 const sandbox = await sdk.sandbox.create()
