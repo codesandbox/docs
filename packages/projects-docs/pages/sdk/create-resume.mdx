@@ -45,6 +45,12 @@ const sandbox = await sdk.sandbox.create({
     source: 'git',
     url: 'https://...',
     branch: 'main',
+    // Optionally pass necessary git config for private repos etc.
+    config: {
+      accessToken: 'github-token',
+      email: 'foo@bar.com',
+      name: 'Foo Bar'
+    },
     async setup(session) {
         await session.commands.run('pnpm install')
         await session.commands.run('pnpm run dev')
@@ -77,3 +83,7 @@ const sandbox = await sdk.sandbox.resume('sandbox-id');
 ```
 
 This will resume the sandbox from hibernation and let you connect to it.
+
+<Callout>
+Note that when you resume a Sandbox it could be starting from a clean slate. This typically happens for Sandboxes that are around a week old without usage. That means its setup is going to run. Read more about [Setup](/sdk/setup) to learn more about this.
+</Callout>

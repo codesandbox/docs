@@ -45,6 +45,7 @@
     "title": "CLI"
   },
   "build-templates": "Build Templates",
+  "preview-hosts": "Preview Hosts",
 
   "-- resources": {
     "type": "separator",

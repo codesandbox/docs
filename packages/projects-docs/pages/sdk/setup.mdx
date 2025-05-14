@@ -37,8 +37,8 @@ const session = await sandbox.connect()
 
 console.log(`Setup status: ${session.setup.status}`);
 
-// Wait for the whole thing to finish
-await session.setup.waitForFinish()
+// Wait for the whole thing to complete
+await session.setup.waitUntilComplete()
 
 // Or handle each step
 const steps = await session.setup.getSteps()
@@ -54,7 +54,7 @@ for (const step of steps) {
     console.log(output)
   })
 
-  await step.waitForFinish()
+  await step.waitUntilComplete()
 }
 ```
 

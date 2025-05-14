@@ -19,24 +19,22 @@ The Commands API is available under `sandbox.commands`.
 const sandbox = await sdk.sandbox.create()
 const session = await sandbox.connect()
 
-// Run a single command
-const command = session.commands.run("npm install");
+// Run until completion
+const output = await session.commands.run("npm install");
 
-// Listen to real-time output
-command.onOutput((output) => {
-  console.log(output);
-});
+console.log(output)
 
-// Optionally cancel the command if it's not finished
-if (Math.random() > 0.5) {
-  command.kill();
-}
+// Listen to changes
+const cmd = await session.commands.create("npm install");
 
-// Wait for completion and get results, it will throw if
-// the command resulted in an error
-const output = await command.getOutput();
+const disposer = cmd.onOutput((output) => {
+  console.log(output)
+})
 
-console.log(output);
+const finalOutput = await cmd.waitUntilComplete()
+
+// Run it again
+await cmd.restart()
 ```
 
 ## Long running commands
@@ -48,7 +46,10 @@ const sandbox = await sdk.sandbox.create()
 const session = await sandbox.connect()
 
 // Run a long running command
-const command = session.commands.run("npx -y serve .");
+const command = session.commands.create("npx -y serve .");
+
+// Wait for the port to open
+const portInfo = await session.ports.waitForPort(3000);
 
 // You will need to manually kill it
 command.kill()
@@ -58,5 +59,5 @@ command.restart()
 ```
 
 <Callout>
-Just like terminals, commands can also run beyond the current session. Use `session.commands.getAll()` to retrieve any existing commands.
+For long running commands you should evaluate using [tasks](/sdk/tasks.mdx).
 </Callout>
