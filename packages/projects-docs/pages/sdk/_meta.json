@@ -1,12 +1,8 @@
 {
   "index": "Introduction",
   "use-cases": "Use Cases",
+  "faq": "FAQ",
   "pricing": "Pricing",
-  "contact": {
-    "title": "Contact Us",
-    "href": "https://codesandbox.io/support#form",
-    "newWindow": true
-  },
 
   "-- sandboxes": {
     "type": "separator",
@@ -54,5 +50,11 @@
   "snapshot-library": "Snapshot Library",
   "environment": "Environment",
   "docker": "Docker & Docker Compose",
-  "faq": "FAQ"
+  "shells": "Shells (Deprecated)",
+  "contact": {
+    "title": "Contact Us",
+    "href": "https://codesandbox.io/support#form",
+    "newWindow": true
+  }
+ 
 }

@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Commands
 
-The Commands API allows you to run commands in your sandbox. A command is also a shell, but unlike a terminal it will clean itself up when the command is executed.
+The Commands API allows you to run commands in your sandbox. A command is also a shell, but unlike a terminal it will clean itself up after the command is executed.
 
 ## API
 
@@ -39,7 +39,7 @@ await cmd.restart()
 
 ## Long running commands
 
-Some commands are long running, like starting a server. In this case you can use the `waitForPort` method to wait for the port to open:
+Some commands take longer to run, like starting a server. In this case you can use the `waitForPort` method to wait for the port to open:
 
 ```ts
 const sandbox = await sdk.sandbox.create()

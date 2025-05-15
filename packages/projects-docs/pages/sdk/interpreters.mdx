@@ -28,7 +28,7 @@ const jsResult = await session.interpreters.javascript("'Hello from Node.js!'");
 const pythonResult = await session.interpreters.python("'Hello from Python!'");
 ```
 
-These interpreters will return the last expression as output, unless you use the `console` etc., which will then become part of the returned output.
+These interpreters will automatically return the last expression as output, but you can print values to the console at any point for multiple outputs.
 
 <Callout>
 Note that the interpreters will not resolve until the interpretation resolves. We are open to changing this behavior if you have any feedback or suggestions! Or you can always wield your own by using commands.

@@ -7,8 +7,9 @@ import { Callout } from 'nextra-theme-docs'
 
 # Update Sandbox
 
-Every Sandbox has an agent running on it. This agent is the what allows you to interact with the Sandbox environment
-When a new version of the agent is published existing sandboxes needs to restart to get that new version.
+Every Sandbox has an agent running on it. This agent is the what allows you to interact with the Sandbox environment.
+
+When a new version of the agent is published, existing sandboxes will need to restart before they get new version.
 
 You can check if the current sandbox is up to date using `isUpToDate()`
 
@@ -20,4 +21,4 @@ if (!sandbox.isUpToDate) {
 }
 ```
 
-It is up to you deciding on the best user experience. At CodeSandbox we would show a notification when the agent was out of date and the user could choose when to update.
+It is up to you to decide what the best user experience will be for your use case. At CodeSandbox we would show a notification when the agent was out of date and the user could choose when to update.

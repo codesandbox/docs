@@ -49,8 +49,11 @@ Tasks are configured in your project's `.codesandbox/tasks.json` file.
 Each task can have the following options:
 
 - `name`: Display name for the task
+
 - `command`: The command to execute
+
 - `runAtStart`: Whether to run the task when the sandbox starts
+
 - `restartOn`: Configure when the task should restart
   - `files`: Array of file patterns that trigger restart when changed
   - `clone`: Restart when this VM was cloned from another VM
@@ -58,7 +61,7 @@ Each task can have the following options:
 
 ### Example Configuration
 
-Here's a more complete example showing various task configurations:
+Here's a more comprehensive example showing various task configurations:
 
 ```json
 {
@@ -156,7 +159,7 @@ if (task) {
 }
 ```
 
-### Opening shell
+### Opening a Shell
 
 Tasks are an abstraction over commands. You can open the underlying shell to see its current output and listen to output updates.
 
@@ -172,7 +175,7 @@ task.onOutput((output) => {
 const output = await task.open()
 ```
 
-### Listen for port
+### Listen for Port
 
 If your task opens a port, you can listen for it to open:
 
