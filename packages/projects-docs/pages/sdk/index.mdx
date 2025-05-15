@@ -62,7 +62,7 @@ const portInfo = await sandbox.ports.waitForPort(3000);
 console.log(portInfo.getPreviewUrl());
 
 // And, you can clone(!) the sandbox! This takes 1-3s.
-const sandbox2 = await sandbox.fork();
+const sandbox2 = await sdk.sandboxes.fork(sandbox.id);
 
 // Sandbox 2 will have the same processes running as sandbox 1
 const portInfo2 = await sandbox2.ports.waitForPort(3000);
@@ -73,8 +73,8 @@ console.log(portInfo2.getPreviewUrl());
 // Next time you start the sandbox, it will use the snapshot continue where you left off.
 // The sandboxes will also automatically resume if a network request comes in for the
 // servers they have started.
-await sandbox.hibernate();
-await sandbox2.hibernate();
+await sdk.sandboxes.hibernate(sandbox.id);
+await sdk.sandboxes.hibernate(sandbox2.id);
 
 // To resume the sandbox manually:
 const resumedSandbox = await sdk.sandboxes.resume(sandbox.id);
