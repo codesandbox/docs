@@ -11,7 +11,7 @@ Connecting to a Sandbox in the browser requires some collaboration with your ser
 
 ```ts
 export const GET = async ({ params }) => {
-  const sandbox = await sdk.sandbox.resume(params.sandboxId);
+  const sandbox = await sdk.sandboxes.resume(params.sandboxId);
   const session = await sandbox.createBrowserSession();
 
   return session

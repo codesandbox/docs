@@ -9,7 +9,7 @@ import { Callout } from 'nextra-theme-docs'
 
 A terminal is a shell process which you can write to, listen to and is often combined with xTerm in the browser to allow users to get a full terminal experience.
 
-The Terminals API allows you to create, manage and interact with terminal processes in your sandbox. 
+The Terminals API allows you to create, manage and interact with terminal processes in your sandbox.
 
 ## API
 
@@ -20,7 +20,7 @@ The Terminals API is available under `sandbox.terminals`.
 You can create an interactive terminal that allows you to write, run commands and receive output:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Create a new terminal (bash is default)

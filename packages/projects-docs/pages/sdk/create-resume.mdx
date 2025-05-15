@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Create Sandbox
 
-Sandboxes are the main building blocks of the CodeSandbox SDK. Each one represents a single project that you can run, fork, and modify. 
+Sandboxes are the main building blocks of the CodeSandbox SDK. Each one represents a single project that you can run, fork, and modify.
 
 Every Sandbox is backed by a Firecracker VM, and is completely isolated and persisted. Providing you with a secure environment to run untrusted code.
 
@@ -19,7 +19,7 @@ To create a sandbox, call `sandbox.create()`:
 import { CodeSandbox } from '@codesandbox/sdk'
 const sdk = new CodeSandbox();
 
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandboxes.create();
 ```
 
 If no argument is provided to `sandbox.create()`, we'll create a sandbox based on our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own snapshot using our [Snapshot Builder](/sdk/snapshot-builder). Additionally you can choose other sources like [Git](/sdk/sandbox#git) or [Files](/sdk/sandbox#files).
@@ -27,7 +27,7 @@ If no argument is provided to `sandbox.create()`, we'll create a sandbox based o
 ### Create from Template
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
     source: 'template',
     id: 'some-sandbox-id'
 })
@@ -36,7 +36,7 @@ const sandbox = await sdk.sandbox.create({
 ### Create from Git
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
     source: 'git',
     url: 'https://...',
     branch: 'main',
@@ -59,7 +59,7 @@ const sandbox = await sdk.sandbox.create({
 For any of the above sources you can also pass the following options:
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
     source: 'template',
     title: 'my-sandbox',
     description: 'My sandbox',
@@ -70,6 +70,7 @@ const sandbox = await sdk.sandbox.create({
 ```
 
 ## Sandbox Properties
+
 The `sandbox` object represents the instance of a sandbox running in our infrastructure. The methods detailed below require the Sandbox to be running.
 
 Each Sandbox has the following properties, with information about it's own instance:
@@ -81,10 +82,10 @@ Each Sandbox has the following properties, with information about it's own insta
 
 ## Resume an Existing Sandbox
 
-To resume an existing sandbox from hibernation and connect to it call: `sdk.sandbox.resume(id)`:
+To resume an existing sandbox from hibernation and connect to it call: `sdk.sandboxes.resume(id)`:
 
 ```ts
-const sandbox = await sdk.sandbox.resume('sandbox-id');
+const sandbox = await sdk.sandboxes.resume('sandbox-id');
 ```
 
 <Callout>

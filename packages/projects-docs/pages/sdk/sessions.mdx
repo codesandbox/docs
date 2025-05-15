@@ -10,7 +10,7 @@ import { Callout } from 'nextra-theme-docs'
 By default a session is bound to a user called `pitcher-host`. This user has write access to any API. We refer to this session as the "global" session.
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 // "connect" creates a WebSocketSession
 const session = await sandbox.connect()
 
@@ -35,7 +35,7 @@ By default a user has `write` access, but you can configure a session to have `r
 
 ```ts
 // Now configure a session that only has read access to the sandbox
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect({
   id: 'anonymous',
   permission: 'read'
@@ -49,10 +49,10 @@ await session.fs.readTextFile('test.txt'); // This will work.
 
 ### Git
 
-Passing the users git access token allows the user to use git commands inside the sandbox. Their permission level will be inherited from the git token. 
+Passing the users git access token allows the user to use git commands inside the sandbox. Their permission level will be inherited from the git token.
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect({
   id: 'anonymous',
   git: {
@@ -68,7 +68,7 @@ const session = await sandbox.connect({
 If you pass environment variables, these variables will be available to the user inside the commands and terminals that they run in the Sandbox.
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect({
   id: 'anonymous',
   env: {
@@ -94,7 +94,7 @@ If you want your users to connect to the Sandbox from the browser you can create
 
 ```ts
 export const GET = async ({ params }) => {
-  const sandbox = await sdk.sandbox.resume(params.sandboxId);
+  const sandbox = await sdk.sandboxes.resume(params.sandboxId);
   // Also default to global session, but can configure custom session
   const session = await sandbox.createBrowserSession();
 
@@ -121,7 +121,7 @@ The sandboxes also expose a Rest api which can be a more useful protocol to use 
 is not as extensive, but supports most features.
 
 ```ts
-const sandbox = await sdk.sandbox.resume('sandbox-id')
+const sandbox = await sdk.sandboxes.resume('sandbox-id')
 // Also defaults to global session, but can configure custom session
 const session = await sandbox.createRestClient()
 

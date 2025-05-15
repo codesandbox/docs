@@ -47,14 +47,12 @@
     "type": "separator",
     "title": "Resources"
   },
-  "snapshot-library": "Snapshot Library",
+  "snapshot-library": "Template Library",
   "environment": "Environment",
   "docker": "Docker & Docker Compose",
-  "shells": "Shells (Deprecated)",
   "contact": {
     "title": "Contact Us",
     "href": "https://codesandbox.io/support#form",
     "newWindow": true
   }
- 
 }

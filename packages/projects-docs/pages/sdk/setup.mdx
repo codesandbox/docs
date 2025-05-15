@@ -32,7 +32,7 @@ Setup tasks run in order when initializing your sandbox. They're typically used 
 Setup tasks run automatically when a sandbox starts. They typically handle installation of dependencies and initial builds. You can monitor and control setup tasks using the Setup API:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 console.log(`Setup status: ${session.setup.status}`);

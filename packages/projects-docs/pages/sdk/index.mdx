@@ -46,7 +46,7 @@ import { CodeSandbox } from "@codesandbox/sdk";
 
 // Create your first sandbox by calling sandbox.create()
 const sdk = new CodeSandbox(process.env.CSB_API_KEY!);
-const sandbox = await sdk.sandbox.create();
+const sandbox = await sdk.sandboxes.create();
 
 // Run your first command in your new Sandbox shell:
 await sandbox.shells.python.run("print(1+1)");
@@ -75,7 +75,7 @@ await sandbox.hibernate();
 await sandbox2.hibernate();
 
 // To resume the sandbox manually:
-const resumedSandbox = await sdk.sandbox.open(sandbox.id);
+const resumedSandbox = await sdk.sandboxes.open(sandbox.id);
 ```
 
 <Callout>

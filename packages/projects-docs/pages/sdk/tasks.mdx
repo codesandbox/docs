@@ -108,7 +108,7 @@ The Tasks API is available under `sandbox.tasks`. It provides methods for listin
 You can get all available tasks in your sandbox:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Get all tasks
@@ -124,7 +124,7 @@ for (const task of tasks) {
 You can run a task using its ID:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 const task = session.tasks.get("dev");
 
@@ -136,7 +136,7 @@ await task.stop()
 
 // You can wait for a port to open on the task
 const port = await task.waitForPort()
-console.log(`Preview available at: ${port.url}`);
+console.log(`Preview available at: ${port.host}`);
 ```
 
 ### Getting Task Information
@@ -144,7 +144,7 @@ console.log(`Preview available at: ${port.url}`);
 You can get information about a specific task:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Get a specific task
@@ -164,7 +164,7 @@ if (task) {
 Tasks are an abstraction over commands. You can open the underlying shell to see its current output and listen to output updates.
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 const task = session.tasks.get('dev')
 
@@ -181,7 +181,7 @@ If your task opens a port, you can listen for it to open:
 
 ```ts
 const port = await task.waitForPort()
-console.log(`Preview available at: ${port.url}`);
+console.log(`Preview available at: ${port.host}`);
 ```
 
 <Callout>

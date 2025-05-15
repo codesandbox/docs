@@ -10,9 +10,9 @@ import { Callout } from 'nextra-theme-docs'
 When you're done with a sandbox, you can tell it to hibernate. This will save the memory state of the sandbox, so it will resume from the same state when you start it again.
 
 ```ts
-const sandbox = await sdk.sandbox.resume('sandbox-id')
+const sandbox = await sdk.sandboxes.resume('sandbox-id')
 
-await sdk.sandbox.hibernate(sandbox.id);
+await sdk.sandboxes.hibernate(sandbox.id);
 ```
 
 When creating or restarting a sandbox, you can also set a hibernation timeout between 1 minute and 24 hours. By default this timeout is 5 minutes for free users, and 30 minutes for paid users.
@@ -21,7 +21,7 @@ When creating or restarting a sandbox, you can also set a hibernation timeout be
 import { CodeSandbox } from '@codesandbox/sdk'
 const sdk = new CodeSandbox();
 
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
   type: 'template',
   hibernationTimeoutSeconds: 60 * 60 * 1 // 1 hour
 });

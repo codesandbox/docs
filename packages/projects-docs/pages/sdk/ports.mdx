@@ -26,13 +26,13 @@ The Ports API is available under `sandbox.ports`. It provides methods for monito
 You can listen for ports being opened and closed in your sandbox:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Listen for ports being opened
 const listener1 = session.ports.onDidPortOpen((portInfo) => {
   console.log(`Port ${portInfo.port} opened`);
-  console.log(`Preview URL: ${portInfo.url}`);
+  console.log(`Preview URL: ${portInfo.host}`);
 });
 
 // Listen for ports being closed
@@ -50,13 +50,13 @@ listener2.dispose();
 You can get information about currently opened ports:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Get all opened ports
 const openPorts = session.ports.getOpenedPorts();
 for (const port of openPorts) {
-  console.log(`Port ${port.port} is open at ${port.url}`);
+  console.log(`Port ${port.port} is open at ${port.host}`);
 }
 ```
 
@@ -65,7 +65,7 @@ for (const port of openPorts) {
 When starting services, you often need to wait for a port to become available:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Start a development server
@@ -73,7 +73,7 @@ session.shells.run("npm run dev");
 
 // Wait for the dev server port to open
 const portInfo = await session.ports.waitForPort(3000);
-console.log(`Dev server is ready at: ${portInfo.url}`);
+console.log(`Dev server is ready at: ${portInfo.host}`);
 ```
 
 ## Examples
@@ -83,7 +83,7 @@ console.log(`Dev server is ready at: ${portInfo.url}`);
 Here's a complete example of starting a web server and getting its preview URL:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Start the server
@@ -93,7 +93,7 @@ session.shells.run("npx serve -y .");
 const portInfo = await session.ports.waitForPort(3000);
 
 // Apply protocol to the url
-const url = 'https://' + portInfo.url
+const url = 'https://' + portInfo.host
 ```
 
 ### Monitoring Multiple Ports
@@ -101,7 +101,7 @@ const url = 'https://' + portInfo.url
 When working with multiple services, you might need to monitor several ports:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Start monitoring before launching services

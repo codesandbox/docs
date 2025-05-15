@@ -16,7 +16,7 @@ The Commands API is available under `sandbox.commands`.
 ### Running Commands
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Run until completion, also supports an array of commands
@@ -42,7 +42,7 @@ await cmd.restart()
 Some commands take longer to run, like starting a server. In this case you can use the `waitForPort` method to wait for the port to open:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Run a long running command

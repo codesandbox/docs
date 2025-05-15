@@ -41,7 +41,7 @@ Alternatively, you can use a `Dockerfile` to build the Docker image when the san
 When creating a sandbox, all shells will automatically run inside the Docker container specified in the Dev Container configuration.
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
   template: "node" // Template with Dev Container configuration
 });
 
@@ -84,7 +84,7 @@ services:
 The SDK will automatically start all services defined in your Docker Compose configuration:
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
   template: "fullstack" // Template with Dev Container configuration
 });
 
@@ -103,7 +103,7 @@ console.log(`Database available at: ${portInfo.hostname}:${portInfo.port}`);
 Here's an example of setting up a full-stack development environment with Node.js and PostgreSQL:
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
   template: "fullstack"
 });
 
@@ -123,8 +123,8 @@ const [appPort, dbPort] = await Promise.all([
 ]);
 
 console.log(`
-App running at: ${appPort.url}
-Database available at: ${dbPort.hostname}:${dbPort.port}
+App running at: ${appPort.host}
+Database available at: ${dbPort.host}:${dbPort.port}
 `);
 ```
 
@@ -133,7 +133,7 @@ Database available at: ${dbPort.hostname}:${dbPort.port}
 Example of a sandbox that needs specific system packages:
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
   template: "custom-env"
 });
 

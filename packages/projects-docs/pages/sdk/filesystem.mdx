@@ -19,7 +19,7 @@ operations are relative to the workspace directory of the sandbox (which is `/pr
 You can read & write files using an api that's similer to the Node.js fs module:
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Writing text files
@@ -44,7 +44,7 @@ Uploading and downloading files can be done using the same methods.
 ```ts
 import fs from "node:fs";
 
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 const myBinaryFile = fs.readFileSync("./my-binary-file");

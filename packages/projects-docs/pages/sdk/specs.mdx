@@ -18,7 +18,7 @@ You can start a sandbox with a specific VM tier by passing the `vmTier` option t
 import { CodeSandbox, VMTier } from "@codesandbox/sdk";
 
 const sdk = new CodeSandbox();
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
   source: 'template',
   vmTier: VMTier.Small
 });
@@ -27,7 +27,7 @@ const sandbox = await sdk.sandbox.create({
 You can also approximate the VM size:
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
   source: 'template',
   vmTier: VMTier.fromSpecs({ cpu: 4, memGiB: 8 }),
 });
@@ -40,7 +40,7 @@ This will pick the smallest VM tier that can fit the specs you provided.
 You can change the VM specs of a running sandbox by calling the `sandbox.updateTier` method:
 
 ```ts
-const sandbox = await sdk.sandbox.resume('some-id')
+const sandbox = await sdk.sandboxes.resume('some-id')
 
 await sandbox.updateTier(VMTier.Medium);
 ```

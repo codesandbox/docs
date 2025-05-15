@@ -10,7 +10,7 @@ import { Callout } from 'nextra-theme-docs'
 The default session for a Sandbox is a WebSocket connection. This connection is designed to hold a session over time with minimum overhead to message passing. The WebSocket connection also allows you to listen to changes to ports, shell output and so on.
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 await session.fs.writeTextFile('test.txt', 'Hello World');
@@ -21,7 +21,7 @@ await session.fs.writeTextFile('test.txt', 'Hello World');
 Disconnecting the session ends the session and will automatically hibernate the sandbox after a timeout.
 
 ```ts
-const sandbox = await sdk.sandbox.resume('sandbox-id')
+const sandbox = await sdk.sandboxes.resume('sandbox-id')
 const session = await sandbox.connect()
 
 // Disconnect returns a promise of when all pending

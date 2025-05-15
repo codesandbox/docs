@@ -37,7 +37,7 @@ This will create a fresh sandbox, upload the files of your directory, start nece
 ```jsx
 const sdk = new CodeSandbox(process.env.CSB_API_KEY);
 
-const sandbox = await sdk.sandbox.create({ source: 'template', id: 'template-id' });
+const sandbox = await sdk.sandboxes.create({ source: 'template', id: 'template-id' });
 ```
 
 ### Custom Docker Image
@@ -112,7 +112,7 @@ You can learn more about setup tasks in our [tasks documentation](/sdk/tasks.mdx
 
 ### Setup Tasks vs Dockerfile
 
-When would you configure something in the Dockerfile, and when would you configure something in setup tasks? 
+When would you configure something in the Dockerfile, and when would you configure something in setup tasks?
 
 As a rule of thumb, if something is configured in relation to the environment (like installing Node, or installing Postgres, or installing Bun), it should go into the Dockerfile. If something is related to the project setup (installing dependencies, building a binary), it should go inside setup tasks.
 

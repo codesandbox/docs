@@ -38,7 +38,7 @@ If you want to revoke a token, you can call `sandbox.previewTokens.list` to get 
 
 The CLI allows you to manage preview tokens of a sandbox. You can use it to list, revoke and update preview tokens.
 
-#### List: 
+#### List:
 
 ```
 $ csb sandbox preview-tokens :sandbox-id list
@@ -48,7 +48,7 @@ $ csb sandbox preview-tokens :sandbox-id list
  prv_MWMhMjbQiY3jSagfaG6D7R   prv_v1_i7iI   Never       Never
 ```
 
-#### Revoke: 
+#### Revoke:
 
 ```
 $ csb sandbox preview-tokens :sandbox-id revoke prv_Hca52PUyFHVJsGkciXXbEq
@@ -94,7 +94,7 @@ const [signedUrl] = await Promise.all([
 In some cases, a private sandbox might be running an API server that you want to access. In those cases, you should put the preview token in the `csb-preview-token` header.
 
 ```ts
-const sandbox = await sdk.sandbox.create()
+const sandbox = await sdk.sandboxes.create()
 const client = await sandbox.connect()
 
 // Start a development server
@@ -105,7 +105,7 @@ const portInfo = await client.ports.waitForPort(3000);
 
 // Generate the preview token
 const previewToken = await sdk.previewTokens.create(sandbox.id);
-const url = 'https://' + portInfo.url
+const url = 'https://' + portInfo.host
 
 const response = await fetch(url, {
   headers: {
