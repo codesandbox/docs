@@ -1,6 +1,10 @@
 {
   "index": "Introduction",
   "use-cases": "Use Cases",
+  "playground": {
+    "href": "https://wkyxcw-5173.csb.app/",
+    "title": "Example Playground"
+  },
   "faq": "FAQ",
   "pricing": "Pricing",
 
