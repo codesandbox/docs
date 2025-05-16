@@ -10,7 +10,7 @@ import { Callout } from 'nextra-theme-docs'
 Whenever you start a sandbox, you can specify which VM specs to use. This allows you to customize the VM to your needs. We also allow you to change the VM specs of a running sandbox on the fly,
 without reboot. This is useful if you want to scale up or down your sandbox dynamically based on workload needs.
 
-## Starting Sandbox with Specs
+## Specifying VM Specs when starting your Sandbox
 
 You can start a sandbox with a specific VM tier by passing the `vmTier` option to the `sandbox.create` method:
 
@@ -18,13 +18,17 @@ You can start a sandbox with a specific VM tier by passing the `vmTier` option t
 import { CodeSandbox, VMTier } from "@codesandbox/sdk";
 
 const sdk = new CodeSandbox();
-const sandbox = await sdk.sandbox.create({ vmTier: VMTier.Small });
+const sandbox = await sdk.sandboxes.create({
+  source: 'template',
+  vmTier: VMTier.Small
+});
 ```
 
 You can also approximate the VM size:
 
 ```ts
-const sandbox = await sdk.sandbox.create({
+const sandbox = await sdk.sandboxes.create({
+  source: 'template',
   vmTier: VMTier.fromSpecs({ cpu: 4, memGiB: 8 }),
 });
 ```
@@ -36,11 +40,13 @@ This will pick the smallest VM tier that can fit the specs you provided.
 You can change the VM specs of a running sandbox by calling the `sandbox.updateTier` method:
 
 ```ts
+const sandbox = await sdk.sandboxes.resume('some-id')
+
 await sandbox.updateTier(VMTier.Medium);
 ```
 
 This will change the VM specs of the sandbox dynamically, without rebooting.
 
 <Callout>
-  Be careful when scaling the VM specs of a running sandbox down. If you scale down the VM too much, it might not have enough resources to run your tasks and will slow to a crawl.
+  Be careful when scaling down the VM specs of a running sandbox. If you scale down the VM too much, it might not have enough resources to run your tasks and will slow to a crawl.
 </Callout>

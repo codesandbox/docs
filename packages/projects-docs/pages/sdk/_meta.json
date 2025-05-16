@@ -1,34 +1,63 @@
 {
   "index": "Introduction",
   "use-cases": "Use Cases",
+  "playground": {
+    "href": "https://wkyxcw-5173.csb.app/",
+    "title": "Example Playground"
+  },
+  "faq": "FAQ",
   "pricing": "Pricing",
-  "contact": {
-    "title": "Contact Us",
-    "href": "https://codesandbox.io/support#form",
-    "newWindow": true
-  },
 
-  "-- api-reference": {
+  "-- sandboxes": {
     "type": "separator",
-    "title": "API Reference"
+    "title": "Sandboxes"
   },
-  "sandboxes": "Sandboxes",
-  "filesystem": "File System",
-  "shells": "Shells",
-  "ports": "Ports & Previews",
-  "tasks": "Tasks & Setup",
+  "create-resume": "Create & Resume",
+  "templates": "Templates",
   "sessions": "Sessions",
+  "hibernate": "Hibernate",
+  "fork": "Fork",
+  "restart-shutdown": "Restart & Shutdown",
   "specs": "VM Specs",
+  "persistence": "Persistence",
+  "update-sandbox": "Update Sandbox",
+  "-- previews": {
+    "type": "separator",
+    "title": "Previews"
+  },
+  "preview-tokens": "Preview Tokens",
+  "browser-previews": "Browser Previews",
+  "-- websocket-sessions": {
+    "type": "separator",
+    "title": "WebSocket Sessions"
+  },
+  "connect": "Connect",
+  "browser": "Connect Browser",
+  "filesystem": "File System",
+  "terminals": "Terminals",
+  "commands": "Commands",
+  "interpreters": "Interpreters",
+  "ports": "Ports",
+  "tasks": "Tasks",
+  "setup": "Setup",
+
+  "-- CLI": {
+    "type": "separator",
+    "title": "CLI"
+  },
+  "build-templates": "Build Templates",
+  "preview-hosts": "Preview Hosts",
 
   "-- resources": {
     "type": "separator",
     "title": "Resources"
   },
-  "snapshot-library": "Snapshot Library",
-  "snapshot-builder": "Snapshot Builder",
+  "snapshot-library": "Template Library",
   "environment": "Environment",
   "docker": "Docker & Docker Compose",
-  "persistence": "Persistence",
-  "fork": "Fork",
-  "faq": "FAQ"
+  "contact": {
+    "title": "Contact Us",
+    "href": "https://codesandbox.io/support#form",
+    "newWindow": true
+  }
 }

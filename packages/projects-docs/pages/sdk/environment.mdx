@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Environment
 
-Sandboxes on CodeSandbox are backed by a [Firecracker](https://firecracker-microvm.github.io/) microVM, within the VM we run a rootless Docker container based on a [Dev Container](https://containers.dev/) configuration (specified in the `.devcontainer/devcontainer.json` file).
+Sandboxes on CodeSandbox are backed by a [Firecracker](https://firecracker-microvm.github.io/) microVM. Within the VM we run a rootless Docker container based on a [Dev Container](https://containers.dev/) configuration (specified in the `.devcontainer/devcontainer.json` file).
 
 ## Booting a Sandbox
 
@@ -19,4 +19,4 @@ Whenever we boot a sandbox from scratch, we'll:
 4. Start the Docker container
 5. Mount the `/project/sandbox` directory as a volume inside the Docker container
 
-We run an agent inside the VM that the SDK connects to. Via an RPC protocol you can then interact with the sandbox.
+We then run an agent inside the VM that the SDK connects to via an RPC protocol. You can then interact with the sandbox through this agent.

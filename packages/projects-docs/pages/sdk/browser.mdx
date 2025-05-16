@@ -1,0 +1,85 @@
+---
+title: Connect Browser
+description: Learn how to connect to a sandbox in the browser with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Connect Browser
+
+Connecting to a Sandbox in the browser requires some collaboration with your server. Create an endpoint that will resume the sandbox and then create a browser session:
+
+```ts
+export const GET = async ({ params }) => {
+  const sandbox = await sdk.sandboxes.resume(params.sandboxId);
+  const session = await sandbox.createBrowserSession();
+
+  return session
+}
+```
+
+Then in the browser:
+
+```ts
+import { connectToSandbox } from '@codesandbox/sdk/browser';
+
+const session = await connectToSandbox({
+  id: '123',
+  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json())
+});
+
+await session.fs.writeTextFile('test.txt', 'Hello World');
+```
+
+The Browser session automatically manages the connection and will reconnect if the connection is lost. This is controlled by an option called `onFocusChange`.
+
+```ts
+const session = await connectToSandbox({
+  id: '123',
+  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+  onFocusChange: (notify) => {
+    const onVisibilityChange = () => {
+      notify(document.visibilityState === 'visible');
+    }
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    }
+  }
+});
+```
+
+If you tell the browser session when it is in focus it will automatically reconnect when hibernated. Unless you explicitly disconnect the session.
+
+While the `connectToSandbox` promise is resolving you can also listen to initialization events to show a loading state:
+
+```ts
+const session = await connectToSandbox({
+  id: '123',
+  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+  onInitCb: (event) => {}
+});
+```
+
+## Disconnecting the Session
+
+Disconnecting the session will end the session and automatically hibernate the sandbox after a timeout. You can also hibernate the sandbox explicitly from the server.
+
+```ts
+import { connectToSandbox } from '@codesandbox/sdk/browser'
+
+const session = await connectToSandbox({
+  id: '123',
+  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+})
+
+// Disconnect returns a promise that resolves when the session is disconnected
+session.disconnect();
+
+// Optionally hibernate the sandbox explicitly
+fetch('/api/sandboxes/' + sandbox.id + '/hibernate', {
+  method: 'POST'
+})
+```

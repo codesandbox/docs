@@ -1,0 +1,60 @@
+---
+title: Templates
+description: Learn how to create templates with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Templates
+
+CodeSandbox has default templates that you can use to create sandboxes. These templates are available in the [Template Library](/sdk/snapshot-library) and by default we use the "Universal" template. To create your own template you will need to use our CLI.
+
+## Creating the template
+
+Create a new folder in your project and add the files you want to have available inside your Sandbox. For example set up a Vite project:
+
+```sh
+npx create-vite@latest my-template
+```
+
+Now we need to configure the template with tasks so that it will install dependencies and start the dev server. Create a `.codesandbox/tasks.json` file with the following content:
+
+```json
+{
+    "setupTasks": [
+        "npm install"
+    ],
+    "tasks": {
+        "dev-server": {
+            "name": "Dev Server",
+            "command": "npm run dev",
+            "runAtStart": true
+        }
+    }
+}
+```
+
+The `setupTasks` will run after the Sandbox has started, before any other tasks.
+
+Now we are ready to deploy the template to our clusters, run:
+
+```bash
+$ CSB_API_KEY=KEY npx @codesandbox/sdk build ./my-template --ports 5173
+```
+
+This will start the process of creating Sandboxes for each of our clusters, write files, restart, wait for port 5173 to be available and then hibernate. This generates the snapshot.
+
+When all clusters are updated successfully you will get a "Template Tag" back which you can use when you create your sandboxes.
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+    source: 'template',
+    id: 'some-template-tag'
+})
+```
+
+Read more about building templates in the [Build Templates](/sdk/build-templates).
+
+<Callout>
+Even though the `build` process logs the specific Sandbox ids generated, you should never visit these sandboxes. They are meant to stay hibernated and only by used as snapshots. Creating a Sandbox from a running template is **slower** than creating a Sandbox from a snapshot. In the near future templates can not be started again after hibernation.
+</Callout>

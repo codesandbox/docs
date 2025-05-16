@@ -1,0 +1,34 @@
+---
+title: Restart & Shutdown
+description: Learn how to restart and shutdown sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Restart & Shutdown
+
+## Restart
+
+Restarting a Sandbox won't use a snapshot and will start from scratch. It will install and build its configured resources (including your files in `/project/sandbox`) and also run with the latest version of the agent.
+
+```ts
+let sandbox = await sdk.sandboxes.resume('sandbox-id')
+
+sandbox = await sdk.sandboxes.restart(sandbox.id);
+```
+
+<Callout>
+Note that when restarting you get a new reference to the Sandbox. You will need to create a new session from that new reference.
+</Callout>
+
+## Shutdown
+
+You can also shutdown a sandbox without creating a memory snapshot. Once shut down the Sandbox will need to boot from a clean state (but your files in `/project/sandbox` will be preserved).
+
+```ts
+const sandbox = await sdk.sandboxes.resume('sandbox-id')
+
+await sdk.sandboxes.shutdown(sandbox.id);
+```
+
+Generally you should shutdown a sandbox if you want to come back to your project in a fresh instance.
