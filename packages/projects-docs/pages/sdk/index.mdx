@@ -59,14 +59,14 @@ command.onOutput(console.log)
 
 // Wait for the port to open:
 const portInfo = await sandbox.ports.waitForPort(3000);
-console.log(portInfo.getPreviewUrl());
+console.log(portInfo.host);
 
 // And, you can clone(!) the sandbox! This takes 1-3s.
 const sandbox2 = await sdk.sandboxes.fork(sandbox.id);
 
 // Sandbox 2 will have the same processes running as sandbox 1
 const portInfo2 = await sandbox2.ports.waitForPort(3000);
-console.log(portInfo2.getPreviewUrl());
+console.log(portInfo2.host);
 
 // Finally, you can hibernate the sandbox.
 // This will create a snapshot the sandbox to save your project and then stop it.
