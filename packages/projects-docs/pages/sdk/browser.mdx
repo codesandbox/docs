@@ -36,20 +36,20 @@ Then in the browser:
 ```ts
 import { connectToSandbox } from '@codesandbox/sdk/browser';
 
-const session = await connectToSandbox({
+const sandbox = await connectToSandbox({
   // The session object you either passed on page load or fetched from the server
   session: initialSessionFromServer,
   // When reconnecting to the sandbox, fetch the session from the server
   getSession: (id) => fetchJson(`/api/sandboxes/${id}`)
 });
 
-await session.fs.writeTextFile('test.txt', 'Hello World');
+await sandbox.fs.writeTextFile('test.txt', 'Hello World');
 ```
 
 The Browser session automatically manages the connection and will reconnect if the connection is lost. This is controlled by an option called `onFocusChange` and by default it will reconnect when the page is visible.
 
 ```ts
-const session = await connectToSandbox({
+const sandbox = await connectToSandbox({
   session: initialSessionFromServer,
   getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
   onFocusChange: (notify) => {
@@ -71,27 +71,27 @@ If you tell the browser session when it is in focus it will automatically reconn
 While the `connectToSandbox` promise is resolving you can also listen to initialization events to show a loading state:
 
 ```ts
-const session = await connectToSandbox({
+const sandbox = await connectToSandbox({
   session: initialSessionFromServer,
   getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
   onInitCb: (event) => {}
 });
 ```
 
-## Disconnecting the Session
+## Disconnecting the Sandbox
 
 Disconnecting the session will end the session and automatically hibernate the sandbox after a timeout. You can also hibernate the sandbox explicitly from the server.
 
 ```ts
 import { connectToSandbox } from '@codesandbox/sdk/browser'
 
-const session = await connectToSandbox({
+const sandbox = await connectToSandbox({
   session: initialSessionFromServer,
   getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
 })
 
 // Disconnect returns a promise that resolves when the session is disconnected
-session.disconnect();
+sandbox.disconnect();
 
 // Optionally hibernate the sandbox explicitly by creating an endpoint on your server
 fetch('/api/sandboxes/' + sandbox.id + '/hibernate', {
@@ -99,5 +99,5 @@ fetch('/api/sandboxes/' + sandbox.id + '/hibernate', {
 })
 
 // You can reconnect explicitly from the browser by
-session.reconnect()
+sandbox.reconnect()
 ```

@@ -53,11 +53,11 @@ The terminal API is often combined with [xTerm](https://www.npmjs.com/package/@x
 import { connectToSandbox } from "@codesandbox/sdk/browser";
 import { Terminal } from '@xterm/xterm'
 
-const session = await connectToSandbox({
+const sandbox = await connectToSandbox({
   id: 'sandbox-id',
   getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
 })
-const terminal = await session.terminals.create()
+const terminal = await sandbox.terminals.create()
 const xterm = new Terminal()
 
 xterm.open(document.getElementById('terminal'))
