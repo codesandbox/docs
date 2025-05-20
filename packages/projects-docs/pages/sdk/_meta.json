@@ -1,34 +1,60 @@
 {
   "index": "Introduction",
   "use-cases": "Use Cases",
+  "playground": {
+    "href": "https://wkyxcw-5173.csb.app/",
+    "title": "Example Playground"
+  },
+  "faq": "FAQ",
   "pricing": "Pricing",
-  "contact": {
-    "title": "Contact Us",
-    "href": "https://codesandbox.io/support#form",
-    "newWindow": true
-  },
-
-  "-- api-reference": {
+  "-- guides": {
     "type": "separator",
-    "title": "API Reference"
+    "title": "Guides"
   },
-  "sandboxes": "Sandboxes",
-  "filesystem": "File System",
-  "shells": "Shells",
-  "ports": "Ports & Previews",
-  "tasks": "Tasks & Setup",
-  "sessions": "Sessions",
+  "templates": "Templates",
+  "browser": "Browser",
+  "browser-previews": "Previews",
+  "docker": "Docker & Docker Compose",
+  "-- privacy-security": {
+    "type": "separator",
+    "title": "Privacy & Security"
+  },
+  "sandbox-privacy": "Sandbox Privacy",
+  "preview-api-access": "Preview API Access",
+  "-- sandboxes": {
+    "type": "separator",
+    "title": "Sandboxes"
+  },
+  "lifecycle": "Lifecycle",
+  "create-resume": "Create & Resume",
+  "hibernate": "Hibernate",
+  "fork": "Fork",
+  "restart-shutdown": "Restart & Shutdown",
   "specs": "VM Specs",
+  "persistence": "Persistence",
+  "update-sandbox": "Update Sandbox",
+  "-- sessions": {
+    "type": "separator",
+    "title": "Sessions"
+  },
+  "create-session": "Create Session",
+  "filesystem": "File System",
+  "terminals": "Terminals",
+  "commands": "Commands",
+  "interpreters": "Interpreters",
+  "ports": "Ports",
+  "hosts": "Hosts",
+  "tasks": "Tasks",
+  "setup": "Setup",
 
   "-- resources": {
     "type": "separator",
     "title": "Resources"
   },
-  "snapshot-library": "Snapshot Library",
-  "snapshot-builder": "Snapshot Builder",
-  "environment": "Environment",
-  "docker": "Docker & Docker Compose",
-  "persistence": "Persistence",
-  "fork": "Fork",
-  "faq": "FAQ"
+  "template-library": "Template Library",
+  "contact": {
+    "title": "Contact Us",
+    "href": "https://codesandbox.io/support#form",
+    "newWindow": true
+  }
 }

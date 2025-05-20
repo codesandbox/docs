@@ -9,7 +9,7 @@ import { Callout } from 'nextra-theme-docs'
 
 CodeSandbox SDK is priced according to the [CodeSandbox plans](https://codesandbox.io/pricing). The SDK follows two main pricing components:
 
-- **VM credits**: Credits serve as the unit of measurement for VM runtime. One credit equates to a specific amount of resources used per hour, depending on the specs of the VM you are using. VM credits follow a pay-as-you-go approach and are priced at $0.018 per credit. Learn more about credits [here](/learn/credit-usage/credits).
+- **VM credits**: Credits serve as the unit of measurement for VM runtime. One credit equates to a specific amount of resources used per hour, depending on the specs of the VM you are using. VM credits follow a pay-as-you-go approach and are priced at $0.01486 per credit. Learn more about credits [here](/learn/credit-usage/credits).
 
 - **VM concurrency**: This defines the maximum number of VMs you can run simultaneously with the SDK. As explored below, each CodeSandbox plan has a different VM concurrency limit.
 
@@ -17,28 +17,29 @@ CodeSandbox SDK is priced according to the [CodeSandbox plans](https://codesandb
 
 ## VM credit prices by VM size
 
-Below is a summary of how many VM credits are used per hour of runtime in each of our available VM sizes. Note that, by default, we recommend using the Pico VM size, as it should provide enough resources for most workflows that require basic code interpretation.
+Below is a summary of how many VM credits are used per hour of runtime in each of our available VM sizes. Note that, by default, we recommend using the Nano VM size, as it should provide enough resources for most simple workflows (Pico is mostly suitable for very simple code execution jobs) .
 
 | VM size | Credits / hour | Cost / hour | CPU      | RAM    |
 | ------- | -------------- | ----------- | -------- | ------ |
-| Pico    | 7 credits      | $0.126      | 2 cores  | 1 GB   |
-| Nano    | 10 credits     | $0.18       | 2 cores  | 4 GB   |
-| Micro   | 20 credits     | $0.36       | 4 cores  | 8 GB   |
-| Small   | 40 credits     | $0.72       | 8 cores  | 16 GB  |
-| Medium  | 80 credits     | $1.44       | 16 cores | 32 GB  |
-| Large   | 160 credits    | $2.88       | 32 cores | 64 GB  |
-| XLarge  | 320 credits    | $5.76       | 64 cores | 128 GB |
+| Pico    | 5 credits      | $0.0743     | 2 cores  | 1 GB   |
+| Nano    | 10 credits     | $0.1486     | 2 cores  | 4 GB   |
+| Micro   | 20 credits     | $0.2972     | 4 cores  | 8 GB   |
+| Small   | 40 credits     | $0.5944     | 8 cores  | 16 GB  |
+| Medium  | 80 credits     | $1.1888     | 16 cores | 32 GB  |
+| Large   | 160 credits    | $2.3776     | 32 cores | 64 GB  |
+| XLarge  | 320 credits    | $4.7552     | 64 cores | 128 GB |
 
 ## Concurrent VMs
 
 To pick the most suitable plan for your use case, consider how many concurrent VMs you require and pick the corresponding plan:
 
-- Free plan: 5 concurrent VMs
-- Pro plan: 20 concurrent VMs
-- Builder plan: 100 concurrent VMs
+- Build (free) plan: 10 concurrent VMs
+- Scale plan: 250 concurrent VMs
 - Enterprise plan: custom concurrent VMs
 
-In case you expect a a high volume of VM runtime, our Enterprise plan also provides special discounts (up to 50% off) on VM credits.
+In case you expect a a high volume of VM runtime, our Enterprise plan also provides special discounts on VM credits.
+
+<Callout> If you're interested in an Enterprise plan please contact the [Together.ai Sales Team](https://www.together.ai/contact-sales)</Callout>
 
 ## Estimating your bill
 
@@ -48,14 +49,14 @@ To estimate your bill, you must consider:
 - The number of included VM credits on that plan.
 - How many VM credits you expect to require.
 
-As an example, let's say you are planning to run 80 concurrent VMs on average, each running 3 hours per day, every day, on the Pico VM size. Here's the breakdown:
+As an example, let's say you are planning to run 80 concurrent VMs on average, each running 3 hours per day, every day, on the Nano VM size. Here's the breakdown:
 
-- You will need a Builder plan (which allows up to 100 concurrent VMs).
-- You will use a total of 50,400 VM credits per month (80 VMs x 3 hours/day x 30 days x 7 credits/hour).
-- Your Builder plan includes 1100 free VM credits each month, so you will purchase 49,300 VM credits (50,400 - 1100).
+- You will need a Scale plan (which allows up to 100 concurrent VMs).
+- You will use a total of 72,000 VM credits per month (80 VMs x 3 hours/day x 30 days x 10 credits/hour).
+- Your Scale plan includes 1100 free VM credits each month, so you will purchase 70,900 VM credits (72,000 - 1100).
 
 Based on this, your expected bill for that month is:
 
-- Base price of Builder plan: $170
-- Total price of VM credits: $887.40 (49,300 VM credits x $0.018/credit)
-- Total bill: $1057.40
+- Base price of Scale plan: $170
+- Total price of VM credits: $1053.57 (70,900 VM credits x $0.01486/credit)
+- Total bill: $1223.57

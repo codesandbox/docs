@@ -1,0 +1,107 @@
+---
+title: Create Session
+description: Learn how to connect to Sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Create Session
+
+There are currently two types of sessions. A "server session" and a "browser session".
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+
+// Immediately consume the session on the server
+const session = await sandbox.connect()
+
+// Pass the browser session to the browser and connect
+const browserSession = await sandbox.createBrowserSession()
+```
+
+By default a session is bound to a user called `pitcher-host`. This user has write access to any API. We refer to this session as the "global" session.
+
+<Callout>
+When you run `whoami`, it will say that you are `root`. That's because we run every session inside a Docker container where you are `root`. However the container itself is started as the user of your session.
+</Callout>
+
+## Dedicated Sessions
+
+You should use dedicated sessions for your users. This ensures privacy and isolation between users. You can configure a session to have specific permissions, git access, tokens to securily access private hosts and even environment variables.
+
+### Permissions
+
+By default a user has `write` access, but you can configure a session to have `read` access.
+
+```ts
+// Now configure a session that only has read access to the sandbox
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect({
+  id: 'anonymous',
+  permission: 'read'
+})
+
+// I have access to the normal sandbox api, but I only have read access
+// This means I cannot write files or open shells, but I _can_ read them
+await session.fs.writeTextFile('test.txt', 'Hello World'); // This will throw an error.
+await session.fs.readTextFile('test.txt'); // This will work.
+```
+
+### Git
+
+Passing the users git access token allows the user to use git commands inside the sandbox. Their permission level will be inherited from the git token.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect({
+  id: 'anonymous',
+  git: {
+    accessToken: 'github-token',
+    email: "foo@bar.com",
+    name: "Foo Bar"
+  }
+})
+```
+
+### Environment variables
+
+If you pass environment variables, these variables will be available to the user inside the commands and terminals that they run in the Sandbox.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect({
+  id: 'anonymous',
+  env: {
+    FOO: 'bar'
+  }
+})
+
+const output = await session.commands.run('echo $FOO')
+console.log(output) // bar
+```
+
+### Host Tokens
+
+Passing a host token to the session will ensure that you generate valid urls for private hosts.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const hostToken = await sdk.hosts.createToken()
+
+const session = await sandbox.connect({
+  id: 'some-user-reference',
+  hostToken
+})
+
+const url = await session.hosts.getUrl(5173)
+
+console.log(url)
+```
+
+## Storage
+
+Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder), other users will be able to see it with one exception. The `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
+
+<Callout>
+The `~/.private` folder will not be persisted between restarts of the sandbox. This means that files inside this folder will disappear between restarts. 
+</Callout>

@@ -1,0 +1,97 @@
+---
+title: Previews
+description: Learn how you can interact with previews in your sandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Previews
+
+The previews API allows you to create and interact with previews in the browser. You can navigate, listen to messages and even inject custom code into the preview.
+
+## API
+
+```ts
+import { connectToSandbox, createPreview } from '@codesandbox/sdk/browser'
+
+const sandbox = await connectToSandbox({
+    session: initialSessionFromServer,
+    getSession: (id) => fetchJson(`/api/sandboxes/${id}`))
+})
+
+// We have a dev server running on port 5173
+const preview = createPreview(sandbox.hosts.getUrl(5173))
+
+document.querySelector('#preview-container').appendChild(preview.iframe)
+```
+
+<Callout>
+If you are running public previews you can also just use the port url directly without a preview token.
+</Callout>
+
+## Messages
+
+You can listen to messages from the preview:
+
+```ts
+preview.onMessage((message) => {
+    switch (message.type) {
+        case 'SET_URL': {
+            // Url that was set
+            message.url
+            // If you can move backward
+            message.back
+            // If you can move forward
+            message.forward
+            break;
+        }
+        case 'RELOAD': {
+            // If preview reloaded
+        }
+        case 'PREVIEW_UNLOADING': {
+            // Preview will unload
+        }
+    }
+})
+```
+
+<Callout>
+By injecting your own code you can extend these messages to your own.
+</Callout>
+
+## Navigate
+
+```ts
+// Replace the current url
+preview.setUrl("...")
+
+// Navigate back
+preview.back()
+
+// Navigate forward
+preview.forward()
+
+// Reload the iframe
+preview.reload()
+```
+
+## Inject and Invoke
+
+You can inject any code into the preview. This is useful if you want to insert custom UI elements, background processes.etc The injected code can listen to messages, send messages and has access to any variables (scope) you send to the injected code.
+
+```ts
+preview.onMessage((message) => {
+    console.log(message)
+})
+
+preview.injectAndInvoke(function MyInjectedFunction({ previewProtocol, previewWindow, scope }) {
+    alert(scope.message)
+    previewProtocol.sendMessage({ type: 'ALERTED' })
+}, {
+    message: 'Hello World'
+})
+```
+
+<Callout>
+Note that the function passed to `injectAndInvoke` will be stringified and sent to the preview. Be careful about your build tool transforming this function into invalid code.
+</Callout>

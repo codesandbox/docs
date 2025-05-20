@@ -1,0 +1,22 @@
+---
+title: Preview API Access
+description: Learn about preview API access in CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Preview API Access
+
+If you are using the [Browser Preview API](./browser-previews), you will need to set up your allowed preview hosts. These are the hosts where you will be mounting the iframe, for example `localhost:5173` or `company-domain.com`. Configuring these hosts using the SDK CLI. The hosts are stored on your workspace and applies to all your Sandboxes.
+
+```bash
+$ csb preview-hosts list
+
+$ csb preview-hosts add :host
+
+$ csb preview-hosts remove :host
+
+$ csb preview-hosts clear
+```
+
+The `:host` is a JavaScript RegEx. So you can set your host as: `"my-project-.*-.*.vercel.app"` for example (Note the quotes).

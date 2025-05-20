@@ -1,0 +1,78 @@
+---
+title: Host Privacy 
+description: Learn about private hosts in CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Host Privacy
+
+If a sandbox is private, its hosts won't be accessible unless a host token is provided.
+
+You can obtain a host token by calling `sdk.hosts.createToken`. This token will by default never expire. It is recommended to persist this token and provide it in dedicated Sandbox sessions.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const hostToken = await sdk.hosts.createToken()
+
+const session = await sandbox.connect({
+  id: 'some-user-reference',
+  hostToken
+})
+
+const url = session.hosts.getUrl(5173)
+
+// Signed url
+console.log(url)
+```
+
+<Callout>
+When you open a signed URL in the browser, we will automatically put the preview token in a
+cookie so subsequent requests from the same browser don't require the token.
+</Callout>
+
+## Token expiration
+
+You can set an expiration on the preview token when creating it:
+
+```ts
+const hostToken = await sdk.hosts.createToken({
+  expiresAt: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+})
+```
+
+This is useful if you want to limit the lifetime of a host token. For example when a user shared a preview of their app with someone who should only have access for a limited time.
+
+### Managing Host Tokens (CLI)
+
+The CLI allows you to manage host tokens of a sandbox. You can use it to list, revoke and update host tokens.
+
+#### List:
+
+```
+$ csb sandbox host-tokens :sandbox-id list
+ ID                           PREFIX        LAST USED   EXPIRES
+ prv_Hca52PUyFHVJsGkciXXbEq   prv_v1_8uKY   Never       Never
+ prv_HbE8wC6veXWwcazFYrdUfy   prv_v1__ki7   Never       Never
+ prv_MWMhMjbQiY3jSagfaG6D7R   prv_v1_i7iI   Never       Never
+```
+
+#### Revoke:
+
+```
+$ csb sandbox host-tokens :sandbox-id revoke prv_Hca52PUyFHVJsGkciXXbEq
+```
+
+If you want to revoke all host tokens for a sandbox, you can do so with:
+
+```
+$ csb sandbox host-tokens :sandbox-id revoke --all
+```
+
+#### Update:
+
+Extend or shorten the expiration time of a host token:
+
+```
+$ csb sandbox host-tokens :sandbox-id update prv_Hca52PUyFHVJsGkciXXbEq --expires-at 2025-03-01
+```
