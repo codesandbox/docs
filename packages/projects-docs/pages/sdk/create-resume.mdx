@@ -54,6 +54,10 @@ const sandbox = await sdk.sandboxes.create({
 })
 ```
 
+<Callout>
+It depends on the repo how you want to setup the sandbox. If it is configured with tasks you can run `session.setup.run()` to run the full setup, but if configured with a `.devcontainer` you want to restart the sandbox itself. Or you can do like the example just run some commands.
+</Callout>
+
 ### Additional options
 
 For any of the above sources you can also pass the following options:
