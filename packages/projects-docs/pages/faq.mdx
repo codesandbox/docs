@@ -1,6 +1,6 @@
 ---
 title: FAQs
-authors: ['Necoline', 'Obinna', 'Filipe']
+authors: ['Necoline', 'James', 'Filipe']
 ---
 
 import { Tabs, WrapContent } from '../../../shared-components/Tabs'
@@ -12,13 +12,13 @@ import { Callout } from 'nextra-theme-docs'
     <WrapContent>
       ## Which languages and frameworks are supported?
 
-[Devboxes](/learn/devboxes/overview) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), front-end and full-stack. We provide official templates (with built-in LSP/IntelliSense) for Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node, Deno, and many more (more templates coming soon).
+[VM Sandboxes](/learn/vm-sandboxes/overview) and [Repositories](/learn/repositories/overview) work with anything that can run in Docker. They provide the best experience for JavaScript (including TypeScript), front-end and full-stack. We provide official templates (with built-in LSP/IntelliSense) for Rust, Go, Python, PHP, Ruby on Rails, Elixir, Node, Deno, and many more (more templates coming soon).
 
 [Sandboxes](/learn/sandboxes/editor-features) are more limited. They support JavaScript/TypeScript projects.
 
-[Create a Sandbox or Devbox from a template](https://codesandbox.io/new/), or read more
+[Create a Sandbox from a template](https://codesandbox.io/new/), or read more
 about the
-[difference between Sandboxes and Devboxes](/learn/devboxes/overview#difference-between-devboxes--sandboxes).
+[difference between Browser & VM Sandboxes](/learn/vm-sandboxes/overview#difference-between-vm-sandboxes--sandboxes).
 
 ## What operating systems and devices are supported?
 
@@ -28,7 +28,7 @@ Our editor may work on other operating systems and mobile devices. While we will
 
 ## How can I make a Sandbox private?
 
-There are several ways to set a Sandbox as private. One universal way (that works both for Sandboxes and Devboxes) is to right-click a Sandbox from the dashboard and select _Make Sandbox private_.
+There are several ways to set a Sandbox as private. One universal way (that works both for VM & Browser Sandboxes) is to right-click a Sandbox from the dashboard and select _Make Sandbox private_.
 
 You can also change the privacy settings from the editor. Click the _Share_ button on the top right and change the privacy drop-down at the top.
 
@@ -38,19 +38,19 @@ Nobody outside your workspace can edit your Sandboxes; they can only fork it. Ho
 
 ## I'm getting a 502 error "It looks like the dev server has not started yet", why?
 
-Devbox [previews](/learn/devboxes/preview) are handled by a task that runs a dev server inside a CodeSandbox VM. Error `502` occurs when that task stops for some reason (some possible reasons being: task was stopped manually; application ran out of memory; the VM is not running). We automatically [hibernate VMs](/learn/environment/vm#memory-snapshotting) (including the preview) after 5 minutes of inactivity for Free users and 30 minutes of inactivity for Pro users, but when someone attempts to access either the code or the preview, we quickly resume the dev server (usually in under 2 seconds) — so "inactivity" is not a cause for the `502` error.
+VM Sandbox [previews](/learn/vm-sandboxes/preview) are handled by a task that runs a dev server inside a CodeSandbox VM. Error `502` occurs when that task stops for some reason (some possible reasons being: task was stopped manually; application ran out of memory; the VM is not running). We automatically [hibernate VMs](/learn/environment/vm#memory-snapshotting) (including the preview) after 5 minutes of inactivity for Free users and 30 minutes of inactivity for Pro users, but when someone attempts to access either the code or the preview, we quickly resume the dev server (usually in under 2 seconds) — so "inactivity" is not a cause for the `502` error.
 
 To troubleshoot this error, follow these steps:
 
-- Open the Devbox on the CodeSandbox editor (if you only have access to the preview, forward these instructions to the Devbox author).
-- Confirm that the [dev server task](/learn/devboxes/devtools#previews) is running; start/restart it as needed.
-- Confirm that the preview tab on the right side of the editor doesn't show error `137` (which indicates that the Devbox ran out of memory).
+- Open the VM Sandbox on the CodeSandbox editor (if you only have access to the preview, forward these instructions to the VM Sandbox author).
+- Confirm that the [dev server task](/learn/vm-sandboxes/devtools#previews) is running; start/restart it as needed.
+- Confirm that the preview tab on the right side of the editor doesn't show error `137` (which indicates that the VM Sandbox ran out of memory).
 
 If the problem persists after going through the checks above, please [submit a bug report](https://codesandbox.io/support#form)).
 
-## My Devbox is running out of memory; what can I do?
+## My VM Sandbox is running out of memory; what can I do?
 
-You can increase the specs of the VM running your Devbox to get more memory. Follow these steps:
+You can increase the specs of the VM running your Sandbox to get more memory. Follow these steps:
 
 1. Click the CodeSandbox icon at the top left of the editor.
 2. Click "Virtual Machine".
@@ -60,14 +60,14 @@ You can increase the specs of the VM running your Devbox to get more memory. Fol
 Legacy CodeSandbox Pro plans cannot change VM specs; first, they must be [converted](https://codesandbox.io/upgrade) to our new "usage-based billing" Pro plan.
 </Callout>
 
-## I'm getting a CORS error when triggering a request to a Devbox URL, why?
+## I'm getting a CORS error when triggering a request to a VM Sandbox URL, why?
 
-The most common cause of this is your Devbox's privacy settings. Even when your Devbox is private, we still need a preview token to access the preview URLs. Currently, we do not support private Devboxes with public previews. Changing the Devbox privacy to 'Unlisted' often fixes this issue.
+The most common cause of this is your VM Sandbox's privacy settings. Even when your VM Sandbox is private, we still need a preview token to access the preview URLs. Currently, we do not support private VM Sandboxes with public previews. Changing the VM Sandbox privacy to 'Unlisted' often fixes this issue.
 
 ## Why are my start scripts not having an effect?
 
-For performance reasons, we ignore any specified scripts in Sandboxes and use a default script instead. If you need to control the scripts, then we
-recommend using a [Devbox](/learn/devboxes/overview).
+For performance reasons, we ignore any specified scripts in Browser Sandboxes and use a default script instead. If you need to control the scripts, then we
+recommend using a [VM Sandbox](/learn/vm-sandboxes/overview).
 
 ## I'm getting a 422 error when importing from GitHub, why?
 
@@ -79,9 +79,9 @@ If you think it's something else, or you're unable to solve this yourself, then 
 and provide a link to the repo you're importing and we can look into this for
 you.
 
-## Can I change the Node version used in a Devbox?
+## Can I change the Node version used in a VM Sandbox?
 
-Yes, we have instructions on the [VM configuration](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) page that explain how to change the Node version. All recent server Sandboxes run in a Devbox.
+Yes, we have instructions on the [VM configuration](https://codesandbox.io/docs/learn/environment/vm#configuring-nodejs-version) page that explain how to change the Node version. All recent server Sandboxes run in a VM Sandbox.
 
 ## How can I change the editor's theme?
 
@@ -89,15 +89,15 @@ To change the theme, click on the CodeSandbox icon at the top left of the editor
 
 ## Do Sandboxes have any limitations?
 
-We currently provide [Sandboxes](/learn/sandboxes/editor-features) and [Devboxes](/learn/devboxes/overview). Sandboxes have the following limitations:
+We currently provide [Browser Sandboxes](/learn/sandboxes/editor-features) and [VM Sandboxes](/learn/vm-sandboxes/overview). Sandboxes have the following limitations:
 
 - Can only run front-end JavaScript or TypeScript projects (servers not supported).
 - Imported Sandboxes must contain a `package.json` file.
-- Lower file upload sizes, which are handled per account (as explained on the [File Upload page](/learn/devboxes/upload#upload-limits)).
+- Lower file upload sizes, which are handled per account (as explained on the [File Upload page](/learn/vm-sandboxes/upload#upload-limits)).
 - Cannot use more than 500 modules (files). Note that
   `node_modules` and dependencies do not count toward this limit.
 
-Devboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
+VM Sandboxes are part of our evolved CodeSandbox experience, so we highly advise you to use them to avoid encountering these limitations.
 
 ## I'm getting a 'Request Entity too Large' error, what should I do?
 
@@ -106,7 +106,7 @@ repo for large binary files and remove them.
 
 ## Which CodeSandbox domains should I whitelist on my firewall to ensure CodeSandbox loads correctly?
 
-If you suspect that your Sandboxes/Devboxes aren't starting due to your firewall rules, try whitelisting the following domains:
+If you suspect that your VM/Browser Sandboxes aren't starting due to your firewall rules, try whitelisting the following domains:
 
 - `codesandbox.io`
 - `*.csb.app`
@@ -114,9 +114,9 @@ If you suspect that your Sandboxes/Devboxes aren't starting due to your firewall
 
 ## Can I use a database on CodeSandbox?
 
-Yes, you can use any database that has a Docker image available with a Devbox. Some popular databases with Docker images include MySQL, PostgreSQL, MongoDB, and Redis.
+Yes, you can use any database that has a Docker image available with a VM Sandbox. Some popular databases with Docker images include MySQL, PostgreSQL, MongoDB, and Redis.
 
-{/* For ready-to-use examples, check our [Devbox](https://codesandbox.io/dashboard/recent?create=true) templates. */}
+{/* For ready-to-use examples, check our [VM Sandbox](https://codesandbox.io/dashboard/recent?create=true) templates. */}
 
 ### Do I need to install Docker on my local machine to use it in CodeSandbox?
 
@@ -124,7 +124,7 @@ No, you don't need to install Docker on your local machine. CodeSandbox has [bui
 
 ### How can I access the database once it's running in a Docker container?
 
-You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database. If you want to connect locally to the database, you can use our VS Code integration to open the Devbox inside VS Code, and then forward the port of the database to localhost.
+You can access the database using the appropriate driver for your language or framework. Typically, you'll need to provide the hostname, port number, username, and password to connect to the database. If you want to connect locally to the database, you can use our VS Code integration to open the VM Sandbox inside VS Code, and then forward the port of the database to localhost.
 
 ### Can I use multiple databases in the same CodeSandbox project?
 
@@ -136,7 +136,7 @@ Yes, you can use Docker Compose in CodeSandbox to orchestrate multiple container
 
 ### Is it safe to use a database in CodeSandbox with Docker support?
 
-Yes, it's safe to use a database in CodeSandbox with Docker support, as long as you follow best practices for security and keep your database credentials private. Docker provides a secure and isolated environment for running containers, so your database is protected from external threats. We also prevent any connections to your Devbox without sign in if your Devbox is private.
+Yes, it's safe to use a database in CodeSandbox with Docker support, as long as you follow best practices for security and keep your database credentials private. Docker provides a secure and isolated environment for running containers, so your database is protected from external threats. We also prevent any connections to your VM Sandbox without sign in if it is private.
 
 ### How can I troubleshoot issues with my database in CodeSandbox with Docker support?
 
@@ -170,7 +170,7 @@ To add someone new to the team, provide access on GitHub and add them to your Co
 
 Yes. Follow the steps below:
 
-1. Use our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) to connect to one of our Devboxes or Repositories.
+1. Use our [VS Code extension](https://marketplace.visualstudio.com/items?itemName=CodeSandbox-io.codesandbox-projects) to connect to one of our VM Sandboxes or Repositories.
 2. Install the Copilot VS Code extension (if not already installed).
 3. Configure the extension to run in CodeSandbox remote connections (following the instructions for [Default User Extensions](/learn/repositories/editors#default-user-extensions)).
 
@@ -290,7 +290,7 @@ Every email we send includes an "Unsubscribe" link on its footer that allows you
 
 ## What happens if I delete my account?
 
-When you delete your CodeSandbox account, all your workspaces and any Sandboxes, Devboxes or repositories of which you are the author will be removed.
+When you delete your CodeSandbox account, all your workspaces and any Sandboxes or repositories of which you are the author will be removed.
 
 ## How can I delete my account?
 

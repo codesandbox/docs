@@ -11,15 +11,15 @@
     "title": "Cloud Development"
   },
   "repositories": "Repositories",
-  "devboxes": "Devboxes",
+  "vm-sandboxes": "VM Sandboxes",
   "ai": "AI",
   "environment": "Environment",
   "integrations": "Integrations",
-  "-- sandboxes": {
+  "-- browser-development": {
     "type": "separator",
-    "title": "Sandboxes"
+    "title": "Browser Development"
   },
-  "sandboxes": "Sandboxes",
+  "browser-sandboxes": "Browser Sandboxes",
   "legacy-sandboxes": "Legacy Sandboxes",
   "-- Plans": {
     "type": "separator",
