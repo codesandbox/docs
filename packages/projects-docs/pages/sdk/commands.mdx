@@ -25,7 +25,7 @@ const output = await session.commands.run("npm install");
 console.log(output)
 
 // Listen to changes
-const cmd = await session.commands.create("npm install");
+const cmd = await session.commands.runBackground("npm install");
 
 const disposer = cmd.onOutput((output) => {
   console.log(output)
@@ -46,7 +46,7 @@ const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Run a long running command
-const command = session.commands.create("npx -y serve .");
+const command = session.commands.runBackground("npx -y serve .");
 
 // Wait for the port to open
 const portInfo = await session.ports.waitForPort(3000);

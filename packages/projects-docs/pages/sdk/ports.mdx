@@ -69,7 +69,7 @@ const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect()
 
 // Start a development server
-session.commands.create("npm run dev");
+const command = session.commands.runBackground("npm run dev");
 
 // Wait for the dev server port to open
 const portInfo = await session.ports.waitForPort(3000);
