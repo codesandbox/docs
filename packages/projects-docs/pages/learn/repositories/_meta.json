@@ -3,23 +3,23 @@
   "getting-started": "Getting Started",
   "devtools": {
     "title": "DevTools",
-    "href": "/learn/devboxes/devtools"
+    "href": "/learn/vm-sandboxes/devtools"
   },
   "preview": {
     "title": "Preview",
-    "href": "/learn/devboxes/preview"
+    "href": "/learn/vm-sandboxes/preview"
   },
   "task": {
     "title": "Tasks",
-    "href": "/learn/devboxes/task"
+    "href": "/learn/vm-sandboxes/task"
   },
   "terminal": {
     "title": "Terminal",
-    "href": "/learn/devboxes/terminal"
+    "href": "/learn/vm-sandboxes/terminal"
   },
   "interactive-readme": {
     "title": "Interactive Readme",
-    "href": "/learn/devboxes/interactive-readme"
+    "href": "/learn/vm-sandboxes/interactive-readme"
   },
   "secrets": {
     "title": "Secrets",
@@ -27,7 +27,7 @@
   },
   "upload": {
     "title": "File Upload",
-    "href": "/learn/devboxes/upload"
+    "href": "/learn/vm-sandboxes/upload"
   },
   "review": "PR Reviews",
   "open-source": "Open Source Collaboration",

@@ -3,5 +3,5 @@
   "cli-tool": "Install CLI tools and global modules",
   "getting-started-with-python": "Getting started with Python",
   "getting-started-with-php": "Getting started with PHP",
-  "convert-browser-sandbox-cloud": "Convert Sandboxes into Devboxes"
+  "convert-browser-sandbox-cloud": "Convert Browser Sandboxes into VM Sandboxes"
 }

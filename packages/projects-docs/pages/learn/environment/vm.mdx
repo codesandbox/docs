@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Environment
 
-CodeSandbox repositories and Devboxes run on [virtual machines](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds). Each branch and Devbox gets its own virtual machine (VM). The size of the VM depends on the settings configured in the [workspace portal](https://codesandbox.io/t/vm_settings).
+CodeSandbox repositories and VM Sandboxes run on [virtual machines](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds). Each branch and VM Sandbox gets its own virtual machine (VM). The size of the VM depends on the settings configured in the [workspace portal](https://codesandbox.io/t/vm_settings).
 VM resources consist of vCPU, RAM and storage. The vCPU and RAM specs are grouped in VM tiers of various sizes. However, the storage is set according to the subscription.
 
 | VM size | CPU      | RAM    |
@@ -36,13 +36,13 @@ Note that, the first time you import a project to CodeSandbox, it can take longe
 
 ## Persistence
 
-We use [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers) by default for all repositories and Devboxes. Your project is under `/workspaces/workspace` (the default workspace folder) and your home folder is under `/root`. Under the hood, the paths are in `/project`.
+We use [Dev Containers](https://codesandbox.io/docs/learn/environment/devcontainers) by default for all repositories and VM Sandboxes. Your project is under `/workspaces/workspace` (the default workspace folder) and your home folder is under `/root`. Under the hood, the paths are in `/project`.
 
 <Callout>The workspace folder is not always `/workspaces/workspace`; it depends on the Dev Container configuration.</Callout>
 
 Everything in your workspace is guaranteed to persist between reboots, hibernations and forks. We persist the workspace folder and the Docker engine state, like images, volumes, etc.
 
-If your branch or Devbox has not been accessed for a certain period (explained below), we delete the contents of your workspace. However, we back up uncommitted changes to repositories and all code in Devboxes (other than the ones in `.gitignore`). This means that you will never lose your work, even if we delete the workspace folder after the standard period of inactivity.
+If your branch or VM Sandbox has not been accessed for a certain period (explained below), we delete the contents of your workspace. However, we back up uncommitted changes to repositories and all code in VM Sandboxes (other than the ones in `.gitignore`). This means that you will never lose your work, even if we delete the workspace folder after the standard period of inactivity.
 
 Overall, we persist the workspace folder and some state in Docker (like volumes) for:
 

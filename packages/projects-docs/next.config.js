@@ -56,7 +56,7 @@ module.exports = withNextra({
       },
       {
         source: `${PREFIX_PATH}/embedding`,
-        destination: "/learn/sandboxes/embedding",
+        destination: "/learn/browser-sandboxes/embedding",
         permanent: true,
       },
       {
@@ -66,12 +66,12 @@ module.exports = withNextra({
       },
       {
         source: `${PREFIX_PATH}/uploading`,
-        destination: "/learn/sandboxes/editors",
+        destination: "/learn/browser-sandboxes/editors",
         permanent: true,
       },
       {
         source: `${PREFIX_PATH}/importing`,
-        destination: "/learn/sandboxes/your-first-sandbox",
+        destination: "/learn/browser-sandboxes/your-first-sandbox",
         permanent: true,
       },
       {
@@ -91,7 +91,7 @@ module.exports = withNextra({
       },
       {
         source: `${PREFIX_PATH}/deployment`,
-        destination: "/learn/sandboxes/deployment",
+        destination: "/learn/browser-sandboxes/deployment",
         permanent: true,
       },
       {
@@ -106,7 +106,7 @@ module.exports = withNextra({
       },
       {
         source: `${PREFIX_PATH}/templates`,
-        destination: "/learn/sandboxes/templates",
+        destination: "/learn/browser-sandboxes/templates",
         permanent: true,
       },
       {
@@ -121,12 +121,12 @@ module.exports = withNextra({
       },
       {
         source: `${PREFIX_PATH}/custom-npm-registry`,
-        destination: "/learn/sandboxes/custom-npm-registry",
+        destination: "/learn/browser-sandboxes/custom-npm-registry",
         permanent: true,
       },
       {
         source: `${PREFIX_PATH}/custom-npm-registry`,
-        destination: "/learn/sandboxes/custom-npm-registry",
+        destination: "/learn/browser-sandboxes/custom-npm-registry",
         permanent: true,
       },
       {
@@ -136,7 +136,7 @@ module.exports = withNextra({
       },
       {
         source: `${PREFIX_PATH}/api-reference`,
-        destination: "/learn/sandboxes/your-first-sandbox",
+        destination: "/learn/browser-sandboxes/your-first-sandbox",
         permanent: true,
       },
 
@@ -202,7 +202,7 @@ module.exports = withNextra({
       // TODO: Redirect to open the right tab
       {
         source: `${PREFIX_PATH}/ios/sandbox`,
-        destination: "/learn/sandboxes/your-first-sandbox",
+        destination: "/learn/browser-sandboxes/your-first-sandbox",
         permanent: true,
       },
       {
@@ -346,7 +346,7 @@ module.exports = withNextra({
       },
       {
         source: "/learn/getting-started/your-first-sandbox",
-        destination: "/learn/sandboxes/your-first-sandbox",
+        destination: "/learn/browser-sandboxes/your-first-sandbox",
         permanent: true,
       },
       {
@@ -370,8 +370,8 @@ module.exports = withNextra({
         permanent: true,
       },
       {
-        source: "/learn/sandboxes/tests",
-        destination: "/learn/sandboxes/overview",
+        source: "/learn/browser-sandboxes/tests",
+        destination: "/learn/browser-sandboxes/overview",
         permanent: true,
       },
       {
@@ -380,12 +380,12 @@ module.exports = withNextra({
         permanent: true,
       },
       {
-        source: "/learn/sandboxes/configuration",
+        source: "/learn/browser-sandboxes/configuration",
         destination: "/learn/repositories/task",
         permanent: true,
       },
       {
-        source: "/learn/sandboxes/deployment",
+        source: "/learn/browser-sandboxes/deployment",
         destination: "/learn/browser-sandboxes/deployment",
         permanent: true,
       },
@@ -472,56 +472,56 @@ module.exports = withNextra({
       },
       /*
            Redirects for missing repo content that is available 
-           under devboxes
+           under vm-sandboxes
            Not permanent redirection as content might change
         */
       {
         source: "/learn/repositories/task",
-        destination: "/learn/devboxes/task",
+        destination: "/learn/vm-sandboxes/task",
         permanent: false,
       },
       {
         source: "/learn/repositories/devtools",
-        destination: "/learn/devboxes/devtools",
+        destination: "/learn/vm-sandboxes/devtools",
         permanent: false,
       },
       {
         source: "/learn/repositories/preview",
-        destination: "/learn/devboxes/preview",
+        destination: "/learn/vm-sandboxes/preview",
         permanent: false,
       },
       {
         source: "/learn/repositories/terminal",
-        destination: "/learn/devboxes/terminal",
+        destination: "/learn/vm-sandboxes/terminal",
         permanent: false,
       },
       {
         source: "/learn/repositories/upload",
-        destination: "/learn/devboxes/upload",
+        destination: "/learn/vm-sandboxes/upload",
         permanent: false,
       },
       {
         source: "/learn/repositories/interactive-readme",
-        destination: "/learn/devboxes/interactive-readme",
+        destination: "/learn/vm-sandboxes/interactive-readme",
         permanent: false,
       },
       {
         source: "/learn/repositories/secrets",
-        destination: "/learn/devboxes/secrets",
+        destination: "/learn/vm-sandboxes/secrets",
         permanent: false,
       },
       {
         source: "/learn/browser-sandboxes/secrets",
-        destination: "/learn/devboxes/task",
+        destination: "/learn/vm-sandboxes/task",
         permanent: false,
       },
       {
         source: "/learn/sandboxes/synced-templates",
-        destination: "/learn/devboxes/synced-templates",
+        destination: "/learn/vm-sandboxes/synced-templates",
         permanent: false,
       },
       {
-        source: "/learn/sandboxes/configuration",
+        source: "/learn/browser-sandboxes/configuration",
         destination: "/learn/legacy-sandboxes/configuration",
         permanent: false,
       },
@@ -589,8 +589,8 @@ module.exports = withNextra({
         permanent: false,
       },
       {
-        source: "/learn/devboxes/editors",
-        destination: "/learn/devboxes/overview",
+        source: "/learn/vm-sandboxes/editors",
+        destination: "/learn/vm-sandboxes/overview",
         permanent: false,
       },
       /*

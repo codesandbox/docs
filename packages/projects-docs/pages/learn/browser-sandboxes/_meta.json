@@ -7,11 +7,11 @@
   "custom-npm-registry": "Custom NPM Registry",
   "synced-templates": {
     "title": "Synced Templates",
-    "href": "/learn/devboxes/synced-templates"
+    "href": "/learn/vm-sandboxes/synced-templates"
   },
   "upload": {
     "title": "Upload static files",
-    "href": "/learn/devboxes/upload"
+    "href": "/learn/vm-sandboxes/upload"
   },
   "faq": "FAQ"
 }
