@@ -42,6 +42,10 @@ Now we are ready to deploy the template to our clusters, run:
 $ CSB_API_KEY=your-api-key npx @codesandbox/sdk build ./my-template --ports 5173
 ```
 
+<Callout>
+The template will by default be built with `Micro` VM Tier unless you pass `--vmTier` to the build command.
+</Callout>
+
 This will start the process of creating Sandboxes for each of our clusters, write files, restart, wait for port 5173 to be available and then hibernate. This generates the snapshot that allows you to quickly create Sandboxes already running a dev server from the template.
 
 When all clusters are updated successfully you will get a "Template Tag" back which you can use when you create your sandboxes.
