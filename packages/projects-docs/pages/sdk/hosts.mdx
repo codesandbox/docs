@@ -1,0 +1,31 @@
+---
+title: Hosts    
+description: Learn how you can interact with hosts in your sandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Hosts
+
+Hosts are the services exposed by your Sandbox. They all have their own hostname which includes the port. The `sandbox.hosts` API will allow you to access these your Sandbox hosts securily using signed urls, headers or cookies.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const hostToken = await sandbox.hosts.createToken()
+const session = await sandbox.connect({
+  id: 'some-user-reference',
+  hostToken
+})
+
+// Will give you a URL to access the service on port 5173 with a signed token
+const url = session.hosts.getUrl(5173)
+
+// If you rather want to access passing headers
+const headers = session.hosts.getHeaders()
+
+console.log(url)
+```
+
+<Callout>
+By default all Sandboxes are private and you should be using host tokens. With public or unlisted Sandboxes the host tokens are not necessary, but you can still `getUrl` to generate a url for the relevant port.
+</Callout>

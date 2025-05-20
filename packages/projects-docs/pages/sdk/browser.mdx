@@ -1,21 +1,34 @@
 ---
-title: Connect Browser
+title: Browser
 description: Learn how to connect to a sandbox in the browser with the CodeSandbox SDK.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# Connect Browser
+# Browser
 
-Connecting to a Sandbox in the browser requires some collaboration with your server. Create an endpoint that will resume the sandbox and then create a browser session:
+Connecting to a Sandbox in the browser requires some collaboration with your server.
 
 ```ts
-export const GET = async ({ params }) => {
-  const sandbox = await sdk.sandboxes.resume(params.sandboxId);
-  const session = await sandbox.createBrowserSession();
+app.post('/api/sandboxes', async (req, res) => {
+  const sandbox = await sdk.sandboxes.create();
+  const session = await sandbox.createBrowserSession({
+    // Create isolated sessions by using a unique reference to the user
+    id: req.session.username,
+  });
 
-  return session
-}
+  res.json(session)
+})
+
+app.get('/api/sandboxes/:sandboxId', async (req, res) => {
+  const sandbox = await sdk.sandboxes.resume(req.params.sandboxId);
+  const session = await sandbox.createBrowserSession({
+    // Resume any existing session by using the same user reference
+    id: req.session.username,
+  });
+
+  res.json(session)
+})
 ```
 
 Then in the browser:
@@ -24,19 +37,21 @@ Then in the browser:
 import { connectToSandbox } from '@codesandbox/sdk/browser';
 
 const session = await connectToSandbox({
-  id: '123',
-  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json())
+  // The session object you either passed on page load or fetched from the server
+  session: initialSessionFromServer,
+  // When reconnecting to the sandbox, fetch the session from the server
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`)
 });
 
 await session.fs.writeTextFile('test.txt', 'Hello World');
 ```
 
-The Browser session automatically manages the connection and will reconnect if the connection is lost. This is controlled by an option called `onFocusChange`.
+The Browser session automatically manages the connection and will reconnect if the connection is lost. This is controlled by an option called `onFocusChange` and by default it will reconnect when the page is visible.
 
 ```ts
 const session = await connectToSandbox({
-  id: '123',
-  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+  session: initialSessionFromServer,
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
   onFocusChange: (notify) => {
     const onVisibilityChange = () => {
       notify(document.visibilityState === 'visible');
@@ -57,8 +72,8 @@ While the `connectToSandbox` promise is resolving you can also listen to initial
 
 ```ts
 const session = await connectToSandbox({
-  id: '123',
-  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+  session: initialSessionFromServer,
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
   onInitCb: (event) => {}
 });
 ```
@@ -71,15 +86,18 @@ Disconnecting the session will end the session and automatically hibernate the s
 import { connectToSandbox } from '@codesandbox/sdk/browser'
 
 const session = await connectToSandbox({
-  id: '123',
-  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+  session: initialSessionFromServer,
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
 })
 
 // Disconnect returns a promise that resolves when the session is disconnected
 session.disconnect();
 
-// Optionally hibernate the sandbox explicitly
+// Optionally hibernate the sandbox explicitly by creating an endpoint on your server
 fetch('/api/sandboxes/' + sandbox.id + '/hibernate', {
   method: 'POST'
 })
+
+// You can reconnect explicitly from the browser by
+session.reconnect()
 ```

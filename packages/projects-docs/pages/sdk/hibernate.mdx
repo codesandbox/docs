@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Hibernate
 
-When you're done with a sandbox, you can tell it to hibernate. This will save the memory state of the sandbox, so it will resume from the same state when you start it again.
+By default all Sandboxes hibernate automatically, but you can choose to explicitly hibernate as well. This will save the memory state of the sandbox, so it will resume from the same state when you start it again.
 
 ```ts
 const sandbox = await sdk.sandboxes.resume('sandbox-id')

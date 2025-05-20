@@ -1,21 +1,26 @@
 ---
-title: Browser Previews
+title: Previews
 description: Learn how you can interact with previews in your sandbox.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# Browser Previews
+# Previews
 
-The browser previews API allows you to create and interact with previews in the browser. You can navigate, listen to messages and even inject custom code into the preview.
+The previews API allows you to create and interact with previews in the browser. You can navigate, listen to messages and even inject custom code into the preview.
 
 ## API
 
 ```ts
-import { createPreview } from '@codesandbox/sdk/browser'
+import { connectToSandbox, createPreview } from '@codesandbox/sdk/browser'
 
-const { url } = await fetch('/api/preview-tokens/' + sandboxId).then(res => res.json())
-const preview = createPreview(url)
+const session = await connectToSandbox({
+    session: initialSessionFromServer,
+    getSession: (id) => fetchJson(`/api/sandboxes/${id}`))
+})
+
+// We have a dev server running on port 5173
+const preview = createPreview(session.hosts.getUrl(5173))
 
 document.querySelector('#preview-container').appendChild(preview.iframe)
 ```

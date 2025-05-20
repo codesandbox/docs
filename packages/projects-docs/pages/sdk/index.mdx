@@ -11,75 +11,43 @@ import { Callout } from 'nextra-theme-docs'
   subtitle="Programmatically spin up (AI) sandboxes"
 />
 
-CodeSandbox SDK (beta) enables you to quickly create and run isolated sandboxes securely.
-The SDK can be used to run concurrent VMs to support multiple use cases such as AI agents, code interpretation and [more](/sdk/use-cases.mdx)
+CodeSandbox SDK enables you to quickly create and run isolated sandboxes securely.
+The SDK can be used to run concurrent VMs to support multiple use cases such as browser editors, AI agents, code interpretation and [more](/sdk/use-cases.mdx)
 
-## How it works
+## Getting Started
 
-The SDK can spin up a sandbox by cloning a template in under 3 seconds. Inside this VM, you can run any code, install any dependencies and even run servers.
+1. Create or log into your [CodeSandbox account](https://codesandbox.io/signin)
 
-The sandboxes run on the same infrastructure as CodeSandbox, which means you can clone, snapshot and restore sandboxes at any point in time (checkpointing).
+2. Next create an API key at [https://codesandbox.io/t/api](https://codesandbox.io/t/api), and enable all scopes.
 
-Under the hood, the SDK uses the microVM infrastructure of CodeSandbox to spin up sandboxes. It supports:
-
-1. Memory snapshot/restore (checkpointing) at any point in time
-2. Resume/clone VMs from a snapshot in 3 seconds
-3. VM FS persistence (with `git` version control)
-4. Environment customization using Docker & Docker Compose (Dev Containers)
-
-## Quickstart
-
-Create or log into your [CodeSandbox account](https://codesandbox.io/signin).
-
-Next create an API key at [https://codesandbox.io/t/api](https://codesandbox.io/t/api), and enable all scopes.
-
-Install the SDK:
+3. Install the SDK:
 
 ```bash
 npm install @codesandbox/sdk
 ```
 
-Now you can create a sandbox and run a server:
+Your first interaction:
 
 ```js
 import { CodeSandbox } from "@codesandbox/sdk";
 
-// Create your first sandbox by calling sandbox.create()
 const sdk = new CodeSandbox(process.env.CSB_API_KEY!);
+
 const sandbox = await sdk.sandboxes.create();
 
-// Run your first command in your new Sandbox shell:
-console.log(await sandbox.interpreters.python("1+1"))
-console.log(await sandbox.commands.run('echo "Hello World"'));
+const session = await sandbox.connect();
 
-// You can also start commands in the background
-const command = sandbox.commands.create("npx -y serve .");
+const output = await session.commands.run("echo 'Hello World'");
 
-command.onOutput(console.log)
-
-// Wait for the port to open:
-const portInfo = await sandbox.ports.waitForPort(3000);
-console.log(portInfo.host);
-
-// And, you can clone(!) the sandbox! This takes 1-3s.
-const sandbox2 = await sdk.sandboxes.fork(sandbox.id);
-
-// Sandbox 2 will have the same processes running as sandbox 1
-const portInfo2 = await sandbox2.ports.waitForPort(3000);
-console.log(portInfo2.host);
-
-// Finally, you can hibernate the sandbox.
-// This will create a snapshot the sandbox to save your project and then stop it.
-// Next time you start the sandbox, it will use the snapshot continue where you left off.
-// The sandboxes will also automatically resume if a network request comes in for the
-// servers they have started.
-await sdk.sandboxes.hibernate(sandbox.id);
-await sdk.sandboxes.hibernate(sandbox2.id);
-
-// To resume the sandbox manually:
-const resumedSandbox = await sdk.sandboxes.resume(sandbox.id);
+console.log(output) // Hello World
 ```
 
-<Callout>
-The `connect` method connects you to the sandbox with a websocket connection, but you can also use `createBrowserSession` or `createRestSession` for other types of connections.
-</Callout>
+## How it works
+
+The SDK can spin up a sandbox by cloning a template in under 3 seconds. Inside this VM you have a full development environment.
+
+Under the hood, the SDK uses CodeSandbox's microVM infrastructure to spin up sandboxes. The environment supports:
+
+1. Resume/clone VMs from a snapshot in 3 seconds
+2. VM FS persistence (with `git` version control)
+3. Environment customization using Docker & Docker Compose (Dev Containers)

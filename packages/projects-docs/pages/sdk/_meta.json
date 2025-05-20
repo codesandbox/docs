@@ -7,54 +7,51 @@
   },
   "faq": "FAQ",
   "pricing": "Pricing",
-
+  "-- guides": {
+    "type": "separator",
+    "title": "Guides"
+  },
+  "templates": "Templates",
+  "browser": "Browser",
+  "browser-previews": "Previews",
+  "docker": "Docker & Docker Compose",
+  "-- privacy-security": {
+    "type": "separator",
+    "title": "Privacy & Security"
+  },
+  "sandbox-privacy": "Sandbox Privacy",
+  "preview-api-access": "Preview API Access",
   "-- sandboxes": {
     "type": "separator",
     "title": "Sandboxes"
   },
+  "lifecycle": "Lifecycle",
   "create-resume": "Create & Resume",
-  "templates": "Templates",
-  "sessions": "Sessions",
   "hibernate": "Hibernate",
   "fork": "Fork",
   "restart-shutdown": "Restart & Shutdown",
   "specs": "VM Specs",
   "persistence": "Persistence",
   "update-sandbox": "Update Sandbox",
-  "-- previews": {
+  "-- sessions": {
     "type": "separator",
-    "title": "Previews"
+    "title": "Sessions"
   },
-  "preview-tokens": "Preview Tokens",
-  "browser-previews": "Browser Previews",
-  "-- websocket-sessions": {
-    "type": "separator",
-    "title": "WebSocket Sessions"
-  },
-  "connect": "Connect",
-  "browser": "Connect Browser",
+  "create-session": "Create Session",
   "filesystem": "File System",
   "terminals": "Terminals",
   "commands": "Commands",
   "interpreters": "Interpreters",
   "ports": "Ports",
+  "hosts": "Hosts",
   "tasks": "Tasks",
   "setup": "Setup",
-
-  "-- CLI": {
-    "type": "separator",
-    "title": "CLI"
-  },
-  "build-templates": "Build Templates",
-  "preview-hosts": "Preview Hosts",
 
   "-- resources": {
     "type": "separator",
     "title": "Resources"
   },
-  "snapshot-library": "Template Library",
-  "environment": "Environment",
-  "docker": "Docker & Docker Compose",
+  "template-library": "Template Library",
   "contact": {
     "title": "Contact Us",
     "href": "https://codesandbox.io/support#form",

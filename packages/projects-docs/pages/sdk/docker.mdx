@@ -45,7 +45,7 @@ const sandbox = await sdk.sandboxes.create({
   template: "node" // Template with Dev Container configuration
 });
 
-await sandbox.shells.run("node --version");
+await sandbox.commands.run("node --version");
 ```
 
 Since we use memory snapshots, the Docker container will already be running when you run your shell.
@@ -79,70 +79,6 @@ services:
       POSTGRES_PASSWORD: password
 ```
 
-### Using Docker Compose in the SDK
-
-The SDK will automatically start all services defined in your Docker Compose configuration:
-
-```ts
-const sandbox = await sdk.sandboxes.create({
-  template: "fullstack" // Template with Dev Container configuration
-});
-
-// Wait for all services to be ready
-await sandbox.setup.waitForFinish();
-
-// You can now connect to the services
-const portInfo = await sandbox.ports.waitForPort(5432);
-console.log(`Database available at: ${portInfo.hostname}:${portInfo.port}`);
-```
-
-## Examples
-
-### Full-Stack Development Environment
-
-Here's an example of setting up a full-stack development environment with Node.js and PostgreSQL:
-
-```ts
-const sandbox = await sdk.sandboxes.create({
-  template: "fullstack"
-});
-
-// Wait for environment setup
-const progress = await sandbox.setup.waitForFinish();
-if (progress.state !== "FINISHED") {
-  throw new Error("Environment setup failed");
-}
-
-// Start the development server
-const devTask = await sandbox.tasks.runTask("dev");
-
-// Wait for both the app and database to be ready
-const [appPort, dbPort] = await Promise.all([
-  sandbox.ports.waitForPort(3000),
-  sandbox.ports.waitForPort(5432)
-]);
-
-console.log(`
-App running at: ${appPort.host}
-Database available at: ${dbPort.host}:${dbPort.port}
-`);
-```
-
-### Custom Environment with System Dependencies
-
-Example of a sandbox that needs specific system packages:
-
-```ts
-const sandbox = await sdk.sandboxes.create({
-  template: "custom-env"
-});
-
-// The Dev Container will install required packages during setup
-await sandbox.setup.waitForFinish();
-
-// Run a command that uses the installed packages
-const result = await sandbox.shells.run("ffmpeg -version");
-console.log(result.output);
-```
-
-For more information about Dev Container configuration options and features, visit the [Dev Container specification](https://containers.dev/). Also, take a look at our [snapshot builder](/sdk/snapshot-builder.mdx) to learn how to create efficient snapshots with preloaded Docker images.
+<Callout>
+We will automatically start all services defined in your Docker Compose configuration when the Sandbox starts.
+</Callout>
