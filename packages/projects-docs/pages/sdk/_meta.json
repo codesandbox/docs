@@ -14,6 +14,7 @@
   "templates": "Templates",
   "browser": "Browser",
   "browser-previews": "Previews",
+  "shells": "Shells",
   "docker": "Docker & Docker Compose",
   "-- privacy-security": {
     "type": "separator",
@@ -46,6 +47,7 @@
   "hosts": "Hosts",
   "tasks": "Tasks",
   "setup": "Setup",
+  "git": "Git",
 
   "-- resources": {
     "type": "separator",
