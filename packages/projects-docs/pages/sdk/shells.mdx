@@ -1,0 +1,95 @@
+---
+title: Shells
+description: Learn how to use shells in CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Shells
+
+Shells is an important component of the CodeSandbox SDK. To give you the best possible developer experience working with shells we abstracted them into the following concepts:
+
+## Commands
+
+Just run a single command in a shell which you can wait for output. It is intended to be used for short running commands.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect()
+
+const output = await session.commands.run("npm install");
+```
+
+## Terminals
+
+Terminals are a shell that you can interact with. It can live beyond the immediate session of the user. Use the `session.terminals.getAll()` method to retrieve any existing terminals.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect()
+
+// Create a new terminal (bash is default)
+const terminal = session.terminals.create()
+
+// Open the terminal to get its current output. Required to get output events.
+const output = await terminal.open();
+
+// Listen to terminal output
+const onOutputDisposer = terminal.onOutput((output) => {
+    console.log(output);
+});
+
+// Write input, from for example xTerm
+await terminal.write("hello");
+
+// Run commands
+await terminal.run("echo 'Hello, world!'");
+
+// Kill the terminal when done
+await terminal.kill();
+```
+
+## Tasks
+
+Tasks are defined by the project and runs shells with the global user. Any ports opened by the shells are bound to the task. You can retrieve a task by name and it is shared by all sessions.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect()
+
+const task = session.tasks.get("dev")
+const output = await task.open()
+
+// Listen to task output
+const onOutputDisposer = task.onOutput((output) => {
+    console.log(output);
+});
+
+// Restart the task
+task.restart()
+```
+
+## Setup Steps
+
+When handling the setup of Sandbox the setup steps are also shells.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect()
+
+const steps = await session.setup.getSteps()
+
+for (const step of steps) {
+    console.log(`Step: ${step.name}`);
+    console.log(`Command: ${step.command}`);
+    console.log(`Status: ${step.status}`);
+
+    const output = await step.open()
+
+    output.onOutput((output) => {
+        console.log(output)
+    })
+
+    await step.waitUntilComplete()
+}
+```

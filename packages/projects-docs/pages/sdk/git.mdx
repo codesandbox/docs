@@ -1,0 +1,77 @@
+---
+title: Git  
+description: Learn how to use git in CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Git
+
+When passing `git` information to the session, the session will be able to perform git commands. This can be done in a terminal, running commands programmatically or using the `git` API. The API is designed to make git more accessible for the common use cases.
+
+## API
+
+The Git API is available under `sandbox.git`.
+
+### Status
+
+Get the current status of the branch. You can also listen to status changes.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect({
+    id: 'some-user-reference,
+    git: {
+        accessToken: 'classic_github_token',
+        email: 'foo@bar.com',
+        name: 'Foo Bar'
+    }
+})
+
+const status = await session.git.status()
+
+console.log(status)
+
+const disposer = session.git.onStatus((status) => {
+  console.log(status)
+})
+
+// Stop listening
+disposer()
+```
+
+### Commit
+
+Commit the current changes to the branch. This will do a `git add .` as well.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect({
+    id: 'some-user-reference,
+    git: {
+        accessToken: 'classic_github_token',
+        email: 'foo@bar.com',
+        name: 'Foo Bar'
+    }
+})
+
+await session.git.commit("Some message")
+```
+
+### Push
+
+Push the current branch to the remote, this ensures the upstream is set.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.connect({
+    id: 'some-user-reference,
+    git: {
+        accessToken: 'classic_github_token',
+        email: 'foo@bar.com',
+        name: 'Foo Bar'
+    }
+})
+
+await session.git.push()
+```

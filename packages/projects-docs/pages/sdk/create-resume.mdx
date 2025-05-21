@@ -22,6 +22,10 @@ const sdk = new CodeSandbox();
 const sandbox = await sdk.sandboxes.create();
 ```
 
+<Callout>
+By default Sandboxes are `unlisted` and can be accessed and forked by anyone with a url. If you want to create a private sandbox you can pass `privacy: 'private'`, which requires host tokens to access the exposed ports.
+</Callout>
+
 If no argument is provided to `sandbox.create()`, we'll create a sandbox based on our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own snapshot using our [Snapshot Builder](/sdk/snapshot-builder). Additionally you can choose other sources like [Git](/sdk/sandbox#git) or [Files](/sdk/sandbox#files).
 
 ### Create from Template
@@ -40,6 +44,7 @@ const sandbox = await sdk.sandboxes.create({
     source: 'git',
     url: 'https://...',
     branch: 'main',
+    templateId: 'optional-template-id-to-fork-from',
     // Optionally pass necessary git config for private repos etc.
     config: {
       accessToken: 'github-token',
