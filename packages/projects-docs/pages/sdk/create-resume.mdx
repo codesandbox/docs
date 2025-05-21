@@ -40,6 +40,7 @@ const sandbox = await sdk.sandboxes.create({
     source: 'git',
     url: 'https://...',
     branch: 'main',
+    templateId: 'optional-template-id-to-fork-from',
     // Optionally pass necessary git config for private repos etc.
     config: {
       accessToken: 'github-token',

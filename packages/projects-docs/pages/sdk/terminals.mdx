@@ -26,6 +26,9 @@ const session = await sandbox.connect()
 // Create a new terminal (bash is default)
 const terminal = session.terminals.create()
 
+// Open the terminal to get its current output. Required to get output events.
+const output = await terminal.open();
+
 // Listen to terminal output
 const onOutputDisposer = terminal.onOutput((output) => {
   console.log(output);
@@ -54,13 +57,18 @@ import { connectToSandbox } from "@codesandbox/sdk/browser";
 import { Terminal } from '@xterm/xterm'
 
 const sandbox = await connectToSandbox({
-  id: 'sandbox-id',
-  getSession: (id) => fetch(`/api/sandboxes/${id}`).then(res => res.json()),
+  session: initialSessionFromServer,
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`)),
 })
 const terminal = await sandbox.terminals.create()
 const xterm = new Terminal()
 
 xterm.open(document.getElementById('terminal'))
+
+// Open to get current output and subscribe to output events
+const output = await terminal.open();
+
+xterm.write(output)
 
 terminal.onOutput((output) => {
   xterm.write(output)

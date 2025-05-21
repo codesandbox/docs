@@ -25,7 +25,15 @@ const output = await session.commands.run("npm install");
 console.log(output)
 
 // Listen to changes
-const cmd = await session.commands.runBackground("npm install");
+const cmd = await session.commands.runBackground("npm install", {
+  name: 'my command'
+});
+
+cmd.command // "npm install"
+cmd.name // "my command"
+
+// Open the command to get its current output. Required to get output events.
+const output = await cmd.open()
 
 const disposer = cmd.onOutput((output) => {
   console.log(output)

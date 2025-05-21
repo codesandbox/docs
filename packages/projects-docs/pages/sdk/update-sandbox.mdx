@@ -7,6 +7,24 @@ import { Callout } from 'nextra-theme-docs'
 
 # Update Sandbox
 
+You can update your Sandbox after creation.
+
+```ts
+import { VMTier } from '@codesandbox/sdk'
+
+const sandbox = await sdk.sandboxes.resume('sandbox-id')
+
+// You can hot swap the VM tier
+await sandbox.updateTier(VMTier.Micro)
+await sandbox.updateHibernationTimeout(60)
+```
+
+<Callout>
+You can not update the `ipcountry` of a created Sandbox. This is because the IP country is set when the Sandbox is created and is used to determine the region the Sandbox is running in.
+</Callout>
+
+## Update Agent
+
 Every Sandbox has an agent running on it. This agent is the what allows you to interact with the Sandbox environment.
 
 When a new version of the agent is published, existing sandboxes will need to restart before they get new version.
