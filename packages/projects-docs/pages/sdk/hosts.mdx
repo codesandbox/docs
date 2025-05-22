@@ -27,5 +27,9 @@ console.log(url)
 ```
 
 <Callout>
-By default all Sandboxes are private and you should be using host tokens. With public or unlisted Sandboxes the host tokens are not necessary, but you can still `getUrl` to generate a url for the relevant port.
+By default all Sandboxes are unlisted, but you need to use host tokens to access private Sandboxes. With public or unlisted Sandboxes the host tokens are not necessary, but you can still `getUrl` to generate a url for the relevant port.
 </Callout>
+
+## Persisting Host Tokens
+
+It is recommended that host tokens are persisted and provided to sessions. By default it is likely enough to generate a host token when you create the Sandbox, which can be used on any session and will never expire. But you can generate host tokens per session id or even temporary ones for specific sessions, maybe sharing a preview.

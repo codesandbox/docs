@@ -9,6 +9,11 @@ import { Callout } from 'nextra-theme-docs'
 
 Shells is an important component of the CodeSandbox SDK. To give you the best possible developer experience working with shells we abstracted them into the following concepts:
 
+- **Commands** is a shell instance of the session bound to a single command
+- **Terminals** is a shell instance of the session you can interact with
+- **Tasks** is a global shell instance bound to a single command that can be configured to automatically run on Sandbox start, fork or file changes. Any ports opened is also bound to this task
+- **Setup Step** is a global shell instance bound to a setup step that runs when the sandbox is created
+
 ## Commands
 
 Just run a single command in a shell which you can wait for output. It is intended to be used for short running commands.
