@@ -19,7 +19,6 @@ import { CodeSandbox, VMTier } from "@codesandbox/sdk";
 
 const sdk = new CodeSandbox();
 const sandbox = await sdk.sandboxes.create({
-  source: 'template',
   vmTier: VMTier.Small
 });
 ```
@@ -28,7 +27,6 @@ You can also approximate the VM size:
 
 ```ts
 const sandbox = await sdk.sandboxes.create({
-  source: 'template',
   vmTier: VMTier.fromSpecs({ cpu: 4, memGiB: 8 }),
 });
 ```

@@ -12,10 +12,10 @@ There are currently two types of sessions. A "server session" and a "browser ses
 ```ts
 const sandbox = await sdk.sandboxes.create()
 
-// Immediately consume the session on the server
+// Immediately create a session on the server
 const session = await sandbox.connect()
 
-// Pass the browser session to the browser and connect
+// Or pass a browser session to the browser and connectToSandbox
 const browserSession = await sandbox.createBrowserSession()
 ```
 
@@ -49,17 +49,23 @@ await session.fs.readTextFile('test.txt'); // This will work.
 
 ### Git
 
-Passing the users git access token allows the user to use git commands inside the sandbox. Their permission level will be inherited from the git token.
+Passing git details allows the user to use git commands inside the sandbox.
 
 ```ts
 const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect({
-  id: 'anonymous',
-  git: {
-    accessToken: 'github-token',
-    email: "foo@bar.com",
-    name: "Foo Bar"
-  }
+    id: 'some-user-reference,
+    git: {
+        accessToken: '...',
+        email: 'foo@bar.com',
+        provider: 'github.com',
+
+        // Optional
+        name: 'Foo Bar',
+
+        // Optional for most providers
+        username: 'my-github-username'
+    }
 })
 ```
 

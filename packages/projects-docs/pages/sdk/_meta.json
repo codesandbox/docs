@@ -20,7 +20,7 @@
     "type": "separator",
     "title": "Privacy & Security"
   },
-  "sandbox-privacy": "Sandbox Privacy",
+  "hosts-privacy": "Hosts Privacy",
   "preview-api-access": "Preview API Access",
   "-- sandboxes": {
     "type": "separator",

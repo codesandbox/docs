@@ -1,11 +1,11 @@
 ---
-title: Sandbox Privacy 
-description: Learn about private sandboxes in CodeSandbox SDK.
+title: Hosts Privacy 
+description: Learn about private hosts in CodeSandbox SDK.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# Sandbox Privacy
+# Hosts Privacy
 
 If a sandbox is private, its hosts won't be accessible unless a host token is provided.
 
@@ -14,7 +14,7 @@ You can obtain a host token by calling `sdk.hosts.createToken`. This token will 
 You create signed urls to your Sandboxes using the `hosts` API on the server:
 
 ```ts
-const hostToken = await sdk.hosts.createToken()
+const hostToken = await sdk.hosts.createToken('sandbox-id')
 
 // Get a url for accessing port `5173`
 const url = session.hosts.getUrl(hostToken, 5173)
@@ -30,7 +30,7 @@ This gives you low level management of your Sandboxes hosts. But you can also pa
 
 ```ts
 const sandbox = await sdk.sandboxes.create()
-const hostToken = await sdk.hosts.createToken()
+const hostToken = await sdk.hosts.createToken(sandbox.id)
 
 const session = await sandbox.connect({
   id: 'some-user-reference',
@@ -53,7 +53,7 @@ cookie so subsequent requests from the same browser don't require the token.
 You can set an expiration on the preview token when creating it:
 
 ```ts
-const hostToken = await sdk.hosts.createToken({
+const hostToken = await sdk.hosts.createToken('sandbox-id', {
   expiresAt: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 })
 ```
