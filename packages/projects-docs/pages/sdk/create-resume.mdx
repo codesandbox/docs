@@ -28,53 +28,38 @@ By default Sandboxes are `unlisted` and can be accessed and forked by anyone wit
 
 If no argument is provided to `sandbox.create()`, we'll create a sandbox based on our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own snapshot using our [Snapshot Builder](/sdk/snapshot-builder). Additionally you can choose other sources like [Git](/sdk/sandbox#git) or [Files](/sdk/sandbox#files).
 
-### Create from Template
-
 ```ts
 const sandbox = await sdk.sandboxes.create({
-    source: 'template',
-    id: 'some-sandbox-id'
-})
-```
+    id: 'some-sandbox-id',
 
-### Create from Git
-
-```ts
-const sandbox = await sdk.sandboxes.create({
-    source: 'git',
-    url: 'https://...',
-    branch: 'main',
-    templateId: 'optional-template-id-to-fork-from',
-    // Optionally pass necessary git config for private repos etc.
-    config: {
-      accessToken: 'github-token',
-      email: 'foo@bar.com',
-      name: 'Foo Bar'
-    },
-    async setup(session) {
-        await session.commands.run('pnpm install')
-        await session.commands.run('pnpm run dev')
-        await session.ports.waitForPort(5173)
-    }
-})
-```
-
-<Callout>
-It depends on the repo how you want to setup the sandbox. If it is configured with tasks you can run `session.setup.run()` to run the full setup, but if configured with a `.devcontainer` you want to restart the sandbox itself. Or you can do like the example just run some commands.
-</Callout>
-
-### Additional options
-
-For any of the above sources you can also pass the following options:
-
-```ts
-const sandbox = await sdk.sandboxes.create({
-    source: 'template',
+    // Optional properties
     title: 'my-sandbox',
     description: 'My sandbox',
     tags: ['my-tag'],
-    privacy: 'public'
-    path: '/users/some-user-folder'
+
+    // Public, unlisted or private
+    privacy: 'private',
+
+    // Collection folder on Dashboard
+    path: '/users/some-user-folder',
+
+    // Prefer closest cluster. Follows ISO 3166-1 alpha-2 codes.
+    ipcountry: "US",
+
+    // What VM Tier to use for the Sandbox
+    vmTier: VMTier.Pico,
+
+    // How quickly the sandbox should hibernate after inactivity.
+    // Defaults to 300 seconds for free users, 1800 seconds for
+    // pro users. Maximum is 86400 seconds (1 day).
+    hibernationTimeoutSeconds: 120_000,
+
+    // Configure if Sandbox should wake up automatically on HTTP
+    // or requests or WebSocket connections
+    automaticWakeupConfig: {
+        http: true,
+        websocket: true
+    }
 })
 ```
 

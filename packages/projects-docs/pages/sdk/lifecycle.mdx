@@ -31,17 +31,55 @@ You will be able to connect to the Sandbox during this process and track its pro
 ```ts
 const sandbox = await sdk.sandboxes.create()
 
-const setupSteps = sandbox.setup.getSteps()
+if (sandbox.bootupType === 'CLEAN') {
+  const session = await sandbox.connect()
+  const setupSteps = session.setup.getSteps()
+
+  for (const step of setupSteps) {
+    console.log(`Step: ${step.name}`);
+    console.log(`Command: ${step.command}`);
+    console.log(`Status: ${step.status}`);
+
+    const output = await step.open()
+
+    output.onOutput((output) => {
+      console.log(output)
+    })
+
+    await step.waitUntilComplete()
+  }
+}
+```
+
+If you want to show this setup as a client UX you can rather create a browser session and show the setup in the browser.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+
+if (sandbox.bootupType === 'CLEAN') {
+  const browserSession = await sandbox.createBrowserSession()
+
+  return browserSession
+}
+```
+
+And then in the browser:
+
+```ts
+import { connectToSandbox } from '@codesandbox/sdk'
+
+const session = await connectToSandbox({
+  session: browserSession
+})
+
+const setupSteps = session.setup.getSteps()
 
 for (const step of setupSteps) {
-  console.log(`Step: ${step.name}`);
-  console.log(`Command: ${step.command}`);
-  console.log(`Status: ${step.status}`);
-
   const output = await step.open()
+  // Show output in UI
 
   output.onOutput((output) => {
-    console.log(output)
+    // Show output in UI
   })
 
   await step.waitUntilComplete()
