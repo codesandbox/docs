@@ -32,6 +32,10 @@ Now we need to configure the template with tasks so that it will install depende
         "dev-server": {
             "name": "Dev Server",
             "command": "npm run dev",
+            // We have automatic port detection, but configuring this will guarantee the port is assigned on the task
+            "preview": {
+                "port": 5173
+            },
             "runAtStart": true
         }
     }
@@ -66,6 +70,10 @@ const sandbox = await sdk.sandboxes.create({
     vmTier: VMTier.Pico
 })
 ```
+
+## CI
+
+If you run the template builder on **CI** you can pass the `--ci` flag. This removes the interactive "failed sandbox" behavior and rather creates the template id regardless. The Sandbox that errored will show the error.
 
 ## Custom Docker Image
 

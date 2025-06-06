@@ -56,15 +56,16 @@ const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.connect({
     id: 'some-user-reference,
     git: {
-        accessToken: '...',
+
         email: 'foo@bar.com',
+        accessToken: '...',
         provider: 'github.com',
 
         // Optional
         name: 'Foo Bar',
 
         // Optional for most providers
-        username: 'my-github-username'
+        username: 'my-provider-username'
     }
 })
 ```
