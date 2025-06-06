@@ -70,6 +70,10 @@ const session = await sandbox.connect({
 })
 ```
 
+<Callout>
+It is highly recommended that Sandboxes where git credentials are used, are not exposed to the public. Even though we store the token in the isolated `~/private` folder, there are still some security concerns. 
+</Callout>
+
 ### Environment variables
 
 If you pass environment variables, these variables will be available to the user inside the commands and terminals that they run in the Sandbox.
