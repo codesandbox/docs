@@ -11,18 +11,18 @@ When passing `git` information to the session, the session will be able to perfo
 
 ## API
 
-The Git API is available under `sandbox.git`.
+The Git API is available under `client.git`.
 
 ### Clone
 
 Clone a repository to the sandbox.
 
 ```ts
-await session.git.clone('https://github.com/codesandbox/sandbox.git')
+await client.git.clone('https://github.com/codesandbox/sandbox.git')
 ```
 
 <Callout>
-It depends on the repo how you want to setup the sandbox. If it is configured with tasks you can run `session.setup.run()` to run the full setup, but if configured with a `.devcontainer` you want to restart the sandbox itself.
+It depends on the repo how you want to setup the sandbox. If it is configured with tasks you can run `client.setup.run()` to run the full setup, but if configured with a `.devcontainer` you want to restart the sandbox itself.
 </Callout>
 
 ### Status
@@ -30,11 +30,11 @@ It depends on the repo how you want to setup the sandbox. If it is configured wi
 Get the current status of the branch. You can also listen to status changes.
 
 ```ts
-const status = await session.git.status()
+const status = await client.git.status()
 
 console.log(status)
 
-const disposer = session.git.onStatus((status) => {
+const disposer = client.git.onStatus((status) => {
   console.log(status)
 })
 
@@ -47,7 +47,7 @@ disposer()
 Commit the current changes to the branch. This will do a `git add .` as well.
 
 ```ts
-await session.git.commit("Some message")
+await client.git.commit("Some message")
 ```
 
 ### Push
@@ -55,7 +55,7 @@ await session.git.commit("Some message")
 Push the current branch to the remote, this ensures the upstream is set.
 
 ```ts
-await session.git.push()
+await client.git.push()
 ```
 
 ## Nested Git Repos
@@ -63,5 +63,5 @@ await session.git.push()
 You can also use `commands` to run git commands manually. This allows you to clone repos to nested folders and manage them as you see fit.
 
 ```ts
-await session.commands.run('git clone https://github.com/codesandbox/sandbox.git ./nested-repo')
+await client.commands.run('git clone https://github.com/codesandbox/sandbox.git ./nested-repo')
 ```

@@ -1,0 +1,129 @@
+---
+title: Clients
+description: Learn how to connect to a sandboxwith the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Clients
+
+There are three different ways to connect to a Sandbox:
+
+- **SDK**: When you want to connect to a Sandbox from your server where also the SDK is managed
+- **Node**: When you want to connect to a Sandbox from a Node client environment, for example React Native
+- **Browser**: When you want to connect to a Sandbox from a browser client environment
+
+## SDK
+
+On your server, where you use the SDK, you can connect directly to a Sandbox:
+
+```ts
+const sandbox = sdk.sandboxes.resume('sandbox-id')
+const client = await sandbox.connect()
+```
+
+## Node
+
+So you might run a client in Node (ish) environment. For example React Native. To consume the Sandbox you need to request a session from your server and pass it to the client.
+
+```ts
+import { connectToSandbox } from '@codesandbox/sdk/node'
+
+const client = await connectToSandbox({
+  session: initialSessionFromServer,
+  // On reconnect the session will be fetched from the server again
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
+})
+```
+
+This is how your server can provide the session:
+
+```ts
+export const GET = async ({ params }) => {
+  const sandbox = sdk.sandboxes.resume(params.sandboxId)
+  const session = await sandbox.createSession()
+
+  // Respond with the session
+  return session
+}
+```
+
+## Browser
+
+```ts
+import { connectToSandbox } from '@codesandbox/sdk/browser';
+
+const client = await connectToSandbox({
+  session: initialSessionFromServer,
+  // When reconnecting to the sandbox, fetch the session from the server
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`)
+});
+```
+
+This is how your server can provide the session:
+
+```ts
+export const GET = async ({ params }) => {
+  const sandbox = sdk.sandboxes.resume(params.sandboxId)
+  const session = await sandbox.createSession()
+
+  // Respond with the session
+  return session
+}
+```
+
+The Browser session automatically manages the connection and will reconnect if the connection is lost. This is controlled by an option called `onFocusChange` and by default it will reconnect when the page is visible.
+
+```ts
+const client = await connectToSandbox({
+  session: initialSessionFromServer,
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
+  onFocusChange: (notify) => {
+    const onVisibilityChange = () => {
+      notify(document.visibilityState === 'visible');
+    }
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    }
+  }
+});
+```
+
+If you tell the browser session when it is in focus it will automatically reconnect when hibernated. Unless you explicitly disconnect the session.
+
+While the `connectToSandbox` promise is resolving you can also listen to initialization events to show a loading state:
+
+```ts
+const client = await connectToSandbox({
+  session: initialSessionFromServer,
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
+  onInitCb: (event) => {}
+});
+```
+
+## Disconnecting the client
+
+Disconnecting the client will end the session and automatically hibernate the sandbox after a timeout. You can also hibernate the sandbox explicitly from the server.
+
+```ts
+import { connectToSandbox } from '@codesandbox/sdk/browser'
+
+const client = await connectToSandbox({
+  session: initialSessionFromServer,
+  getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
+})
+
+// Disconnect returns a promise that resolves when the session is disconnected
+client.disconnect();
+
+// Optionally hibernate the sandbox explicitly by creating an endpoint on your server
+fetch('/api/sandboxes/' + client.id + '/hibernate', {
+  method: 'POST'
+})
+
+// You can reconnect explicitly by
+client.reconnect()
+```

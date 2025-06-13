@@ -12,33 +12,36 @@
     "title": "Guides"
   },
   "templates": "Templates",
-  "browser": "Browser",
+  "repositories": "Repositories",
+  "clients": "Clients",
+  "bootups": "Bootups",
   "browser-previews": "Previews",
   "shells": "Shells",
   "docker": "Docker & Docker Compose",
+  "-- sandboxes": {
+    "type": "separator",
+    "title": "Sandboxes"
+  },
+  "create-resume": "Create & Resume",
+  "update-sandbox": "Update Sandbox",
+  "sessions": "Sessions",
+  "hibernate": "Hibernate",
+  "restart-shutdown": "Restart & Shutdown",
+  "lifecycle": "Lifecycle",
+  "specs": "VM Specs",
+  "persistence": "Persistence",
+
   "-- privacy-security": {
     "type": "separator",
     "title": "Privacy & Security"
   },
   "hosts-privacy": "Hosts Privacy",
   "preview-api-access": "Preview API Access",
-  "-- sandboxes": {
+
+  "-- client": {
     "type": "separator",
-    "title": "Sandboxes"
+    "title": "Client"
   },
-  "lifecycle": "Lifecycle",
-  "create-resume": "Create & Resume",
-  "hibernate": "Hibernate",
-  "fork": "Fork",
-  "restart-shutdown": "Restart & Shutdown",
-  "specs": "VM Specs",
-  "persistence": "Persistence",
-  "update-sandbox": "Update Sandbox",
-  "-- sessions": {
-    "type": "separator",
-    "title": "Sessions"
-  },
-  "create-session": "Create Session",
   "filesystem": "File System",
   "terminals": "Terminals",
   "commands": "Commands",
@@ -48,7 +51,6 @@
   "tasks": "Tasks",
   "setup": "Setup",
   "git": "Git",
-
   "-- resources": {
     "type": "separator",
     "title": "Resources"

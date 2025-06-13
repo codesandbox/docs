@@ -14,13 +14,13 @@ The previews API allows you to create and interact with previews in the browser.
 ```ts
 import { connectToSandbox, createPreview } from '@codesandbox/sdk/browser'
 
-const sandbox = await connectToSandbox({
+const client = await connectToSandbox({
     session: initialSessionFromServer,
     getSession: (id) => fetchJson(`/api/sandboxes/${id}`))
 })
 
 // We have a dev server running on port 5173
-const preview = createPreview(sandbox.hosts.getUrl(5173))
+const preview = createPreview(client.hosts.getUrl(5173))
 
 document.querySelector('#preview-container').appendChild(preview.iframe)
 ```

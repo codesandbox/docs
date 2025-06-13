@@ -5,35 +5,32 @@ description: Learn how the CodeSandbox SDK's file system works.
 
 # File System
 
-Every sandbox has a persistent file system in the default working directory: `/project/sandbox`. All files saved in `/project/sandbox` have `git` source control and will be persisted between reboots. Whenever we hibernate or shutdown a sandbox, we create a commit to track the filesystem of the sandbox.
+Every sandbox has a persistent file system in the default working directory: `/project/workspace`. All files saved in `/project/workspace` have `git` source control and will be persisted between reboots. Whenever we hibernate or shutdown a sandbox, we create a commit to track the filesystem of the sandbox.
 
 Refer to the [Environment](/sdk/environment) section for more information about how we store files and other resources.
 
 ## API
 
 The API of the filesystem is similar to the Node.js fs module. You can find the API under `sandbox.fs`. All filesystem
-operations are relative to the workspace directory of the sandbox (which is `/project/sandbox` by default).
+operations are relative to the workspace directory of the sandbox (which is `/project/workspace` by default).
 
 ### Writing & Reading Files
 
 You can read & write files using an api that's similer to the Node.js fs module:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Writing text files
-await session.fs.writeTextFile("./hello.txt", "Hello, world!");
+await client.fs.writeTextFile("./hello.txt", "Hello, world!");
 
 // Reading text files
-const content = await session.fs.readTextFile("./hello.txt");
+const content = await client.fs.readTextFile("./hello.txt");
 console.log(content);
 
 // Writing binary files
-await session.fs.writeFile("./hello.bin", new Uint8Array([1, 2, 3]));
+await client.fs.writeFile("./hello.bin", new Uint8Array([1, 2, 3]));
 
 // Reading binary files
-const content = await session.fs.readFile("./hello.bin");
+const content = await client.fs.readFile("./hello.bin");
 console.log(content);
 ```
 
@@ -44,20 +41,17 @@ Uploading and downloading files can be done using the same methods.
 ```ts
 import fs from "node:fs";
 
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 const myBinaryFile = fs.readFileSync("./my-binary-file");
-await session.fs.writeFile("./my-binary-file", myBinaryFile);
+await client.fs.writeFile("./my-binary-file", myBinaryFile);
 
-const content = await session.fs.readFile("./my-binary-file");
+const content = await client.fs.readFile("./my-binary-file");
 fs.writeFileSync("./my-binary-file", content);
 ```
 
 You can also download a file or directory as a zip file by generating a download URL. This URL is valid for 5 minutes:
 
 ```ts
-const { downloadUrl } = await session.fs.download("./");
+const { downloadUrl } = await client.fs.download("./");
 console.log(downloadUrl);
 ```
 
@@ -66,7 +60,7 @@ console.log(downloadUrl);
 You can list files & directories in a directory using the `readdir` method.
 
 ```ts
-const filesOrDirs = await session.fs.readdir("./");
+const filesOrDirs = await client.fs.readdir("./");
 
 console.log(filesOrDirs);
 ```
@@ -76,9 +70,9 @@ console.log(filesOrDirs);
 You can copy, rename & delete files using the `copy`, `rename` & `remove` methods.
 
 ```ts
-await session.fs.copy("./hello.txt", "./hello-copy.txt");
-await session.fs.rename("./hello-copy.txt", "./hello-renamed.txt");
-await session.fs.remove("./hello-renamed.txt");
+await client.fs.copy("./hello.txt", "./hello-copy.txt");
+await client.fs.rename("./hello-copy.txt", "./hello-renamed.txt");
+await client.fs.remove("./hello-renamed.txt");
 ```
 
 ### Watching Files
@@ -86,7 +80,7 @@ await session.fs.remove("./hello-renamed.txt");
 You can watch files for file changes, additions and deletions using the `watch` method.
 
 ```ts
-const watcher = await session.fs.watch("./", { recursive: true, excludes: [".git"] });
+const watcher = await client.fs.watch("./", { recursive: true, excludes: [".git"] });
 
 watcher.onEvent((event) => {
   console.log(event);

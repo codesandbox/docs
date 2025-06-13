@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Update Sandbox
 
-You can update your Sandbox after creation.
+You can update certain properties of your Sandbox after creation.
 
 ```ts
 import { VMTier } from '@codesandbox/sdk'
@@ -22,21 +22,3 @@ await sandbox.updateHibernationTimeout(60)
 <Callout>
 You can not update the `ipcountry` of a created Sandbox. This is because the IP country is set when the Sandbox is created and is used to determine the region the Sandbox is running in.
 </Callout>
-
-## Update Agent
-
-Every Sandbox has an agent running on it. This agent is the what allows you to interact with the Sandbox environment.
-
-When a new version of the agent is published, existing sandboxes will need to restart before they get new version.
-
-You can check if the current sandbox is up to date using `isUpToDate()`
-
-```ts
-const sandbox = await sdk.sandboxes.resume('sandbox-id')
-
-if (!sandbox.isUpToDate) {
-    await sdk.sandboxes.restart(sandbox.id)
-}
-```
-
-It is up to you to decide what the best user experience will be for your use case. At CodeSandbox we would show a notification when the agent was out of date and the user could choose when to update.

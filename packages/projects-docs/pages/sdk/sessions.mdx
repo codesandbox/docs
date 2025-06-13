@@ -1,50 +1,44 @@
 ---
-title: Create Session
-description: Learn how to connect to Sandboxes with the CodeSandbox SDK.
+title: Sessions
+description: Learn how to create sessions with the CodeSandbox SDK.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# Create Session
+# Sessions
 
-There are currently two types of sessions. A "server session" and a "browser session".
+To connect to a Sandbox you need to create a session.
 
 ```ts
 const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.createSession({ ...userSession })
 
-// Immediately create a session on the server
-const session = await sandbox.connect()
-
-// Or pass a browser session to the browser and connectToSandbox
-const browserSession = await sandbox.createBrowserSession()
+// When connecting on your server you can configure
+// the session directly when connecting
+const client = await sandbox.connect({ ...userSession })
 ```
 
-By default a session is bound to a user called `pitcher-host`. This user has write access to any API. We refer to this session as the "global" session.
+You can create a session without passing an argument. This will create a session bound to a user called `pitcher-host`. This user has write access to any API. We refer to this session as the "global" session.
 
 <Callout>
 When you run `whoami`, it will say that you are `root`. That's because we run every session inside a Docker container where you are `root`. However the container itself is started as the user of your session.
 </Callout>
 
-## Dedicated Sessions
+## User Sessions
 
-You should use dedicated sessions for your users. This ensures privacy and isolation between users. You can configure a session to have specific permissions, git access, tokens to securily access private hosts and even environment variables.
+You should use user sessions for your users. This ensures privacy and isolation between users. You can configure a user session to have specific permissions, git access, tokens to securily access private hosts and even environment variables.
 
 ### Permissions
 
-By default a user has `write` access, but you can configure a session to have `read` access.
+By default a user has `write` access, but you can configure a user session to have `read` access.
 
 ```ts
-// Now configure a session that only has read access to the sandbox
+// Now configure a user session that only has read access to the sandbox
 const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect({
+const session = sandbox.createSession({
   id: 'anonymous',
   permission: 'read'
 })
-
-// I have access to the normal sandbox api, but I only have read access
-// This means I cannot write files or open shells, but I _can_ read them
-await session.fs.writeTextFile('test.txt', 'Hello World'); // This will throw an error.
-await session.fs.readTextFile('test.txt'); // This will work.
 ```
 
 ### Git
@@ -53,7 +47,7 @@ Passing git details allows the user to use git commands inside the sandbox.
 
 ```ts
 const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect({
+const session = await sandbox.createSession({
     id: 'some-user-reference,
     git: {
 
@@ -71,7 +65,7 @@ const session = await sandbox.connect({
 ```
 
 <Callout>
-It is highly recommended that Sandboxes where git credentials are used, are not exposed to the public. Even though we store the token in the isolated `~/private` folder, there are still some security concerns. 
+It is highly recommended that Sandboxes where git credentials are used, are not exposed to the public. Even though we store the token in the isolated `~/.private` folder, there are still some security concerns. 
 </Callout>
 
 ### Environment variables
@@ -80,33 +74,27 @@ If you pass environment variables, these variables will be available to the user
 
 ```ts
 const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect({
+const session = await sandbox.createSession({
   id: 'anonymous',
   env: {
     FOO: 'bar'
   }
 })
-
-const output = await session.commands.run('echo $FOO')
-console.log(output) // bar
 ```
 
 ### Host Tokens
 
-Passing a host token to the session will ensure that you generate valid urls for private hosts.
+Passing a host token to the session will sign all url generation from the client APIs.
 
 ```ts
 const sandbox = await sdk.sandboxes.create()
+
 const hostToken = await sdk.hosts.createToken()
 
-const session = await sandbox.connect({
+const session = await sandbox.createSession({
   id: 'some-user-reference',
   hostToken
 })
-
-const url = await session.hosts.getUrl(5173)
-
-console.log(url)
 ```
 
 ## Storage

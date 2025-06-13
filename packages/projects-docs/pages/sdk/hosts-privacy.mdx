@@ -15,15 +15,6 @@ You create signed urls to your Sandboxes using the `hosts` API on the server:
 
 ```ts
 const hostToken = await sdk.hosts.createToken('sandbox-id')
-
-// Get a url for accessing port `5173`
-const url = session.hosts.getUrl(hostToken, 5173)
-
-// Get cookies for accessing any host
-const cookies = session.hosts.getCookies(hostToken)
-
-// Get headers for accessing any host
-const headers = session.hosts.getHeaders(hostToken)
 ```
 
 This gives you low level management of your Sandboxes hosts. But you can also pass the host token to a session. This is especially useful if you want to generate urls based on the state of the Sandbox, generating them in browser sessions etc.
@@ -31,16 +22,10 @@ This gives you low level management of your Sandboxes hosts. But you can also pa
 ```ts
 const sandbox = await sdk.sandboxes.create()
 const hostToken = await sdk.hosts.createToken(sandbox.id)
-
-const session = await sandbox.connect({
+const session = await sandbox.createSession({
   id: 'some-user-reference',
   hostToken
 })
-
-const url = session.hosts.getUrl(5173)
-
-// Signed url
-console.log(url)
 ```
 
 <Callout>

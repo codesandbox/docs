@@ -1,0 +1,37 @@
+---
+title: Repositories
+description: Learn how repositories work in the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Repositories
+
+By default a Sandbox works like a repository. It has a `.git` folder and it pushes to a remote file system when the Sandbox hibernates.
+
+If you rather want to use an existing remote repository, you can do so by simpy cloning a repository to the sandbox.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const client = await sandbox.connect({
+    id: 'some-user-reference',
+    git: {
+        name: 'Foo Bar',
+        email: 'foo@bar.com',
+        accessToken: '...',
+        provider: 'github.com',
+    }
+})
+
+await client.git.clone('https://github.com/codesandbox/sandbox.git')
+```
+
+This will clone the repository to the `workspace` of the Sandbox and update the remote.
+
+<Callout>
+Note that even though we persist the disk on hibernation, there is a risk of data loss if changes are not pushed remotely. The reason is that we replace our local git folder with the remote git folder and there is no automatic remote persistence on hibernation.
+</Callout>
+
+## Nested repositories
+
+You can also run any commands for git manually to for example clone a nested repository. This folder is ignored by the `workspace` git folder, which means it also puts persistence in your control.

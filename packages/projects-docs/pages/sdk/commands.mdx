@@ -16,16 +16,13 @@ The Commands API is available under `sandbox.commands`.
 ### Running Commands
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Run until completion, also supports an array of commands
-const output = await session.commands.run("npm install");
+const output = await client.commands.run("npm install");
 
 console.log(output)
 
 // Listen to changes
-const cmd = await session.commands.runBackground("npm install", {
+const cmd = await client.commands.runBackground("npm install", {
   name: 'my command'
 });
 
@@ -50,14 +47,11 @@ await cmd.restart()
 Some commands take longer to run, like starting a server. In this case you can use the `waitForPort` method to wait for the port to open:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Run a long running command
-const command = session.commands.runBackground("npx -y serve .");
+const command = client.commands.runBackground("npx -y serve .");
 
 // Wait for the port to open
-const portInfo = await session.ports.waitForPort(3000);
+const portInfo = await client.ports.waitForPort(3000);
 
 // You will need to manually kill it
 command.kill()

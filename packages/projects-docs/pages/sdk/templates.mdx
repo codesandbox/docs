@@ -32,7 +32,8 @@ Now we need to configure the template with tasks so that it will install depende
         "dev-server": {
             "name": "Dev Server",
             "command": "npm run dev",
-            // We have automatic port detection, but configuring this will guarantee the port is assigned on the task
+            // We have automatic port detection, but configuring
+            // this will guarantee the port is assigned on the task
             "preview": {
                 "port": 5173
             },
@@ -85,7 +86,11 @@ CodeSandbox uses [Dev Containers](https://containers.dev/) for configuring Docke
 }
 ```
 
-When we boot the sandbox, we’ll make sure that the docker image is pulled (or built) and we’ll make sure that all shells will start within this container. Your `/project/sandbox` folder will also be mounted inside the container.
+When we boot the sandbox, we’ll make sure that the docker image is pulled (or built) and we’ll make sure that all shells will start within this container. Your `/project/workspace` folder will also be mounted inside the container.
+
+<Callout>
+There is also a `/project/sandbox` folder, but consider this deprecated.
+</Callout>
 
 You can decide to build the Docker image as part of the template creation process as well. You can do this by defining this in your `.devcontainer/devcontainer.json`:
 

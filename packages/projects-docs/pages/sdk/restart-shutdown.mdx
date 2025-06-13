@@ -9,7 +9,7 @@ import { Callout } from 'nextra-theme-docs'
 
 ## Restart
 
-Restarting a Sandbox won't use a snapshot and will start from scratch. It will install and build its configured resources (including your files in `/project/sandbox`) and also run with the latest version of the agent.
+Restarting a Sandbox won't use a snapshot and will start from scratch. It will install and build its configured resources (including your files in `/project/workspace`) and also run with the latest version of the agent.
 
 ```ts
 let sandbox = await sdk.sandboxes.resume('sandbox-id')
@@ -23,7 +23,7 @@ Note that when restarting you get a new reference to the Sandbox. You will need 
 
 ## Shutdown
 
-You can also shutdown a sandbox without creating a memory snapshot. Once shut down the Sandbox will need to boot from a clean state (but your files in `/project/sandbox` will be preserved).
+You can also shutdown a sandbox without creating a snapshot. Once shut down the Sandbox will need to boot from a clean state (but your files in `/project/workspace` will be preserved).
 
 ```ts
 const sandbox = await sdk.sandboxes.resume('sandbox-id')
