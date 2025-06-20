@@ -58,6 +58,22 @@ Push the current branch to the remote, this ensures the upstream is set.
 await client.git.push()
 ```
 
+### CreateBranch
+
+Create a new branch and set its upstream, ready to push.
+
+```ts
+await client.git.createBranch("some-branch")
+```
+
+### Checkout
+
+Checkout any git reference.
+
+```ts
+await client.git.checkout("some-branch-or-sha")
+```
+
 ## Nested Git Repos
 
 You can also use `commands` to run git commands manually. This allows you to clone repos to nested folders and manage them as you see fit.

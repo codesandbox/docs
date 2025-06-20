@@ -29,7 +29,7 @@ await client.git.clone('https://github.com/codesandbox/sandbox.git')
 This will clone the repository to the `workspace` of the Sandbox and update the remote.
 
 <Callout>
-Note that even though we persist the disk on hibernation, there is a risk of data loss if changes are not pushed remotely. The reason is that we replace our local git folder with the remote git folder and there is no automatic remote persistence on hibernation.
+Note that even though we persist the disk on hibernation, there is a risk of data loss if changes are not pushed remotely. When we archive the Sandbox after 7 days of hibernation any pending changes could be lost.
 </Callout>
 
 ## Nested repositories
