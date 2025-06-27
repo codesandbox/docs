@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Sandbox Lifecycle
 
-By default a Sandbox will be created from a template. A template is a memory/fs snapshot of a Sandbox, meaning it will be a direct continuation of the template. If the template was running a dev server, that dev server is running when the Sandbox is created.
+By default a Sandbox will be created from a template. A template is a snapshot of a Sandbox, meaning it will be a direct continuation of the template. If the template was running a dev server, that dev server is running when the Sandbox is created.
 
 When you create, resume or restart a Sandbox you can access its `bootupType`. This value indicates how the Sandbox was started.
 
@@ -16,34 +16,6 @@ When you create, resume or restart a Sandbox you can access its `bootupType`. Th
 - **RESUME**: The Sandbox was resumed from hibernation. This happens when you call `resume` and the Sandbox was hibernated.
 - **CLEAN**: The Sandbox was created or resumed from scratch. This happens when you call `create` or `resume` and the Sandbox was not running and was missing a snapshot. This can happen if the Sandbox was shut down, restarted, the snapshot was expired (old snapshot) or if something went wrong.
 
-## Managing CLEAN bootups
-
-Whenever we boot a sandbox from scratch, we'll:
-
-1. Start the Firecracker VM
-2. Create a default user (called `pitcher-host`)
-3. (optional) Build the Docker image specified in the `.devcontainer/devcontainer.json` file
-4. Start the Docker container
-5. Mount the `/project/sandbox` directory as a volume inside the Docker container
-
-You will be able to connect to the Sandbox during this process and track its progress.
-
-```ts
-const sandbox = await sdk.sandboxes.create()
-
-const setupSteps = sandbox.setup.getSteps()
-
-for (const step of setupSteps) {
-  console.log(`Step: ${step.name}`);
-  console.log(`Command: ${step.command}`);
-  console.log(`Status: ${step.status}`);
-
-  const output = await step.open()
-
-  output.onOutput((output) => {
-    console.log(output)
-  })
-
-  await step.waitUntilComplete()
-}
-```
+<Callout>
+It is important to handle the **CLEAN** bootup. Please read more in [this guide](/sdk/bootups).
+</Callout>

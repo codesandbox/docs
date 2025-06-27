@@ -19,24 +19,21 @@ We automatically resume a sandbox whenever a port is accessed while the sandbox 
 
 ## API
 
-The Ports API is available under `sandbox.ports`. It provides methods for monitoring port activity.
+The Ports API is available under `client.ports`. It provides methods for monitoring port activity.
 
 ### Monitoring Ports
 
 You can listen for ports being opened and closed in your sandbox:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Listen for ports being opened
-const listener1 = session.ports.onDidPortOpen((portInfo) => {
+const listener1 = client.ports.onDidPortOpen((portInfo) => {
   console.log(`Port ${portInfo.port} opened`);
-  console.log(`URL: ${session.hosts.getUrl(portInfo.port)}`);
+  console.log(`URL: ${client.hosts.getUrl(portInfo.port)}`);
 });
 
 // Listen for ports being closed
-const listener2 = session.ports.onDidPortClose((port) => {
+const listener2 = client.ports.onDidPortClose((port) => {
   console.log(`Port ${port} closed`);
 });
 
@@ -50,11 +47,8 @@ listener2.dispose();
 You can get information about currently opened ports:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Get all opened ports
-const openPorts = session.ports.getAll();
+const openPorts = client.ports.getAll();
 for (const port of openPorts) {
   console.log(`Port ${port.port} is open at ${port.host}`);
 }
@@ -65,13 +59,10 @@ for (const port of openPorts) {
 When starting services, you often need to wait for a port to become available:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Start a development server
-const command = session.commands.runBackground("npm run dev");
+const command = client.commands.runBackground("npm run dev");
 
 // Wait for the dev server port to open
-const portInfo = await session.ports.waitForPort(3000);
+const portInfo = await client.ports.waitForPort(3000);
 console.log(`Dev server is ready at: ${portInfo.host}`);
 ```

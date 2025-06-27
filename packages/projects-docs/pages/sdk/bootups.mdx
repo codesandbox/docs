@@ -1,0 +1,65 @@
+---
+title: Bootups
+description: Learn how bootups work in the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Bootups
+
+Normally a Sandbox resumes from hibernation. You can verify the type of bootup using `client.bootupType` or `sandbox.bootupType` when resuming an existing Sandbox.
+
+But there are scenarios where we need to boot up the Sandbox from scratch. The most common scenario being when a Sandbox has been dormant for a week.
+
+Whenever we boot a sandbox from scratch, we'll:
+
+1. Start the Firecracker VM
+2. Create a default user (called `pitcher-host`)
+3. (optional) Build the Docker image specified in the `.devcontainer/devcontainer.json` file
+4. Start the Docker container
+5. Mount the `/project/workspace` directory as a volume inside the Docker container
+
+You will be able to connect to the Sandbox during this process and track its progress. You would normally want to do this through a UX so that your users are aware of this CLEAN bootup.
+
+```ts
+const client = await connectToSandbox({
+  session,
+  getSession: (id) => fetchJSON(`/api/sandboxes/${id}`)
+})
+
+if (client.bootupType === 'CLEAN') {
+  const setupSteps = client.setup.getSteps()
+
+  for (const step of setupSteps) {
+    console.log(`Step: ${step.name}`);
+    console.log(`Command: ${step.command}`);
+    console.log(`Status: ${step.status}`);
+
+    const output = await step.open()
+
+    output.onOutput((output) => {
+      console.log(output)
+    })
+
+    await step.waitUntilComplete()
+  }
+}
+```
+
+## Agent updates
+
+Every Sandbox has an agent running on it. This agent is the what allows you to interact with the Sandbox environment.
+
+When a new version of the agent is published, existing sandboxes will need to restart before they get new version.
+
+You can check if the current sandbox is up to date using `isUpToDate()`
+
+```ts
+const sandbox = await sdk.sandboxes.resume('sandbox-id')
+
+if (!sandbox.isUpToDate) {
+    await sdk.sandboxes.restart(sandbox.id)
+}
+```
+
+It is up to you to decide what the best user experience will be for your use case. At CodeSandbox we would show a notification when the agent was out of date and the user could choose when to update.

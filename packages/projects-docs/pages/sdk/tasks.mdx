@@ -108,11 +108,8 @@ The Tasks API is available under `sandbox.tasks`. It provides methods for listin
 You can get all available tasks in your sandbox:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Get all tasks
-const tasks = session.tasks.getAll();
+const tasks = client.tasks.getAll();
 
 for (const task of tasks) {
   console.log(`Task: ${task.name} (${task.command})`);
@@ -124,9 +121,7 @@ for (const task of tasks) {
 You can run a task using its ID:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-const task = session.tasks.get("dev");
+const task = client.tasks.get("dev");
 
 // Will restart the task if already running
 await task.run()
@@ -144,11 +139,8 @@ console.log(`Preview available at: ${port.host}`);
 You can get information about a specific task:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Get a specific task
-const task = session.tasks.get("build");
+const task = client.tasks.get("build");
 
 if (task) {
   console.log(`Task: ${task.name}`);
@@ -164,9 +156,7 @@ if (task) {
 Tasks are an abstraction over commands. You can open the underlying shell to see its current output and listen to output updates.
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-const task = session.tasks.get('dev')
+const task = client.tasks.get('dev')
 
 // Output will not be emitted until you open the task
 task.onOutput((output) => {

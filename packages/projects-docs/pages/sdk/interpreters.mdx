@@ -11,21 +11,18 @@ The Interpreter API allows you to run code in different programming languages in
 
 ## API
 
-The Interpreter API is available under `sandbox.interpreters`.
+The Interpreter API is available under `client.interpreters`.
 
 ### Running Code
 
 The Interpreter API includes built-in support for running code in different programming languages:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Run JavaScript code
-const jsResult = await session.interpreters.javascript("'Hello from Node.js!'");
+const jsResult = await client.interpreters.javascript("'Hello from Node.js!'");
 
 // Run Python code
-const pythonResult = await session.interpreters.python("'Hello from Python!'");
+const pythonResult = await client.interpreters.python("'Hello from Python!'");
 ```
 
 These interpreters will automatically return the last expression as output, but you can print values to the console at any point for multiple outputs.

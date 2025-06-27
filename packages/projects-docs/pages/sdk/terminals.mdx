@@ -20,11 +20,8 @@ The Terminals API is available under `sandbox.terminals`.
 You can create an interactive terminal that allows you to write, run commands and receive output:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
 // Create a new terminal (bash is default)
-const terminal = session.terminals.create()
+const terminal = client.terminals.create()
 
 // Open the terminal to get its current output. Required to get output events.
 const output = await terminal.open();
@@ -53,14 +50,10 @@ Typically you want terminals to live beyond the immediate session of the user. U
 The terminal API is often combined with [xTerm](https://www.npmjs.com/package/@xterm/xterm) to allow users to get a full terminal experience. In combination with [local-echo](https://github.com/wavesoft/local-echo) you can give your users an excellent terminal experience in the browser.
 
 ```ts
-import { connectToSandbox } from "@codesandbox/sdk/browser";
+
 import { Terminal } from '@xterm/xterm'
 
-const sandbox = await connectToSandbox({
-  session: initialSessionFromServer,
-  getSession: (id) => fetchJson(`/api/sandboxes/${id}`)),
-})
-const terminal = await sandbox.terminals.create()
+const terminal = await client.terminals.create()
 const xterm = new Terminal()
 
 xterm.open(document.getElementById('terminal'))
