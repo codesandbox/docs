@@ -50,7 +50,6 @@
   "hosts": "Hosts",
   "tasks": "Tasks",
   "setup": "Setup",
-  "git": "Git",
   "-- resources": {
     "type": "separator",
     "title": "Resources"

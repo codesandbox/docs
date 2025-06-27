@@ -16,22 +16,22 @@ const sandbox = await sdk.sandboxes.create()
 const client = await sandbox.connect({
     id: 'some-user-reference',
     git: {
-        name: 'Foo Bar',
+        // required
         email: 'foo@bar.com',
+        name: "foo" // Optional, defaults to session id
+
+        // Optionally set credentials
         accessToken: '...',
         provider: 'github.com',
+        username: "foo" // Optional, default tos x-access-token
     }
 })
 
-await client.git.clone('https://github.com/codesandbox/sandbox.git')
+await client.commands.run("git clone https://github.com/my-org/my-project.git")
 ```
 
-This will clone the repository to the `workspace` of the Sandbox and update the remote.
+This will clone the repository to a nested folder.
 
 <Callout>
-Note that even though we persist the disk on hibernation, there is a risk of data loss if changes are not pushed remotely. When we archive the Sandbox after 7 days of hibernation any pending changes could be lost.
+Currently we do not support replacing the workspace `.git` persistence mechanism. That means you should not update that to a new remote. This will risk loss of data when archiving the Sandbox. This will be supported when the SDK Sandboxes are properly decoupled from the CodeSandbox product.
 </Callout>
-
-## Nested repositories
-
-You can also run any commands for git manually to for example clone a nested repository. This folder is ignored by the `workspace` git folder, which means it also puts persistence in your control.

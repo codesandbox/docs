@@ -50,22 +50,19 @@ const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.createSession({
     id: 'some-user-reference,
     git: {
+        email: 'foo@bar.com', // Required
+        name: 'Foo Bar', // Optional, defaults to session id
 
-        email: 'foo@bar.com',
+        // Optional credentials
         accessToken: '...',
         provider: 'github.com',
-
-        // Optional
-        name: 'Foo Bar',
-
-        // Optional for most providers
-        username: 'my-provider-username'
+        username: 'my-provider-username' // Optional, defaults to x-access-token
     }
 })
 ```
 
 <Callout>
-It is highly recommended that Sandboxes where git credentials are used, are not exposed to the public. Even though we store the token in the isolated `~/.private` folder, there are still some security concerns. 
+It is highly recommended that Sandboxes where git credentials are used, are not exposed to the public. Even though we store the token in the isolated `~/.private` folder, there are still some security concerns if the Sandbox is public or shared between multiple user sessions.
 </Callout>
 
 ### Environment variables

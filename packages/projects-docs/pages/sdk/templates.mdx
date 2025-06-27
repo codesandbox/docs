@@ -25,9 +25,11 @@ Now we need to configure the template with tasks so that it will install depende
 
 ```json
 {
+    // Commands that configures the Sandbox after it has started
     "setupTasks": [
         "npm install"
     ],
+    // Tasks that can be controlled by the Sandbox Client
     "tasks": {
         "dev-server": {
             "name": "Dev Server",

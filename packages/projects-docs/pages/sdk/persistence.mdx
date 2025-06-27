@@ -33,6 +33,6 @@ We keep a `.git` directory in `/persisted` to track the filesystem of the sandbo
 
 - `/project/workspace`: this is the working directory of the sandbox. All files saved in this directory will be persisted between reboots. If the sandbox is not started for more than two weeks (or longer, again depending on your plan and disk pressure), we'll commit all files of `/project/workspace` to `/persisted` and delete the disk. If the persisting of those files fails, we won't delete the disk to ensure your data is not lost.
 
-## Repositories
+## Ignored files
 
-If you are cloning a repository to the workspace or a sub folder the automatic persistence will no longer trigger. That means you will need to ensure that any changes are pushed remotely before the Sandbox is archived (Typically after 7 days of hibernation) or those changes will be lost.
+The Sandbox persistence relies on `.gitignore`. That means anything ignored by git, will also be ignored by our persistence.
