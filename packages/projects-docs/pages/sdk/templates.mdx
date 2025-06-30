@@ -54,11 +54,11 @@ Do **NOT** start dev servers or other long running porcesses in the `setupTasks`
 Now we are ready to deploy the template to our clusters, run:
 
 ```bash
-$ CSB_API_KEY=your-api-key npx @codesandbox/sdk build ./my-template --privacy private --vmTier Micro --ports 5173
+$ CSB_API_KEY=your-api-key npx @codesandbox/sdk build ./my-template --privacy private --vm-tier Nano --vm-build-tier Micro --ports 5173
 ```
 
 <Callout>
-The tempalte default to a `Micro` VM Tier and privacy "unlisted". It is recommended to make templates private and evaluate setting a higher tier if you need the flexibility to adjust that later. When creating a Sandbox from a template you can always override the VM Tier.
+The template defaults to a `Micro` VM Tier for both building the template and when creating Sandboxes from it. You can not "downsize" Sandboxes when creating them from a template, so make sure you set the minimum tier you want here. It is recommended to make templates private, but they default to "unlisted".
 </Callout>
 
 This will start the process of creating Sandboxes for each of our clusters, write files, restart, wait for port 5173 to be available and then hibernate. This generates the snapshot that allows you to quickly create Sandboxes already running a dev server from the template.
@@ -70,7 +70,8 @@ import { VMTier } from '@codesandbox/sdk'
 
 const sandbox = await sdk.sandboxes.create({
     id: 'some-template-id',
-    vmTier: VMTier.Pico
+    // Defaults to your --vm-tier parameter when building the template
+    vmTier: VMTier.Micro
 })
 ```
 
