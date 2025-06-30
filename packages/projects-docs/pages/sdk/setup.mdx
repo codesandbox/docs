@@ -32,16 +32,13 @@ Setup tasks run in order when initializing your sandbox. They're typically used 
 Setup tasks run automatically when a sandbox starts. They typically handle installation of dependencies and initial builds. You can monitor and control setup tasks using the Setup API:
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const session = await sandbox.connect()
-
-console.log(`Setup status: ${session.setup.status}`);
+console.log(`Setup status: ${client.setup.status}`);
 
 // Wait for the whole thing to complete
-await session.setup.waitUntilComplete()
+await client.setup.waitUntilComplete()
 
 // Or handle each step
-const steps = await session.setup.getSteps()
+const steps = await client.setup.getSteps()
 
 for (const step of steps) {
   console.log(`Step: ${step.name}`);
@@ -60,7 +57,7 @@ for (const step of steps) {
 
 ## Setup Tasks vs Docker Build: When to Use Which?
 
-Setup tasks are used for any preparation work needed in the `/project/sandbox` directory, such as:
+Setup tasks are used for any preparation work needed in the `/project/workspace` directory, such as:
 
 - Installing dependencies
 - Building assets
@@ -72,4 +69,4 @@ Docker build, on the other hand, should be used for:
 - Installing system-level dependencies
 - Configuring global tools
 
-This separation exists because the `/project/sandbox` directory is only available after the container starts.
+This separation exists because the `/project/workspace` directory is only available after the container starts.

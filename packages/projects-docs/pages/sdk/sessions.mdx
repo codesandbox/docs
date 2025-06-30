@@ -1,0 +1,103 @@
+---
+title: Sessions
+description: Learn how to create sessions with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Sessions
+
+To connect to a Sandbox you need to create a session.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.createSession({ id: 'some-session-ref' })
+
+// When connecting on your server you can configure
+// the session directly when connecting
+const client = await sandbox.connect({ id: 'some-session-ref' })
+```
+
+You can create a session without passing an argument. This will create a session bound to a user called `pitcher-host`. This user has write access to any API. We refer to this session as the "global" session.
+
+<Callout>
+When you run `whoami`, it will say that you are `root`. That's because we run every session inside a Docker container where you are `root`. However the container itself is started as the user of your session.
+</Callout>
+
+## User Sessions
+
+You should use user sessions for your users. This ensures privacy and isolation between users. You can configure a user session to have specific permissions, git access, tokens to securily access private hosts and even environment variables.
+
+### Permissions
+
+By default a user has `write` access, but you can configure a user session to have `read` access.
+
+```ts
+// Now configure a user session that only has read access to the sandbox
+const sandbox = await sdk.sandboxes.create()
+const session = sandbox.createSession({
+  id: 'anonymous',
+  permission: 'read'
+})
+```
+
+### Git
+
+Passing git details allows the user to use git commands inside the sandbox.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.createSession({
+    id: 'some-user-reference,
+    git: {
+        email: 'foo@bar.com', // Required
+        name: 'Foo Bar', // Optional, defaults to session id
+
+        // Optional credentials
+        accessToken: '...',
+        provider: 'github.com',
+        username: 'my-provider-username' // Optional, defaults to x-access-token
+    }
+})
+```
+
+<Callout>
+It is highly recommended that Sandboxes where git credentials are used, are not exposed to the public. Even though we store the token in the isolated `~/.private` folder, there are still some security concerns if the Sandbox is public or shared between multiple user sessions.
+</Callout>
+
+### Environment variables
+
+If you pass environment variables, these variables will be available to the user inside the commands and terminals that they run in the Sandbox.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+const session = await sandbox.createSession({
+  id: 'anonymous',
+  env: {
+    FOO: 'bar'
+  }
+})
+```
+
+### Host Tokens
+
+Passing a host token to the session will sign all url generation from the client APIs.
+
+```ts
+const sandbox = await sdk.sandboxes.create()
+
+const hostToken = await sdk.hosts.createToken()
+
+const session = await sandbox.createSession({
+  id: 'some-user-reference',
+  hostToken
+})
+```
+
+## Storage
+
+Every session will have the same filesystem as the global session. This means that if one user creates a file inside the workspace folder (or even the home folder), other users will be able to see it with one exception. The `~/.private` folder will be private for each session. No other session (including the global session) will be able to read or write to files inside this folder.
+
+<Callout>
+The `~/.private` folder will not be persisted between restarts of the sandbox. This means that files inside this folder will disappear between restarts. 
+</Callout>

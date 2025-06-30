@@ -17,8 +17,8 @@ To create a sandbox, call `sandbox.create()`:
 
 ```ts
 import { CodeSandbox } from '@codesandbox/sdk'
-const sdk = new CodeSandbox();
 
+const sdk = new CodeSandbox();
 const sandbox = await sdk.sandboxes.create();
 ```
 
@@ -26,57 +26,58 @@ const sandbox = await sdk.sandboxes.create();
 By default Sandboxes are `unlisted` and can be accessed and forked by anyone with a url. If you want to create a private sandbox you can pass `privacy: 'private'`, which requires host tokens to access the exposed ports.
 </Callout>
 
-If no argument is provided to `sandbox.create()`, we'll create a sandbox based on our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own snapshot using our [Snapshot Builder](/sdk/snapshot-builder). Additionally you can choose other sources like [Git](/sdk/sandbox#git) or [Files](/sdk/sandbox#files).
-
-### Create from Template
+If no `id` option is provided to `sandbox.create()`, we'll create a sandbox forked from our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own template using our [Template Builder](/sdk/templates).
 
 ```ts
 const sandbox = await sdk.sandboxes.create({
-    source: 'template',
-    id: 'some-sandbox-id'
-})
-```
+    id: 'some-sandbox-id',
 
-### Create from Git
+    // Optional properties
+    title: 'my-sandbox',
+    description: 'My sandbox',
+    tags: ['my-tag'],
 
-```ts
-const sandbox = await sdk.sandboxes.create({
-    source: 'git',
-    url: 'https://...',
-    branch: 'main',
-    templateId: 'optional-template-id-to-fork-from',
-    // Optionally pass necessary git config for private repos etc.
-    config: {
-      accessToken: 'github-token',
-      email: 'foo@bar.com',
-      name: 'Foo Bar'
-    },
-    async setup(session) {
-        await session.commands.run('pnpm install')
-        await session.commands.run('pnpm run dev')
-        await session.ports.waitForPort(5173)
+    // Public, unlisted or private
+    privacy: 'private',
+
+    // Collection folder on Dashboard
+    path: '/users/some-user-folder',
+
+    // Prefer closest cluster. Follows ISO 3166-1 alpha-2 codes.
+    ipcountry: "US",
+
+    // What VM Tier to use for the Sandbox
+    vmTier: VMTier.Pico,
+
+    // How quickly the sandbox should hibernate after inactivity.
+    // Defaults to 300 seconds for free users, 1800 seconds for
+    // pro users. Maximum is 86400 seconds (1 day).
+    hibernationTimeoutSeconds: 120_000,
+
+    // Configure if Sandbox should wake up automatically on HTTP
+    // or requests or WebSocket connections
+    automaticWakeupConfig: {
+        http: true,
+        websocket: true
     }
 })
 ```
 
 <Callout>
-It depends on the repo how you want to setup the sandbox. If it is configured with tasks you can run `session.setup.run()` to run the full setup, but if configured with a `.devcontainer` you want to restart the sandbox itself. Or you can do like the example just run some commands.
+The `automaticWakeupConfig` only wakes up the Sandbox, it does not extend its hibernation timeout.
 </Callout>
 
-### Additional options
+## Resume an Existing Sandbox
 
-For any of the above sources you can also pass the following options:
+To resume an existing sandbox from hibernation and connect to it call: `sdk.sandboxes.resume(id)`:
 
 ```ts
-const sandbox = await sdk.sandboxes.create({
-    source: 'template',
-    title: 'my-sandbox',
-    description: 'My sandbox',
-    tags: ['my-tag'],
-    privacy: 'public'
-    path: '/users/some-user-folder'
-})
+const sandbox = await sdk.sandboxes.resume('sandbox-id');
 ```
+
+<Callout>
+Sandboxes that have been dormant for a week will do a CLEAN bootup, meaning it will run its setup tasks when resumed. Please make sure you [handle this](/sdk/lifecycle#managing-clean-bootups) case in your application.
+</Callout>
 
 ## Sandbox Properties
 
@@ -89,14 +90,56 @@ Each Sandbox has the following properties, with information about it's own insta
 - `cluster`: The cluster the sandbox is running on.
 - `bootupType`: The type of bootup, `RUNNING`, `CLEAN`, `RESUME` or `FORK`.
 
-## Resume an Existing Sandbox
+## Snapshots
 
-To resume an existing sandbox from hibernation and connect to it call: `sdk.sandboxes.resume(id)`:
+When a Sandbox is hibernated, we create and save a snapshot of the underlying Firecracker VM.
+
+If you call `sdk.sandboxes.resume(id)` or a network request is made to the Sandbox, we restore the snapshot. Allowing you to continue from exactly where you left off.
+
+As we already have a snapshot, we can also use it to create a fork of your project in a new Sandbox. So you can create multiple instances without having to do all the set up work every time.
 
 ```ts
-const sandbox = await sdk.sandboxes.resume('sandbox-id');
+import { CodeSandbox } from '@codesandbox/sdk'
+const sdk = new CodeSandbox();
+
+const sandbox = await sdk.sandboxes.create();
+const client = await sandbox.connect()
+
+// Run anything on the sandbox
+await client.shells.run('echo test > test.txt');
+
+const sandbox2 = await sdk.sandboxes.create({
+    id: sandbox.id
+});
+
+// Now we have two sandboxes that have the same fs & memory state!
 ```
 
-<Callout>
-Sandboxes that have been dormant for a week may take longer to start as they will need to run their [setup](/sdk/setup) before resuming. 
-</Callout>
+You can use this to add support for checkpoint/restore functionality, or A/B test different agent iterations. At CodeSandbox we use this to enable users to quickly fork shared Sandboxes to their own account.
+
+### Manually Creating a Snapshot
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+
+const sdk = new CodeSandbox();
+const sandbox = await sdk.sandboxes.create();
+
+// Do work
+
+await sdk.sandboxes.hibernate(sandbox.id);
+```
+
+Creating a snapshot can take between 3-10 seconds. Resuming from a snapshot takes between 0.5-2 seconds.
+
+## Live snapshots
+
+If a Sandbox is already running we can still fork its exact current state. This has a small overhead of about 0.5 seconds.
+
+### Learn More
+
+We have written a couple blog posts about how snapshots work under the hood:
+
+- [How we clone a running VM in 2 seconds](https://codesandbox.io/blog/how-we-clone-a-running-vm-in-2-seconds)
+- [Cloning microVMs by sharing memory through userfaultfd](https://codesandbox.io/blog/cloning-microvms-using-userfaultfd)
+- [How we scale our microVM infrastructure using low-latency memory decompression](https://codesandbox.io/blog/how-we-scale-our-microvm-infrastructure-using-low-latency-memory-decompression)

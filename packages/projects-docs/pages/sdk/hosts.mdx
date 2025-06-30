@@ -7,21 +7,16 @@ import { Callout } from 'nextra-theme-docs'
 
 # Hosts
 
-Hosts are the services exposed by your Sandbox. They all have their own hostname which includes the port. The `sandbox.hosts` API will allow you to access these your Sandbox hosts securily using signed urls, headers or cookies.
+Hosts are the services exposed by your Sandbox. They all have their own hostname which includes the port. The `client.hosts` API will allow you to access these your Sandbox hosts securily using signed urls, headers or cookies.
+
+The `hostToken` is embedded in your session.
 
 ```ts
-const sandbox = await sdk.sandboxes.create()
-const hostToken = await sandbox.hosts.createToken()
-const session = await sandbox.connect({
-  id: 'some-user-reference',
-  hostToken
-})
-
 // Will give you a URL to access the service on port 5173 with a signed token
-const url = session.hosts.getUrl(5173)
+const url = client.hosts.getUrl(5173)
 
 // If you rather want to access passing headers
-const headers = session.hosts.getHeaders()
+const headers = client.hosts.getHeaders()
 
 console.log(url)
 ```
@@ -29,7 +24,3 @@ console.log(url)
 <Callout>
 By default all Sandboxes are unlisted, but you need to use host tokens to access private Sandboxes. With public or unlisted Sandboxes the host tokens are not necessary, but you can still `getUrl` to generate a url for the relevant port.
 </Callout>
-
-## Persisting Host Tokens
-
-It is recommended that host tokens are persisted and provided to sessions. By default it is likely enough to generate a host token when you create the Sandbox, which can be used on any session and will never expire. But you can generate host tokens per session id or even temporary ones for specific sessions, maybe sharing a preview.
