@@ -24,17 +24,7 @@ const client = await sandbox.connect()
 
 ## Node
 
-So you might run a client in Node (ish) environment. For example React Native. To consume the Sandbox you need to request a session from your server and pass it to the client.
-
-```ts
-import { connectToSandbox } from '@codesandbox/sdk/node'
-
-const client = await connectToSandbox({
-  session: initialSessionFromServer,
-  // On reconnect the session will be fetched from the server again
-  getSession: (id) => fetchJson(`/api/sandboxes/${id}`),
-})
-```
+So you might run a client in Node (ish) environment. For example React Native. To consume the Sandbox you need to request a session from your server (`sandbox.createSession`) and pass it to the client.
 
 This is how your server can provide the session:
 
@@ -46,6 +36,21 @@ export const GET = async ({ params }) => {
   // Respond with the session
   return session
 }
+```
+
+And in your client:
+
+```ts
+import { connectToSandbox } from '@codesandbox/sdk/node'
+
+const getSession = () => fetchJson(`/api/sandboxes/my-sandbox-id`)
+
+const client = await connectToSandbox({
+  // Explicitly set initial session, which allows you to include it in your page load as well
+  session: await getSession(),
+  // On reconnect the session will be fetched from the server again
+  getSession
+})
 ```
 
 ## Browser

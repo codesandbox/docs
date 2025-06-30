@@ -35,7 +35,7 @@
     "type": "separator",
     "title": "Privacy & Security"
   },
-  "hosts-privacy": "Hosts Privacy",
+  "host-privacy": "Host Privacy",
   "preview-api-access": "Preview API Access",
 
   "-- client": {
