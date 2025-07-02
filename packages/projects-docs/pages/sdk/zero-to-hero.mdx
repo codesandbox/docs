@@ -1,0 +1,453 @@
+---
+title: Integration Guide
+description: Learn about integrating CodeSandbox SDK into a product
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Integration Guide: Zero to Hero
+
+The journey of integrating the CodeSandbox SDK begins on your codesandbox.io Dashboard. Here’s what to look for:
+
+- **Workspace & API Keys**: Under Settings, create or select the workspace you want to use with the SDK. Generate an API key with the appropriate scopes for creating, updating, and managing Sandboxes programmatically.
+
+- **Plan & Billing**: Navigate to the Plan & Billing section to review your current plan. Set spending limits to control your monthly usage, or reach out to our sales team for enterprise-tier access if you anticipate large-scale Sandbox operations.
+
+- **Virtual Machine Usage**: In the Usage Dashboard, monitor your real-time VM usage—see how many Sandboxes are currently running and track your accumulated spend. This visibility helps you optimize for both performance and cost as you build.
+
+Once your workspace, API key, and billing settings are in place, you’re ready to start making SDK calls from your application environment.
+
+## Creating Sandbox Templates
+
+When creating a Sandbox with the SDK you always create it from a template. We offer a default empty universal template with an environment configured to support most languages. This gets you going quickly, but we recommend that you take full ownership in the environment configuration and generate your own template.
+
+A template is technically three Sandbox snapshots scheduled across three different VM clusters for replication and high availability. When you create a Sandbox from your template we will create a new Sandbox from one of the clusters in about 2 seconds. The snapshot is not just files, it is also any running dev servers or other processes you have configured. That means for us a template is not just files, it is the tasks you configure to be running when the Sandbox is created.
+
+### Environment
+
+Inside your template folder, create a directory named `.devcontainer` with a file also named `.devcontainer`:
+
+```json
+{
+  "name": "My Node.js Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/base:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "latest"
+    }
+  }
+}
+```
+
+Now your Sandbox is configured to use a Node environment, but you can choose any devcontainer setup here. For more details on configuring Docker, visit [CodeSandbox SDK Docker Documentation](https://codesandbox.io/docs/sdk/docker).
+
+### Files
+
+Add any additional files required for your template, such as source files, configuration files, scripts, or assets. For example `npm create vite@latest`. The Sandbox persistence is based on `git`, meaning that it honors any `.gitignore` file in the Sandbox. Make sure you ignore any caches, packages folders like `node_modules` etc.
+
+### Tasks
+
+Sandboxes has a first class concept of `tasks`. It is critical to configure tasks correctly for optimal creation of Sandboxes. Create a file called `.codesandbox/tasks.json`:
+
+```json
+{
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install"
+    }
+  ],
+  "tasks": {
+    "dev": {
+      "name": "dev",
+      "command": "npm run dev",
+      "runAtStart": true,
+      "preview": {
+        "port": 5173
+      }
+    }
+  }
+}
+```
+
+Think about tasks as processes not bound to any specific session interacting with the Sandbox. There are two types of tasks:
+
+#### Setup Tasks
+
+When you create a Sandbox the setup tasks has already run and been snapshotted, but if the Sandbox ever needs to restart or it resumes from an archived state due to inactivity, these setup tasks will run before other defined tasks. Setup tasks are tasks like installing dependencies, or running configuration scripts etc. Running a development server is **NOT** considered a setup task. When resuming a Sandbox using the SDK you will be able to access any running setup and its progress.
+
+#### Tasks
+
+Tasks are global processes that any session can interact with. When connected to a Sandbox you can list tasks, restart them, look at their output etc. A task ensures that there will at any time only be a single shell responsible for the process.
+
+If you want a task to start when the Sandbox starts, you can add `runAtStart` flag. That means the task runs _after_ the setup tasks are completed succesfully. Additionally if the task opens a port you can configure that as a `preview`. Normally we detect what ports belongs to what tasks, but this relationship is not guaranteed unless you configure it manually.
+
+Some tasks you want to restart on certain events:
+
+```json
+{
+    "tasks": {
+        "dev": {
+        "name": "Development Server",
+        "command": "npm run dev",
+        "runAtStart": true,
+        "restartOn": {
+            // Restart on file changes
+            "files": ["package.json", "package-lock.json"],
+            // Restart when resuming from hibernation
+            "resume": false
+        }
+    }
+}
+```
+
+## Building Sandbox Templates
+
+It can be a good idea to test the template locally to see if it gets to its running state. The template builder also honors `.gitignore`, which means we will not include any ignored files in the template.
+
+You build the template with:
+
+```bash
+CSB_API_KEY=my-key npx @codesandbox/sdk build ./my-template-folder
+```
+
+The builder will now schedule three Sandboxes across three different VM clusters and:
+
+- Write the files to each Sandbox
+- Build the environment
+- Run the setup tasks
+- Run any tasks configured with `runAtStart`
+- Wait for any configured ports to open
+- Generate a snapshot
+
+Finally it will generate a template reference to create Sandboxes from and an example Sandbox from the template, allowing you to verify manually that everything works.
+
+You can pass several parameters to the builder:
+
+- `--vm-build-tier` - The tier to use when building the template. You can improve build time, especially with custom Docker configurations. This will not influence the `vm-tier`
+- `--vm-tier` - The default minimum tier to give Sandboxes created from the template. Note that you can set a higher tier when creating the Sandbox, but not lower
+- `--privacy` - By default the Sandbox is `unlisted`, meaning that its hosts are public, but the Sandbox is not discoverable without knowing the `id`. We recommend setting this to `private`, though this will require you to generate host tokens to access the hosts on the Sandbox
+- `--ports` - What ports should be opened before generating the snapshot
+- `--log-path` - When the builder errors it will generate error logs from the setup shells. Configure what path to put those logs in
+- `--ci` - Will disable any interactive output from the builder and immediately exit with an error if a scheduled Sandbox is not able to build
+
+#### Aliases
+
+Having to update the template reference in your code every time you update your template can be be a hassle. That is why the builder allows you to pass `--alias` parameter. This alias reference can also be used when creating a Sandbox from a template. That means in your code you can keep the same alias reference and whenever you build a new version of your template it will automatically point to that:
+
+```ts
+sdk.sandboxes.create({
+  id: "my-template@latest",
+});
+```
+
+By default you only need to pass the `tag`, ex. `--alias=latest`. This will combine the folder name and the tag to generate the alias, `my-template@latest`. But you can also pass an explicit alias: `--alias=awesome@latest`.
+
+## Creating Sandboxes
+
+```ts
+import { CodeSandbox } from "@codesandbox/sdk";
+
+const sdk = new CodeSandbox(process.env.CSB_API_KEY);
+const sandbox = await sdk.sandboxes.create({
+  id: "awesome-template@latest",
+});
+```
+
+The Sandbox is now generated from the snapshot of one of the designated clusters and spins up in about 2 seconds. You can pass some additional options:
+
+```ts
+import { VMTier } from "@codesandbox/sdk";
+
+sdk.sandboxes.create({
+  id: "awesome-template@latest",
+  title: "my-sandbox",
+  description: "My sandbox",
+  tags: ["my-tag"],
+  privacy: "private",
+  vmTier: VMTier.Pico,
+  hibernationTimeoutSeconds: 120_000,
+  automaticWakeupConfig: {
+    http: true,
+    websocket: true,
+  },
+});
+```
+
+## Sandbox Hosts
+
+Any ports opened on the Sandbox is exposed as urls, ex. `https://rfepi12-3000.csb.app`. The url is partly the Sandbox id and the port being exposed. By default hosts are public, but you can make them private by passing:
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+  id: "awesome-template@latest",
+  privacy: 'private'
+});
+```
+
+When hosts are private you need to generate a host token to access them:
+
+```ts
+const hostToken = await sdk.hosts.createToken('some-sandbox-id', {
+  expireAt: 24 * 60 * 60 * 1000
+});
+
+// Depending on how you want to communicate with the host you can generate urls which includes the port, general headers or  general cookies
+const url = sdk.hosts.getUrl(hostToken, 3000, 'https')
+const headers = sdk.hosts.getHeaders(hostToken)
+const cookies = sdk.hosts.getCookies(hostToken)
+```
+
+## Sandbox Hibernation
+
+By default a Sandbox stays awake as long as a Sandbox Client is connected to it and sending requests. For every request received the Sandbox resets its `hibernationTimeout`. By default this timeout is 30 minutes, but you can configure it:
+
+```ts
+sdk.sandboxes.create({
+  id: "awesome-template@latest",
+  hibernationTimeoutSeconds: 60 * 60 * 1000,
+});
+```
+
+And you can update it when resuming a Sandbox on the server:
+
+```ts
+const sandbox = await sdk.sandboxes.resume("sandbox-id");
+sandbox.updateHibernationTimeout(60 * 60 * 1000);
+```
+
+You can also force the Sandbox to stay awake as long as the Sandbox Client is connected by:
+
+```ts
+const sandbox = await sdk.sandboxes.resume("sandbox-id");
+const client = await sandbox.connect()
+
+client.keepActiveWhileConnected(true);
+```
+
+To keep costs down you want to keep your Sandboxes hibernated most of the time. They should really only be active when interacting with them. You will have to apply your own strategy using these methods to create the best balance of cost and user experience.
+
+## Sandbox Resume
+
+When creating a Sandbox you are guaranteed to start from a snapshot, meaning it will predictably start in about 2 seconds. When you resume a Sandbox though it can be in different states. To check the state of a resumed Sandbox, look at the `bootupType`:
+
+```ts
+const sandbox = await sdk.sandboxes.resume("some-sandbox-id");
+sandbox.bootupType; // RUNNING, RESUME or CLEAN
+```
+
+- **RUNNING**. The Sandbox was already running, the `resume` is instant
+- **RESUME**. The Sandbox was hibernating, the `resume` is expected to take a couple of seconds
+- **CLEAN**. The Sandbox was archived or there was an issue with the cluster. The `resume` takes a few more seconds and will require the setup to run
+
+### Managing CLEAN bootups
+
+When a `CLEAN` bootup occurs you can track its setup progress using the Sandox Client:
+
+```ts
+const sandbox = await sdk.sandboxes.resume("sandbox-id");
+const client = await sandbox.connect()
+
+const steps = await client.setup.getSteps()
+
+for (const step of steps) {
+  console.log(`Step: ${step.name}`);
+  console.log(`Command: ${step.command}`);
+  console.log(`Status: ${step.status}`);
+
+  const output = await step.open()
+
+  output.onOutput((output) => {
+    console.log(output)
+  })
+
+  await step.waitUntilComplete()
+}
+```
+
+In this example we check the setup progress on the server, but you can also connect to the Sandbox in the browser or other Node environments where the setup can be better integrated into a user experience. Creating a user experience for this state is important or users can risk being blocked out of the experience for 30 seconds or more without knowing why.
+
+### Host triggered resume
+
+By default we will wake up the Sandbox if an HTTP or WebSocket request is made to one of its hosts. Note, that requests made when the Sandbox is awake will NOT extend its hibernation, only a connected Sandbox Client can manually extend the Sandbox hibernation timeout.
+
+You can turn off this behavior when creating the Sandbox:
+
+```ts
+sdk.sandboxes.create({
+  id: "awesome-template@latest",
+  automaticWakeupConfig: {
+    http: false,
+    websocket: false,
+  },
+});
+```
+
+## Sandbox Agent Updates
+
+Each Sandbox has an agent running. This agent is responsible for managing the Sandbox and it exposes an endpoint to connect directly to the environment. This agent, like the SDK itself, has bug fixes and other changes which requires an update. You know if the Sandbox Agent needs an update by checking if it is up to date:
+
+```ts
+const sandbox = sdk.sandboxes.resume('some-sandbox-id')
+sandbox.isUpTodate // true
+```
+
+If the agent is not up to date you will need to restart the Sandbox to get the latest version:
+
+```ts
+const sandbox = sdk.sandboxes.resume('some-sandbox-id')
+
+if (!sandbox.isUpToDate) {
+  await sdk.sandboxes.restart(sandbox.id)
+}
+```
+
+This `restart` leads to a `CLEAN` bootup of the Sandbox and should be managed as described previously.
+
+## Sandbox Sessions
+
+When connecting to a Sandbox you need to define a session. This session configures a user on the Sandbox:
+
+```ts
+import { CodeSandbox } from "@codesandbox/sdk";
+
+const sdk = new CodeSandbox(process.env.CSB_API_KEY);
+const sandbox = await sdk.sandboxes.create({
+  id: "awesome-template@latest",
+});
+const session = await sandbox.createSession({
+  id: "my-user-reference",
+});
+```
+
+You can optionally configure permissions, pass host tokens, environment variables and git:
+
+```ts
+sandbox.createSession({
+  id: "my-user-reference",
+  permission: "write", // or "read",
+  hostToken,
+  env: {
+    FOO: "bar",
+  },
+  git: {
+    name: "Foo Bar",
+    email: "foo@bar.com",
+    username: "foobar",
+    accessToken: "my-token",
+    provider: "github.com",
+  },
+});
+```
+
+The environment variables and git credentials will be bound to the session and is accessible in any terminals or commands you are running when connected to the Sandbox. The `hostToken` will sign any url generation using the Sandbox Client API.
+
+## Sandbox Client (Server)
+
+On the server you can `connect` directly by passing the session to the `connect` method:
+
+```ts
+import { CodeSandbox } from "@codesandbox/sdk";
+
+const sdk = new CodeSandbox(process.env.CSB_API_KEY);
+const sandbox = await sdk.sandboxes.create({
+  id: "awesome-template@latest",
+});
+const client = await sandbox.connect({
+  id: "my-user-reference",
+});
+```
+
+If you rather want to connect to the Sandbox from a browser environment or other environment separate from the server, you will need to create a session and respond with it on an endpoint:
+
+```ts
+import { CodeSandbox } from "@codesandbox/sdk";
+
+const sdk = new CodeSandbox(process.env.CSB_API_KEY);
+
+export const createSandboxHandler = async (req, res) => {
+  const sandbox = await sdk.sandboxes.create({
+    id: "awesome-template@latest",
+  });
+  const session = await sandbox.createSession({
+    id: req.user.id,
+  });
+
+  return res.json(session);
+};
+
+export const resumeSandboxHandler = async (req, res) => {
+  const sandbox = await sdk.sandboxes.resume(req.params.sandboxId);
+  const session = await sandbox.createSession({
+    id: req.user.id,
+  });
+
+  return res.json(session);
+};
+```
+
+## Sandbox Client (Browser/Node)
+
+The SDK supports connecting from a browser environment or a node environment, like React Native. Regardless you depend on the server to create sessions. The Sandbox Client takes an initial session and a callback to recreate the session when a disconnect happens:
+
+```ts
+// import { connectToSandbox } from '@codesandbox/sdk/node'
+import { connectToSandbox } from "@codesandbox/sdk/browser";
+
+const getSession = (id) => fetchJson(`/my-api/sandboxes/${id}`);
+
+const client = await connectToSandbox({
+  session: await getSession("some-sandbox-id"),
+  getSession,
+});
+```
+
+In this example we explicitly asked for the session, but you could also have included the initial session on the page load. You can further configure the client: https://codesandbox.io/docs/sdk/clients
+
+## Browser Previews
+
+If your Sandbox is running a development server and want to show that in an iframe you can take advantage of our preview api.
+
+```ts
+import { createPreview } from '@codesandbox/sdk/browser'
+
+const preview = createPreview('https://fior2-5173.csb.app')
+
+document.querySelector('#preview-container').appendChild(preview.iframe)
+```
+
+This configures an iframe to show the preview. The power of this API is that you can interact with the iframe. Due to domain restrictions you will need to trust your development and application hosts using the CLI:
+
+```sh
+npx @codesandbox/sdk preview-hosts preview-hosts add my-domain.io
+```
+
+Now you will be able to get navigation information from the iframe, navigate it programmatically and even inject and invoke custom code:
+
+```ts
+preview.onMessage((message) => {
+    switch (message.type) {
+        case 'SET_URL': {
+            // Url that was set
+            message.url
+            // If you can move backward
+            message.back
+            // If you can move forward
+            message.forward
+            break;
+        }
+        case 'RELOAD': {
+            // If preview reloaded
+        }
+        case 'PREVIEW_UNLOADING': {
+            // Preview will unload
+        }
+    }
+})
+```
+
+Read more at http://localhost:3000/sdk/browser-previews
+
+## Debugging Sandboxes
+
+All Sandboxes are created on your workspace and can be accessed through the CodeSandbox code editor at codesandbox.io. To open a Sandbox open the url: https://codesandbox.io/s/$SANDBOX_ID.
