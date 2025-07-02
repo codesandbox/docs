@@ -5,16 +5,17 @@
     "href": "https://wkyxcw-5173.csb.app/",
     "title": "Example Playground"
   },
-  "faq": "FAQ",
+  "zero-to-hero": "Integration Guide",
   "pricing": "Pricing",
-  "-- guides": {
+  "faq": "FAQ",
+  "-- quickstarts": {
     "type": "separator",
-    "title": "Guides"
+    "title": "Quickstarts"
   },
   "templates": "Templates",
   "repositories": "Repositories",
-  "clients": "Clients",
-  "bootups": "Bootups",
+  "clients": "Connecting",
+  "bootups": "Clean Bootups",
   "browser-previews": "Previews",
   "shells": "Shells",
   "docker": "Docker & Docker Compose",
