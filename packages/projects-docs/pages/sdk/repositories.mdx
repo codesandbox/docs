@@ -9,7 +9,7 @@ import { Callout } from 'nextra-theme-docs'
 
 By default a Sandbox works like a repository. It has a `.git` folder and it pushes to a remote file system when the Sandbox hibernates.
 
-If you rather want to use an existing remote repository, you can do so by simpy cloning a repository to the sandbox.
+If you rather want to use an existing remote repository, you can do so by simply cloning a repository to the sandbox.
 
 ```ts
 const sandbox = await sdk.sandboxes.create()
@@ -23,7 +23,7 @@ const client = await sandbox.connect({
         // Optionally set credentials
         accessToken: '...',
         provider: 'github.com',
-        username: "foo" // Optional, default tos x-access-token
+        username: "foo" // Optional, defaults to x-access-token
     }
 })
 
