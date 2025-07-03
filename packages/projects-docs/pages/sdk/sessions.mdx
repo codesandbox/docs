@@ -48,7 +48,7 @@ Passing git details allows the user to use git commands inside the sandbox.
 ```ts
 const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.createSession({
-    id: 'some-user-reference,
+    id: 'some-user-reference',
     git: {
         email: 'foo@bar.com', // Required
         name: 'Foo Bar', // Optional, defaults to session id
