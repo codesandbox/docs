@@ -1,0 +1,360 @@
+---
+title: CLI
+---
+
+# CodeSandbox SDK CLI
+
+The CodeSandbox SDK provides a command-line interface (CLI) called `csb` for managing sandboxes, templates, and configurations.
+
+## Installation
+
+```bash
+npm install @codesandbox/sdk
+```
+
+### Direct Usage with npx
+
+You can also use the CLI directly without installing it by using npx:
+
+```bash
+npx @codesandbox/sdk <command> [options]
+```
+
+This is useful for one-time usage or when you don't want to install the package globally.
+
+## Authentication
+
+The CLI requires authentication with a CodeSandbox API token. You can obtain one from https://codesandbox.io/t/api.
+
+Set your API token using the `CSB_API_KEY` environment variable:
+
+```bash
+export CSB_API_KEY=your_api_token_here
+```
+
+## Usage
+
+### Basic Usage
+
+```bash
+csb <command> [options]
+```
+
+### Interactive Dashboard
+
+Running `csb` without any arguments launches an interactive dashboard:
+
+```bash
+csb
+```
+
+This provides a visual interface for managing your sandboxes and templates.
+
+## Commands
+
+### `build`
+
+Build an efficient memory snapshot from a directory that can be used to create sandboxes quickly.
+
+**Syntax:**
+```bash
+csb build <directory> [options]
+```
+
+**Arguments:**
+- `<directory>` - Path to the project directory to create a snapshot from (required)
+
+**Options:**
+- `--from-sandbox <id>` - Use and update an existing sandbox as a template
+- `--name <name>` - Name for the resulting sandbox that will serve as snapshot
+- `--ports <ports...>` - Ports to wait for to open before creating snapshot (array of numbers)
+- `--vm-tier <tier>` - Base specs to use for the template sandbox (choices: micro, small, medium, large, xlarge)
+- `--vm-build-tier <tier>` - Specs to use for building the template sandbox (choices: micro, small, medium, large, xlarge)
+- `--alias <alias>` - Alias that should point to the created template. Format: `namespace@alias` or just `alias`
+- `--ci` - CI mode, will exit process if any error occurs (default: false)
+- `--log-path <path>` - Relative path to log file, if any
+
+**Examples:**
+```bash
+# Build a template from current directory
+csb build .
+
+# Build with custom name and alias
+csb build ./my-project --name "My Template" --alias my-template
+
+# Build with specific VM tiers and ports
+csb build ./web-app --vm-tier small --vm-build-tier medium --ports 3000 8080
+
+# Build in CI mode
+csb build ./project --ci
+```
+
+### `sandboxes`
+
+Manage sandboxes with various subcommands.
+
+#### `sandboxes list`
+
+List sandboxes with filtering and formatting options.
+
+**Syntax:**
+```bash
+csb sandboxes list [options]
+```
+
+**Options:**
+- `--output, -o <fields>` - Output format (comma-separated list of fields: id,title,privacy,tags,createdAt,updatedAt)
+- `--headers` - Show headers (default: true)
+- `--tags, -t <tags>` - Filter by tags (comma-separated)
+- `--status, -s <status>` - Filter by status (choices: running)
+- `--page, -p <number>` - Page number
+- `--page-size <number>` - Number of items per page
+- `--since <date>` - Filter by creation date
+- `--order-by <field>` - Order results by field (choices: inserted_at, updated_at)
+- `--direction <dir>` - Sort direction (choices: asc, desc)
+- `--limit, -l <number>` - Maximum number of sandboxes to list (default: 100)
+
+**Examples:**
+```bash
+# List all sandboxes
+csb sandboxes list
+
+# List running sandboxes with custom output
+csb sandboxes list --status running --output id,title,createdAt
+
+# List sandboxes with specific tags
+csb sandboxes list --tags template,nodejs
+
+# List recent sandboxes
+csb sandboxes list --since 2024-01-01 --order-by inserted_at --direction desc
+```
+
+#### `sandboxes fork`
+
+Fork an existing sandbox.
+
+**Syntax:**
+```bash
+csb sandboxes fork <id>
+```
+
+**Arguments:**
+- `<id>` - ID of the sandbox to fork (required)
+
+**Example:**
+```bash
+csb sandboxes fork abc123
+```
+
+#### `sandboxes hibernate`
+
+Hibernate sandbox(es) to save resources.
+
+**Syntax:**
+```bash
+csb sandboxes hibernate [id]
+```
+
+**Arguments:**
+- `[id]` - ID of the sandbox to hibernate (optional - if not provided, reads from stdin)
+
+**Examples:**
+```bash
+# Hibernate specific sandbox
+csb sandboxes hibernate abc123
+
+# Hibernate multiple sandboxes via stdin
+echo "abc123\ndef456" | csb sandboxes hibernate
+```
+
+#### `sandboxes shutdown`
+
+Shutdown sandbox(es) completely.
+
+**Syntax:**
+```bash
+csb sandboxes shutdown [id]
+```
+
+**Arguments:**
+- `[id]` - ID of the sandbox to shutdown (optional - if not provided, reads from stdin)
+
+**Examples:**
+```bash
+# Shutdown specific sandbox
+csb sandboxes shutdown abc123
+
+# Shutdown multiple sandboxes via stdin
+echo "abc123\ndef456" | csb sandboxes shutdown
+```
+
+### `host-tokens`
+
+Manage host tokens for sandbox access.
+
+#### `host-tokens list`
+
+List host tokens for a sandbox.
+
+**Syntax:**
+```bash
+csb host-tokens list <sandbox-id>
+```
+
+**Arguments:**
+- `<sandbox-id>` - ID of the sandbox (required)
+
+**Example:**
+```bash
+csb host-tokens list abc123
+```
+
+#### `host-tokens create`
+
+Create a host token for a sandbox.
+
+**Syntax:**
+```bash
+csb host-tokens create <sandbox-id> --expires-at <date>
+```
+
+**Arguments:**
+- `<sandbox-id>` - ID of the sandbox (required)
+
+**Options:**
+- `--expires-at, -e <date>` - Expiration date (ISO 8601 format, e.g. 2024-12-31T23:59:59Z) (required)
+
+**Example:**
+```bash
+csb host-tokens create abc123 --expires-at 2024-12-31T23:59:59Z
+```
+
+#### `host-tokens update`
+
+Update the expiration date of a host token.
+
+**Syntax:**
+```bash
+csb host-tokens update <sandbox-id> <host-token-id> [--expires-at <date>]
+```
+
+**Arguments:**
+- `<sandbox-id>` - ID of the sandbox (required)
+- `<host-token-id>` - ID of the host token (required)
+
+**Options:**
+- `--expires-at, -e <date>` - Expiration date (ISO 8601 format) or omit to remove expiration
+
+**Example:**
+```bash
+csb host-tokens update abc123 token456 --expires-at 2024-12-31T23:59:59Z
+```
+
+#### `host-tokens revoke`
+
+Revoke host token(s).
+
+**Syntax:**
+```bash
+csb host-tokens revoke <sandbox-id> [host-token-id] [--all]
+```
+
+**Arguments:**
+- `<sandbox-id>` - ID of the sandbox (required)
+- `[host-token-id]` - ID of the host token (optional)
+
+**Options:**
+- `--all, -a` - Revoke all preview tokens (conflicts with host-token-id)
+
+**Examples:**
+```bash
+# Revoke specific token
+csb host-tokens revoke abc123 token456
+
+# Revoke all tokens
+csb host-tokens revoke abc123 --all
+```
+
+### `preview-hosts`
+
+Manage preview hosts that can access the Preview API.
+
+#### `preview-hosts list`
+
+List current preview hosts.
+
+**Syntax:**
+```bash
+csb preview-hosts list
+```
+
+#### `preview-hosts add`
+
+Add a preview host.
+
+**Syntax:**
+```bash
+csb preview-hosts add <host>
+```
+
+**Arguments:**
+- `<host>` - Host to add (required)
+
+**Example:**
+```bash
+csb preview-hosts add example.com
+```
+
+#### `preview-hosts remove`
+
+Remove a preview host.
+
+**Syntax:**
+```bash
+csb preview-hosts remove <host>
+```
+
+**Arguments:**
+- `<host>` - Host to remove (required)
+
+**Example:**
+```bash
+csb preview-hosts remove example.com
+```
+
+#### `preview-hosts clear`
+
+Clear all preview hosts.
+
+**Syntax:**
+```bash
+csb preview-hosts clear
+```
+
+## Error Handling
+
+The CLI provides detailed error messages and logs. For build operations, logs are automatically saved to files when errors occur:
+
+- Setup failure logs: `setup-failure-{sandbox-id}-{timestamp}.log`
+- Use `--log-path` option to specify custom log directory
+
+## Exit Codes
+
+- `0` - Success
+- `1` - Error occurred
+
+## Environment Variables
+
+- `CSB_API_KEY` - CodeSandbox API token (required)
+
+## Configuration
+
+The CLI automatically detects your API key from the `CSB_API_KEY` environment variable. Make sure to set this before using any commands.
+
+## Tips
+
+1. Use the interactive dashboard (`csb` without arguments) for a visual overview
+2. Use `--ci` flag in build commands for automated environments
+3. Combine commands with shell pipes for batch operations
+4. Use `--output` option to customize list formatting for scripting
+5. Set appropriate VM tiers based on your resource needs

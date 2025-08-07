@@ -38,6 +38,11 @@
   "host-privacy": "Host Privacy",
   "preview-api-access": "Preview API Access",
 
+  "-- cli": {
+    "type": "separator",
+    "title": "CLI"
+  },
+  "cli": "CLI Reference",
   "-- client": {
     "type": "separator",
     "title": "Client"
