@@ -58,7 +58,7 @@ $ CSB_API_KEY=your-api-key npx @codesandbox/sdk build ./my-template --privacy pr
 ```
 
 <Callout>
-The template defaults to a `Micro` VM Tier for both building the template and when creating Sandboxes from it. You can not "downsize" Sandboxes when creating them from a template, so make sure you set the minimum tier you want here. It is recommended to make templates private, but they default to "unlisted". Use `build --help` for documentation on all parameters.
+The template defaults to a `Micro` VM Tier for both building the template and when creating Sandboxes from it. You can not "downsize" Sandboxes when creating them from a template, so make sure you set the minimum tier you want here. It is recommended to make templates private, but they default to "public". Use `build --help` for documentation on all parameters.
 </Callout>
 
 This will start the process of creating Sandboxes for each of our clusters, write files, restart, wait for port 5173 to be available and then hibernate. This generates the snapshot that allows you to quickly create Sandboxes already running a dev server from the template.

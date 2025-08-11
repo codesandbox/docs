@@ -23,7 +23,7 @@ const sandbox = await sdk.sandboxes.create();
 ```
 
 <Callout>
-By default Sandboxes are `unlisted` and can be accessed and forked by anyone with a url. If you want to create a private sandbox you can pass `privacy: 'private'`, which requires host tokens to access the exposed ports.
+By default Sandboxes are `public` and can be accessed and forked by anyone with a url on CodeSandbox. Available privacy options are `private`, `public-hosts`, or `public`. Private sandboxes require host tokens to access exposed ports.
 </Callout>
 
 If no `id` option is provided to `sandbox.create()`, we'll create a sandbox forked from our [Universal](https://codesandbox.io/p/devbox/universal-pcz35m) template on CodeSandbox. You can also pass in a specific template id from [our collection of templates](/sdk/snapshot-library) or by creating your own template using our [Template Builder](/sdk/templates).
@@ -37,7 +37,7 @@ const sandbox = await sdk.sandboxes.create({
     description: 'My sandbox',
     tags: ['my-tag'],
 
-    // Public, unlisted or private
+    // Privacy options: 'private', 'public-hosts', or 'public'
     privacy: 'private',
 
     // Collection folder on Dashboard
@@ -66,6 +66,27 @@ const sandbox = await sdk.sandboxes.create({
 <Callout>
 The `automaticWakeupConfig` only wakes up the Sandbox, it does not extend its hibernation timeout.
 </Callout>
+
+## Get an Existing Sandbox
+
+To get information about an existing sandbox without resuming it, use `sdk.sandboxes.get(id)`:
+
+```ts
+const sandbox = await sdk.sandboxes.get('sandbox-id');
+```
+
+This method retrieves sandbox metadata and status without waking up a hibernated sandbox.
+
+## List Running Sandboxes
+
+To get a list of all currently running sandboxes, use `sdk.sandboxes.listRunning()`:
+
+```ts
+const runningSandboxes = await sdk.sandboxes.listRunning();
+console.log(runningSandboxes); // Array of sandbox objects
+```
+
+This method returns an array of sandbox objects that are currently active and running.
 
 ## Resume an Existing Sandbox
 
