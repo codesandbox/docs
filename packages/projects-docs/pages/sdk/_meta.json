@@ -55,6 +55,11 @@
   "hosts": "Hosts",
   "tasks": "Tasks",
   "setup": "Setup",
+  "-- observability": {
+    "type": "separator",
+    "title": "Observability"
+  },
+  "tracing": "OpenTelemetry & Tracing",
   "-- resources": {
     "type": "separator",
     "title": "Resources"

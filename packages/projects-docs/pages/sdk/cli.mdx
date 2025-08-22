@@ -48,13 +48,37 @@ Running `csb` without any arguments launches an interactive dashboard:
 csb
 ```
 
-This provides a visual interface for managing your sandboxes and templates.
+This provides a visual interface for managing your sandboxes and templates, including advanced debugging capabilities.
+
+## Interactive Debugging Features
+
+The interactive dashboard includes comprehensive debugging tools:
+
+### Terminal Access
+- **Full terminal interface** - Access bash shell in any running sandbox
+- **Real-time interaction** - Type commands and see live output
+- **Standard terminal features** - Supports Ctrl+C, tab completion, arrow keys
+- **History scrolling** - Navigate output with SHIFT + ↑/↓
+- **Easy access** - Select sandbox → choose "Terminal" from actions menu
+
+### Resource Monitoring
+- **VM usage tracking** - View running VMs vs. account limits
+- **Resource specifications** - Monitor CPU, memory, and storage usage
+- **Activity timestamps** - See when VMs were last active
+- **Session information** - Track when sandbox sessions started
+
+### Sandbox Management
+- **Lifecycle controls** - Start, hibernate, shutdown, restart sandboxes
+- **Visual status indicators** - Quickly identify running vs. hibernated sandboxes
+- **Batch operations** - Manage multiple sandboxes efficiently
 
 ## Commands
 
 ### `build`
 
 Build an efficient memory snapshot from a directory that can be used to create sandboxes quickly.
+
+The build command now provides enhanced logging for container operations, showing real-time progress during Docker builds and container startup with live log previews.
 
 **Syntax:**
 ```bash
@@ -329,6 +353,23 @@ Clear all preview hosts.
 **Syntax:**
 ```bash
 csb preview-hosts clear
+```
+
+## Enhanced Logging
+
+### Container Build Logging
+
+The build command provides enhanced visibility during container operations:
+
+- **Real-time progress updates** - Shows live output from Docker builds
+- **Container startup monitoring** - Displays current log lines during container initialization
+- **Log previews** - Shows condensed versions of long log lines (up to 100 characters)
+- **Step-by-step tracking** - Clear indication of which setup step is running
+
+Example output during build:
+```
+Building and starting container (RUN npm install --production)...
+Building and starting container (Successfully installed dependencies)...
 ```
 
 ## Error Handling

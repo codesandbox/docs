@@ -1,0 +1,193 @@
+---
+title: OpenTelemetry & Tracing
+description: Learn about observability and tracing in CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# OpenTelemetry & Tracing
+
+CodeSandbox SDK includes comprehensive observability support through OpenTelemetry integration, allowing you to trace and monitor all SDK operations.
+
+## Overview
+
+The SDK automatically instruments all major operations including:
+
+- **Sandbox operations** - Create, resume, hibernate, shutdown
+- **Client operations** - File system, commands, terminals, ports
+- **Connection management** - Session creation, WebSocket connections
+- **API calls** - All REST API requests and responses
+
+## Setup
+
+To enable tracing, provide an OpenTelemetry tracer when initializing the SDK:
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk';
+import { trace } from '@opentelemetry/api';
+
+// Configure your OpenTelemetry tracer (example with basic setup)
+const tracer = trace.getTracer('codesandbox-sdk', '1.0.0');
+
+// Pass tracer to SDK
+const sdk = new CodeSandbox(process.env.CSB_API_KEY, { tracer });
+```
+
+## Traced Operations
+
+### Sandbox Operations
+
+All sandbox lifecycle operations are automatically traced:
+
+```ts
+const sandbox = await sdk.sandboxes.create(); // Traced as "sandboxes.create"
+await sandbox.hibernate(); // Traced as "sandbox.hibernate"
+const client = await sandbox.connect(); // Traced as "sandbox.connect"
+```
+
+### Client Operations
+
+SandboxClient methods are comprehensively instrumented:
+
+```ts
+// File system operations
+await client.filesystem.writeFile('/app/file.txt', 'content'); // Traced as "sandboxClient.filesystem.writeFile"
+const files = await client.filesystem.list('/app'); // Traced as "sandboxClient.filesystem.list"
+
+// Command execution  
+const result = await client.commands.run('npm test'); // Traced as "sandboxClient.commands.run"
+
+// Terminal management
+const terminal = await client.terminals.create(); // Traced as "sandboxClient.terminals.create"
+
+// Port management
+await client.ports.openPort(3000); // Traced as "sandboxClient.ports.openPort"
+```
+
+### Resource Monitoring
+
+The new `listRunning()` method is also traced:
+
+```ts
+const running = await sdk.sandboxes.listRunning(); // Traced as "sandboxes.listRunning"
+```
+
+## Span Attributes
+
+Traces include rich attributes for debugging and monitoring:
+
+```ts
+// Example span attributes for sandbox operations
+{
+  "sandbox.id": "abc123",
+  "sandbox.title": "My Project",
+  "sandbox.privacy": "private",
+  "operation.name": "sandboxes.create"
+}
+
+// Example span attributes for file operations
+{
+  "sandbox.id": "abc123", 
+  "filesystem.path": "/app/package.json",
+  "filesystem.operation": "writeFile",
+  "filesystem.size": 1024
+}
+```
+
+## Error Tracking
+
+Failed operations are automatically marked as errors in traces:
+
+```ts
+try {
+  await client.commands.run('invalid-command');
+} catch (error) {
+  // Span will be marked with error status and error message
+  // Span attributes include error details
+}
+```
+
+## Browser and Node Connectors
+
+Tracing also works with browser and Node.js connectors:
+
+```ts
+// Browser connector with tracing
+import { connectToSandbox } from '@codesandbox/sdk/browser';
+
+const client = await connectToSandbox({
+  session: sessionFromServer,
+  getSession: (id) => fetchSession(id),
+  tracer: myTracer // Pass tracer to browser connector
+});
+
+// Node connector with tracing  
+import { connectToSandbox } from '@codesandbox/sdk/node';
+
+const client = await connectToSandbox({
+  session: sessionFromServer,
+  getSession: getSessionFromServer,
+  tracer: myTracer // Pass tracer to Node connector
+});
+```
+
+## Integration Examples
+
+### Basic OpenTelemetry Setup
+
+```ts
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+import { CodeSandbox } from '@codesandbox/sdk';
+
+// Initialize OpenTelemetry
+const sdk = new NodeSDK({
+  instrumentations: [getNodeAutoInstrumentations()]
+});
+
+sdk.start();
+
+// Get tracer and use with CodeSandbox SDK
+const tracer = trace.getTracer('my-app');
+const csb = new CodeSandbox(process.env.CSB_API_KEY, { tracer });
+```
+
+### Jaeger Integration
+
+```ts
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
+import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
+
+const jaegerExporter = new JaegerExporter({
+  endpoint: 'http://localhost:14268/api/traces'
+});
+
+const sdk = new NodeSDK({
+  spanProcessor: new SimpleSpanProcessor(jaegerExporter)
+});
+
+sdk.start();
+```
+
+<Callout>
+When tracing is not configured, the SDK operates normally without any performance impact. Tracing is completely optional and disabled by default.
+</Callout>
+
+## Benefits
+
+OpenTelemetry integration provides:
+
+- **Performance monitoring** - Track operation duration and identify bottlenecks
+- **Error tracking** - Automatic error capture with full context
+- **Distributed tracing** - Follow requests across sandbox operations
+- **Resource usage** - Monitor API call patterns and frequencies
+- **Debugging** - Rich context for troubleshooting issues
+
+## Best Practices
+
+1. **Use appropriate sampling** - Configure sampling rates for production environments
+2. **Add custom attributes** - Enrich traces with application-specific context
+3. **Monitor critical paths** - Focus on sandbox creation and connection operations
+4. **Set up alerting** - Create alerts for high error rates or slow operations
+5. **Regular analysis** - Review traces to optimize usage patterns
