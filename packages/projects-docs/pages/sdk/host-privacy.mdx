@@ -7,9 +7,38 @@ import { Callout } from 'nextra-theme-docs'
 
 # Host Privacy
 
-If a sandbox is private, its hosts won't be accessible unless a host token is provided.
+CodeSandbox SDK supports different privacy levels for sandboxes and their hosts. Understanding these privacy levels helps you control access to your sandbox environments.
+
+## Privacy Levels
+
+- **`public`** - Sandbox and its hosts are publicly accessible to anyone
+- **`unlisted`** ⚠️ **(deprecated)** - Use `public` or `public-hosts` instead  
+- **`private`** - Sandbox is private and hosts require authentication via host tokens
+- **`public-hosts`** - Sandbox is private but hosts are publicly accessible without tokens
+
+## Private Sandboxes with Host Tokens
+
+If a sandbox has `private` privacy, its hosts won't be accessible unless a host token is provided.
 
 You can obtain a host token by calling `sdk.hosts.createToken`. This token will by default never expire. It is recommended to persist this token and provide it in dedicated Sandbox sessions.
+
+## Public Hosts for Private Sandboxes
+
+The new `public-hosts` privacy setting allows you to create private sandboxes where the hosts (preview URLs) remain publicly accessible. This is useful when you want:
+
+- Private sandbox content and source code
+- Public preview URLs for sharing demos or prototypes
+- No authentication required for accessing the running application
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+  privacy: 'public-hosts', // Private sandbox with public hosts
+  // ... other options
+});
+
+// Hosts are accessible without tokens
+const previewUrl = `https://${sandbox.id}-3000.csb.app`;
+```
 
 You create signed urls to your Sandboxes using the `hosts` API on the server:
 
