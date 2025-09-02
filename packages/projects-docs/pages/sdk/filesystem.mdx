@@ -34,6 +34,25 @@ const content = await client.fs.readFile("./hello.bin");
 console.log(content);
 ```
 
+### Batch write files
+
+If you need to write a lot of files, you can batch write instead. This will compress the files into a single file, upload that file and then uncompress them on the Sandbox. If the path of files match an existing file, it will be overridden.
+
+```ts
+await client.fs.batchWrite([
+  {
+    // The path to write the contents to (relative to workspace)
+    path: "src/index.html",
+    content: "hello world",
+  },
+  {
+    path: "src/foo.bin",
+    // You can also write binary files
+    content: new Uint8Array([1, 2, 3])
+  },
+]);
+```
+
 ### Uploading & Downloading Files
 
 Uploading and downloading files can be done using the same methods.
