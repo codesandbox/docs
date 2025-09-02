@@ -32,6 +32,18 @@ await client.fs.writeFile("./hello.bin", new Uint8Array([1, 2, 3]));
 // Reading binary files
 const content = await client.fs.readFile("./hello.bin");
 console.log(content);
+
+// Bach write files (This zips down the content, does a singel write and unzips on Sandbox)
+await client.fs.batchWrite([
+  {
+    path: "src/index.html",
+    content: "hello world",
+  },
+  {
+    path: "src/foo.bin",
+    content: new Uint8Array([1, 2, 3])
+  },
+]);
 ```
 
 ### Uploading & Downloading Files
