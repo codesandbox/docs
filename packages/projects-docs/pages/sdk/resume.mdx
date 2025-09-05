@@ -1,0 +1,132 @@
+---
+title: Resuming Sandboxes
+description: Learn how to resume hibernated sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Resuming Sandboxes
+
+Resuming allows you to wake up a hibernated sandbox and reconnect to it, restoring it to its exact previous state including file system, memory, and running processes.
+
+<Callout type="warning" emoji="⚡">
+**Best practices**
+
+Design your UX for variable resume times. Sandboxes that have been dormant for a week will perform a clean bootup, which takes significantly longer than a regular resume. Always show appropriate loading states and communicate the expected wait time to users.
+
+- **Show loading indicators** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (clean bootup)
+- **Communicate status clearly** - Tell users when a sandbox is performing a clean bootup vs. regular resume
+- **Handle timeouts gracefully** - Implement proper error handling for resume failures
+- **Consider proactive warming** - Resume frequently-used sandboxes before users need them
+- **Monitor resume patterns** - Track which sandboxes need clean bootups to optimize user experience
+- **Handle both resume types** - Always account for both regular resumes and clean bootups in your application logic
+- **Check bootup type** - Use `sandbox.bootupType` to determine if special handling is needed
+- **Verify connectivity** - Ensure your application can handle the brief reconnection period
+</Callout>
+
+## Resuming a Sandbox
+
+To resume an existing sandbox from hibernation and connect to it call: `sdk.sandboxes.resume(id)`:
+
+```ts
+const sandbox = await sdk.sandboxes.resume('sandbox-id');
+```
+
+This will:
+1. Restore the sandbox from its hibernated snapshot
+2. Resume all processes that were running
+3. Restore network connections and file system state
+4. Return a connected sandbox instance ready for use
+
+## Clean Bootups
+
+<Callout>
+Sandboxes that have been dormant for a week will do a CLEAN bootup, meaning it will run its setup tasks when resumed. Please make sure you [handle this](/sdk/lifecycle#managing-clean-bootups) case in your application.
+</Callout>
+
+Whenever we boot a sandbox from scratch, we'll:
+
+1. Start the Firecracker VM
+2. Create a default user (called `pitcher-host`)
+3. (optional) Build the Docker image specified in the `.devcontainer/devcontainer.json` file
+4. Start the Docker container
+5. Mount the `/project/workspace` directory as a volume inside the Docker container
+6. Run all `setupTasks` defined in your template's `.codesandbox/tasks.json`
+7. Install dependencies and perform initial configuration
+8. Start configured tasks that have `runAtStart: true`
+
+This ensures your environment is properly initialized even after extended dormancy.
+
+### Server
+
+```ts
+const sandbox = await sdk.sandboxes.resume('sandbox-id');
+
+if (sandbox.bootupType === 'CLEAN') {
+  const client = await sandbox.connect()
+  const steps = await clients.setup.getSteps()
+  
+  for (const step of setupSteps) {
+    await step.waitUntilComplete()
+  }
+}
+```
+
+### Client
+
+```ts
+const client = await connectToSandbox({
+   session,
+   getSession: (id) => fetchJSON(`/api/sandboxes/${id}`)
+})
+
+if (client.bootupType === 'CLEAN') {
+  const steps = await clients.setup.getSteps()
+  
+  for (const step of setupSteps) {
+    console.log(`Step: ${step.name}`);
+    console.log(`Command: ${step.command}`);
+    console.log(`Status: ${step.status}`);
+  
+    const output = await step.open()
+    output.onOutput((output) => console.log(output))
+    await step.waitUntilComplete()
+  }
+}
+```
+
+## Automatic Wake-up
+
+Sandboxes can be configured to automatically wake up from hibernation when they receive HTTP requests or WebSocket connections:
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+    id: 'your-template-id',
+    automaticWakeupConfig: {
+        http: true,      // Wake up on HTTP requests
+        websocket: true  // Wake up on WebSocket connections
+    }
+});
+```
+
+<Callout>
+The `automaticWakeupConfig` only wakes up the Sandbox, it does not extend its hibernation timeout.
+</Callout>
+
+## Agent Updates
+
+Every Sandbox has an agent running on it. This agent is what allows you to interact with the Sandbox environment.
+
+When a new version of the agent is published, existing sandboxes will need to restart before they get new version.
+
+You can check if the current sandbox is up to date using `isUpToDate()`:
+
+```ts
+const sandbox = await sdk.sandboxes.resume('sandbox-id')
+
+if (!sandbox.isUpToDate) {
+    await sdk.sandboxes.restart(sandbox.id)
+}
+```
+
+It is up to you to decide what the best user experience will be for your use case. At CodeSandbox we would show a notification when the agent was out of date and the user could choose when to update.

@@ -9,6 +9,18 @@ import { Callout } from 'nextra-theme-docs'
 
 To connect to a Sandbox you need to create a session.
 
+<Callout type="warning" emoji="⚡">
+**Best practices**
+
+The `id` of a user session becomes the OS user, so use a relatable username here. Do not randomize the `id` as it will create a new OS user on every connection, which is inefficient and can cause issues with file permissions and user data persistence.
+
+- **Use consistent user identifiers** - The session ID should be stable and meaningful (e.g., username, user ID)
+- **Avoid random session IDs** - Each unique ID creates a new OS user, consuming resources unnecessarily
+- **Consider file ownership** - Files created by different session IDs will have different owners
+- **Plan for persistence** - User-specific data (like shell history) is tied to the session ID
+- **Keep it readable** - Use identifiers that make sense when debugging or logging
+</Callout>
+
 ```ts
 const sandbox = await sdk.sandboxes.create()
 const session = await sandbox.createSession({ id: 'some-session-ref' })

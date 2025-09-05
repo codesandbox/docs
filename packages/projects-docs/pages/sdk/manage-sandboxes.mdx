@@ -1,0 +1,256 @@
+---
+title: Manage Sandbox Lifecycles
+description: Learn how to manage sandbox lifecycles and get information about your sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Manage Sandbox Lifecycles
+
+The CodeSandbox SDK provides several methods to retrieve information about your sandboxes and manage their lifecycles effectively.
+
+<Callout type="warning" emoji="⚡">
+**Best practices**
+
+Create sandboxes from a generated template. Keep track of sandbox resumes in your own persistence store. Use hibernation timeout as a backup - we recommend taking active control of the lifecycle by explicitly using resume and hibernate methods.
+
+- **Create from templates** - Always use custom templates built with the CLI for predictable, fast sandbox creation
+- **Track lifecycle in your database** - Store sandbox IDs, states, and metadata in your own persistence layer
+- **Control hibernation explicitly** - Don't rely on automatic timeout; actively hibernate sandboxes when users are done
+- **Use listRunning() for validation** - Rely on your own lifecycle state, but use `listRunning()` to validate state or build admin features
+- **Handle resume failures gracefully** - Implement proper error handling for cases where sandboxes fail to resume
+</Callout>
+
+## Hibernation
+
+Hibernation is a key feature of CodeSandbox that allows sandboxes to be paused and resumed efficiently, saving resources while preserving the exact state of your environment.
+
+### How Hibernation Works
+
+When a Sandbox is hibernated, we create and save a snapshot of the underlying Firecracker VM. This snapshot captures:
+- File system state
+- Memory contents
+- Running processes
+- Network connections
+
+If you call `sdk.sandboxes.resume(id)` or a network request is made to the Sandbox, we restore the snapshot. This allows you to continue from exactly where you left off.
+
+### Manual Hibernation
+
+We highly recommend taking full control of the lifecycle by manually hibernating sandboxes. Even though a timeout is easier to implement, it is not as efficient and risks creating janky UX and higher costs.
+
+You can manually hibernate a sandbox at any time:
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+
+const sdk = new CodeSandbox();
+const sandbox = await sdk.sandboxes.create();
+
+// Do work on the sandbox
+const client = await sandbox.connect();
+await client.shells.run('echo "Hello World" > hello.txt');
+
+// Manually hibernate the sandbox
+await sdk.sandboxes.hibernate(sandbox.id);
+```
+
+Creating a snapshot can take between 3-10 seconds. Resuming from a snapshot takes between 0.5-2 seconds.
+
+### Automatic Hibernation
+
+Sandboxes automatically hibernate after a period of inactivity. The timeout can be configured when creating a sandbox:
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+    // How quickly the sandbox should hibernate after inactivity.
+    // Defaults to 300 seconds for free users, 1800 seconds for
+    // pro users. Maximum is 86400 seconds (1 day).
+    hibernationTimeoutSeconds: 1800
+})
+```
+
+## Resuming
+
+How you manage the resume part of the lifecycle depends on your use case, but binding sandbox sessions to user sessions makes a lot of sense. You need to know when a user session ends to enforce hibernation.
+
+### From User Session
+
+```ts
+// When user starts a session, resume their sandbox
+async function startUserSession(userId: string) {
+  const user = await getUserFromDatabase(userId);
+  
+  if (user.sandboxId) {
+    // Resume existing sandbox
+    const sandbox = await sdk.sandboxes.resume(user.sandboxId);
+    await updateUserSession(userId, { sandboxId: sandbox.id, status: 'active' });
+    return sandbox;
+  }
+  
+  // Create new sandbox if none exists
+  const sandbox = await sdk.sandboxes.create({ id: 'your-template-id' });
+  await updateUserSession(userId, { sandboxId: sandbox.id, status: 'active' });
+  return sandbox;
+}
+
+// When user session ends, hibernate their sandbox
+async function endUserSession(userId: string) {
+  const user = await getUserFromDatabase(userId);
+  
+  if (user.sandboxId) {
+    await sdk.sandboxes.hibernate(user.sandboxId);
+    await updateUserSession(userId, { status: 'hibernated' });
+  }
+}
+```
+
+### From Host Access
+
+If you want direct host access to wake up sandboxes, you need to implement a proxy endpoint that manages this:
+
+```ts
+// Proxy endpoint that handles wake-up logic for user projects
+app.get('/project/:projectId/*', async (req, res) => {
+  const { projectId } = req.params;
+  const project = await getProjectFromDatabase(projectId);
+  
+  // Ensure user has access to this project
+  const userId = req.user.id; // from authentication middleware
+  if (!await userHasAccessToProject(userId, projectId)) {
+    return res.status(403).send('Access denied');
+  }
+  
+  // Ensure sandbox is running before proxying
+  if (project.sandboxId) {
+    const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+    const client = await sandbox.connect();
+    
+    // Get the actual host URL
+    const hostUrl = await client.getHost();
+    
+    // Proxy the request to the running sandbox
+    const targetPath = req.params[0];
+    return res.redirect(`${hostUrl}/${targetPath}`);
+  }
+  
+  res.status(404).send('Project sandbox not found');
+});
+```
+
+This approach gives you:
+- **Control over wake-up behavior** - Decide when and how sandboxes should resume
+- **User session tracking** - Know exactly which sandboxes belong to which users
+- **Automatic hibernation** - Enforce hibernation when user sessions end
+- **Transparent access** - Users can access their sandbox through a consistent URL
+
+## Persistence
+
+When hibernating, we persist both memory and disk for 4 days. After 4 days, the memory snapshot is deleted and the sandbox is archived. When archived, it will start from a CLEAN state the next time it's resumed.
+
+### Git-based Persistence
+
+The primary persistence mechanism is based on git with a local remote. This means the workspace is initialized with git automatically.
+
+<Callout type="warning">
+**Warning about Git Commands**: Users should not run git commands in the workspace unless they do one of the following:
+
+1. **Change the remote of the workspace** - Point to their own git repository
+2. **Clone a repo as a nested folder** - Work within a cloned repository inside the workspace
+
+Both of these approaches will enable a secondary persistence mechanisms which is not git.
+</Callout>
+
+If you want to use Git in a Sandbox, use one of the following approaches:
+
+### Option 1: Change the Remote
+
+```bash
+# Remove the default local remote and add your own
+git remote remove origin
+git remote add origin https://github.com/your-username/your-repo.git
+
+# Now you can push/pull normally
+git push -u origin main
+```
+
+### Option 2: Clone as Nested Folder
+
+```bash
+# Clone your repository inside the workspace
+cd /project/workspace
+git clone https://github.com/your-username/your-repo.git my-project
+cd my-project
+
+# Work normally within the cloned repository
+git add .
+git commit -m "Your changes"
+git push
+```
+
+This approach ensures your work is properly persisted beyond the 4-day hibernation limit and survives sandbox archiving.
+
+## Monitoring Sandboxes
+
+You should use your own persistence layer to track VM sessions and sandbox states. These monitoring methods are designed to get additional information about a sandbox and its current running state, not as your primary source of truth for lifecycle management.
+
+Use these methods for:
+- **Validation** - Cross-check your internal state against actual sandbox status
+- **Administrative features** - Build dashboards and debugging tools
+- **Runtime information** - Get current resource usage and activity data
+- **Troubleshooting** - Investigate sandbox issues or unexpected states
+
+### Get Sandbox Information
+
+To efficiently retrieve metadata for a specific sandbox without listing all sandboxes, use the `get()` method:
+
+```ts
+const sandboxInfo = await sdk.sandboxes.get('sandbox-id');
+console.log(sandboxInfo.title, sandboxInfo.tags, sandboxInfo.privacy);
+```
+
+This method directly retrieves metadata for a specific sandbox ID, avoiding the performance overhead of the list-and-filter pattern. This is particularly useful for organizations with thousands of sandboxes.
+
+The sandbox information includes:
+- `id`: Unique sandbox identifier
+- `title`: Sandbox display name
+- `description`: Sandbox description
+- `tags`: Associated tags for organization
+- `privacy`: Privacy setting (`public`, `private`, `public-hosts`)
+- `path`: Collection folder location
+- `vmTier`: Current VM tier
+- `createdAt`: Creation timestamp
+- `updatedAt`: Last modification timestamp
+
+### List Running Sandboxes
+
+To get information about currently running sandboxes and VM limits, use the `listRunning()` method:
+
+```ts
+const runningInfo = await sdk.sandboxes.listRunning();
+
+console.log(`Running VMs: ${runningInfo.concurrentVmCount}/${runningInfo.concurrentVmLimit}`);
+
+runningInfo.vms.forEach(vm => {
+  console.log(`Sandbox ${vm.id}:`);
+  console.log(`  Last active: ${vm.lastActiveAt}`);
+  console.log(`  Session started: ${vm.sessionStartedAt}`);
+  if (vm.specs) {
+    console.log(`  Specs: ${vm.specs.cpu} CPU, ${vm.specs.memory}MB RAM, ${vm.specs.storage}GB storage`);
+  }
+});
+```
+
+This method provides:
+- Current number of running VMs vs. your account limit
+- Details about each running VM including activity timestamps
+- VM specifications (CPU, memory, storage) for resource monitoring
+
+Each running VM includes:
+- `id`: Sandbox identifier
+- `lastActiveAt`: Timestamp of last activity
+- `sessionStartedAt`: When the current session began
+- `specs`: Resource specifications
+  - `cpu`: Number of CPU cores
+  - `memory`: RAM in megabytes
+  - `storage`: Storage in gigabytes
