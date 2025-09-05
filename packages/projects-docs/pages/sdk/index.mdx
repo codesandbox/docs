@@ -39,13 +39,3 @@ const output = await client.commands.run("echo 'Hello World'");
 
 console.log(output) // Hello World
 ```
-
-## How it works
-
-The SDK can spin up a sandbox by cloning a template in under 3 seconds. Inside this VM you have a full development environment.
-
-Under the hood, the SDK uses CodeSandbox's microVM infrastructure to spin up sandboxes. The environment supports:
-
-1. Resume/clone VMs in under 1 second
-2. VM FS persistence (with `git` version control)
-3. Environment customization using Docker & Docker Compose (Dev Containers)
