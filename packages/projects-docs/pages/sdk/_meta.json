@@ -3,46 +3,33 @@
   "use-cases": "Use Cases",
   "faq": "FAQ",
   "pricing": "Pricing",
-  "-- guides": {
-    "type": "separator",
-    "title": "Guides"
-  },
-  "templates": "Templates",
-  "repositories": "Repositories",
-  "clients": "Clients",
-  "bootups": "Bootups",
-  "browser-previews": "Previews",
-  "shells": "Shells",
-  "docker": "Docker & Docker Compose",
   "-- sandboxes": {
     "type": "separator",
     "title": "Sandboxes"
   },
-  "create-resume": "Create & Resume",
-  "update-sandbox": "Update Sandbox",
-  "sessions": "Sessions",
-  "hibernate": "Hibernate",
+  "create": "Create",
+  "resume": "Resume",
+  "manage-sandboxes": "Lifecycle Management",
   "restart-shutdown": "Restart & Shutdown",
-  "lifecycle": "Lifecycle",
+  "sessions": "Sessions",
+  "sandbox-hosts": "Hosts",
   "specs": "VM Specs",
-  "persistence": "Persistence",
-
-  "-- privacy-security": {
+  "-- previews": {
     "type": "separator",
-    "title": "Privacy & Security"
+    "title": "Previews"
   },
-  "host-privacy": "Host Privacy",
+  "browser-previews": "Previews",
   "preview-api-access": "Preview API Access",
-
   "-- cli": {
     "type": "separator",
     "title": "CLI"
   },
   "cli": "CLI Reference",
-  "-- client": {
+  "-- clients": {
     "type": "separator",
-    "title": "Client"
+    "title": "Clients"
   },
+  "clients": "Clients",
   "filesystem": "File System",
   "terminals": "Terminals",
   "commands": "Commands",
