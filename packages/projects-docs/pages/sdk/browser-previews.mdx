@@ -95,3 +95,19 @@ preview.injectAndInvoke(function MyInjectedFunction({ previewProtocol, previewWi
 <Callout>
 Note that the function passed to `injectAndInvoke` will be stringified and sent to the preview. Be careful about your build tool transforming this function into invalid code.
 </Callout>
+
+## Initial loading state with `waitForPort`
+
+When you create a preview for a development server, the iframe may load before the server is ready, resulting in a blank or error page. You can use the **Ports API** to wait until the preview port is open before attaching the iframe.
+
+```ts
+// Wait for the preview port (e.g., 5173) to become available
+const portInfo = await client.ports.waitForPort(5173)
+
+// Create the preview using the resolved host URL
+const preview = createPreview(portInfo.host)
+
+document.querySelector('#preview-container').appendChild(preview.iframe)
+```
+
+The `waitForPort` method resolves once the sandbox has opened the specified port, ensuring the preview iframe points to a live server. For more details about the Ports API, see the [Ports](/sdk/ports.mdx) documentation.
