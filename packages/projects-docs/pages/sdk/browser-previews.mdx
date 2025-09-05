@@ -101,9 +101,6 @@ Note that the function passed to `injectAndInvoke` will be stringified and sent 
 When you create a preview for a development server, the iframe may load before the server is ready, resulting in a blank or error page. You can use the **Ports API** to wait until the preview port is open before attaching the iframe.
 
 ```ts
-// Optionally start the dev server as a background command
-const devCommand = client.commands.runBackground('npm run dev')
-
 // Wait for the preview port (e.g., 5173) to become available
 const portInfo = await client.ports.waitForPort(5173)
 
@@ -111,10 +108,6 @@ const portInfo = await client.ports.waitForPort(5173)
 const preview = createPreview(portInfo.host)
 
 document.querySelector('#preview-container').appendChild(preview.iframe)
-
-// When you no longer need the dev server, kill it
-devCommand.kill()
 ```
 
 The `waitForPort` method resolves once the sandbox has opened the specified port, ensuring the preview iframe points to a live server. For more details about the Ports API, see the [Ports](/sdk/ports.mdx) documentation.
-
