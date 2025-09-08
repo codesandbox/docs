@@ -33,11 +33,11 @@ When a Sandbox is hibernated, we create and save a snapshot of the underlying Fi
 - Running processes
 - Network connections
 
-If you call `sdk.sandboxes.resume(id)` or a network request is made to the Sandbox, we restore the snapshot. This allows you to continue from exactly where you left off.
+When a Sandbox resume, we restore the snapshot. This allows you to continue from exactly where you left off.
 
 ### Manual Hibernation
 
-We highly recommend taking full control of the lifecycle by manually hibernating sandboxes. Even though a timeout is easier to implement, it is not as efficient and risks creating janky UX and higher costs.
+We highly recommend taking full control of the lifecycle by manually hibernating sandboxes. Even though a timeout is easier to implement, you will not be able to optimize cost or create an optimal user experience.
 
 You can manually hibernate a sandbox at any time:
 
@@ -123,11 +123,10 @@ app.get('/project/:projectId/*', async (req, res) => {
   
   // Ensure sandbox is running before proxying
   if (project.sandboxId) {
-    const sandbox = await sdk.sandboxes.resume(project.sandboxId);
-    const client = await sandbox.connect();
+    await sdk.sandboxes.resume(project.sandboxId);
     
     // Get the actual host URL
-    const hostUrl = await client.getHost();
+    const hostUrl = `https://${project.sandboxId}-5173.csb.app`
     
     // Proxy the request to the running sandbox
     const targetPath = req.params[0];
@@ -144,55 +143,18 @@ This approach gives you:
 - **Automatic hibernation** - Enforce hibernation when user sessions end
 - **Transparent access** - Users can access their sandbox through a consistent URL
 
+<Callout>
+Read more about hosts and proxying requests in [Hosts](./sandbox-hosts)
+</Callout>
+
 ## Persistence
 
 When hibernating, we persist both memory and disk for 4 days. After 4 days, the memory snapshot is deleted and the sandbox is archived. When archived, it will start from a CLEAN state the next time it's resumed.
 
-### Git-based Persistence
-
-The primary persistence mechanism is based on git with a local remote. This means the workspace is initialized with git automatically.
-
-<Callout type="warning">
-**Warning about Git Commands**: Users should not run git commands in the workspace unless they do one of the following:
-
-1. **Change the remote of the workspace** - Point to their own git repository
-2. **Clone a repo as a nested folder** - Work within a cloned repository inside the workspace
-
-Both of these approaches will enable a secondary persistence mechanisms which is not git.
-</Callout>
-
-If you want to use Git in a Sandbox, use one of the following approaches:
-
-### Option 1: Change the Remote
-
-```bash
-# Remove the default local remote and add your own
-git remote remove origin
-git remote add origin https://github.com/your-username/your-repo.git
-
-# Now you can push/pull normally
-git push -u origin main
-```
-
-### Option 2: Clone as Nested Folder
-
-```bash
-# Clone your repository inside the workspace
-cd /project/workspace
-git clone https://github.com/your-username/your-repo.git my-project
-cd my-project
-
-# Work normally within the cloned repository
-git add .
-git commit -m "Your changes"
-git push
-```
-
-This approach ensures your work is properly persisted beyond the 4-day hibernation limit and survives sandbox archiving.
 
 ## Monitoring Sandboxes
 
-You should use your own persistence layer to track VM sessions and sandbox states. These monitoring methods are designed to get additional information about a sandbox and its current running state, not as your primary source of truth for lifecycle management.
+You should use your own persistence layer to track VM sessions and sandbox states. The following monitoring methods are designed to get additional information about a sandbox and its current running state, not as your primary source of truth for lifecycle management.
 
 Use these methods for:
 - **Validation** - Cross-check your internal state against actual sandbox status

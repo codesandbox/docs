@@ -17,8 +17,8 @@ Always use the CLI to create custom templates. This is what guarantees scalabili
 - **Create templates for your specific use cases** - Don't rely on generic setups
 - **Pre-install dependencies in templates** - Use `setupTasks` to handle installation during template creation
 - **Configure tasks properly** - Set up dev servers and processes in your template configuration
-- **Test your templates thoroughly** - Ensure they work consistently across different scenarios
-- **Use appropriate VM tiers** - Set the minimum tier needed for your templates
+- **Avoid excessive live forks** - When creating a Sandbox from a running Sandbox you perform a **Live Fork**. This is slower than forking from a template or hiernated Sandbox
+- **Use appropriate VM tiers** - Set the minimum tier needed for your templates and never downsize the tier of a Sandbox created from a template or other Sandboxes
 </Callout>
 
 ## Templates
@@ -28,9 +28,6 @@ Templates are custom, pre-configured environments that allow you to quickly crea
 <Callout>
 To find inspiration check our template repository on GitHub: https://github.com/codesandbox/sandbox-templates
 </Callout>
-
-
-To create a template you will need to use our CLI. This allows you to create optimized, pre-configured environments for your specific use cases.
 
 ### Setting up the Template
 
@@ -79,7 +76,7 @@ $ CSB_API_KEY=your-api-key npx @codesandbox/sdk build ./my-template --privacy pr
 ```
 
 <Callout>
-The template defaults to a `Micro` VM Tier for both building the template and when creating Sandboxes from it. You can not "downsize" Sandboxes when creating them from a template, so make sure you set the minimum tier you want here. It is recommended to make templates private, but they default to "unlisted". Use `build --help` for documentation on all parameters.
+The template defaults to a `Micro` VM Tier for both building the template and when creating Sandboxes from it. You can not "downsize" Sandboxes when creating them from a template, so make sure you set the minimum tier you want here. It is recommended to make templates private, but they default to "public". Use `build --help` for documentation on all parameters.
 </Callout>
 
 This will start the process of creating Sandboxes for each of our clusters, write files, restart, wait for port 5173 to be available and then hibernate. This generates the snapshot that allows you to quickly create Sandboxes already running a dev server from the template.
@@ -91,7 +88,8 @@ import { VMTier } from '@codesandbox/sdk'
 
 const sandbox = await sdk.sandboxes.create({
     id: 'your-template-id-here',
-    // Defaults to your --vm-tier parameter when building the template
+    // Defaults to your --vm-tier parameter when building the template. Never
+    // insert a lower tier than the build, this would be a harmful downsizing
     vmTier: VMTier.Micro
 })
 ```
@@ -100,7 +98,7 @@ const sandbox = await sdk.sandboxes.create({
 
 If you run the template builder on **CI** you can pass the `--ci` flag. This removes the interactive "failed sandbox" behavior and rather creates the template id regardless. The Sandbox that errored will show the error.
 
-#### Custom Docker Images
+### Custom Docker Images
 
 CodeSandbox uses [Dev Containers](https://containers.dev/) for configuring Docker or Docker Compose for an environment. You can configure Docker by creating a `.devcontainer/devcontainer.json` file inside your template folder with these contents:
 
@@ -112,9 +110,6 @@ CodeSandbox uses [Dev Containers](https://containers.dev/) for configuring Docke
 
 When we boot the sandbox, we'll make sure that the docker image is pulled (or built) and we'll make sure that all shells will start within this container. Your `/project/workspace` folder will also be mounted inside the container.
 
-<Callout>
-There is also a `/project/sandbox` folder, but consider this deprecated.
-</Callout>
 
 You can decide to build the Docker image as part of the template creation process as well. You can do this by defining this in your `.devcontainer/devcontainer.json`:
 
@@ -130,7 +125,7 @@ And creating a `.devcontainer/Dockerfile` with the contents of your Dockerfile.
 
 For more options (like running docker compose, or adding additional features), you can look at the [Dev Container docs](https://containers.dev/implementors/json_reference/).
 
-#### Dev Container Configuration Examples
+### Dev Container Configuration Examples
 
 You can also use pre-built images or add features to your Dev Container:
 
@@ -146,7 +141,7 @@ You can also use pre-built images or add features to your Dev Container:
 
 In this example, we're installing Node v18 as base, with Python on top using Dev Container Features.
 
-#### Docker Compose Support
+### Docker Compose Support
 
 You can run additional services using Docker Compose by adding a `docker-compose.yml` configuration to your Dev Container:
 
@@ -179,7 +174,7 @@ services:
 We will automatically start all services defined in your Docker Compose configuration when the Sandbox starts.
 </Callout>
 
-#### Setup Tasks vs Dockerfile
+### Setup Tasks vs Dockerfile
 
 When would you configure something in the Dockerfile, and when would you configure something in setup tasks?
 
@@ -210,7 +205,7 @@ By default Sandboxes are `public` and can be accessed by anyone. Available priva
 </Callout>
 
 <Callout type="warning">
-**Warning about Live Forks**: If you use the `id` of a running sandbox to create a new sandbox, it will become a "live fork" which does not scale. It will take longer to resume, and with many forks from the same sandbox, the latency gets higher and higher until you eventually get errors. Always use hibernated sandbox IDs or template IDs for optimal performance.
+**Warning about Live Forks**: If you use the `id` of a running sandbox to create a new sandbox, it will become a "live fork" which does not scale. It will take longer to fork, and with many forks from the same sandbox, the latency gets higher and higher until you eventually get errors. Always use hibernated sandbox IDs or template IDs for optimal performance.
 </Callout>
 
 ```ts
@@ -261,6 +256,77 @@ Each Sandbox has the following properties, with information about it's own insta
 - `isUpToDate`: Whether the sandbox is up to date with the latest agent version.
 - `cluster`: The cluster the sandbox is running on.
 - `bootupType`: The type of bootup, `RUNNING`, `CLEAN`, `RESUME` or `FORK`.
+
+## Workspace
+
+Every sandbox comes with a workspace that provides persistent storage and configuration for your project. The workspace is located at `/project/workspace` and serves as the main working directory for your code and files.
+
+<Callout>
+There is also a `/project/sandbox` folder, but consider this deprecated. Use `/project/workspace` for all new projects.
+</Callout>
+
+### Git-based Persistence
+
+The primary persistence mechanism is based on git with a local remote. This means the workspace is initialized with git automatically.
+
+<Callout type="warning">
+**Warning about Git Commands**: Users should not run git commands in the workspace unless they do one of the following:
+
+1. **Change the remote of the workspace** - Point to their own git repository
+2. **Clone a repo as a nested folder** - Work within a cloned repository inside the workspace
+
+Both of these approaches will enable a secondary persistence mechanisms which is not git.
+</Callout>
+
+If you want to use Git in a Sandbox, use one of the following approaches:
+
+#### Option 1: Change the Remote
+
+```bash
+# Remove the default local remote and add your own
+git remote remove origin
+git remote add origin https://github.com/your-username/your-repo.git
+
+# Now you can push/pull normally
+git push -u origin main
+```
+
+#### Option 2: Clone as Nested Folder
+
+```bash
+# Clone your repository inside the workspace
+cd /project/workspace
+git clone https://github.com/your-username/your-repo.git my-project
+cd my-project
+
+# Work normally within the cloned repository
+git add .
+git commit -m "Your changes"
+git push
+```
+
+This approach ensures your work is properly persisted beyond the 4-day hibernation limit and survives sandbox archiving.
+
+### Configuration Directories
+
+The workspace includes two important configuration directories:
+
+#### `.codesandbox` Directory
+
+The `.codesandbox` directory contains CodeSandbox-specific configuration files that control how your sandbox behaves:
+
+- **`tasks.json`**: Defines setup tasks and runtime tasks for your sandbox
+- **Configuration files**: Additional settings for sandbox behavior and environment setup
+
+#### `.devcontainer` Directory
+
+The `.devcontainer` directory contains Development Container configuration files that define your sandbox's Docker environment:
+
+- **`devcontainer.json`**: Main configuration file for the dev container setup
+- **`Dockerfile`**: Custom Docker image definitions (when using custom builds)
+- **`docker-compose.yml`**: Multi-service configurations for complex setups
+
+These files allow you to customize the underlying container environment, install additional tools, and configure multi-service architectures for your projects.
 
 ## Connect
 

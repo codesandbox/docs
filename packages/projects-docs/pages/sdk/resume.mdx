@@ -12,16 +12,13 @@ Resuming allows you to wake up a hibernated sandbox and reconnect to it, restori
 <Callout type="warning" emoji="⚡">
 **Best practices**
 
-Design your UX for variable resume times. Sandboxes that have been dormant for a week will perform a clean bootup, which takes significantly longer than a regular resume. Always show appropriate loading states and communicate the expected wait time to users.
+Design your UX for variable resume times. Sandboxes that have been dormant for a 4 days will perform a clean bootup, which takes significantly longer than a regular resume. Always show appropriate loading states and communicate the expected wait time to users.
 
-- **Show loading indicators** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (clean bootup)
-- **Communicate status clearly** - Tell users when a sandbox is performing a clean bootup vs. regular resume
-- **Handle timeouts gracefully** - Implement proper error handling for resume failures
-- **Consider proactive warming** - Resume frequently-used sandboxes before users need them
-- **Monitor resume patterns** - Track which sandboxes need clean bootups to optimize user experience
-- **Handle both resume types** - Always account for both regular resumes and clean bootups in your application logic
-- **Check bootup type** - Use `sandbox.bootupType` to determine if special handling is needed
-- **Verify connectivity** - Ensure your application can handle the brief reconnection period
+- **Track bootupType** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
+- **Manage lifecycles** - Do not rely on hibernation timeouts, but actively hibernate and resume
+- **Track Sandbox state** - Use your own persistence store to track when Sandboxes where last resumed and hibernate, giving a proactive UX
+- **Keeping Sandboxes warm** - When actively managing the lifecycle you can also wake up and hibernate Sandboxes to extend their optimal state for longer
+- **Avoid automatic HTTP wakeup** - As Sandboxes are arhived after 4 days of inactivity, waking it up from a preview url can give a bad ux
 </Callout>
 
 ## Resuming a Sandbox
@@ -41,7 +38,7 @@ This will:
 ## Clean Bootups
 
 <Callout>
-Sandboxes that have been dormant for a week will do a CLEAN bootup, meaning it will run its setup tasks when resumed. Please make sure you [handle this](/sdk/lifecycle#managing-clean-bootups) case in your application.
+Sandboxes that have been dormant for 4 days will do a CLEAN bootup, meaning it will run its setup tasks when resumed. Please make sure you [handle this](/sdk/lifecycle#managing-clean-bootups) case in your application.
 </Callout>
 
 Whenever we boot a sandbox from scratch, we'll:

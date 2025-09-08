@@ -10,12 +10,9 @@ import { Callout } from 'nextra-theme-docs'
 <Callout type="warning" emoji="⚡">
 **Best practices**
 
-When building templates set the tier you want for your sandboxes. When creating a sandbox from a template do not choose a lower tier than the template. When updating the tier do not go lower than the initial tier of the sandbox.
-
 - **Set appropriate tier when building templates** - Choose the minimum VM tier needed for your template's workload and dependencies
 - **Don't downgrade from template tier** - When creating sandboxes from templates, use the same or higher tier than specified in the template
 - **Avoid downgrading running sandboxes** - Don't update to a lower tier than the sandbox's initial tier to prevent resource conflicts
-- **Scale up, not down** - Use tier updates primarily for scaling up resources when workload demands increase
 </Callout>
 
 Whenever you start a sandbox, you can specify which VM specs to use. This allows you to customize the VM to your needs. We also allow you to change the VM specs of a running sandbox on the fly,

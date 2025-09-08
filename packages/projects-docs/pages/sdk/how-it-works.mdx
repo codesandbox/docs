@@ -11,43 +11,16 @@ The CodeSandbox SDK provides a complete cloud development infrastructure that al
 
 ## Core Architecture
 
-At its heart, the SDK orchestrates three main components that work together to deliver secure, scalable development environments:
+At its heart, the SDK enables management of and connections to Sandboxes. You have a lot of flexibility on how you want to deliver secure, scalable development environments:
 
-```mermaid
-graph TB
-    subgraph "Your Application"
-        A[Your Server/API] 
-        B[Client Applications<br/>Browser/Node/Mobile]
-    end
-    
-    subgraph "CodeSandbox SDK"
-        C[SDK Instance]
-        D[Session Management]
-        E[Template Library]
-    end
-    
-    subgraph "CodeSandbox Infrastructure"
-        F[Firecracker VMs<br/>Sandboxes]
-        G[Snapshot Storage<br/>Hibernation]
-        H[Host Routing<br/>Preview URLs]
-    end
-    
-    A --> C
-    B --> D
-    C --> E
-    C --> F
-    F --> G
-    F --> H
-    
-    style F fill:#e1f5fe
-    style G fill:#f3e5f5
-    style H fill:#e8f5e8
-```
+![Architecture](./architecture.png)
 
 ## Key Concepts
 
 ### Templates
+
 **Templates** are pre-configured environment snapshots that serve as the foundation for creating Sandboxes. Think of them as "golden images" that contain:
+
 - Pre-installed dependencies
 - Development server configurations
 - Custom Docker environments
@@ -56,14 +29,18 @@ graph TB
 Templates ensure consistent, fast Sandbox creation and eliminate the need to install dependencies every time.
 
 ### Sandboxes
+
 **Sandboxes** are isolated virtual machines (Firecracker VMs) running your development environments. Each Sandbox:
+
 - Runs completely isolated from others
 - Has persistent file storage with git integration
 - Can be hibernated and resumed with full state preservation
 - Exposes services through secure host URLs
 
 ### Sessions
+
 **Sessions** provide secure, permission-controlled access to Sandboxes. Each session:
+
 - Maps to a specific user with consistent identity
 - Controls read/write permissions
 - Manages git credentials and environment variables
@@ -73,224 +50,27 @@ Templates ensure consistent, fast Sandbox creation and eliminate the need to ins
 
 Understanding how Sandboxes move through their lifecycle is crucial for effective integration:
 
-```mermaid
-stateDiagram-v2
-    [*] --> Template: Build Template<br/>(CLI)
-    
-    state "Template Storage" as Template {
-        [*] --> Snapshot: Optimized VM<br/>Snapshots Created
-    }
-    
-    Template --> Creating: Create Sandbox<br/>(SDK)
-    
-    state "Active Sandbox" as Active {
-        Creating --> Running: Firecracker VM<br/>Started
-        Running --> Connected: Client<br/>Connected
-        Connected --> Working: User<br/>Development
-        Working --> Connected: Ongoing<br/>Activity
-    }
-    
-    Active --> Hibernating: Auto/Manual<br/>Hibernation
-    
-    state "Hibernated State" as Hibernated {
-        Hibernating --> Snapshot_Saved: VM Snapshot<br/>Created (3-10s)
-    }
-    
-    Hibernated --> Resuming: Resume Request<br/>(SDK/Auto)
-    Resuming --> Active: Snapshot Restored<br/>(0.5-2s)
-    
-    Hibernated --> Archived: 4 Day<br/>Timeout
-    Archived --> [*]: Memory Released<br/>Files Persisted
-```
+![Lifecycle](./lifecycle.png)
 
-### Phase 1: Template Creation
+## Integration points
+
+### 1. Template Creation
+
 1. **Development**: Create your project structure locally
 2. **Configuration**: Add `.codesandbox/tasks.json` with setup tasks and dev server config
 3. **Building**: Use CLI to deploy optimized snapshots across global clusters
-4. **Storage**: Template becomes available for rapid Sandbox creation
 
-### Phase 2: Sandbox Management
+### 2. Sandbox Management
+
 1. **Creation**: Instantiate new Sandboxes from templates (~1-3 seconds)
 2. **Connection**: Establish secure sessions with appropriate permissions
 3. **Development**: Users interact with the environment through clients
 4. **Hibernation**: Automatically or manually pause Sandboxes to save resources
 5. **Resume**: Restore exact state when needed (~0.5-2 seconds)
 
-### Phase 3: Resource Management
+### 3. Resource Management
+
 1. **Monitoring**: Track active Sandboxes and resource usage
 2. **Scaling**: Manage VM tiers and concurrent limits
 3. **Persistence**: Files auto-persist via git, snapshots expire after 4 days
 4. **Cleanup**: Archive unused Sandboxes to optimize costs
-
-## Client Architecture
-
-The SDK supports multiple client environments, each designed for specific use cases:
-
-```mermaid
-graph LR
-    subgraph "Client Types"
-        A[Server SDK<br/>Direct Access]
-        B[Node Client<br/>React Native, etc.]
-        C[Browser Client<br/>Web Applications]
-    end
-    
-    subgraph "Session Flow"
-        D[Session Creation<br/>Server-side]
-        E[Token Management<br/>Security Layer]
-        F[Connection Handling<br/>Auto-reconnect]
-    end
-    
-    subgraph "Sandbox Interaction"
-        G[File System API<br/>Read/Write/Watch]
-        H[Terminal API<br/>Shell Commands]
-        I[Preview API<br/>Web Previews]
-        J[Host Management<br/>Secure URLs]
-    end
-    
-    A --> D
-    B --> D  
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    F --> H
-    F --> I
-    F --> J
-    
-    style A fill:#bbdefb
-    style B fill:#c8e6c9  
-    style C fill:#fff3e0
-```
-
-### Server SDK
-Direct integration for backend applications where the SDK manages Sandbox lifecycle directly.
-
-### Client SDKs
-Browser and Node clients that connect through session tokens, enabling:
-- Secure access without exposing API keys
-- Automatic reconnection and state management
-- Real-time interaction with Sandbox services
-
-## Host and Preview System
-
-When your Sandbox runs services (like development servers), they become accessible through a sophisticated routing system:
-
-```mermaid
-graph TB
-    subgraph "Sandbox Environment"
-        A[Dev Server<br/>Port 3000]
-        B[API Server<br/>Port 8080] 
-        C[Database<br/>Port 5432]
-    end
-    
-    subgraph "Host Routing Layer"
-        D[Secure Host URLs<br/>sandbox-id.sse.codesandbox.io]
-        E[Token Validation<br/>Access Control]
-        F[Port Mapping<br/>Service Discovery]
-    end
-    
-    subgraph "Client Access"
-        G[Browser Preview<br/>Embedded iframe]
-        H[Direct API Calls<br/>Authenticated]
-        I[Public Access<br/>If configured]
-    end
-    
-    A --> F
-    B --> F
-    C --> F
-    F --> D
-    D --> E
-    E --> G
-    E --> H
-    E --> I
-    
-    style D fill:#e3f2fd
-    style E fill:#fce4ec
-    style F fill:#e8f5e8
-```
-
-### Privacy Levels
-- **Public**: Sandbox and hosts are publicly accessible
-- **Private**: Requires tokens for all access
-- **Public-hosts**: Sandbox is private, but services are publicly accessible
-
-### Preview Integration
-The Preview API enables embedding Sandbox services directly in your application with:
-- Secure iframe embedding
-- Message passing for communication
-- Navigation controls and custom code injection
-
-## Integration Patterns
-
-### Pattern 1: User Development Environments
-Perfect for educational platforms, coding interviews, or team development:
-
-1. Create templates for different tech stacks
-2. Provision Sandboxes per user/project
-3. Manage sessions tied to user accounts
-4. Handle hibernation based on user activity
-
-### Pattern 2: AI Code Interpretation
-Ideal for AI agents that need to execute code safely:
-
-1. Create specialized templates for different runtimes
-2. Spin up Sandboxes per agent task
-3. Use filesystem API for code execution
-4. Hibernate immediately after task completion
-
-### Pattern 3: CI/CD and Testing
-Scale testing across multiple environments:
-
-1. Build template with test setup
-2. Fork Sandboxes for parallel test execution  
-3. Use terminal API to run test suites
-4. Aggregate results and clean up resources
-
-<Callout>
-**Best Practice**: Always use templates built with the CLI rather than generic setups. Pre-configured templates with snapshots provide the fastest, most reliable Sandbox creation experience and ensure consistency across your application.
-</Callout>
-
-## Resource Management
-
-Understanding resource management helps optimize costs and performance:
-
-```mermaid
-graph LR
-    subgraph "VM Tiers"
-        A[Pico<br/>0.5 vCPU, 1GB RAM]
-        B[Nano<br/>0.5 vCPU, 2GB RAM]  
-        C[Micro<br/>1 vCPU, 2GB RAM]
-        D[Small<br/>2 vCPU, 4GB RAM]
-        E[Medium<br/>4 vCPU, 8GB RAM]
-        F[Large<br/>8 vCPU, 16GB RAM]
-    end
-    
-    subgraph "Usage Patterns"
-        G[Light Development<br/>Documentation, Simple Apps]
-        H[Standard Development<br/>Web Apps, APIs]
-        I[Heavy Development<br/>Build Tools, Compilation]
-        J[AI/ML Workloads<br/>Model Training, Processing]
-    end
-    
-    A --> G
-    B --> G
-    C --> H
-    D --> H
-    E --> I
-    F --> J
-    
-    style A fill:#e8f5e8
-    style B fill:#e8f5e8
-    style C fill:#fff3e0
-    style D fill:#fff3e0
-    style E fill:#ffebee
-    style F fill:#ffebee
-```
-
-### Cost Optimization Strategies
-- **Template-based creation**: Avoid dependency installation overhead
-- **Active hibernation**: Don't rely on timeouts, actively hibernate when done
-- **Right-sizing VMs**: Start with appropriate tiers, upgrade only when needed
-- **Session management**: Track user activity to determine optimal hibernation timing
-
-The CodeSandbox SDK abstracts away the complexity of managing cloud development infrastructure while giving you complete control over the user experience. By understanding these core concepts, you can build sophisticated applications that leverage isolated, scalable development environments.
