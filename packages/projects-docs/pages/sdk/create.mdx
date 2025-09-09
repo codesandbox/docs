@@ -14,10 +14,10 @@ Sandboxes are the main building blocks of the CodeSandbox SDK. Each one represen
 
 - **Create templates for your specific use cases** - Don't rely on generic setups
 - **Pre-install dependencies in templates** - Use `setupTasks` to handle installation during template creation
-- **Configure tasks properly** - Set up dev servers and processes in your template configuration
+- **Configure tasks properly** - Set up dev servers and processes in your template configuration and avoid using the deprecated _restartOn_ field
 - **Avoid excessive live forks** - When creating a Sandbox from a running Sandbox you perform a **Live Fork**. This is slower than forking from a template or hiernated Sandbox
 - **Use appropriate VM tiers** - Set the minimum tier needed for your templates and never downsize the tier of a Sandbox created from a template or other Sandboxes
-</Callout>
+  </Callout>
 
 ## Templates
 
@@ -107,7 +107,6 @@ CodeSandbox uses [Dev Containers](https://containers.dev/) for configuring Docke
 ```
 
 When we boot the sandbox, we'll make sure that the docker image is pulled (or built) and we'll make sure that all shells will start within this container. Your `/project/workspace` folder will also be mounted inside the container.
-
 
 You can decide to build the Docker image as part of the template creation process as well. You can do this by defining this in your `.devcontainer/devcontainer.json`:
 
@@ -274,6 +273,7 @@ The primary persistence mechanism is based on git with a local remote. This mean
 2. **Clone a repo as a nested folder** - Work within a cloned repository inside the workspace
 
 Both of these approaches will enable a secondary persistence mechanisms which is not git.
+
 </Callout>
 
 If you want to use Git in a Sandbox, use one of the following approaches:
