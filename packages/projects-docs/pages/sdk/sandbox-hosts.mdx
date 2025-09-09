@@ -10,8 +10,6 @@ import { Callout } from 'nextra-theme-docs'
 <Callout type="warning" emoji="⚡">
 **Best practices**
 
-Use private sandboxes with host tokens for secure access control. Store a single host token with your sandbox details in your database for efficient token management. Consider proxying requests to previews through your own server to maintain lifecycle control and implement custom authentication or routing logic.
-
 - **Use private sandboxes** - Set `privacy: 'private'` for secure sandbox environments
 - **Store host tokens in your database** - Persist one host token per sandbox alongside other sandbox metadata
 - **Proxy through your server** - Route preview requests through your backend for lifecycle management and custom logic
