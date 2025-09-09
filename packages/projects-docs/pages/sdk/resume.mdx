@@ -12,8 +12,6 @@ Resuming allows you to wake up a hibernated sandbox and reconnect to it, restori
 <Callout type="warning" emoji="⚡">
 **Best practices**
 
-Design your UX for variable resume times. Sandboxes that have been dormant for a 4 days will perform a clean bootup, which takes significantly longer than a regular resume. Always show appropriate loading states and communicate the expected wait time to users.
-
 - **Track bootupType** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
 - **Manage lifecycles** - Do not rely on hibernation timeouts, but actively hibernate and resume
 - **Track Sandbox state** - Use your own persistence store to track when Sandboxes where last resumed and hibernate, giving a proactive UX
