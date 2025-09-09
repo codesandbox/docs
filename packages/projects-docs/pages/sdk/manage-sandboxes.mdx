@@ -12,13 +12,9 @@ The CodeSandbox SDK provides several methods to retrieve information about your 
 <Callout type="warning" emoji="⚡">
 **Best practices**
 
-Create sandboxes from a generated template. Keep track of sandbox resumes in your own persistence store. Use hibernation timeout as a backup - we recommend taking active control of the lifecycle by explicitly using resume and hibernate methods.
-
 - **Create from templates** - Always use custom templates built with the CLI for predictable, fast sandbox creation
 - **Track lifecycle in your database** - Store sandbox IDs, states, and metadata in your own persistence layer
-- **Control hibernation explicitly** - Don't rely on automatic timeout; actively hibernate sandboxes when users are done
-- **Use listRunning() for validation** - Rely on your own lifecycle state, but use `listRunning()` to validate state or build admin features
-- **Handle resume failures gracefully** - Implement proper error handling for cases where sandboxes fail to resume
+- **Control hibernation explicitly** - Don't rely on automatic timeout; actively hibernate sandboxes when sessions are done
 </Callout>
 
 ## Hibernation
@@ -31,7 +27,6 @@ When a Sandbox is hibernated, we create and save a snapshot of the underlying Fi
 - File system state
 - Memory contents
 - Running processes
-- Network connections
 
 When a Sandbox resume, we restore the snapshot. This allows you to continue from exactly where you left off.
 
