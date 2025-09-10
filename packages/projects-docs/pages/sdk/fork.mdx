@@ -1,0 +1,60 @@
+---
+title: Forking Sandboxes
+description: Learn how to create sandboxes and templates with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Forking Sandboxes
+
+The fork method allows you to create a new Sandbox based on an existing one, copying its files and configuration while creating an independent instance.
+
+<Callout type="warning" emoji="⚡">
+**Best practices**
+
+- **Avoid forking running Sandboxes** - Avoid using the `id` of a running sandbox as this creates a "live fork" which doesn't scale and can cause performance issues
+- **Plan your versioning strategy** - Use git commits, branches, or hibernated Sandbox workflows to manage different versions effectively
+- **Hibernate before forking** - Keep stable versions hibernated to serve as reliable fork sources
+
+</Callout>
+
+You can fork a Sandbox by referencing the `id` of an existing Sandbox:
+
+```ts
+const sandbox = await sdk.sandboxes.fork('some-sandbox-id', {
+  // Override any options
+})
+```
+
+Forking a hibernated Sandbox will take 1-3 seconds, while forking running Sandboxes will take longer. If you need Sandbox versioning please consider one of the following suggested strategies.
+
+### Git Commits and Checkouts
+
+Use git history to manage different versions within a single Sandbox:
+
+- Make commits for each version milestone
+- Use `git checkout` to switch between versions
+- Tag important releases for easy reference
+
+### Branch-Based Remote Previews
+
+Push different versions to separate branches to generate previews with external services:
+
+- Create feature branches for different versions
+- Push to remote repositories
+- Integrate with preview deployment services
+- Use branch URLs for sharing specific versions
+- When choosing a different preview, checkout that branch for further development
+
+### Hibernated Sandbox Workflow
+
+Maintain a structured approach using hibernated Sandboxes:
+
+- Keep your current stable version as a hibernated Sandbox
+- Create forks from the hibernated version for previews
+- When ready to release a new version:
+  1. Hibernate the new version
+  2. Fork from it for additional development
+  3. Repeat the cycle for continuous versioning
+
+This approach ensures you always have stable reference points while maintaining the ability to create fast, scalable forks for development and preview purposes.

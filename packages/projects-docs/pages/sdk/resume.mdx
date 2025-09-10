@@ -13,10 +13,8 @@ Resuming allows you to wake up a hibernated sandbox and reconnect to it, restori
 **Best practices**
 
 - **Track bootupType** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
-- **Manage lifecycles** - Do not rely on hibernation timeouts, but actively hibernate and resume
-- **Track Sandbox state** - Use your own persistence store to track when Sandboxes where last resumed and hibernate, giving a proactive UX
-- **Keeping Sandboxes warm** - When actively managing the lifecycle you can also wake up and hibernate Sandboxes to extend their optimal state for longer
 - **Avoid automatic HTTP wakeup** - As Sandboxes are arhived after 4 days of inactivity, waking it up from a preview url can give a bad ux
+
 </Callout>
 
 ## Resuming a Sandbox
@@ -28,6 +26,7 @@ const sandbox = await sdk.sandboxes.resume('sandbox-id');
 ```
 
 This will:
+
 1. Restore the sandbox from its hibernated snapshot
 2. Resume all processes that were running
 3. Restore network connections and file system state
@@ -60,7 +59,7 @@ const sandbox = await sdk.sandboxes.resume('sandbox-id');
 if (sandbox.bootupType === 'CLEAN') {
   const client = await sandbox.connect()
   const steps = await clients.setup.getSteps()
-  
+
   for (const step of setupSteps) {
     await step.waitUntilComplete()
   }
@@ -77,12 +76,12 @@ const client = await connectToSandbox({
 
 if (client.bootupType === 'CLEAN') {
   const steps = await clients.setup.getSteps()
-  
+
   for (const step of setupSteps) {
     console.log(`Step: ${step.name}`);
     console.log(`Command: ${step.command}`);
     console.log(`Status: ${step.status}`);
-  
+
     const output = await step.open()
     output.onOutput((output) => console.log(output))
     await step.waitUntilComplete()
@@ -95,8 +94,7 @@ if (client.bootupType === 'CLEAN') {
 Sandboxes can be configured to automatically wake up from hibernation when they receive HTTP requests or WebSocket connections:
 
 ```ts
-const sandbox = await sdk.sandboxes.create({
-    id: 'your-template-id',
+const sandbox = await sdk.sandboxes.create('your-template-id', {
     automaticWakeupConfig: {
         http: true,      // Wake up on HTTP requests
         websocket: true  // Wake up on WebSocket connections
@@ -104,7 +102,7 @@ const sandbox = await sdk.sandboxes.create({
 });
 ```
 
-<Callout>
+<Callout type="warning">
 The `automaticWakeupConfig` only wakes up the Sandbox, it does not extend its hibernation timeout.
 </Callout>
 

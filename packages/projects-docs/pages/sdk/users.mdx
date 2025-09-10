@@ -1,0 +1,111 @@
+---
+title: Users
+description: Learn about Sandbox users in CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Users
+
+<Callout type="warning" emoji="⚡">
+**Best practices**
+
+- **Prefer global user** - If the Sandbox will only have a single user, use the default global user
+- **Use consistent user identifiers** - Any custom user should use a stable and meaningful ID (e.g., username, user ID)
+- **Configuring git/env** - Only configure on Sandbox create and when resumed from CLEAN state
+- **Privacy** - Do not write git/env configuration to public Sandboxes or the global user if multiple users has access to Sandbox
+
+</Callout>
+
+When connecting to a Sandbox you will be using the default global user. If your Sandboxes are only ever used by a single user, you should use the global user.
+
+```ts
+const sandbox = await sdk.sandboxes.create('some-template-id')
+
+const client = await sandbox.connect()
+```
+
+Or create a session to use in browser/node clients:
+
+```ts
+const sandbox = await sdk.sandboxes.create('some-template-id')
+
+const session = await sandbox.createSession()
+```
+
+## Configure Git
+
+```ts
+const sandbox = await sdk.sandboxes.create('some-template-id')
+
+const client = await sandbox.connect()
+
+await client.configureGit({
+  email: 'foo@bar.com', // Required
+  name: 'Foo Bar', // Optional, defaults to session id
+
+  // Optional credentials
+  accessToken: '...',
+  provider: 'github.com',
+  username: 'my-provider-username' // Optional, defaults to x-access-token
+})
+```
+
+## Configure Env
+
+These variables will be available to the user inside the commands and terminals that are run in the Sandbox.
+
+```ts
+const sandbox = await sdk.sandboxes.create('some-template-id')
+
+const client = await sandbox.connect()
+
+await client.configureEnv({
+  FOO: 'bar'
+})
+```
+
+## User Sessions
+
+If your Sandbox can be accessed by multiple users you should create user sessions. This ensures privacy and isolation between users.
+
+```ts
+const sandbox = await sdk.sandboxes.create('some-template-id')
+
+const client = await sandbox.connect({
+  userId: 'some-user-reference'
+})
+```
+
+Or create a session to use in browser/node:
+
+```ts
+const sandbox = await sdk.sandboxes.create('some-template-id')
+
+const session = await sandbox.createSession({
+  userId: 'some-user-reference'
+})
+```
+
+<Callout>
+When you run `whoami`, it will say that you are `root`. That's because we run every session inside a Docker container where you are `root`. However the container itself is started as the user of your session.
+</Callout>
+
+### Host Tokens
+
+Passing a host token to the session will sign all url generation from the client APIs.
+
+```ts
+const sandbox = await sdk.sandboxes.create('some-template-id')
+
+const hostToken = await sdk.hosts.createToken()
+
+const session = await sandbox.createSession({
+  hostToken
+})
+
+// Or if connecting on the server
+const client = await sandbox.connect({
+  hostToken
+})
+```

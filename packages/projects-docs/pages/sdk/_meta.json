@@ -9,10 +9,11 @@
     "title": "Sandboxes"
   },
   "create": "Create",
+  "fork": "Fork",
   "resume": "Resume",
   "manage-sandboxes": "Lifecycle Management",
   "restart-shutdown": "Restart & Shutdown",
-  "sessions": "Sessions",
+  "users": "Users",
   "sandbox-hosts": "Hosts",
   "specs": "VM Specs",
   "-- previews": {
