@@ -12,7 +12,7 @@ import { Callout } from 'nextra-theme-docs'
 
 - **Prefer global user** - If the Sandbox will only have a single user, use the default global user
 - **Use consistent user identifiers** - Any custom user should use a stable and meaningful ID (e.g., username, user ID)
-- **Configuring git/env** - Only configure on Sandbox create and when resumed from CLEAN state
+- **Configuring git/env** - Configure on Sandbox create and on resume in CLEAN state
 - **Privacy** - Do not write git/env configuration to public Sandboxes or the global user if multiple users has access to Sandbox
 
 </Callout>
@@ -25,7 +25,7 @@ const sandbox = await sdk.sandboxes.create('some-template-id')
 const client = await sandbox.connect()
 ```
 
-Or create a session to use in browser/node clients:
+Or when creating a session to use in browser/node clients:
 
 ```ts
 const sandbox = await sdk.sandboxes.create('some-template-id')
@@ -75,7 +75,7 @@ If the Sandbox gets archived and does a `CLEAN` bootup you will need to configur
 
 ## Multiple Users
 
-If your Sandbox can be accessed by multiple users you should create user sessions. This ensures privacy and isolation between users.
+If your Sandbox can be accessed by multiple users you should connect or create sessions with a `userId`. This ensures privacy and isolation between users.
 
 ```ts
 const sandbox = await sdk.sandboxes.create('some-template-id')

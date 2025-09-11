@@ -13,7 +13,7 @@ Resuming allows you to wake up a hibernated sandbox and reconnect to it, restori
 **Best practices**
 
 - **Track bootupType** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
-- **Avoid automatic HTTP wakeup** - As Sandboxes are arhived after 4 days of inactivity, waking it up from a preview url can give a bad ux
+- **Avoid automatic HTTP wakeup** - As Sandboxes are arhived after 4 days of inactivity, waking it up from a preview url can create a blocking UX
 
 </Callout>
 
@@ -33,10 +33,6 @@ This will:
 4. Return a connected sandbox instance ready for use
 
 ## Clean Bootups
-
-<Callout>
-Sandboxes that have been dormant for 4 days will do a CLEAN bootup, meaning it will run its setup tasks when resumed. Please make sure you [handle this](/sdk/lifecycle#managing-clean-bootups) case in your application.
-</Callout>
 
 Whenever we boot a sandbox from scratch, we'll:
 

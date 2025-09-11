@@ -12,7 +12,7 @@ Sandboxes are the main building blocks of the CodeSandbox SDK. Each one represen
 <Callout type="warning" emoji="⚡">
 **Best practices**
 
-- **Create templates for your specific use cases** - Don't fork Sandboxes creates on codesandbox.io
+- **Create templates using the CLI** - Don't create templates on codesandbox.io, use the CLI
 - **Pre-install dependencies in templates** - Use `setupTasks` to handle installation during template creation
 - **Configure tasks properly** - Set up dev servers and processes in your template configuration and avoid using the deprecated _restartOn_ field
 - **Avoid excessive live forks** - When creating a Sandbox from a running Sandbox you perform a **Live Fork**. This is slower than forking from a template or hibernated Sandbox
@@ -128,7 +128,7 @@ The template defaults to a `Micro` VM Tier for both building the template and wh
 
 This will start the process of creating Sandboxes for each of our clusters, write files, restart, wait for port 5173 to be available and then hibernate. This generates the snapshot that allows you to quickly create Sandboxes already running a dev server from the template.
 
-When all clusters are updated successfully you will get a "Template ID" back which you can use when creating your sandboxes:
+When all clusters are updated successfully you will get a **Template ID** back which you can use when creating your sandboxes:
 
 ```ts
 const sandbox = await sdk.sandboxes.create('your-template-id-here')
@@ -269,7 +269,7 @@ const sandbox = await sdk.sandboxes.create('your-custom-template-id', {
 ```
 
 <Callout>
-Even though automatic hibernation and automatic wakeup seems appealing, best practice is to invest in managing lifecycles on your own server. The hibernation timeout and wakeup has opinionated rules that can be good for initial testing, but will add cost and/or break UX at scale.
+Even though automatic hibernation and automatic wakeup seems appealing, best practice is to invest in managing lifecycles on your own server. The hibernation timeout and wakeup has opinionated rules that can be good for initial testing, but will add cost and/or negatively impact UX at scale.
 </Callout>
 
 Each Sandbox has the following properties, with information about it's own instance:
@@ -290,16 +290,10 @@ There is also a `/project/sandbox` folder, but consider this deprecated. Use `/p
 The primary persistence mechanism is based on git with a local remote. This means the workspace is initialized with git automatically.
 
 <Callout type="warning">
-**Warning about Git Commands**: Users should not run git commands in the workspace unless they do one of the following:
-
-1. **Change the remote of the workspace** - Point to their own git repository
-2. **Clone a repo as a nested folder** - Work within a cloned repository inside the workspace
-
-Both of these approaches will enable a secondary persistence mechanisms which is not git.
-
+Running git commands in the workspace will cause issues with persistence. Please read on to understand how to use git in the Sandbox.
 </Callout>
 
-### Change the git remote
+### Using git in the root workspace
 
 ```bash
 # Remove the default local remote and add your own
@@ -310,7 +304,7 @@ git remote add origin https://github.com/your-username/your-repo.git
 git push -u origin main
 ```
 
-### Clone repo as submodule
+### Using git as submodule
 
 ```bash
 # Clone your repository inside the workspace
@@ -337,14 +331,12 @@ const client = await sandbox.connect();
 
 ## Create Session
 
-Creates a new user session with specific configurations like permissions, git access, and environment variables:
+Creates a session you can pass to browser/node clients.
 
 ```ts
 const sandbox = await sdk.sandboxes.create('your-template-id');
 const session = await sandbox.createSession();
 ```
-
-The session can be passed to the browser or a different Node.js environment to connect directly to the sandbox. This is particularly useful for creating isolated user experiences with specific permissions and configurations.
 
 ## Update Tier
 
@@ -353,7 +345,7 @@ Updates the VM tier of the running sandbox:
 ```ts
 import { VMTier } from '@codesandbox/sdk';
 
-const sandbox = await sdk.sandboxes.create('your-template-id');
+const sandbox = await sdk.sandboxes.resume('some-sandbox-id');
 
 // Upgrade to a more powerful VM tier
 await sandbox.updateTier(VMTier.Small);
@@ -368,7 +360,7 @@ You can only upgrade to higher VM tiers, not downgrade.
 Updates the hibernation timeout for the sandbox:
 
 ```ts
-const sandbox = await sdk.sandboxes.create('your-template-id');
+const sandbox = await sdk.sandboxes.resume('some-sandbox-id');
 
 // Set hibernation timeout to 30 minutes (1800 seconds)
 await sandbox.updateHibernationTimeout(1800);

@@ -138,9 +138,9 @@ const sandbox = await sdk.sandboxes.create('some-template-id', {
 
 ## Resuming
 
-How you manage the resume part of the lifecycle depends on your use case, but binding sandbox sessions to user sessions makes a lot of sense. You need to know when a user session ends to enforce hibernation.
+How you manage the resume part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` when the sessions ends.
 
-### From User Session
+### Example: From User Session
 
 ```ts
 // When user starts a session, resume their sandbox
@@ -171,7 +171,7 @@ async function endUserSession(userId: string) {
 }
 ```
 
-### From Host Access
+### Example: From Host Access
 
 If you want direct host access to wake up sandboxes, you need to implement a proxy endpoint that manages this:
 

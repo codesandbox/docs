@@ -10,10 +10,9 @@ import { Callout } from 'nextra-theme-docs'
 <Callout type="warning" emoji="⚡">
 **Best practices**
 
-- **Use private sandboxes** - Set `privacy: 'private'` for secure sandbox environments
-- **Store host tokens in your database** - Persist one host token per sandbox alongside other sandbox metadata
+- **Use private sandboxes** - Set privacy 'private'` for secure sandbox hosts
+- **Persist host tokens** - Persist one host token per sandbox alongside other sandbox metadata
 - **Proxy through your server** - Route preview requests through your backend for lifecycle management and custom logic
-- **Avoid token proliferation** - Don't create multiple tokens per sandbox unless specifically needed for different access levels
 
 </Callout>
 
@@ -28,7 +27,7 @@ For example, if your sandbox ID is `abc123` and your dev server runs on port `30
 
 ## Private Sandboxes
 
-When you have `private` Sandboxes the hosts can not be accessed. You will need to generate a token to access the hosts. You create signed urls to your Sandboxes using the `hosts` API on the server:
+When you have `private` Sandboxes the hosts can not be accessed by default. You will need to generate a token to access the hosts. You create signed urls to your Sandboxes using the `hosts` API on the server:
 
 ```ts
 const hostToken = await sdk.hosts.createToken('sandbox-id')

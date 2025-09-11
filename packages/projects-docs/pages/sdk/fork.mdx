@@ -7,12 +7,12 @@ import { Callout } from 'nextra-theme-docs'
 
 # Forking Sandboxes
 
-The fork method allows you to create a new Sandbox based on an existing one, copying its files and configuration while creating an independent instance.
+The fork method allows you to create a new Sandbox based on an existing one, copying its exact memory and persistence state.
 
 <Callout type="warning" emoji="⚡">
 **Best practices**
 
-- **Avoid forking running Sandboxes** - Avoid using the `id` of a running sandbox as this creates a "live fork" which doesn't scale and can cause performance issues
+- **Avoid forking running Sandboxes** - Avoid using the `id` of a running sandbox as this creates a "live fork" which doesn't scale
 - **Plan your versioning strategy** - Use git commits, branches, or hibernated Sandbox workflows to manage different versions effectively
 - **Hibernate before forking** - Keep stable versions hibernated to serve as reliable fork sources
 
@@ -28,7 +28,7 @@ const sandbox = await sdk.sandboxes.fork('some-sandbox-id', {
 
 Forking a hibernated Sandbox will take 1-3 seconds, while forking running Sandboxes will take longer. If you need Sandbox versioning please consider one of the following suggested strategies.
 
-### Git Commits and Checkouts
+### 1. Git Commits and Checkouts
 
 Use git history to manage different versions within a single Sandbox:
 
@@ -36,7 +36,7 @@ Use git history to manage different versions within a single Sandbox:
 - Use `git checkout` to switch between versions
 - Tag important releases for easy reference
 
-### Branch-Based Remote Previews
+### 2. Branch-Based Remote Previews
 
 Push different versions to separate branches to generate previews with external services:
 
@@ -46,7 +46,7 @@ Push different versions to separate branches to generate previews with external 
 - Use branch URLs for sharing specific versions
 - When choosing a different preview, checkout that branch for further development
 
-### Hibernated Sandbox Workflow
+### 3. Hibernated Sandbox Workflow
 
 Maintain a structured approach using hibernated Sandboxes:
 
