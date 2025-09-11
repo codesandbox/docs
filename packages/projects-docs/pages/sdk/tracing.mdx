@@ -30,7 +30,7 @@ import { trace } from '@opentelemetry/api';
 const tracer = trace.getTracer('codesandbox-sdk', '1.0.0');
 
 // Pass tracer to SDK
-const sdk = new CodeSandbox(process.env.CSB_API_KEY, { tracer });
+const sdk = new CodeSandbox({ tracer });
 ```
 
 ## Traced Operations
@@ -149,7 +149,7 @@ sdk.start();
 
 // Get tracer and use with CodeSandbox SDK
 const tracer = trace.getTracer('my-app');
-const csb = new CodeSandbox(process.env.CSB_API_KEY, { tracer });
+const csb = new CodeSandbox({ tracer });
 ```
 
 ### Jaeger Integration

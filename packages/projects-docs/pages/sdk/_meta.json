@@ -16,17 +16,7 @@
   "users": "Users",
   "sandbox-hosts": "Hosts",
   "specs": "VM Specs",
-  "-- previews": {
-    "type": "separator",
-    "title": "Previews"
-  },
-  "browser-previews": "Previews",
-  "preview-api-access": "Preview API Access",
-  "-- cli": {
-    "type": "separator",
-    "title": "CLI"
-  },
-  "cli": "CLI Reference",
+  "tracing": "OpenTelemetry & Tracing",
   "-- clients": {
     "type": "separator",
     "title": "Clients"
@@ -40,11 +30,17 @@
   "hosts": "Hosts",
   "tasks": "Tasks",
   "setup": "Setup",
-  "-- observability": {
+  "-- previews": {
     "type": "separator",
-    "title": "Observability"
+    "title": "Previews"
   },
-  "tracing": "OpenTelemetry & Tracing",
+  "browser-previews": "Previews",
+  "preview-api-access": "Preview API Access",
+  "-- cli": {
+    "type": "separator",
+    "title": "CLI"
+  },
+  "cli": "CLI Reference",
   "-- resources": {
     "type": "separator",
     "title": "Resources"
