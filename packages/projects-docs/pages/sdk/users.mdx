@@ -41,8 +41,8 @@ const sandbox = await sdk.sandboxes.create('some-template-id')
 const client = await sandbox.connect()
 
 await client.configureGit({
-  email: 'foo@bar.com', // Required
-  name: 'Foo Bar', // Optional, defaults to session id
+  email: 'foo@bar.com',
+  name: 'Foo Bar',
 
   // Optional credentials
   accessToken: '...',
@@ -50,6 +50,10 @@ await client.configureGit({
   username: 'my-provider-username' // Optional, defaults to x-access-token
 })
 ```
+
+<Callout type="warning">
+If the Sandbox gets archived and does a `CLEAN` bootup you will need to configure again.
+</Callout>
 
 ## Configure Env
 
@@ -65,7 +69,11 @@ await client.configureEnv({
 })
 ```
 
-## User Sessions
+<Callout type="warning">
+If the Sandbox gets archived and does a `CLEAN` bootup you will need to configure again.
+</Callout>
+
+## Multiple Users
 
 If your Sandbox can be accessed by multiple users you should create user sessions. This ensures privacy and isolation between users.
 
