@@ -15,6 +15,7 @@ The CodeSandbox SDK provides several methods to retrieve information about your 
 - **Create from templates** - Always use custom templates built with the CLI for predictable, fast sandbox creation
 - **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer
 - **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate sandboxes when sessions are done and actively resume them when you want to continue
+- **Delete sandboxes after 2 days** - Create a "dorment" state of user projects and delete the related Sandbox after pushing persistence remotely or to your own persistence layer
 
 </Callout>
 
@@ -100,6 +101,10 @@ When a Sandbox is hibernated, we create and save a snapshot of the underlying Fi
 - Running processes
 
 When a Sandbox resume, we restore the snapshot. This allows you to continue from exactly where you left off.
+
+<Callout type="warning">
+When hibenrated without resume for 2 days the Sandbox will be archived. Please read the deletion section for more information on best practices.
+</Callout>
 
 ### Manual Hibernation
 
@@ -214,56 +219,116 @@ This approach gives you:
 Read more about hosts and proxying requests in [Hosts](./sandbox-hosts)
 </Callout>
 
-### Keeping Snapshots Warm
+## Deleting Sandboxes
 
-To avoid sandboxes being archived after 4 days of hibernation (which results in a slower CLEAN bootup), you need to proactively manage hibernated sandboxes by resuming and re-hibernating them before the 4-day limit.
+After 2 days of inactivity we will `archive` your Sandbox. That means a `resume` will take up to 60 seconds. To avoid this you should rather `delete` the Sandbox after 2 days of inactivity. Make sure you push any changes to a remote or to your own persistence before deleting.
+
+If the user comes back a new sandbox should be created and their persistence should be pulled back into the Sandbox. This results in a much faster `resume` and you prevent future costs for persistence.
 
 ```ts
-// Track hibernation times in your database
-interface SandboxRecord {
-  id: string;
-  userId: string;
-  hibernatedAt: Date;
-  lastWarmedAt?: Date;
-}
+// Delete a sandbox when it's no longer needed
+await sdk.sandboxes.delete('sandbox-id');
+```
 
-// Function to warm hibernated sandboxes approaching the 4-day limit
-async function warmHibernatedSandboxes() {
-  const threeDaysAgo = new Date(Date.now() - (3 * 24 * 60 * 60 * 1000));
+### Example: Clean Up Old Sandboxes
 
-  // Find sandboxes hibernated for ~3 days
-  const sandboxesToWarm = await getSandboxesHibernatedSince(threeDaysAgo);
+```ts
+// Clean up sandboxes that haven't been active for a specified period
+async function cleanupOldSandboxes(daysInactive = 2) {
+  const cutoffDate = new Date(Date.now() - (daysInactive * 24 * 60 * 60 * 1000));
 
-  for (const sandbox of sandboxesToWarm) {
+  // Get sandboxes that haven't been active recently
+  const oldSandboxes = await getInactiveSandboxesSince(cutoffDate);
+
+  for (const sandbox of oldSandboxes) {
     try {
-      // Resume the sandbox
-      await sdk.sandboxes.resume(sandbox.id);
+      // Connect to the sandbox to push changes
+      const resumedSandbox = await sdk.sandboxes.resume(sandbox.id);
+      const client = await resumedSandbox.connect();
 
-      // Immediately hibernate it again to create a fresh snapshot
-      await sdk.sandboxes.hibernate(sandbox.id);
+      // Push any uncommitted changes to remote repository
+      await client.commands.run([
+        'git add -A',
+        'git commit -m "Auto-save before cleanup" || true',
+        'git push origin main || true'
+      ]);
 
-      // Update your tracking
-      await updateSandboxRecord(sandbox.id, {
-        hibernatedAt: new Date(),
-        lastWarmedAt: new Date()
-      });
+      // Delete the sandbox from CodeSandbox
+      await sdk.sandboxes.delete(sandbox.id);
 
-      console.log(`Warmed sandbox ${sandbox.id}`);
+      // Remove from your database
+      await deleteSandboxRecord(sandbox.id);
+
+      console.log(`Deleted inactive sandbox ${sandbox.id}`);
     } catch (error) {
-      console.error(`Failed to warm sandbox ${sandbox.id}:`, error);
+      console.error(`Failed to delete sandbox ${sandbox.id}:`, error);
     }
   }
 }
 
-// Run this as a scheduled job (e.g., daily)
-// This keeps snapshots warm and extends persistence
+// Create a new sandbox and restore remote changes
+async function recoverSandboxForUser(userId: string, projectId: string) {
+  const project = await getProjectFromDatabase(projectId);
+
+  try {
+    // Create new sandbox from template
+    const sandbox = await sdk.sandboxes.create(project.templateId);
+    const client = await sandbox.connect();
+
+    // Pull remote changes if repository URL exists
+    if (project.repositoryUrl) {
+      await client.commands.run([
+        `git remote add origin ${project.repositoryUrl}`,
+        'git fetch origin main',
+        'git checkout main || git checkout -b main origin/main',
+        'git pull origin main || true'
+      ]);
+    }
+
+    // Update database with new sandbox ID
+    await updateProjectRecord(projectId, { sandboxId: sandbox.id });
+
+    return sandbox;
+  } catch (error) {
+    console.error('Failed to create and restore sandbox:', error);
+    throw new Error('Failed to create sandbox');
+  }
+}
 ```
 
-**Key considerations:**
+### Example: User-Initiated Deletion
 
-- **Track hibernation times** - Store when each sandbox was hibernated in your database
-- **Run warming jobs** - Schedule regular checks (daily) to warm sandboxes approaching the 4-day limit
-- **Monitor costs** - Each resume/hibernate cycle uses VM time, so balance frequency with cost
-- **Handle failures** - Some sandboxes might fail to resume; implement proper error handling
+```ts
+// Allow users to delete their own sandboxes
+async function deleteUserSandbox(userId: string, sandboxId: string) {
+  // Verify user owns this sandbox
+  const sandbox = await getSandboxFromDatabase(sandboxId);
+  if (sandbox.userId !== userId) {
+    throw new Error('Unauthorized to delete this sandbox');
+  }
 
-This approach prevents the automatic archiving process and maintains fast resume times by avoiding CLEAN state bootups.
+  try {
+    // Connect to the sandbox to push changes
+    const resumedSandbox = await sdk.sandboxes.resume(sandboxId);
+    const client = await resumedSandbox.connect();
+
+    // Push any uncommitted changes to remote repository
+    await client.commands.run([
+      'git add -A',
+      'git commit -m "Save changes before deletion" || true',
+      'git push origin main || true'
+    ]);
+
+    // Delete from CodeSandbox
+    await sdk.sandboxes.delete(sandboxId);
+
+    // Remove from your database
+    await deleteSandboxRecord(sandboxId);
+
+    return { success: true, message: 'Sandbox deleted successfully' };
+  } catch (error) {
+    console.error('Failed to delete sandbox:', error);
+    throw new Error('Failed to delete sandbox');
+  }
+}
+```
