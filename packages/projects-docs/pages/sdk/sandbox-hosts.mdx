@@ -68,159 +68,74 @@ const hostToken = await sdk.hosts.createToken('sandbox-id', {
 
 This is useful if you want to limit the lifetime of a host token. For example when a user shared a preview of their app with someone who should only have access for a limited time.
 
-## Custom Domains
+## Proxying To Hosts
 
 You can implement custom domains and routing by proxying requests through your own server. This allows you to create user-friendly URLs that map to your sandbox hosts while maintaining control over access and lifecycle management.
 
-Here's a simple example using Express.js to route subdomain requests to sandbox hosts:
+### Use Cases
+
+Implementing custom domains and proxy setups provides several benefits:
+
+#### Better URLs
+
+Transform technical sandbox URLs into user-friendly branded domains:
+
+- `https://abc123-3000.csb.app` → `https://my-project.yourdomain.com`
+- Improves user experience and branding
+
+<Callout type="warning">
+**Security Note**: We recommend evaluating using subdomains on a different domain than your main application. This mitigates blacklisting your domain due to phishing attempts.
+</Callout>
+
+#### Enhanced Security
+
+- **Token Protection**: Hide preview tokens from end users by mapping app user sessions to preview tokens on your backend
+- **Access Control**: Implement custom authentication and authorization logic
+- **Session Management**: Control who can access previews and for how long
+
+#### Custom Error Pages
+
+Handle sandbox errors gracefully with branded error pages:
+
+- Display custom 404 pages when sandboxes are not found
+- Show maintenance pages during sandbox startup
+- Provide helpful error messages for connection issues
+
+#### Lifecycle Management
+
+Implement intelligent sandbox management:
+
+- **Auto-Resume**: Automatically wake up hibernated sandboxes on first request
+- **Auto-Hibernate**: Put unused sandboxes to sleep to save resources
+- **Request-Based Control**: Resume sandboxes only when needed (e.g., HTML requests but not asset requests)
+
+### Proxy Solutions
+
+You can use various proxy solutions to implement custom domain routing:
+
+- **Nginx** - Popular reverse proxy with excellent performance and configuration flexibility
+- **Cloudflare** - CDN with built-in proxy capabilities and additional security features
+- **Vercel** - Edge functions and serverless proxy solutions
+- **Custom Node.js/Express** - Full control with custom middleware and logic
+
+<Callout type="warning">
+**Performance Consideration**: Using a proxy will increase latency as requests must travel through your proxy server before reaching CodeSandbox hosts.
+</Callout>
+
+### Required Configuration
+
+When proxying requests to CodeSandbox hosts, you must set the `trust_csb_preview` cookie to ensure proper authentication:
 
 ```js
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-const { CodeSandbox } = require('@codesandbox/sdk');
-
-const app = express();
-const sdk = new CodeSandbox();
-const JWT_SECRET = process.env.JWT_SECRET;
-
-// Middleware to extract project ID from subdomain
-app.use(async (req, res, next) => {
-  const subdomain = req.hostname.split('.')[0];
-
-  // Skip if it's the main domain
-  if (subdomain === 'yourdomain' || subdomain === 'www') {
-    return next();
-  }
-
-  // Check if this is a request for HTML content based on Accept header
-  const isHtmlRequest = req.headers.accept?.includes('text/html');
-
-  try {
-    // Check for existing JWT token in cookies
-    const token = req.cookies?.projectAuth;
-    let projectData = null;
-
-    if (token) {
-      try {
-        // Verify and decode JWT
-        projectData = jwt.verify(token, JWT_SECRET);
-
-        // Ensure the token matches this subdomain project
-        if (projectData.projectId !== subdomain) {
-          projectData = null;
-        }
-      } catch (err) {
-        // Token invalid, will fetch from database
-        projectData = null;
-      }
-    }
-
-    // If no valid JWT, fetch from database and create new token
-    if (!projectData) {
-      const project = await getProjectFromDatabase(subdomain);
-
-      if (!project || !project.sandboxId) {
-        return res.status(404).send('Project not found');
-      }
-
-      // Ensure user has access (implement your auth logic)
-      const userId = req.user?.id;
-      if (userId && !await userHasAccessToProject(userId, project.id)) {
-        return res.status(403).send('Access denied');
-      }
-
-      // Create JWT with project and auth info
-      projectData = {
-        projectId: subdomain,
-        sandboxId: project.sandboxId,
-        userId: userId,
-        status: project.status,
-        iat: Math.floor(Date.now() / 1000),
-        exp: Math.floor(Date.now() / 1000) + (60 * 60) // 1 hour expiry
-      };
-
-      const newToken = jwt.sign(projectData, JWT_SECRET);
-
-      // Set JWT cookie
-      res.cookie('projectAuth', newToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 1000 // 1 hour
-      });
-    }
-
-    // Only resume sandbox if it's not running and it's an HTML request
-    if (isHtmlRequest && projectData.status !== 'running') {
-      await sdk.sandboxes.resume(projectData.sandboxId);
-      // Update project status in your database
-      await updateProjectStatus(projectData.projectId, 'running');
-    }
-
-    // Create proxy to sandbox host (assuming port 3000 for dev server)
-    const targetUrl = `https://${projectData.sandboxId}-3000.csb.app`;
-
-    const proxy = createProxyMiddleware({
-      target: targetUrl,
-      changeOrigin: true,
-      ws: true, // Enable WebSocket proxying
-      onError: (err, req, res) => {
-        console.error('Proxy error:', err);
-        res.status(500).send('Sandbox unavailable');
-      }
-    });
-
-    return proxy(req, res, next);
-
-  } catch (error) {
-    console.error('Error handling subdomain request:', error);
-    res.status(500).send('Internal server error');
-  }
-});
-
-app.listen(3000, () => {
-  console.log('Custom domain server running on port 3000');
+// Set the trust_csb_preview cookie when proxying
+res.cookie('trust_csb_preview', 'true', {
+  domain: '.csb.app',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
 });
 ```
 
-This implementation allows users to access their projects via clean URLs like:
+### Example Implementation
 
-- `https://my-project.yourdomain.com` instead of `https://abc123-3000.csb.app`
-- `wss://my-project.yourdomain.com` for WebSocket connections
-
-The server automatically handles sandbox wake-up, authentication, and proxying to the appropriate sandbox host.
-
-## Managing Host Tokens (CLI)
-
-The CLI allows you to manage host tokens of a sandbox. You can use it to list, revoke and update host tokens.
-
-### List
-
-```
-$ csb sandbox host-tokens :sandbox-id list
- ID                           PREFIX        LAST USED   EXPIRES
- prv_Hca52PUyFHVJsGkciXXbEq   prv_v1_8uKY   Never       Never
- prv_HbE8wC6veXWwcazFYrdUfy   prv_v1__ki7   Never       Never
- prv_MWMhMjbQiY3jSagfaG6D7R   prv_v1_i7iI   Never       Never
-```
-
-### Revoke
-
-```
-$ csb sandbox host-tokens :sandbox-id revoke prv_Hca52PUyFHVJsGkciXXbEq
-```
-
-If you want to revoke all host tokens for a sandbox, you can do so with:
-
-```
-$ csb sandbox host-tokens :sandbox-id revoke --all
-```
-
-### Update
-
-Extend or shorten the expiration time of a host token:
-
-```
-$ csb sandbox host-tokens :sandbox-id update prv_Hca52PUyFHVJsGkciXXbEq --expires-at 2025-03-01
-```
+For a complete example of implementing custom domain proxying with Nginx, see our [example custom preview proxy repository](https://github.com/codesandbox/example-custom-preview-proxy).
