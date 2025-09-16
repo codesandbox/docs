@@ -1,0 +1,50 @@
+---
+title: Glossary
+description: Key terms and definitions for the CodeSandbox SDK.
+---
+
+# Glossary
+
+- **API Key**: Authentication token required to use the CodeSandbox SDK. Created at [https://codesandbox.io/t/api](https://codesandbox.io/t/api) and exposed as `CSB_API_KEY` environment variable.
+
+- **Browser Client**: A client connection that runs in a web browser environment, allowing interaction with sandboxes from frontend applications.
+
+- **Client**: A connection object that provides methods to interact with a sandbox, including file system operations, command execution, and terminal management.
+
+- **Commands**: Interface for running shell commands in a sandbox. Commands clean themselves up after execution, unlike terminals which persist.
+
+- **Dev Container**: Container configuration system used by CodeSandbox for environment setup. Uses `.devcontainer/devcontainer.json` for configuration.
+
+- **Firecracker VM**: The virtualization technology that powers each sandbox, providing complete isolation and security for running untrusted code.
+
+- **Fork**: Creating a new sandbox from an existing sandbox. A "Live Fork" creates from a running sandbox (slower), while forking from hibernated sandboxes or templates is faster.
+
+- **Hibernation**: Automatic suspension of sandbox execution after a specified timeout period. Sandboxes can be resumed later while preserving their state.
+
+- **Host Token**: Authentication token required to access hosts of private sandboxes. Provides secure access to sandbox ports and services.
+
+- **Hosts**: The publicly accessible URLs where sandbox services are exposed, following the pattern `https://$SANDBOX_ID-$PORT.csb.app`.
+
+- **Live Fork**: Creating a sandbox from a currently running sandbox, which is slower than forking from templates or hibernated sandboxes.
+
+- **Node Client**: A client connection designed for Node.js-like environments, such as React Native applications.
+
+- **Ports**: Network endpoints exposed by sandbox services. Automatically detected or manually configured in task definitions.
+
+- **Resume**: Resumes a hibernated sandbox, restoring it to an active state while preserving all previous work and configurations.
+
+- **Sandbox**: An isolated, persistent virtual environment backed by a Firecracker VM where code can be executed securely.
+
+- **Session**: Authentication and connection context that allows client applications to interact with sandboxes.
+
+- **Setup Tasks**: Commands that run automatically after a sandbox starts, typically used for dependency installation and initial configuration.
+
+- **Tasks**: Long-running processes defined in sandbox configuration, such as development servers. Managed through the Tasks API with start, stop, and restart capabilities.
+
+- **Template**: Pre-configured environment specification that enables quick sandbox creation with specific setups, dependencies, and configurations.
+
+- **Terminal**: Interactive shell process that persists throughout a session, allowing command-line interaction with the sandbox environment.
+
+- **VM Tier**: Computing resource specification for sandboxes, ranging from Micro to Small (8 cores/16GB RAM) with higher tiers available through custom templates.
+
+- **Workspace**: The persistent working directory (`/project/workspace`) where sandbox files are stored and managed with git-based persistence.
