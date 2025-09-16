@@ -128,6 +128,10 @@ The template defaults to a `Micro` VM Tier for both building the template and wh
 
 This will start the process of creating Sandboxes for each of our clusters, write files, restart, wait for port 5173 to be available and then hibernate. This generates the snapshot that allows you to quickly create Sandboxes already running a dev server from the template.
 
+<Callout>
+During template builds, only `.csbignore` files are honored for excluding files. `.gitignore` and `.dockerignore` files will not be used to exclude files from the template. If you need to exclude files during the build process, create a `.csbignore` file in your template directory.
+</Callout>
+
 When all clusters are updated successfully you will get a **Template ID** back which you can use when creating your sandboxes:
 
 ```ts
