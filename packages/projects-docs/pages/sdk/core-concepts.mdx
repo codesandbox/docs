@@ -1,0 +1,46 @@
+---
+title: Core Concepts
+description: What you need to know to get the most out of the SDK
+---
+
+import Hero from "../../../../shared-components/Hero.js";
+import { Callout } from 'nextra-theme-docs'
+
+<Hero
+  title="Core Concepts"
+  subtitle="What you need to know to get the most out of the SDK"
+/>
+
+The CodeSandbox SDK provides a complete cloud development infrastructure that allows you to programmatically create, manage, and interact with isolated development environments. This page explains the conceptual architecture and terminology to help you understand how Sandboxes can integrate with your product.
+
+## Architecture Overview
+
+At its heart, the SDK enables management of and connections to Sandboxes. You have a lot of flexibility on how you want to deliver secure, scalable development environments:
+
+![Architecture](./architecture.png)
+
+## Environment Types
+
+### Templates
+
+**Templates** are pre-configured environment snapshots that serve as the foundation for creating Sandboxes. Think of them as "golden images" that contain:
+
+- Pre-installed dependencies
+- Environment configuration using Devcontainers and/or Docker
+- Setup tasks and workflows
+- Running processes for optimal continutation creating Sandboxes
+
+### Sandboxes
+
+**Sandboxes** are isolated virtual machines (Firecracker VMs) running your development environments. Each Sandbox:
+
+- Runs completely isolated from others
+- Has persistent file storage
+- Can be hibernated and resumed with full state preservation
+- Exposes services through secure host URLs
+
+## The Development Environment Lifecycle
+
+Understanding how your created environments move through their lifecycle is crucial for effective integration. You are building a product with end users that will see these environments through the lens of them being their own _project_. This project will have at least one Sandbox assigned to it for the end user to interact with. Whether that be directly or through an agent. This diagram touches on the integration points through the lifecycle of a project (SDK) VS a Sandbox.
+
+![Lifecycle](./lifecycle.png)

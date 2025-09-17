@@ -15,31 +15,40 @@ CodeSandbox SDK enables you to quickly create and run isolated sandboxes securel
 The SDK can be used to run concurrent VMs to support multiple use cases such as browser editors, AI agents, code interpretation and [more](/sdk/use-cases.mdx)
 
 <Callout type="info">
-v3 is our **Best Practices** release of the SDK. It adjusts default options and prevents certain behavior. To learn more, take a look at the [v3.0.0 release](https://github.com/codesandbox/codesandbox-sdk/releases/tag/v3.0.0). Looking for v2 docs? You can find them [here](https://projects-docs-git-v2-codesandbox1.vercel.app/docs/sdk). 
+v3 is our **Best Practices** release of the SDK. It adjusts default options and prevents certain behavior. To learn more, take a look at the [v3.0.0 release](https://github.com/codesandbox/codesandbox-sdk/releases/tag/v3.0.0). Looking for v2 docs? You can find them [here](https://projects-docs-git-v2-codesandbox1.vercel.app/). 
 </Callout>
 
-## Getting Started
 
-1. Create or log into your [CodeSandbox account](https://codesandbox.io/signin)
+## Use Cases
 
-2. Next create an API key at [https://codesandbox.io/t/api](https://codesandbox.io/t/api), and enable all scopes. Expose it as `CSB_API_KEY` in your environment.
+CodeSandbox SDK has been designed to help you build and launch any projects that require:
 
-3. Install the SDK:
+- An isolated code interpreter.
+- Running multiple development environments at scale.
+- Access to a sandboxed environment.
 
-```bash
-npm install @codesandbox/sdk
-```
+There are hundreds of use cases that can benefit from these three features. Below are some of the most interesting ones we've come across so far:
 
-Your first interaction:
+### AI Agents
 
-```js
-import { CodeSandbox } from "@codesandbox/sdk";
+Agentic workflows are a fast-emerging use case that benefit immensely from CodeSandbox SDK. Using the SDK, You can give each agent a sandbox to resolve user prompts, or you can create autonomous agents running on sandboxes. Doing this ensures they are securely isolated from your system, while still allowing them to interact with each other as required. You can also run multiple agents in parallel, if you want to avoid interaction entirely. Using the forking mechanism, you can also A/B test different agents.
 
-const sdk = new CodeSandbox();
-const sandbox = await sdk.sandboxes.create();
-const client = await sandbox.connect();
+### Development environments
 
-const output = await client.commands.run("echo 'Hello World'");
+You can use the SDK to programmatically provision a sandbox for anybody who needs an environment to code. Allowing you to run multiple development environments in parallel without them interfering with each other, all accessible through the browser.
 
-console.log(output) // Hello World
-```
+With the SDK, you can essentially create your own CodeSandbox for your team/company/school!
+
+### Code Interpretation
+
+CodeSandbox SDK allows programmatically spinning up sandboxes (VMs) to execute code in. Providing an ideal environment to interpret code, for both for simple and complex tasks.
+
+As these sandboxes exist in total isolation, you can run untrusted code without worrying about it affecting your system.
+
+Many early adopters, such as Blackbox AI, are leveraging the power of CodeSandbox SDK to bring code interpretation capabilities to their generative AI applications. We highly recommend following the [guide by Together AI](https://docs.together.ai/docs/together-code-sandbox) to get CodeSandbox SDK running seamlessly with any of the leading open-source LLMs.
+
+### CI/CD
+
+With the SDK, you can set up your own CI/CD implementation to run tests inside a sandbox and hibernate the sandbox when the tests are done. With our snapshotting technology, you can quickly pick up where you left off if you start the sandbox again to re-run your tests or evaluate the results.
+
+You can also use the SDK to create 1 sandbox that runs your CI/CD preparation, and then clone it multiple times to run your tests in parallel.

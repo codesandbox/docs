@@ -1,0 +1,36 @@
+---
+title: Quickstart Guide
+description: Learn how CodeSandbox SDK works and the different types of projects you can create and develop.
+---
+
+import Hero from "../../../../shared-components/Hero.js";
+import { Callout } from 'nextra-theme-docs'
+
+<Hero
+  title="Quickstart"
+  subtitle="Create a Sandbox and run your first command"
+/>
+
+1. Create or log into your [CodeSandbox account](https://codesandbox.io/signin)
+
+2. Next create an API key at [https://codesandbox.io/t/api](https://codesandbox.io/t/api), and enable all scopes. Expose it as `CSB_API_KEY` in your environment.
+
+3. Install the SDK:
+
+```bash
+npm install @codesandbox/sdk
+```
+
+Your first interaction:
+
+```js
+import { CodeSandbox } from "@codesandbox/sdk";
+
+const sdk = new CodeSandbox();
+const sandbox = await sdk.sandboxes.create();
+const client = await sandbox.connect();
+
+const output = await client.commands.run("echo 'Hello World'");
+
+console.log(output) // Hello World
+```
