@@ -40,7 +40,9 @@ const sdk = new CodeSandbox({ tracer });
 All sandbox lifecycle operations are automatically traced:
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id'); // Traced as "sandboxes.create"
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+}); // Traced as "sandboxes.create"
 await sandbox.hibernate(); // Traced as "sandbox.hibernate"
 const client = await sandbox.connect(); // Traced as "sandbox.connect"
 ```
@@ -58,7 +60,7 @@ const files = await client.filesystem.list('/app'); // Traced as "sandboxClient.
 const result = await client.commands.run('npm test'); // Traced as "sandboxClient.commands.run"
 
 // Terminal management
-const terminal = await client.terminals.create('some-template-id'); // Traced as "sandboxClient.terminals.create"
+const terminal = await client.terminals.create(); // Traced as "sandboxClient.terminals.create"
 
 // Port management
 await client.ports.openPort(3000); // Traced as "sandboxClient.ports.openPort"

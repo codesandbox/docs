@@ -88,11 +88,13 @@ Each running VM includes:
   - `memory`: RAM in megabytes
   - `storage`: Storage in gigabytes
 
-## Hibernation
+## Resume / Hibernate
 
-Hibernation is a key feature of CodeSandbox that allows sandboxes to be paused and resumed efficiently, saving resources while preserving the exact state of your environment.
+How you manage the resume/hibernate part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` when the sessions ends.
 
-### How Hibernation Works
+- **User opens a project**: Resume the related Sandbox as part of fetching the project data. Hibernate the Sandbox on a timeout of last interaction with the project
+- **User connection**: Resume the related Sandbox when user has an active connection to your server (WebSocket, heartbeat etc.) and hibernate on disconnect
+- **Host request**: Use a proxy to resume the Sandbox on HTML requests and hibernate on request debounce
 
 When a Sandbox is hibernated, we create and save a snapshot of the underlying Firecracker VM. This snapshot captures:
 
@@ -103,120 +105,7 @@ When a Sandbox is hibernated, we create and save a snapshot of the underlying Fi
 When a Sandbox resume, we restore the snapshot. This allows you to continue from exactly where you left off.
 
 <Callout type="warning">
-When hibenrated without resume for 2 days the Sandbox will be archived. Please read the deletion section for more information on best practices.
-</Callout>
-
-### Manual Hibernation
-
-We highly recommend taking full control of the lifecycle by manually hibernating sandboxes. Even though a timeout is easier to implement, you will not be able to optimize cost or create an optimal user experience.
-
-You can manually hibernate a sandbox at any time:
-
-```ts
-import { CodeSandbox } from '@codesandbox/sdk'
-
-const sdk = new CodeSandbox();
-const sandbox = await sdk.sandboxes.create('some-template-id');
-
-// Do work on the sandbox
-const client = await sandbox.connect();
-await client.shells.run('echo "Hello World" > hello.txt');
-
-// Manually hibernate the sandbox
-await sdk.sandboxes.hibernate(sandbox.id);
-```
-
-Creating a snapshot can take between 3-10 seconds. Resuming from a snapshot takes between 0.5-2 seconds.
-
-### Automatic Hibernation
-
-Sandboxes automatically hibernate after a period of inactivity. The timeout can be configured when creating a sandbox:
-
-```ts
-const sandbox = await sdk.sandboxes.create('some-template-id', {
-    // How quickly the sandbox should hibernate after inactivity.
-    // Defaults to 300 seconds for free users, 1800 seconds for
-    // pro users. Maximum is 86400 seconds (1 day).
-    hibernationTimeoutSeconds: 1800
-})
-```
-
-## Resuming
-
-How you manage the resume part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` when the sessions ends.
-
-### Example: From User Session
-
-```ts
-// When user starts a session, resume their sandbox
-async function startUserSession(userId: string) {
-  const user = await getUserFromDatabase(userId);
-
-  if (user.sandboxId) {
-    // Resume existing sandbox
-    const sandbox = await sdk.sandboxes.resume(user.sandboxId);
-    await updateUserSession(userId, { sandboxId: sandbox.id, status: 'active' });
-    return sandbox;
-  }
-
-  // Create new sandbox if none exists
-  const sandbox = await sdk.sandboxes.create('your-template-id');
-  await updateUserSession(userId, { sandboxId: sandbox.id, status: 'active' });
-  return sandbox;
-}
-
-// When user session ends, hibernate their sandbox
-async function endUserSession(userId: string) {
-  const user = await getUserFromDatabase(userId);
-
-  if (user.sandboxId) {
-    await sdk.sandboxes.hibernate(user.sandboxId);
-    await updateUserSession(userId, { status: 'hibernated' });
-  }
-}
-```
-
-### Example: From Host Access
-
-If you want direct host access to wake up sandboxes, you need to implement a proxy endpoint that manages this:
-
-```ts
-// Proxy endpoint that handles wake-up logic for user projects
-app.get('/project/:projectId/*', async (req, res) => {
-  const { projectId } = req.params;
-  const project = await getProjectFromDatabase(projectId);
-
-  // Ensure user has access to this project
-  const userId = req.user.id; // from authentication middleware
-  if (!await userHasAccessToProject(userId, projectId)) {
-    return res.status(403).send('Access denied');
-  }
-
-  // Ensure sandbox is running before proxying
-  if (project.sandboxId) {
-    await sdk.sandboxes.resume(project.sandboxId);
-
-    // Get the actual host URL
-    const hostUrl = `https://${project.sandboxId}-5173.csb.app`
-
-    // Proxy the request to the running sandbox
-    const targetPath = req.params[0];
-    return res.redirect(`${hostUrl}/${targetPath}`);
-  }
-
-  res.status(404).send('Project sandbox not found');
-});
-```
-
-This approach gives you:
-
-- **Control over wake-up behavior** - Decide when and how sandboxes should resume
-- **User session tracking** - Know exactly which sandboxes belong to which users
-- **Automatic hibernation** - Enforce hibernation when user sessions end
-- **Transparent access** - Users can access their sandbox through a consistent URL
-
-<Callout>
-Read more about hosts and proxying requests in [Hosts](./sandbox-hosts)
+When hibernated without resume for 2 days the Sandbox will be archived. Please read the deletion section for more information on best practices.
 </Callout>
 
 ## Deleting Sandboxes
@@ -272,7 +161,9 @@ async function recoverSandboxForUser(userId: string, projectId: string) {
 
   try {
     // Create new sandbox from template
-    const sandbox = await sdk.sandboxes.create(project.templateId);
+    const sandbox = await sdk.sandboxes.create({
+      id: project.templateId
+    });
     const client = await sandbox.connect();
 
     // Pull remote changes if repository URL exists

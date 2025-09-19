@@ -21,7 +21,7 @@ You can create an interactive terminal that allows you to write, run commands an
 
 ```ts
 // Create a new terminal (bash is default)
-const terminal = client.terminals.create('some-template-id')
+const terminal = client.terminals.create()
 
 // Open the terminal to get its current output. Required to get output events.
 const output = await terminal.open();
@@ -53,7 +53,7 @@ The terminal API is often combined with [xTerm](https://www.npmjs.com/package/@x
 
 import { Terminal } from '@xterm/xterm'
 
-const terminal = await client.terminals.create('some-template-id')
+const terminal = await client.terminals.create()
 const xterm = new Terminal()
 
 xterm.open(document.getElementById('terminal'))

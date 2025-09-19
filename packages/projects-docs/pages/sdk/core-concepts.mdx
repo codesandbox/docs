@@ -13,13 +13,30 @@ import { Callout } from 'nextra-theme-docs'
 
 The CodeSandbox SDK provides a complete cloud development infrastructure that allows you to programmatically create, manage, and interact with isolated development environments. This page explains the conceptual architecture and terminology to help you understand how Sandboxes can integrate with your product.
 
-## Architecture Overview
+## Integration Points
 
-At its heart, the SDK enables management of and connections to Sandboxes. You have a lot of flexibility on how you want to deliver secure, scalable development environments:
+The SDK can be used across your stack to manage different parts of the user experience you are creating.
 
-![Architecture](./architecture.png)
+### Your repo
 
-## Environment Types
+- Define one or multiple templates
+- Build the templates manually or configure CI
+
+### Your Server
+
+- Create Sandboxes from your template(s)
+- Hibernate Sandboxes
+- Resume Sandboxes
+- Backup and delete stale Sandboxes
+- Proxy requests to Sandbox hosts
+- Connect to Sandboxes to interact
+
+### Your Client(s)
+
+- Connect to Sandboxes to interact
+- In browser create previews that you can interact with
+
+## Sandbox Types
 
 ### Templates
 
@@ -39,8 +56,54 @@ At its heart, the SDK enables management of and connections to Sandboxes. You ha
 - Can be hibernated and resumed with full state preservation
 - Exposes services through secure host URLs
 
-## The Development Environment Lifecycle
+## The Sandbox Lifecycle
 
-Understanding how your created environments move through their lifecycle is crucial for effective integration. You are building a product with end users that will see these environments through the lens of them being their own _project_. This project will have at least one Sandbox assigned to it for the end user to interact with. Whether that be directly or through an agent. This diagram touches on the integration points through the lifecycle of a project (SDK) VS a Sandbox.
+Understanding how your created environments move through their lifecycle is crucial for effective integration.
 
-![Lifecycle](./lifecycle.png)
+### Template creation
+
+- Creates an optimal starting point for users
+- Build templates using the SDK
+- Optimized VM snapshots are generated and scheduled to multiple clusters
+
+### Sandbox creation
+
+- A user wants to create a new Sandbox
+- Create Sandbox from template using the SDK
+- The template is forked from cluster X in 1-3s
+
+### User interaction
+
+- A user/agent wants to interact with the Sandbox
+- Connect to the Sandbox using the SDK
+- Sandbox Agent handles interactions
+
+### Host interaction
+
+- A user wants to interact with a host
+- Generate secure URL using the SDK
+- Sandbox Proxy connects to the process in the Sandbox
+
+### Hibernation
+
+- A user/agent ends their session
+- Hibernate the Sandbox using the SDK
+- A snapshot is generated for instant continutation
+
+### Resume from hibernation
+
+- A user starts a new session on the same Sandbox within 2 days
+- Resume the Sandbox using the SDK
+- Sandbox continues from snapshot in 0.5-2s
+
+### Deleting
+
+- A user has not returned for 2 days
+- Push persistence to git/db using the SDK and delete the Sandbox
+- Sandbox and persistence deleted from infra
+
+### Resume from deletion
+
+- A user decides to come back after several days
+- Create Sandbox from template using SDK. Pull persistence from git/db
+- The template is forked from cluster X in 1-3s

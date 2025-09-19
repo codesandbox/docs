@@ -13,7 +13,7 @@ Resuming allows you to wake up a hibernated sandbox and reconnect to it, restori
 **Best practices**
 
 - **Track bootupType** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
-- **Avoid automatic HTTP wakeup** - As Sandboxes are arhived after 4 days of inactivity, waking it up from a preview url can create a blocking UX
+- **Avoid automatic HTTP wakeup** - As Sandboxes are arhived after period of inactivity, waking it up from a preview url can create a blocking UX
 
 </Callout>
 
@@ -84,23 +84,6 @@ if (client.bootupType === 'CLEAN') {
   }
 }
 ```
-
-## Automatic Wake-up
-
-Sandboxes can be configured to automatically wake up from hibernation when they receive HTTP requests or WebSocket connections:
-
-```ts
-const sandbox = await sdk.sandboxes.create('your-template-id', {
-    automaticWakeupConfig: {
-        http: true,      // Wake up on HTTP requests
-        websocket: true  // Wake up on WebSocket connections
-    }
-});
-```
-
-<Callout type="warning">
-The `automaticWakeupConfig` only wakes up the Sandbox, it does not extend its hibernation timeout.
-</Callout>
 
 ## Agent Updates
 

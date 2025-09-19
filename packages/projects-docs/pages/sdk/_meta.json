@@ -3,7 +3,6 @@
   "quickstart": "Quickstart Guide",
   "key-terms": "Key Terms",
   "core-concepts": "Core Concepts",
-  "integration-guide": "Integration Guide",
   "faq": "FAQ",
   "pricing": "Pricing",
   "-- sandboxes": {
@@ -11,7 +10,6 @@
     "title": "Sandboxes"
   },
   "create": "Create",
-  "fork": "Fork",
   "resume": "Resume",
   "manage-sandboxes": "Lifecycle Management",
   "restart-shutdown": "Restart & Shutdown",

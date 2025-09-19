@@ -12,7 +12,6 @@ import { Callout } from 'nextra-theme-docs'
 
 - **Prefer global user** - If the Sandbox will only have a single user, use the default global user
 - **Use consistent user identifiers** - Any custom user should use a stable and meaningful ID (e.g., username, user ID)
-- **Configuring git/env** - Configure on Sandbox create and on resume in CLEAN state
 - **Privacy** - Do not write git/env configuration to public Sandboxes or the global user if multiple users has access to Sandbox
 
 </Callout>
@@ -20,7 +19,9 @@ import { Callout } from 'nextra-theme-docs'
 When connecting to a Sandbox you will be using the default global user. If your Sandboxes are only ever used by a single user, you should use the global user.
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id')
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
 
 const client = await sandbox.connect()
 ```
@@ -28,7 +29,9 @@ const client = await sandbox.connect()
 Or when creating a session to use in browser/node clients:
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id')
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
 
 const session = await sandbox.createSession()
 ```
@@ -36,62 +39,64 @@ const session = await sandbox.createSession()
 ## Configure Git
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id')
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
 
-const client = await sandbox.connect()
+// Or with createSession
+const client = await sandbox.connect({
+  git: {
+    email: 'foo@bar.com',
+    name: 'Foo Bar',
 
-await client.configureGit({
-  email: 'foo@bar.com',
-  name: 'Foo Bar',
-
-  // Optional credentials
-  accessToken: '...',
-  provider: 'github.com',
-  username: 'my-provider-username' // Optional, defaults to x-access-token
+    // Optional credentials
+    accessToken: '...',
+    provider: 'github.com',
+    username: 'my-provider-username' // Optional, defaults to x-access-token
+  }
 })
 ```
-
-<Callout type="warning">
-If the Sandbox gets archived and does a `CLEAN` bootup you will need to configure again.
-</Callout>
 
 ## Configure Env
 
 These variables will be available to the user inside the commands and terminals that are run in the Sandbox.
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id')
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
 
-const client = await sandbox.connect()
-
-await client.configureEnv({
-  FOO: 'bar'
+// Or with createSession
+const client = await sandbox.connect({
+  env: {
+    FOO: 'bar'
+  }
 })
 ```
-
-<Callout type="warning">
-If the Sandbox gets archived and does a `CLEAN` bootup you will need to configure again.
-</Callout>
 
 ## Multiple Users
 
 If your Sandbox can be accessed by multiple users you should connect or create sessions with a `userId`. This ensures privacy and isolation between users.
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id')
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
 
 const client = await sandbox.connect({
-  userId: 'some-user-reference'
+  id: 'some-user-reference'
 })
 ```
 
 Or create a session to use in browser/node:
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id')
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
 
 const session = await sandbox.createSession({
-  userId: 'some-user-reference'
+  id: 'some-user-reference'
 })
 ```
 
@@ -104,7 +109,9 @@ When you run `whoami`, it will say that you are `root`. That's because we run ev
 Passing a host token to the session will sign all url generation from the client APIs.
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id')
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
 
 const hostToken = await sdk.hosts.createToken()
 

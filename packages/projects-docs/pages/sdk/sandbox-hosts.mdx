@@ -36,7 +36,9 @@ const hostToken = await sdk.hosts.createToken('sandbox-id')
 This gives you low level management of your Sandboxes hosts. You can pass the host token when connecting to the Sandbox, either on the server or in one of the clients. This is useful as any generated urls from the SDK will include the token:
 
 ```ts
-const sandbox = await sdk.sandboxes.create('some-template-id')
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
 const hostToken = await sdk.hosts.createToken(sandbox.id)
 
 // Signed URL
@@ -127,8 +129,8 @@ You can use various proxy solutions to implement custom domain routing:
 When proxying requests to CodeSandbox hosts, you must set the `trust_csb_preview` cookie to ensure proper authentication:
 
 ```js
-// Set the trust_csb_preview cookie when proxying
-res.cookie('trust_csb_preview', 'true', {
+// Set the csb_is_trusted cookie when proxying
+res.cookie('csb_is_trusted', 'true', {
   domain: '.csb.app',
   httpOnly: true,
   secure: true,
@@ -139,3 +141,54 @@ res.cookie('trust_csb_preview', 'true', {
 ### Example Implementation
 
 For a complete example of implementing custom domain proxying with Nginx, see our [example custom preview proxy repository](https://github.com/codesandbox/example-custom-preview-proxy).
+
+Here is an example using Node:
+
+```ts
+
+import http from "http";
+import httpProxy from "http-proxy";
+import { CodeSandbox } from "@codesandbox/sdk";
+
+const SOURCE_DOMAIN = "some-domain.com";
+const TARGET_DOMAIN = "csb.app";
+const TARGET_PROTOCOL = "https";
+const PORT = process.env.PORT || 8080;
+const sdk = new CodeSandbox();
+const proxy = httpProxy.createProxyServer({});
+const server = http.createServer(async (req, res) => {
+  const host = req.headers.host || "";
+  const suffix = `.${SOURCE_DOMAIN}`;
+  const subdomain = host.slice(0, -suffix.length); // e.g. "abc123-5173"
+  const m = subdomain.match(/^(.+)-(\d{1,5})$/);
+  const sandboxId = m[1];
+  const targetHost = `${subdomain}.${TARGET_DOMAIN}`;
+  const target = `${TARGET_PROTOCOL}://${targetHost}`;
+  const isHtmlRequest = accepts.includes("text/html");
+
+  if (isHtmlRequest) {
+    await sdk.sandboxes.resume(sandboxId);
+  }
+
+  const sanitizedCookies = (req.headers.cookie || "").split(";").map((c) => c.trim())
+  sanitizedCookies.push("csb_is_trusted=true");
+
+  const cookieHeader = sanitizedCookies.join("; ");
+
+  proxy.web(req, res, {
+    target,
+    changeOrigin: true,
+    secure: true,
+    headers: {
+      "X-Forwarded-Host": host,
+      cookie: cookieHeader,
+    },
+  });
+});
+```
+
+This approach can be extended with:
+
+- **User session tracking** - Know exactly which sandboxes belong to which users
+- **Automatic hibernation** - Enforce hibernation when user sessions end
+- **Transparent access** - Users can access their sandbox by mapping a friendly project name to a related sandboxId and port
