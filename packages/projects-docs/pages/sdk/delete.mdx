@@ -1,0 +1,21 @@
+---
+title: Delete Sandboxes
+description: Learn how to delete sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Delete Sandboxs
+
+Deleting Sandboxes allows you to manage the cost of long term persistence (coming soon).
+
+## Deleting a Sandbox
+
+```ts
+await sdk.sandboxes.delete('sandbox-id');
+```
+
+This will:
+
+1. Delete the VM from our infra
+2. Soft delete the Sandbox from our database

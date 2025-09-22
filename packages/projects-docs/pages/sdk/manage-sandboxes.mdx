@@ -7,219 +7,365 @@ import { Callout } from 'nextra-theme-docs'
 
 # Manage Sandbox Lifecycles
 
-The CodeSandbox SDK provides several methods to retrieve information about your sandboxes and manage their lifecycles effectively.
+You should use your own persistence layer to track VM sessions and sandbox lifecycle states. This ensures that you are able to create the optimal user experience with minimal costs. The exact lifecycle management depends on how you approach persistence.
 
-<Callout type="warning" emoji="⚡">
-**Best practices**
-
-- **Create from templates** - Always use custom templates built with the CLI for predictable, fast sandbox creation
-- **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer
-- **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate sandboxes when sessions are done and actively resume them when you want to continue
-- **Delete sandboxes after 2 days** - Create a "dorment" state of user projects and delete the related Sandbox after pushing persistence remotely or to your own persistence layer
-
+<Callout type="warning">
+Even though `hibernationTimeoutSeconds` and `wakeupConfig` is currently provided, they are _deprecated_. 
 </Callout>
 
-## Monitoring Sandboxes
+## Default Persistence (free)
 
-You should use your own persistence layer to track VM sessions and sandbox lifecycle states. The following monitoring methods are designed to get additional information about a sandbox and its current running state, not as your primary source of truth for lifecycle management.
-
-Use these methods for:
-
-- **Validation** - Cross-check your internal state against actual sandbox status
-- **Administrative features** - Build dashboards and debugging tools
-- **Runtime information** - Get current resource usage and activity data
-- **Troubleshooting** - Investigate sandbox issues or unexpected states
-
-### Get Sandbox Information
-
-To efficiently retrieve metadata for a specific sandbox without listing all sandboxes, use the `get()` method:
-
-```ts
-const sandboxInfo = await sdk.sandboxes.get('sandbox-id');
-console.log(sandboxInfo.title, sandboxInfo.tags, sandboxInfo.privacy);
-```
-
-This method directly retrieves metadata for a specific sandbox ID, avoiding the performance overhead of the list-and-filter pattern. This is particularly useful for organizations with thousands of sandboxes.
-
-The sandbox information includes:
-
-- `id`: Unique sandbox identifier
-- `title`: Sandbox display name
-- `description`: Sandbox description
-- `tags`: Associated tags for organization
-- `privacy`: Privacy setting (`public`, `private`, `public-hosts`)
-- `path`: Collection folder location
-- `vmTier`: Current VM tier
-- `createdAt`: Creation timestamp
-- `updatedAt`: Last modification timestamp
-
-### List Running Sandboxes
-
-To get information about currently running sandboxes and VM limits, use the `listRunning()` method:
-
-```ts
-const runningInfo = await sdk.sandboxes.listRunning();
-
-console.log(`Running VMs: ${runningInfo.concurrentVmCount}/${runningInfo.concurrentVmLimit}`);
-
-runningInfo.vms.forEach(vm => {
-  console.log(`Sandbox ${vm.id}:`);
-  console.log(`  Last active: ${vm.lastActiveAt}`);
-  console.log(`  Session started: ${vm.sessionStartedAt}`);
-  if (vm.specs) {
-    console.log(`  Specs: ${vm.specs.cpu} CPU, ${vm.specs.memory}MB RAM, ${vm.specs.storage}GB storage`);
-  }
-});
-```
-
-This method provides:
-
-- Current number of running VMs vs. your account limit
-- Details about each running VM including activity timestamps
-- VM specifications (CPU, memory, storage) for resource monitoring
-
-Each running VM includes:
-
-- `id`: Sandbox identifier
-- `lastActiveAt`: Timestamp of last activity
-- `sessionStartedAt`: When the current session began
-- `specs`: Resource specifications
-  - `cpu`: Number of CPU cores
-  - `memory`: RAM in megabytes
-  - `storage`: Storage in gigabytes
-
-## Resume / Hibernate
+With default persistence hibernated Sandboxes will be archived after 2-7 days. If your user experience allows for resume times of 10-60 seconds, you can lean on `hibernate` and `resume` to only manage the cost of running VMs.
 
 How you manage the resume/hibernate part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` when the sessions ends.
 
 - **User opens a project**: Resume the related Sandbox as part of fetching the project data. Hibernate the Sandbox on a timeout of last interaction with the project
 - **User connection**: Resume the related Sandbox when user has an active connection to your server (WebSocket, heartbeat etc.) and hibernate on disconnect
-- **Host request**: Use a proxy to resume the Sandbox on HTML requests and hibernate on request debounce
-
-When a Sandbox is hibernated, we create and save a snapshot of the underlying Firecracker VM. This snapshot captures:
-
-- File system state
-- Memory contents
-- Running processes
-
-When a Sandbox resume, we restore the snapshot. This allows you to continue from exactly where you left off.
-
-<Callout type="warning">
-When hibernated without resume for 2 days the Sandbox will be archived. Please read the deletion section for more information on best practices.
-</Callout>
-
-## Deleting Sandboxes
-
-After 2 days of inactivity we will `archive` your Sandbox. That means a `resume` will take up to 60 seconds. To avoid this you should rather `delete` the Sandbox after 2 days of inactivity. Make sure you push any changes to a remote or to your own persistence before deleting.
-
-If the user comes back a new sandbox should be created and their persistence should be pulled back into the Sandbox. This results in a much faster `resume` and you prevent future costs for persistence.
+- **Host request**: Use a proxy to resume the Sandbox on HTML requests and hibernate on request debounce. Read more in [Hosts](./sandbox-hosts)
 
 ```ts
-// Delete a sandbox when it's no longer needed
-await sdk.sandboxes.delete('sandbox-id');
+// POST /api/projects - Create a new project
+app.post('/api/projects', async (req, res) => {
+  const { userId, projectName } = req.body;
+
+  // Create sandbox from template
+  const sandbox = await sdk.sandboxes.create({
+    id: 'some-template-id'
+  });
+
+  // Save project to database
+  const project = await db.projects.create({
+    id: generateId(),
+    userId,
+    name: projectName,
+    sandboxId: sandbox.id,
+    templateId,
+    createdAt: new Date()
+  });
+
+  // Create session for immediate use
+  const session = await sandbox.createSession();
+
+  // Wait for setup if clean boot
+  if (sandbox.bootupType === 'CLEAN') {
+    const client = await sandbox.connect();
+    const steps = await client.setup.getSteps();
+
+    for (const step of steps) {
+      await step.waitUntilComplete();
+    }
+  }
+
+  res.json({ project, session });
+});
+
+// GET /api/projects/:id/session - Resume project and get session
+app.get('/api/projects/:id/session', async (req, res) => {
+  const { id } = req.params;
+
+  // Get project from database
+  const project = await db.projects.findById(id);
+  if (!project) {
+    return res.status(404).json({ error: 'Project not found' });
+  }
+
+  // Resume the sandbox
+  const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+
+  // Create new session
+  const session = await sandbox.createSession();
+
+  // Update last accessed time
+  await db.projects.update(id, { lastAccessedAt: new Date() });
+
+  res.json({ session });
+});
+
+// POST /api/projects/:id/heartbeat - Keep project active
+app.post('/api/projects/:id/heartbeat', async (req, res) => {
+  const { id } = req.params;
+
+  // Update last activity timestamp
+  await db.projects.update(id, { lastActivityAt: new Date() });
+
+  res.json({ success: true });
+});
+
+// Background job to hibernate inactive projects
+setInterval(async () => {
+  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+
+  // Find projects inactive for more than 5 minutes
+  const inactiveProjects = await db.projects.findWhere({
+    lastActivityAt: { lt: fiveMinutesAgo },
+    status: 'active'
+  });
+
+  for (const project of inactiveProjects) {
+    try {
+      // Hibernate the sandbox
+      await sdk.sandboxes.hibernate(project.sandboxId);
+
+      // Update project status
+      await db.projects.update(project.id, {
+        status: 'hibernated',
+        hibernatedAt: new Date()
+      });
+
+      console.log(`Hibernated inactive project ${project.id}`);
+    } catch (error) {
+      console.error(`Failed to hibernate project ${project.id}:`, error);
+    }
+  }
+}, 60 * 1000); // Check every minute
 ```
 
-### Example: Clean Up Old Sandboxes
+## Managed Persistence
+
+You can choose to not rely on our persistence at all. By rather using `delete` instead of `hibernate` you get minimum cost and optimal control of Sandbox resumes.
+
+When you want to stop using the Sandbox, push any changes to db/git persistence. Then `delete` the Sandbox. When you want to resume the Sandbox you rather `create` a new Sandbox from the template and pull db/git persistence back into the Sandbox.
 
 ```ts
-// Clean up sandboxes that haven't been active for a specified period
-async function cleanupOldSandboxes(daysInactive = 2) {
-  const cutoffDate = new Date(Date.now() - (daysInactive * 24 * 60 * 60 * 1000));
+// POST /api/projects - Create project with git initialization
+app.post('/api/projects', async (req, res) => {
+  const { userId, projectName, repositoryUrl } = req.body;
 
-  // Get sandboxes that haven't been active recently
-  const oldSandboxes = await getInactiveSandboxesSince(cutoffDate);
+  // Create sandbox from template
+  const sandbox = await sdk.sandboxes.create({
+    id: 'some-template-id'
+  });
 
-  for (const sandbox of oldSandboxes) {
+  const client = await sandbox.connect();
+
+  // Initialize git remote
+  await client.commands.run([
+    `git remote remove origin`
+    `git remote add origin ${repositoryUrl}`
+    'git push -u origin main'
+  ]);
+
+  client.dispose()
+
+  // Save project to database
+  const project = await db.projects.create({
+    id: generateId(),
+    userId,
+    name: projectName,
+    sandboxId: sandbox.id,
+    repositoryUrl,
+    status: 'active',
+    lastActivityAt: new Date(),
+    createdAt: new Date()
+  });
+
+  const session = await sandbox.createSession();
+  res.json({ project, session });
+});
+
+// GET /api/projects/:id/session - Resume or recreate project
+app.get('/api/projects/:id/session', async (req, res) => {
+  const { id } = req.params;
+
+  const project = await db.projects.findById(id);
+
+  if (!project) {
+    return res.status(404).json({ error: 'Project not found' });
+  }
+
+  let sandbox;
+  let session;
+
+  try {
+    // Try to resume existing sandbox
+    sandbox = await sdk.sandboxes.resume(project.sandboxId);
+    session = await sandbox.createSession();
+  } catch (error) {
+    // Sandbox not available, create new one
+    console.log(`Sandbox ${project.sandboxId} not available, creating new one`);
+
+    sandbox = await sdk.sandboxes.create({
+      id: 'some-template-id'
+    });
+
+    const client = await sandbox.connect();
+
+    // Initialize git remote and pull
+    await client.commands.run([
+      `git remote remove origin`
+      `git remote add origin ${repositoryUrl}`
+      'git fetch origin main',
+      'git pull origin main'
+    ]);
+
+    // Update database with new sandbox ID
+    await db.projects.update(id, {
+      sandboxId: sandbox.id,
+      status: 'active'
+    });
+
+    session = await sandbox.createSession();
+  }
+
+  // Update last activity
+  await db.projects.update(id, { lastActivityAt: new Date() });
+
+  res.json({ session });
+});
+
+// POST /api/projects/:id/heartbeat - Keep project active
+app.post('/api/projects/:id/heartbeat', async (req, res) => {
+  const { id } = req.params;
+
+  await db.projects.update(id, { lastActivityAt: new Date() });
+  res.json({ success: true });
+});
+
+// Background job to delete inactive projects after git push
+setInterval(async () => {
+  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+
+  const inactiveProjects = await db.projects.findWhere({
+    lastActivityAt: { lt: fiveMinutesAgo },
+    status: 'active'
+  });
+
+  for (const project of inactiveProjects) {
     try {
-      // Connect to the sandbox to push changes
-      const resumedSandbox = await sdk.sandboxes.resume(sandbox.id);
-      const client = await resumedSandbox.connect();
+      // Resume sandbox to push changes
+      const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+      const client = await sandbox.connect();
 
-      // Push any uncommitted changes to remote repository
+      // Push any uncommitted changes to git
       await client.commands.run([
         'git add -A',
         'git commit -m "Auto-save before cleanup" || true',
-        'git push origin main || true'
+        'git push origin main'
       ]);
 
-      // Delete the sandbox from CodeSandbox
-      await sdk.sandboxes.delete(sandbox.id);
+      // Delete the sandbox
+      await sdk.sandboxes.delete(project.sandboxId);
 
-      // Remove from your database
-      await deleteSandboxRecord(sandbox.id);
-
-      console.log(`Deleted inactive sandbox ${sandbox.id}`);
+      console.log(`Deleted sandbox on project ${project.id} after git push`);
     } catch (error) {
-      console.error(`Failed to delete sandbox ${sandbox.id}:`, error);
+      console.error(`Failed to cleanup project ${project.id}:`, error);
     }
   }
-}
-
-// Create a new sandbox and restore remote changes
-async function recoverSandboxForUser(userId: string, projectId: string) {
-  const project = await getProjectFromDatabase(projectId);
-
-  try {
-    // Create new sandbox from template
-    const sandbox = await sdk.sandboxes.create({
-      id: project.templateId
-    });
-    const client = await sandbox.connect();
-
-    // Pull remote changes if repository URL exists
-    if (project.repositoryUrl) {
-      await client.commands.run([
-        `git remote add origin ${project.repositoryUrl}`,
-        'git fetch origin main',
-        'git checkout main || git checkout -b main origin/main',
-        'git pull origin main || true'
-      ]);
-    }
-
-    // Update database with new sandbox ID
-    await updateProjectRecord(projectId, { sandboxId: sandbox.id });
-
-    return sandbox;
-  } catch (error) {
-    console.error('Failed to create and restore sandbox:', error);
-    throw new Error('Failed to create sandbox');
-  }
-}
+}, 60 * 1000); // Check every minute
 ```
 
-### Example: User-Initiated Deletion
+## Long Term Persistence (Coming Soon)
+
+With long term persistence there is no archiving of hibernated Sandboxes after 2-7 days. That means you will get reliable resumes regardless of the age of the Sandbox. There will be a cost though, so you should still delete Sandboxes that you consider ephemeral (Like AI suggestions). Long term persistence also enables you to reliably create a Sandbox from an existing hibernated Sandbox.
+
+<Callout type="warning">
+There is still a scenario where a cluster issue requires recover from a backup. In this case it will be a `CLEAN` boot.
+</Callout>
+
+In this example we show how you can keep a hibernated Sandbox as the "main branch" of a project. Where you will generate new branches to preview or create AI suggestions.
 
 ```ts
-// Allow users to delete their own sandboxes
-async function deleteUserSandbox(userId: string, sandboxId: string) {
-  // Verify user owns this sandbox
-  const sandbox = await getSandboxFromDatabase(sandboxId);
-  if (sandbox.userId !== userId) {
-    throw new Error('Unauthorized to delete this sandbox');
+// POST /api/projects - Create project with permanent hibernated sandbox
+app.post('/api/projects', async (req, res) => {
+  const { userId, projectName } = req.body;
+
+  // Create main project sandbox (always hibernated when not in use)
+  const projectSandbox = await sdk.sandboxes.create({
+    id: 'some-template-id'
+  });
+
+  // Hibernate the main project sandbox
+  await sdk.sandboxes.hibernate(projectSandbox.id);
+
+  // Save project to database
+  const project = await db.projects.create({
+    id: generateId(),
+    userId,
+    name: projectName,
+    mainSandboxId: projectSandbox.id, // Hibernated project sandbox
+    status: 'hibernated',
+    createdAt: new Date()
+  });
+
+  res.json({ project });
+});
+
+// POST /api/projects/:id/branches - Create branch sandbox
+app.post('/api/projects/:id/branches', async (req, res) => {
+  const { id } = req.params;
+  const { branchName } = req.body;
+
+  const project = await db.projects.findById(id);
+
+  if (!project) {
+    return res.status(404).json({ error: 'Project not found' });
   }
 
-  try {
-    // Connect to the sandbox to push changes
-    const resumedSandbox = await sdk.sandboxes.resume(sandboxId);
-    const client = await resumedSandbox.connect();
+  // Create branch sandbox
+  const branchSandbox = await sdk.sandboxes.create({
+    id: project.mainSandboxId
+  });
 
-    // Push any uncommitted changes to remote repository
-    await client.commands.run([
-      'git add -A',
-      'git commit -m "Save changes before deletion" || true',
-      'git push origin main || true'
-    ]);
+  // Save branch to database
+  const branch = await db.branches.create({
+    id: generateId(),
+    projectId: id,
+    name: branchName,
+    sandboxId: branchSandbox.id,
+    status: 'active',
+    createdAt: new Date()
+  });
 
-    // Delete from CodeSandbox
-    await sdk.sandboxes.delete(sandboxId);
+  const session = await branchSandbox.createSession();
 
-    // Remove from your database
-    await deleteSandboxRecord(sandboxId);
+  res.json({ branch, session });
+});
 
-    return { success: true, message: 'Sandbox deleted successfully' };
-  } catch (error) {
-    console.error('Failed to delete sandbox:', error);
-    throw new Error('Failed to delete sandbox');
+
+// POST /api/projects/:id/branches/:branchId/promote - Make branch the new main
+app.post('/api/projects/:id/branches/:branchId/promote', async (req, res) => {
+  const { id, branchId } = req.params;
+
+  const project = await db.projects.findById(id);
+  const branch = await db.branches.findById(branchId);
+
+  if (!project || !branch || branch.projectId !== id) {
+    return res.status(404).json({ error: 'Project or branch not found' });
   }
-}
+
+  // Hibernate the branch sandbox (it becomes the new main)
+  await sdk.sandboxes.hibernate(branch.sandboxId);
+
+  // Update project with new main sandbox
+  await db.projects.update(id, {
+    mainSandboxId: branch.sandboxId
+  });
+
+  const otherBranches = await db.branches.findWhere({
+    projectId: id,
+    status: 'active'
+  });
+
+  // Clean up other branches
+  for (const otherBranch of otherBranches) {
+    try {
+      await sdk.sandboxes.delete(otherBranch.sandboxId);
+      await db.branches.update(otherBranch.id, { status: 'deleted' });
+    } catch (error) {
+      console.error(`Failed to delete branch ${otherBranch.id}:`, error);
+    }
+  }
+
+  res.json({
+    success: true,
+    message: `Branch ${branch.name} promoted to main`,
+    newMainSandboxId: branch.sandboxId
+  });
+});
 ```
+
+## ⚡ Best practices
+
+- **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer
+- **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate sandboxes when sessions are done and actively resume them when you want to continue
+- **Delete Sandboxes** - With custom or long term persistence you should delete Sandboxes to manage cost

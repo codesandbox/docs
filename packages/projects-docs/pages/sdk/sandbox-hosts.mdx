@@ -7,17 +7,6 @@ import { Callout } from 'nextra-theme-docs'
 
 # Hosts
 
-<Callout type="warning" emoji="⚡">
-**Best practices**
-
-- **Use private sandboxes** - Set privacy 'private'` for secure sandbox hosts
-- **Persist host tokens** - Persist one host token per sandbox alongside other sandbox metadata
-- **Proxy through your server** - Route preview requests through your backend for lifecycle management and custom logic
-
-</Callout>
-
-## Port Access
-
 All ports on sandboxes are exposed on URLs following this pattern:
 
 - **HTTP/HTTPS**: `https://$SANDBOX_ID-$PORT.csb.app`
@@ -192,3 +181,9 @@ This approach can be extended with:
 - **User session tracking** - Know exactly which sandboxes belong to which users
 - **Automatic hibernation** - Enforce hibernation when user sessions end
 - **Transparent access** - Users can access their sandbox by mapping a friendly project name to a related sandboxId and port
+
+## ⚡ Best practices
+
+- **Use private sandboxes** - Set privacy 'private'` for secure sandbox hosts
+- **Persist host tokens** - Persist one host token per sandbox alongside other sandbox metadata
+- **Proxy through your server** - Route preview requests through your backend for lifecycle management and custom logic

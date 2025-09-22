@@ -7,15 +7,6 @@ import { Callout } from 'nextra-theme-docs'
 
 # Users
 
-<Callout type="warning" emoji="⚡">
-**Best practices**
-
-- **Prefer global user** - If the Sandbox will only have a single user, use the default global user
-- **Use consistent user identifiers** - Any custom user should use a stable and meaningful ID (e.g., username, user ID)
-- **Privacy** - Do not write git/env configuration to public Sandboxes or the global user if multiple users has access to Sandbox
-
-</Callout>
-
 When connecting to a Sandbox you will be using the default global user. If your Sandboxes are only ever used by a single user, you should use the global user.
 
 ```ts
@@ -76,7 +67,7 @@ const client = await sandbox.connect({
 
 ## Multiple Users
 
-If your Sandbox can be accessed by multiple users you should connect or create sessions with a `userId`. This ensures privacy and isolation between users.
+If your Sandbox can be accessed by multiple users you should connect or create sessions with an `id`. This ensures privacy and isolation between users.
 
 ```ts
 const sandbox = await sdk.sandboxes.create({
@@ -124,3 +115,9 @@ const client = await sandbox.connect({
   hostToken
 })
 ```
+
+## ⚡ Best practices
+
+- **Prefer global user** - If the Sandbox will only have a single user, use the default global user
+- **Use consistent user identifiers** - Any custom user should use a stable and meaningful ID (e.g., username, user ID)
+- **Privacy** - Do not write git/env configuration to public Sandboxes or the global user if multiple users has access to Sandbox

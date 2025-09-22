@@ -9,17 +9,9 @@ import { Callout } from 'nextra-theme-docs'
 
 Resuming allows you to wake up a hibernated sandbox and reconnect to it, restoring it to its exact previous state including file system, memory, and running processes.
 
-<Callout type="warning" emoji="⚡">
-**Best practices**
-
-- **Track bootupType** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
-- **Avoid automatic HTTP wakeup** - As Sandboxes are arhived after period of inactivity, waking it up from a preview url can create a blocking UX
-
-</Callout>
-
 ## Resuming a Sandbox
 
-To resume an existing sandbox from hibernation and connect to it call: `sdk.sandboxes.resume(id)`:
+To resume an existing sandbox from hibernation call: `sdk.sandboxes.resume(id)`:
 
 ```ts
 const sandbox = await sdk.sandboxes.resume('sandbox-id');
@@ -30,7 +22,7 @@ This will:
 1. Restore the sandbox from its hibernated snapshot
 2. Resume all processes that were running
 3. Restore network connections and file system state
-4. Return a connected sandbox instance ready for use
+4. Return a sandbox instance
 
 ## Clean Bootups
 
@@ -45,7 +37,7 @@ Whenever we boot a sandbox from scratch, we'll:
 7. Install dependencies and perform initial configuration
 8. Start configured tasks that have `runAtStart: true`
 
-This ensures your environment is properly initialized even after extended dormancy.
+This ensures your environment is properly initialized even after extended hibernation.
 
 ### Server
 
@@ -102,3 +94,8 @@ if (!sandbox.isUpToDate) {
 ```
 
 It is up to you to decide what the best user experience will be for your use case. At CodeSandbox we would show a notification when the agent was out of date and the user could choose when to update.
+
+## ⚡ Best practices
+
+- **Track bootupType** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
+- **Avoid automatic HTTP wakeup** - As Sandboxes are archived after period of inactivity, waking it up from a preview url can create a blocking UX. Rather implement a proxy through your server to better manage the UX

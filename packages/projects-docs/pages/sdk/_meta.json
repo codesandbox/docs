@@ -9,8 +9,10 @@
     "type": "separator",
     "title": "Sandboxes"
   },
+  "templates": "Templates",
   "create": "Create",
   "resume": "Resume",
+  "delete": "Delete",
   "manage-sandboxes": "Lifecycle Management",
   "restart-shutdown": "Restart & Shutdown",
   "users": "Users",

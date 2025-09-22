@@ -13,29 +13,6 @@ import { Callout } from 'nextra-theme-docs'
 
 The CodeSandbox SDK provides a complete cloud development infrastructure that allows you to programmatically create, manage, and interact with isolated development environments. This page explains the conceptual architecture and terminology to help you understand how Sandboxes can integrate with your product.
 
-## Integration Points
-
-The SDK can be used across your stack to manage different parts of the user experience you are creating.
-
-### Your repo
-
-- Define one or multiple templates
-- Build the templates manually or configure CI
-
-### Your Server
-
-- Create Sandboxes from your template(s)
-- Hibernate Sandboxes
-- Resume Sandboxes
-- Backup and delete stale Sandboxes
-- Proxy requests to Sandbox hosts
-- Connect to Sandboxes to interact
-
-### Your Client(s)
-
-- Connect to Sandboxes to interact
-- In browser create previews that you can interact with
-
 ## Sandbox Types
 
 ### Templates
@@ -55,6 +32,32 @@ The SDK can be used across your stack to manage different parts of the user expe
 - Has persistent file storage
 - Can be hibernated and resumed with full state preservation
 - Exposes services through secure host URLs
+
+## Sandbox Persistence
+
+### Default Persistence (free)
+
+Get going quickly with no cost, but less predictability on Sandbox resume times.
+
+- Sandboxes will be archived after 2-7 days after hibernation. The number of days depends on cluster load
+- Archived Sandboxes takes 10-60 seconds to resume, depending on workload and cluster load
+- Identified by `CLEAN` bootup on resume, which allows you to create a user experience around it
+
+### Managed Persistence
+
+Manage persistence with no cost and predictable Sandbox resume times.
+
+- Push workspace changes to remote persistence (db/git)
+- Do not hibernate, but delete the Sandbox
+- On resume, fork the template and pull persistence (< 10s depending on workload)
+
+### Long Term Persistence (coming soon)
+
+Pay for long term persistence and predictable resume times.
+
+- Sandboxes will never be archived when hibernated, you control when to delete them
+- Resuming a hibernated Sandbox will take < 5 seconds
+- Safely create Sandboxes from other Sandboxes
 
 ## The Sandbox Lifecycle
 
@@ -83,8 +86,8 @@ Read more in [Lifecycle Management](./manage-sandboxes)
 ### Host interaction
 
 - A user wants to interact with a host
-- Generate secure URL using the SDK
-- Sandbox Proxy connects to the process in the Sandbox
+- By default hosts are public, but you can generate tokens for private hosts using the SDK
+- Use a proxy through your own server to improve interactions with hosts
 
 ### Hibernation
 
@@ -94,18 +97,17 @@ Read more in [Lifecycle Management](./manage-sandboxes)
 
 ### Resume from hibernation
 
-- A user starts a new session on the same Sandbox within 2 days
+- A user/agent starts a new session on the same Sandbox
 - Resume the Sandbox using the SDK
-- Sandbox continues from snapshot in 0.5-2s
+- Sandbox continues from snapshot in 0.5-2s or 10-60s if archived
 
 ### Deleting
 
-- A user has not returned for 2 days
-- Push persistence to git/db using the SDK and delete the Sandbox
-- Sandbox and persistence deleted from infra
+- Push persistence to git/db using the SDK
+- Delete the Sandbox using the SDK
 
 ### Resume from deletion
 
-- A user decides to come back after several days
+- A user decides to come back
 - Create Sandbox from template using SDK. Pull persistence from git/db
 - The template is forked from cluster X in 1-3s
