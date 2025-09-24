@@ -75,7 +75,7 @@ Each Sandbox has the following properties, with information about it's own insta
 - `cluster`: The cluster the sandbox is running on.
 - `bootupType`: The type of bootup, `RUNNING`, `CLEAN`, `RESUME` or `FORK`.
 
-## Create Sandbox from Sandbox
+## Fork existing Sandbox
 
 You can create a Sandbox by referencing the `id` of an existing Sandbox:
 
@@ -177,5 +177,8 @@ You can only upgrade to higher VM tiers than the initial one.
 
 ## ⚡ Best practices
 
-- **Be careful creating Sandbox from Sandbox** - When creating a Sandbox from a running or archived Sandbox, you risk a degraded experience. If your product requires this behavior, you will need long term persistence
+- **Be careful forking Sandboxes** - When creating a Sandbox from a running or archived Sandbox, you risk a degraded experience. If your product requires this behavior, you will need long term persistence to scale
 - **Avoid VM Tier downsizing** - Set the minimum tier needed for your templates and never downsize the tier of a Sandbox created from a template or other Sandboxes
+- **Hibernation timeout** - Set maximum hibernation timeout of `86400` and do manual hibernation
+- **Automatic wakup** - Turn off automatic wakeup and use your own server proxy to manage resume and hibernation
+- **Initialize git** - Do not perform git commands without a new remote or a git submodule

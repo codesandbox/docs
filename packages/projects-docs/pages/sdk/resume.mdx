@@ -39,6 +39,10 @@ Whenever we boot a sandbox from scratch, we'll:
 
 This ensures your environment is properly initialized even after extended hibernation.
 
+<Callout>
+With **long term persistence** this will be reduced to an edge case behavior.
+</Callout>
+
 ### Server
 
 ```ts
@@ -97,5 +101,5 @@ It is up to you to decide what the best user experience will be for your use cas
 
 ## ⚡ Best practices
 
-- **Track bootupType** - Resume times vary from 0.5-2 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
+- **Track bootupType** - Resume times vary from 1-3 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
 - **Avoid automatic HTTP wakeup** - As Sandboxes are archived after period of inactivity, waking it up from a preview url can create a blocking UX. Rather implement a proxy through your server to better manage the UX

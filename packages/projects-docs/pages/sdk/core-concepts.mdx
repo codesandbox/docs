@@ -35,13 +35,17 @@ The CodeSandbox SDK provides a complete cloud development infrastructure that al
 
 ## Sandbox Persistence
 
-### Default Persistence (free)
+### Default Persistence (Deprecated)
 
 Get going quickly with no cost, but less predictability on Sandbox resume times.
 
 - Sandboxes will be archived after 2-7 days after hibernation. The number of days depends on cluster load
 - Archived Sandboxes takes 10-60 seconds to resume, depending on workload and cluster load
 - Identified by `CLEAN` bootup on resume, which allows you to create a user experience around it
+
+<Callout>
+This default persistence inherited from the CodeSandbox product is not living up to the requirements of the SDK product. We are deprecating this in favour of **long term persistence** which is coming soon.
+</Callout>
 
 ### Managed Persistence
 
@@ -53,11 +57,11 @@ Manage persistence with no cost and predictable Sandbox resume times.
 
 ### Long Term Persistence (coming soon)
 
-Pay for long term persistence and predictable resume times.
+Predictable resume times with a cost overhead.
 
 - Sandboxes will never be archived when hibernated, you control when to delete them
-- Resuming a hibernated Sandbox will take < 5 seconds
-- Safely create Sandboxes from other Sandboxes
+- Resuming a hibernated Sandbox will take 1-3 seconds
+- Create Sandboxes from other Sandboxes at scale
 
 ## The Sandbox Lifecycle
 
@@ -87,7 +91,7 @@ Read more in [Lifecycle Management](./manage-sandboxes)
 
 - A user wants to interact with a host
 - By default hosts are public, but you can generate tokens for private hosts using the SDK
-- Use a proxy through your own server to improve interactions with hosts
+- Use a proxy through your own server to manage interactions with hosts
 
 ### Hibernation
 
@@ -99,15 +103,20 @@ Read more in [Lifecycle Management](./manage-sandboxes)
 
 - A user/agent starts a new session on the same Sandbox
 - Resume the Sandbox using the SDK
-- Sandbox continues from snapshot in 0.5-2s or 10-60s if archived
+- Sandbox continues from snapshot in 1-3s
+
+<Callout>
+With default persistence Sandboxes archive after 2-7 days, depending on cluster health. In this state a resume takes 10-60 seconds normally.
+</Callout>
 
 ### Deleting
 
-- Push persistence to git/db using the SDK
+- The Sandbox is no longer needed
+- Optionally push persistence to git/db using the SDK
 - Delete the Sandbox using the SDK
 
 ### Resume from deletion
 
-- A user decides to come back
+- A user decides to come back and you have persisted their work
 - Create Sandbox from template using SDK. Pull persistence from git/db
 - The template is forked from cluster X in 1-3s

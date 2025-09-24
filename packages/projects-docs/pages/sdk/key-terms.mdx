@@ -15,7 +15,7 @@ import { Callout } from 'nextra-theme-docs'
 
 - **API Key**: Authentication token required to use the CodeSandbox SDK. Created at [https://codesandbox.io/t/api](https://codesandbox.io/t/api) and exposed as `CSB_API_KEY` environment variable.
 
-- **Session**: Authentication and connection context that allows client applications to interact with sandboxes.
+- **Session**: Authentication and connection context that allows client applications to interact with sandboxes directly.
 
 - **Host Token**: Authentication token required to access hosts of private sandboxes. Provides secure access to sandbox ports and services.
 
@@ -29,7 +29,7 @@ import { Callout } from 'nextra-theme-docs'
 
 - **VM Tier**: Computing resource specification for sandboxes, ranging from Micro to Small (8 cores/16GB RAM) with higher tiers available through custom templates.
 
-- **Dev Container**: Container configuration system used by CodeSandbox for environment setup. Uses `.devcontainer/devcontainer.json` for configuration.
+- **DevContainer**: Container configuration system used by CodeSandbox for environment setup. Uses `.devcontainer/devcontainer.json` for configuration.
 
 - **Workspace**: The persistent working directory (`/project/workspace`) where sandbox files are stored and managed with git-based persistence.
 
@@ -59,7 +59,7 @@ import { Callout } from 'nextra-theme-docs'
 
 - **Live Forks**: Sandboxes created from a currently running sandbox, which is slower than forking from templates or hibernated sandboxes.
 
-## States
+## Lifecycle
 
 - **Hibernation**: Automatic suspension of sandbox execution after a specified timeout period. Sandboxes can be resumed later while preserving their state.
 
