@@ -7,21 +7,21 @@ import { Callout } from 'nextra-theme-docs'
 
 # Manage Sandbox Lifecycles
 
-You should use your own persistence layer to track VM sessions and sandbox lifecycle states. This ensures that you are able to create the optimal user experience with minimal costs. The exact lifecycle management depends on how you approach persistence.
+Use your own persistence layer to track VM sessions and sandbox lifecycle states to provide an optimal user experience with minimal costs. The exact lifecycle management depends on how you approach persistence.
 
 <Callout type="warning">
-Even though `hibernationTimeoutSeconds` and `wakeupConfig` is currently provided, they are _deprecated_. 
+Even though `hibernationTimeoutSeconds` and `wakeupConfig` are currently provided, we advise against using them as a best practice.
 </Callout>
 
-## Default Persistence (free)
+## Default persistence (free)
 
-With default persistence hibernated Sandboxes will be archived after 2-7 days. If your user experience allows for resume times of 10-60 seconds, you can lean on `hibernate` and `resume` to only manage the cost of running VMs.
+With default persistence, hibernated Sandboxes are archived after 2–7 days. If your user experience allows resume times of 10–60 seconds, you can rely on `hibernate` and `resume` to only manage the cost of running VMs.
 
-How you manage the resume/hibernate part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` when the sessions ends.
+How you manage the resume/hibernate part of the lifecycle depends on your use case. You might have user sessions, agent sessions, or sessions bound to accessing a process exposing a host. Regardless, you should `resume` the Sandbox when the session starts and `hibernate` when the session ends.
 
-- **User opens a project**: Resume the related Sandbox as part of fetching the project data. Hibernate the Sandbox on a timeout of last interaction with the project
-- **User connection**: Resume the related Sandbox when user has an active connection to your server (WebSocket, heartbeat etc.) and hibernate on disconnect
-- **Host request**: Use a proxy to resume the Sandbox on HTML requests and hibernate on request debounce. Read more in [Hosts](./sandbox-hosts)
+- **User opens a project**: Resume the related Sandbox as part of fetching the project data. Hibernate the Sandbox on a timeout after the last interaction with the project.
+- **User connection**: Resume the related Sandbox when the user has an active connection to your server (WebSocket, heartbeat, etc.), and hibernate on disconnect.
+- **Host request**: Use a proxy to resume the Sandbox on HTTP requests and hibernate on request debounce. Read more in [Hosts](./sandbox-hosts).
 
 ```ts
 // POST /api/projects - Create a new project
@@ -120,11 +120,11 @@ setInterval(async () => {
 }, 60 * 1000); // Check every minute
 ```
 
-## Managed Persistence
+## Managed persistence
 
-You can choose to not rely on our persistence at all. By rather using `delete` instead of `hibernate` you get minimum cost and optimal control of Sandbox resumes.
+You can choose not to rely on our persistence at all. By using `delete` instead of `hibernate`, you minimize costs and maintain optimal control of Sandbox resumes.
 
-When you want to stop using the Sandbox, push any changes to db/git persistence. Then `delete` the Sandbox. When you want to resume the Sandbox you rather `create` a new Sandbox from the template and pull db/git persistence back into the Sandbox.
+When you want to stop using the Sandbox, push any changes to your database or Git. Then `delete` the Sandbox. When you want to resume, `create` a new Sandbox from the template and pull data back from your database or Git.
 
 ```ts
 // POST /api/projects - Create project with git initialization
@@ -138,7 +138,7 @@ app.post('/api/projects', async (req, res) => {
 
   const client = await sandbox.connect();
 
-  // Initialize git remote
+  // Initialize Git remote
   await client.commands.run([
     `git remote remove origin`
     `git remote add origin ${repositoryUrl}`
@@ -190,7 +190,7 @@ app.get('/api/projects/:id/session', async (req, res) => {
 
     const client = await sandbox.connect();
 
-    // Initialize git remote and pull
+    // Initialize Git remote and pull
     await client.commands.run([
       `git remote remove origin`
       `git remote add origin ${repositoryUrl}`
@@ -221,7 +221,7 @@ app.post('/api/projects/:id/heartbeat', async (req, res) => {
   res.json({ success: true });
 });
 
-// Background job to delete inactive projects after git push
+// Background job to delete inactive projects after Git push
 setInterval(async () => {
   const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
 
@@ -236,7 +236,7 @@ setInterval(async () => {
       const sandbox = await sdk.sandboxes.resume(project.sandboxId);
       const client = await sandbox.connect();
 
-      // Push any uncommitted changes to git
+      // Push any uncommitted changes to Git
       await client.commands.run([
         'git add -A',
         'git commit -m "Auto-save before cleanup" || true',
@@ -254,118 +254,12 @@ setInterval(async () => {
 }, 60 * 1000); // Check every minute
 ```
 
-## Long Term Persistence (Coming Soon)
+## Long-term persistence (coming soon)
 
-With long term persistence there is no archiving of hibernated Sandboxes after 2-7 days. That means you will get reliable resumes regardless of the age of the Sandbox. There will be a cost though, so you should still delete Sandboxes that you consider ephemeral (Like AI suggestions). Long term persistence also enables you to reliably create a Sandbox from an existing hibernated Sandbox.
-
-<Callout type="warning">
-There is still a scenario where a cluster issue requires recover from a backup. In this case it will be a `CLEAN` boot.
-</Callout>
-
-In this example we show how you can keep a hibernated Sandbox as the "main branch" of a project. Where you will generate new branches to preview or create AI suggestions.
-
-```ts
-// POST /api/projects - Create project with permanent hibernated sandbox
-app.post('/api/projects', async (req, res) => {
-  const { userId, projectName } = req.body;
-
-  // Create main project sandbox (always hibernated when not in use)
-  const projectSandbox = await sdk.sandboxes.create({
-    id: 'some-template-id'
-  });
-
-  // Hibernate the main project sandbox
-  await sdk.sandboxes.hibernate(projectSandbox.id);
-
-  // Save project to database
-  const project = await db.projects.create({
-    id: generateId(),
-    userId,
-    name: projectName,
-    mainSandboxId: projectSandbox.id, // Hibernated project sandbox
-    status: 'hibernated',
-    createdAt: new Date()
-  });
-
-  res.json({ project });
-});
-
-// POST /api/projects/:id/branches - Create branch sandbox
-app.post('/api/projects/:id/branches', async (req, res) => {
-  const { id } = req.params;
-  const { branchName } = req.body;
-
-  const project = await db.projects.findById(id);
-
-  if (!project) {
-    return res.status(404).json({ error: 'Project not found' });
-  }
-
-  // Create branch sandbox
-  const branchSandbox = await sdk.sandboxes.create({
-    id: project.mainSandboxId
-  });
-
-  // Save branch to database
-  const branch = await db.branches.create({
-    id: generateId(),
-    projectId: id,
-    name: branchName,
-    sandboxId: branchSandbox.id,
-    status: 'active',
-    createdAt: new Date()
-  });
-
-  const session = await branchSandbox.createSession();
-
-  res.json({ branch, session });
-});
-
-
-// POST /api/projects/:id/branches/:branchId/promote - Make branch the new main
-app.post('/api/projects/:id/branches/:branchId/promote', async (req, res) => {
-  const { id, branchId } = req.params;
-
-  const project = await db.projects.findById(id);
-  const branch = await db.branches.findById(branchId);
-
-  if (!project || !branch || branch.projectId !== id) {
-    return res.status(404).json({ error: 'Project or branch not found' });
-  }
-
-  // Hibernate the branch sandbox (it becomes the new main)
-  await sdk.sandboxes.hibernate(branch.sandboxId);
-
-  // Update project with new main sandbox
-  await db.projects.update(id, {
-    mainSandboxId: branch.sandboxId
-  });
-
-  const otherBranches = await db.branches.findWhere({
-    projectId: id,
-    status: 'active'
-  });
-
-  // Clean up other branches
-  for (const otherBranch of otherBranches) {
-    try {
-      await sdk.sandboxes.delete(otherBranch.sandboxId);
-      await db.branches.update(otherBranch.id, { status: 'deleted' });
-    } catch (error) {
-      console.error(`Failed to delete branch ${otherBranch.id}:`, error);
-    }
-  }
-
-  res.json({
-    success: true,
-    message: `Branch ${branch.name} promoted to main`,
-    newMainSandboxId: branch.sandboxId
-  });
-});
-```
+With long-term persistence, there is no archiving of hibernated Sandboxes after 2–7 days. That means you will get reliable resumes regardless of the age of the Sandbox.
 
 ## ⚡ Best practices
 
-- **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer
-- **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate sandboxes when sessions are done and actively resume them when you want to continue
-- **Delete Sandboxes** - With custom or long term persistence you should delete Sandboxes to manage cost
+- **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer.
+- **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate Sandboxes when sessions are done and actively resume them when you want to continue.
+- **Delete Sandboxes** - With custom or long-term persistence, delete Sandboxes to manage cost.

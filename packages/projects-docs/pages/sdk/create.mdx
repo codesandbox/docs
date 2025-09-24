@@ -7,11 +7,11 @@ import { Callout } from 'nextra-theme-docs'
 
 # Creating Sandboxes
 
-Sandboxes are the main building blocks of the CodeSandbox SDK. Every Sandbox is backed by a Firecracker VM, and is completely isolated and persisted. Providing you with a secure environment to run untrusted code.
+Sandboxes are the main building blocks of the CodeSandbox SDK. Each one represents an isolated development environment that can be run in a virtual machine, forked, and modified. Every Sandbox is backed by a Firecracker VM and is completely isolated and persisted, providing you with a secure environment to run untrusted code.
 
 ## Creating a Sandbox
 
-Once you have created a template using the CLI, you can use its template ID to create sandboxes. The template ID is returned when you successfully build a template.
+Once you have [created a template](sdk/templates) using the CLI, you can use its template ID to create sandboxes. The template ID is returned when you successfully build a template.
 
 ```ts
 import { CodeSandbox } from '@codesandbox/sdk'
@@ -25,7 +25,7 @@ const sandbox = await sdk.sandboxes.create({
 ```
 
 <Callout>
-By default Sandboxes are `public-hosts`. Available privacy options:
+By default, Sandboxes are `public-hosts`. Available privacy options:
 - `public`: Sandbox and hosts are publicly accessible
 - `private`: Sandbox is private, hosts require tokens 
 - `public-hosts`: Sandbox is private, but hosts are publicly accessible
@@ -65,17 +65,17 @@ const sandbox = await sdk.sandboxes.create({
 ```
 
 <Callout type="warning">
-Both `hibernationTimeoutSeconds` and `wakeupConfig` has been deprecated. This is because manual lifecycle management is needed to scale, control cost and create a predictable user experience. These two feature will not be available in next major version.
+Both `hibernationTimeoutSeconds` and `wakeupConfig` have been deprecated. Manual lifecycle management is required to scale, control costs, and create a predictable user experience. These features will not be available in the next major version.
 </Callout>
 
-Each Sandbox has the following properties, with information about it's own instance:
+Each Sandbox has the following properties, with information about its own instance:
 
 - `id`: The unique identifier of the sandbox.
 - `isUpToDate`: Whether the sandbox is up to date with the latest agent version.
 - `cluster`: The cluster the sandbox is running on.
 - `bootupType`: The type of bootup, `RUNNING`, `CLEAN`, `RESUME` or `FORK`.
 
-## Create Sandbox from Sandbox
+## Create a Sandbox from a Sandbox
 
 You can create a Sandbox by referencing the `id` of an existing Sandbox:
 
@@ -85,10 +85,10 @@ const sandbox = await sdk.sandboxes.create({
 })
 ```
 
-Make sure the parent Sandbox is in a `HIBERNATED` state before performing this operation.
+Ensure the parent Sandbox is in a `HIBERNATED` state before performing this operation.
 
 <Callout type="warning">
-Without long term persistence this operation requires careful management. Depending on the state of the parent Sandbox:
+Depending on the state of the parent Sandbox:
 
 - **RUNNING**: This creates what we call a "Live Fork", which is limited to 5. The created Sandboxes will share memory with the parent and can cause a degraded experience
 - **ARCHIVED**: The parent Sandbox first needs to be resumed, which can take 10-60 seconds, causing the creation to take a long time
@@ -120,7 +120,7 @@ git remote add origin https://github.com/your-username/your-repo.git
 git push -u origin main
 ```
 
-### Using git as submodule
+### Using git as a submodule
 
 ```bash
 # Clone your repository inside the workspace
@@ -147,7 +147,7 @@ const sandbox = await sdk.sandboxes.create({
 const client = await sandbox.connect();
 ```
 
-## Create Session
+## Create a session
 
 Creates a session you can pass to browser/node clients.
 
@@ -158,7 +158,7 @@ const sandbox = await sdk.sandboxes.create({
 const session = await sandbox.createSession();
 ```
 
-## Update Tier
+## Update tier
 
 Updates the VM tier of the running sandbox:
 
@@ -177,5 +177,5 @@ You can only upgrade to higher VM tiers than the initial one.
 
 ## ⚡ Best practices
 
-- **Be careful creating Sandbox from Sandbox** - When creating a Sandbox from a running or archived Sandbox, you risk a degraded experience. If your product requires this behavior, you will need long term persistence
-- **Avoid VM Tier downsizing** - Set the minimum tier needed for your templates and never downsize the tier of a Sandbox created from a template or other Sandboxes
+- **Be careful when creating a Sandbox from a Sandbox** - Creating from a running or archived Sandbox can degrade performance. If your product requires this, you will need long-term persistence.
+- **Avoid VM tier downsizing** - Set the minimum tier needed for your templates and never downsize the tier of a Sandbox created from a template or other Sandboxes.
