@@ -40,12 +40,12 @@ Sandboxes are designed for fast startup, strong isolation, and flexible persiste
 ## Sandbox Persistence
 
 Sandboxes have three states of persistence:
-| **State** | **Resume Time** | **Description** |
-| --------- | --------------- | -------------------------------------------------------- |
-| Memory | 0.5–2 seconds | Restores from an in-memory VM snapshot |
-| Disk | 5–20 seconds | Boots from disk snapshot; slower, but retains full state |
-| Archived | 20–60 seconds | Restores from cold storage; slowest but still resumable |
-=======
+
+| **State**   | **Resume Time** | **Description**                                   |
+| ----------- | --------------- | ------------------------------------------------- |
+| Memory/Disk | 0.5–2 seconds   | Memory and disk from snapshot                     |
+| Disk        | 5–20 seconds    | Disk from snapshot, will run setup tasks          |
+| Archived    | 20–60 seconds   | Disk from cold storage with, will run setup tasks |
 
 ### Default persistence
 
@@ -77,8 +77,6 @@ Below are the key stages of the lifecycle and how to manage them effectively:
 
 - Templates are created with the CLI or the SDK in advance of engagement by the end-user or agent
 - Once created, they’re distributed across multiple clusters for quick access and scaling.
-
-✅ Always create Sandboxes from templates when possible for the fastest startup experience.
 
 ### Sandbox creation
 
