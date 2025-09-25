@@ -7,7 +7,7 @@ import { Callout } from 'nextra-theme-docs'
 
 # Templates
 
-Templates are custom, pre-configured environments that allow you to quickly create sandboxes with specific setups, dependencies, and configurations already in place. You must create your own templates using our CLI - this ensures your sandboxes are perfectly tailored to your specific use cases and requirements.
+SDK Templates are custom, pre-configured environments that allow you to quickly create sandboxes with your specific setup tasks, dependencies, and configurations already in place. If you're using the SDK at scale, you must create your own templates using our CLI. This will ensure reliability and that your sandboxes are perfectly tailored to your specific use cases and requirements.
 
 <Callout>
 To find inspiration check our template repository on GitHub: https://github.com/codesandbox/sandbox-templates
@@ -15,13 +15,13 @@ To find inspiration check our template repository on GitHub: https://github.com/
 
 ## Setting up the Template
 
-Create a new folder in your project and add the files you want to have available inside your Sandbox. For example set up a Vite project:
+Create a new folder in your project and add the files you want to have available inside your Sandbox. For example if you were setting up a Vite project you would run:
 
 ```sh
 npx create-vite@latest my-template
 ```
 
-Now we need to configure the template with tasks so that it will install dependencies and start the dev server. Create a `my-template/.codesandbox/tasks.json` file with the following content:
+Next you will need to configure the template with your tasks, so that it will install dependencies and start the dev server when created. Create a `my-template/.codesandbox/tasks.json` file with the following contents:
 
 ```json
 {
@@ -45,7 +45,7 @@ Now we need to configure the template with tasks so that it will install depende
 }
 ```
 
-The `setupTasks` will run after the Sandbox has started, before any other tasks.
+Your `setupTasks` will run after the Sandbox has started, before any other tasks.
 
 <Callout type="warning">
 Do **NOT** start dev servers or other long running processes in the `setupTasks`. This will block the setup process and prevent the Sandbox from starting properly.
@@ -152,7 +152,7 @@ services:
       POSTGRES_PASSWORD: password
 ```
 
-Make sure you run `docker-compose up` in your `tasks.json` file or manually when creating Sandboxes from the template:
+Make sure that you run `docker-compose up` in your `tasks.json` file, or you will need to do this manually when creating Sandboxes from the template:
 
 ```json
 {
@@ -165,11 +165,12 @@ Make sure you run `docker-compose up` in your `tasks.json` file or manually when
 
 When would you configure something in the Dockerfile, and when would you configure something in setup tasks?
 
-As a rule of thumb, if something is configured in relation to the environment (like installing Node, or installing Postgres, or installing Bun), it should go into the Dockerfile. If something is related to the project setup (installing dependencies, building a binary), it should go inside setup tasks.
+As a rule of thumb, if something is configured in relation to the environment (like installing Node, Postgres, or Bun), it should go into the Dockerfile. If something is related to the project setup (installing dependencies, building a binary), it should go inside setup tasks.
 
 ## ⚡ Best practices
 
 - **Use the CLI** - Don't create templates on codesandbox.io, use the CLI
 - **Pre-install dependencies in templates** - Use `setupTasks` to handle installation during template creation
+- **Only use setup tasks for shorter processes** - If you include dev servers or other longer processes in your setup tasks, this will cause the set up process to fail.
 - **Configure tasks properly** - Set up dev servers and processes in your template configuration and avoid using the deprecated _restartOn_ field
-- **Use appropriate VM tiers** - Many processes requires quite a bit of memory and CPU to operate correctly. Make sure you give enough memory/cpu to the Sandbox
+- **Use an appropriate VM tier** - Many processes and frameworks require significant memory and CPU to operate correctly. If you're trying to optimise for cost, start with the default tier and try a lower tier if the build is successful.

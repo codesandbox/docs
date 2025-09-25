@@ -11,11 +11,17 @@ import { Callout } from 'nextra-theme-docs'
   subtitle="Programmatically spin up development environments"
 />
 
-CodeSandbox SDK enables you to quickly create and run isolated sandboxes securely.
-The SDK can be used to run concurrent VMs to support multiple use cases such as browser editors, AI agents, code interpretation and more.
+The CodeSandbox SDK has been designed to let you to rapidly create and run secure code environments at scale. The SDK is already supporting use cases such as:
+
+- Browser based IDEs
+- Code interpretation
+- AI Agent runtime environments
+- A/B testing
+
+If your product or project has a need for concurrent VMs, sandboxed development environments and/or an isolated code interpreter. The CodeSandbox SDK has been built with you in mind. 
 
 <Callout>
-We are currently working on improvements to our infrastructure. Please read our [RFC](https://gist.github.com/christianalfoni/70335f989312484c8f348148aa2e166e) for planned deprecations and future roadmap. We would love your feedback!
+We are currently working on improvements to our infrastructure. Please read our [RFC](https://gist.github.com/christianalfoni/70335f989312484c8f348148aa2e166e) for details of our planned deprecations and future roadmap. We would love your feedback!
 </Callout>
 
 ## Quickstart
@@ -48,7 +54,8 @@ console.log(output) // Hello World
 
 To understand how the SDK can be integrated into your product read the following pages:
 
-- [**Core Concepts**](/sdk/core-concepts.mdx): It is all about templates, persistence and lifecycles
-- [**Templates**](/sdk/templates.mdx): Drop your end users directly into an optimized running Sandbox
-- [**Lifecycle Management**](/sdk/manage-sandboxes.mdx): Learn about managing cost VS optimizing UX
-- [**Hosts**](/sdk/sandbox-hosts.mdx): Learn about creating an experience around the ports you want to expose from Sandboxes
+- [**Key Terms**](/sdk/key-terms.mdx): Definitions for the terminology used throughout this documentation and within the SDK. 
+- [**Core Concepts**](/sdk/core-concepts.mdx): Learn about the underlying architecture of the SDK, and how to get the most out of it.
+- [**Templates**](/sdk/templates.mdx): How to take your end users (or agent) straight into an optimized running Sandbox, built to your specifications.
+- [**Lifecycle Management**](/sdk/manage-sandboxes.mdx): Our guide for setting up a Sandbox management layer, so you can optimise your SDK implementation for the best user experience at the lowest cost.
+- [**Hosts**](/sdk/sandbox-hosts.mdx): Customise your user experience using the ports that you expose from Sandboxes. Set up custom domains for previews, your own error pages and more. 
