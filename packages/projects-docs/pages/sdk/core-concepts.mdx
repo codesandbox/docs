@@ -60,6 +60,7 @@ Sandboxes have three states of persistence:
 | Memory    | 0.5–2 seconds   | Restores from an in-memory VM snapshot                   |
 | Disk      | 5–20 seconds    | Boots from disk snapshot; slower, but retains full state |
 | Archived  | 20–60 seconds   | Restores from cold storage; slowest but still resumable  |
+=======
 
 
 ### Default persistence 
@@ -68,7 +69,6 @@ By default, when a Sandbox is hibernated, a memory snapshot is created. This all
 - Hibernated Sandboxes are stored on disk for up to 7 days.
 - After 7 days, or if disk space is limited, Sandboxes may be archived to long-term storage.
 - Archived Sandboxes are slower to resume, but still retain their full state.
-
 
 ### Managed Persistence
 
@@ -79,7 +79,6 @@ While advanced persistence controls are coming in future SDK versions, you can i
 - On resume, recreate the environment from a template and pull data from Git or your database.
 
 These steps reduce reliance on long-term VM snapshots and improve resume consistency—especially in high-scale or collaborative environments.
-
 
 ## The Sandbox Lifecycle
 
@@ -146,4 +145,3 @@ If a user returns later, a new Sandbox can be recreated:
 - Use the SDK to create a new Sandbox from the original template.
 - Pull persisted state (e.g., project files, config) from Git or a database.
 - The new environment is spun up in 1–3 seconds—just like before.
-
