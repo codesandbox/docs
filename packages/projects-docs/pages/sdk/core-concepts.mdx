@@ -13,12 +13,6 @@ import { Callout } from 'nextra-theme-docs'
 
 The CodeSandbox SDK provides a complete cloud development infrastructure that allows you to programmatically create, manage, and interact with isolated development environments. This page explains the conceptual architecture and terminology to help you understand how Sandboxes can integrate with your product.
 
-## Architecture Overview
-
-The SDK enables management of and connections to Sandboxes in secure and scalable development environments. Due to the design of the architecture, there are many options for how to expose functionality in your application.
-
-![Architecture](./architecture.png)
-
 ## Sandbox Types
 
 ### Templates
@@ -43,27 +37,18 @@ Using templates allows developers to spin up environments in seconds with everyt
 
 Sandboxes are designed for fast startup, strong isolation, and flexible persistence—ideal for collaborative development, automation, or ephemeral dev workflows.
 
-
-## The Development Environment Lifecycle
-
-Understanding how templates and sandboxes progress through their lifecycle is key to building fast, reliable developer experiences. Depending on your use case, different persistence states and integration methods can impact performance and behavior.
-
-The diagram below outlines how Sandboxes flow through their lifecycle via the SDK:
-
-![Lifecycle](./lifecycle.png)
-
 ## Sandbox Persistence
 
 Sandboxes have three states of persistence:
-| **State** | **Resume Time** | **Description**                                          |
+| **State** | **Resume Time** | **Description** |
 | --------- | --------------- | -------------------------------------------------------- |
-| Memory    | 0.5–2 seconds   | Restores from an in-memory VM snapshot                   |
-| Disk      | 5–20 seconds    | Boots from disk snapshot; slower, but retains full state |
-| Archived  | 20–60 seconds   | Restores from cold storage; slowest but still resumable  |
+| Memory | 0.5–2 seconds | Restores from an in-memory VM snapshot |
+| Disk | 5–20 seconds | Boots from disk snapshot; slower, but retains full state |
+| Archived | 20–60 seconds | Restores from cold storage; slowest but still resumable |
 =======
 
+### Default persistence
 
-### Default persistence 
 By default, when a Sandbox is hibernated, a memory snapshot is created. This allows for near-instant resumes the next time the Sandbox is accessed—typically within 0.5–2 seconds.
 
 - Hibernated Sandboxes are stored on disk for up to 7 days.
@@ -120,15 +105,14 @@ Below are the key stages of the lifecycle and how to manage them effectively:
 - Hibernation is triggered using the SDK.
 - A snapshot of the entire VM is saved, enabling seamless continuation later.
 
-
 ### Resume from hibernation
 
 - The user or agent starts a new session on a previously hibernated Sandbox.
 - The Sandbox resumes using the SDK.
 - Resume times vary based on persistence:
-    - From memory: 0.5–2 seconds
-    - From disk: 5–20 seconds
-    - From archive: 20–60 seconds
+  - From memory: 0.5–2 seconds
+  - From disk: 5–20 seconds
+  - From archive: 20–60 seconds
 
 ### Deleting
 
@@ -142,6 +126,7 @@ This helps manage storage while keeping user progress safe.
 ### Resume from deletion
 
 If a user returns later, a new Sandbox can be recreated:
+
 - Use the SDK to create a new Sandbox from the original template.
 - Pull persisted state (e.g., project files, config) from Git or a database.
 - The new environment is spun up in 1–3 seconds—just like before.
