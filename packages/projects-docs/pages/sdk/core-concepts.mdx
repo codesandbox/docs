@@ -51,7 +51,7 @@ Sandboxes have three states of persistence:
 
 By default, when a Sandbox is hibernated, a memory snapshot is created. This allows for near-instant resumes the next time the Sandbox is accessed—typically within 0.5–2 seconds.
 
-- Hibernated Sandboxes are stored on disk for up to 7 days.
+- Hibernated Sandboxes are stored on disk for up to 7 days
 - After 7 days, or if disk space is limited, Sandboxes may be archived to long-term storage.
 - Archived Sandboxes are slower to resume, but still retain their full state.
 
@@ -60,7 +60,7 @@ By default, when a Sandbox is hibernated, a memory snapshot is created. This all
 While advanced persistence controls are coming in future SDK versions, you can improve reliability and startup times today by following these best practices:
 
 - Persist workspace data to Git or a database.
-- Prefer deleting Sandboxes over hibernating when long inactivity is expected.
+- Prefer deleting Sandboxes over hibernating when longer inactivity is expected.
 - On resume, recreate the environment from a template and pull data from Git or your database.
 
 These steps reduce reliance on long-term VM snapshots and improve resume consistency—especially in high-scale or collaborative environments.
@@ -68,8 +68,6 @@ These steps reduce reliance on long-term VM snapshots and improve resume consist
 ## The Sandbox Lifecycle
 
 The Sandbox lifecycle defines how environments are created, used, paused, resumed, and eventually cleaned up. Users may interact with Sandboxes directly, or indirectly via agents (such as automation tools or connected services).
-
-Below are the key stages of the lifecycle and how to manage them effectively:
 
 📘 For detailed API usage, refer to [Lifecycle Management](./manage-sandboxes)
 
@@ -108,8 +106,8 @@ Below are the key stages of the lifecycle and how to manage them effectively:
 - The user or agent starts a new session on a previously hibernated Sandbox.
 - The Sandbox resumes using the SDK.
 - Resume times vary based on persistence:
-  - From memory: 0.5–2 seconds
-  - From disk: 5–20 seconds
+  - From memory/disk snapshot: 0.5–2 seconds
+  - From disk snapshot: 5–20 seconds
   - From archive: 20–60 seconds
 
 ### Deleting

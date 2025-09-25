@@ -9,11 +9,15 @@ import { Callout } from 'nextra-theme-docs'
 
 Use your own persistence layer to track VM sessions and sandbox lifecycle states. This will give you the following benefits:
 
-- A request does not accidentally extend hibernation timeout
+- A request does not accidentally keep a Sandbox running
 - A webhook can be called from a process inside the Sandbox to control lifecycle
 - As hibernation is directly called, error management is straight forward
 - No **ux** vs **cost** tradeoff
 - Latency is reduced as session/db state determines state of Sandbox, preventing unecessary calls to `resume`
+
+<Callout>
+To adopt best practices set `hibernationTimeoutSeconds` to `86400` (24 hours) and `automaticWakeupConfig` to `false` when you create Sandboxes.
+</Callout>
 
 How you manage the resume/hibernate/delete part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` or `delete` when the sessions ends.
 
@@ -126,7 +130,7 @@ setInterval(async () => {
 
 ## Managed persistence example
 
-You can choose not to rely on our persistence at all. By using `delete` instead of `hibernate`, you minimize costs and maintain optimal control of Sandbox resumes.
+You can choose not to rely on our persistence at all. By using `delete`, instead of `hibernate`, you maintain optimal control of Sandbox resumes.
 
 When you want to stop using the Sandbox, push any changes to your database or Git. Then `delete` the Sandbox. When you want to resume, `create` a new Sandbox from the template and pull data back from your database or Git.
 

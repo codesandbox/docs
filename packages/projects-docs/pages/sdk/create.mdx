@@ -50,22 +50,22 @@ const sandbox = await sdk.sandboxes.create({
     // What VM Tier to use for the Sandbox
     vmTier: VMTier.Micro,
 
-    // How quickly the sandbox should hibernate after inactivity. Set
-    // this field to the maximum 24 hours (See deprecation below)
-    hibernationTimeoutSeconds: 86400,
+    // How quickly the sandbox should hibernate after inactivity. Recommended
+    // setting is 24 hours
+    hibernationTimeoutSeconds: 300,
 
     // Configure if Sandbox should wake up automatically on HTTP
-    // or requests or WebSocket connections. Set both of these to `false`
-    // (See deprecation below)
+    // or requests or WebSocket connections. Recommended setting
+    // is false
     automaticWakeupConfig: {
-        http: false,
+        http: true,
         websocket: false
     }
 })
 ```
 
 <Callout type="warning">
-Both `hibernationTimeoutSeconds` and `wakeupConfig` have been deprecated. Manual lifecycle management is required to scale, control costs, and create a predictable user experience. These features will not be available in the next major version.
+Both `hibernationTimeoutSeconds` and `wakeupConfig` should be carefully evaluated. Manual lifecycle management is considered best practice and is required to scale, control costs, and create a predictable user experience.
 </Callout>
 
 Each Sandbox has the following properties, with information about its own instance:
@@ -85,13 +85,12 @@ const sandbox = await sdk.sandboxes.create({
 })
 ```
 
-Ensure the parent Sandbox is in a `HIBERNATED` state before performing this operation.
-
 <Callout type="warning">
-Depending on the state of the parent Sandbox:
+Be careful with the state of the parent Sandbox:
 
-- **RUNNING**: This creates what we call a "Live Fork", which is limited to 5. The created Sandboxes will share memory with the parent and can cause a degraded experience
-- **ARCHIVED**: The parent Sandbox first needs to be resumed, which can take 10-60 seconds, causing the creation to take a long time
+- **HIBERNATED**: It will be a fast fork of 1-3 seconds
+- **RUNNING**: This creates what we call a "Live Fork", which is limited to 5. The created Sandboxes will share memory with the parent and causes a degraded experience if excessively used
+- **ARCHIVED**: The parent Sandbox first needs to be resumed, which can take 20-60 seconds, causing the creation to take a long time
 
 </Callout>
 
@@ -105,11 +104,9 @@ There is also a `/project/sandbox` folder, but consider this deprecated. Use `/p
 
 The primary persistence mechanism is based on git with a local remote. This means the workspace is initialized with git automatically.
 
-<Callout type="warning">
-Running git commands in the workspace without setting a new remote will cause issues with persistence.
-</Callout>
-
 ### Using git in the root workspace
+
+Since the default persistence of a Sandbox is using git you should not run any git commands in the workspace unless you change the remote.
 
 ```bash
 # Remove the default local remote and add your own
