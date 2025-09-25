@@ -12,6 +12,7 @@
   "create": "Create",
   "resume": "Resume",
   "delete": "Delete",
+  "hibernate": "Hibernate",
   "manage-sandboxes": "Lifecycle Management",
   "restart-shutdown": "Restart & Shutdown",
   "users": "Users",

@@ -7,21 +7,21 @@ import { Callout } from 'nextra-theme-docs'
 
 # Manage Sandbox Lifecycles
 
-You should use your own persistence layer to track VM sessions and sandbox lifecycle states. This ensures that you are able to create the optimal user experience with minimal costs. The exact lifecycle management depends on how you approach persistence. This gives you several guarantees:
+Use your own persistence layer to track VM sessions and sandbox lifecycle states. This will give you the following benefits:
 
 - A request does not accidentally extend hibernation timeout
-- You can use a webhook to extend hibernation timeout from a process in the Sandbox
-- You can manage any errors related to hibernation
+- A webhook can be called from a process inside the Sandbox to control lifecycle
+- As hibernation is directly called, error management is straight forward
 - No **ux** vs **cost** tradeoff
-- Reduced latency as session/db state determines state of Sandbox, preventing unecessary calls to `resume`
+- Latency is reduced as session/db state determines state of Sandbox, preventing unecessary calls to `resume`
 
 How you manage the resume/hibernate/delete part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` or `delete` when the sessions ends.
 
 Examples of identifying lifecycles:
 
-- **User opens a project**: Resume the related Sandbox as part of fetching the project data. Hibernate the Sandbox on a timeout of last interaction with the project
-- **User connection**: Resume the related Sandbox when user has an active connection to your server (WebSocket, heartbeat etc.) and hibernate on disconnect
-- **Host request**: Use a proxy to resume the Sandbox on HTML requests and hibernate on request debounce. Read more in [Hosts](./sandbox-hosts)
+- **User opens a project**: Resume the related Sandbox as part of fetching the project data. Hibernate the Sandbox on a timeout after the last interaction with the project.
+- **User connection**: Resume the related Sandbox when the user has an active connection to your server (WebSocket, heartbeat, etc.), and hibernate on disconnect.
+- **Host request**: Use a proxy to resume the Sandbox on HTTP requests and hibernate on request debounce. Read more in [Hosts](./sandbox-hosts).
 
 ## User heartbeat example
 
@@ -126,9 +126,9 @@ setInterval(async () => {
 
 ## Managed persistence example
 
-You can choose to not rely on our persistence at all. By rather using `delete` instead of `hibernate` you get minimum cost and optimal control of Sandbox resumes.
+You can choose not to rely on our persistence at all. By using `delete` instead of `hibernate`, you minimize costs and maintain optimal control of Sandbox resumes.
 
-When you want to stop using the Sandbox, push any changes to db/git persistence. Then `delete` the Sandbox. When you want to resume the Sandbox you rather `create` a new Sandbox from the template and pull db/git persistence back into the Sandbox.
+When you want to stop using the Sandbox, push any changes to your database or Git. Then `delete` the Sandbox. When you want to resume, `create` a new Sandbox from the template and pull data back from your database or Git.
 
 ```ts
 // POST /api/projects - Create project with git initialization
@@ -142,7 +142,7 @@ app.post('/api/projects', async (req, res) => {
 
   const client = await sandbox.connect();
 
-  // Initialize git remote
+  // Initialize Git remote
   await client.commands.run([
     `git remote remove origin`
     `git remote add origin ${repositoryUrl}`
@@ -194,7 +194,7 @@ app.get('/api/projects/:id/session', async (req, res) => {
 
     const client = await sandbox.connect();
 
-    // Initialize git remote and pull
+    // Initialize Git remote and pull
     await client.commands.run([
       `git remote remove origin`
       `git remote add origin ${repositoryUrl}`
@@ -225,7 +225,7 @@ app.post('/api/projects/:id/heartbeat', async (req, res) => {
   res.json({ success: true });
 });
 
-// Background job to delete inactive projects after git push
+// Background job to delete inactive projects after Git push
 setInterval(async () => {
   const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
 
@@ -240,7 +240,7 @@ setInterval(async () => {
       const sandbox = await sdk.sandboxes.resume(project.sandboxId);
       const client = await sandbox.connect();
 
-      // Push any uncommitted changes to git
+      // Push any uncommitted changes to Git
       await client.commands.run([
         'git add -A',
         'git commit -m "Auto-save before cleanup" || true',
@@ -364,6 +364,6 @@ app.post('/api/projects/:id/branches/:branchId/promote', async (req, res) => {
 
 ## ⚡ Best practices
 
-- **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer
-- **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate sandboxes when sessions are done and actively resume them when you want to continue
-- **Delete Sandboxes** - With custom or long term persistence you should delete Sandboxes to manage cost
+- **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer.
+- **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate Sandboxes when sessions are done and actively resume them when you want to continue.
+- **Delete Sandboxes** - With custom or long-term persistence, delete Sandboxes to manage cost.

@@ -5,9 +5,10 @@ description: Learn how to delete sandboxes with the CodeSandbox SDK.
 
 import { Callout } from 'nextra-theme-docs'
 
-# Delete Sandboxs
+# Delete Sandboxes
 
-Deleting Sandboxes allows you to manage the cost of long term persistence (coming soon).
+Deleting a Sandbox removes it from persistence and performs a soft delete in our database.
+If a Sandbox is ephemeral (meaning you do not intend to resume it in the future) you can delete the Sandbox.
 
 ## Deleting a Sandbox
 
@@ -15,7 +16,3 @@ Deleting Sandboxes allows you to manage the cost of long term persistence (comin
 await sdk.sandboxes.delete('sandbox-id');
 ```
 
-This will:
-
-1. Delete the VM from our infra
-2. Soft delete the Sandbox from our database
