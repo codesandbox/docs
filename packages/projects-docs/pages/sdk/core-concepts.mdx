@@ -39,14 +39,6 @@ Sandboxes are designed for fast startup, strong isolation, and flexible persiste
 
 ## Sandbox Persistence
 
-Sandboxes have three states of persistence:
-
-| **State**   | **Resume Time** | **Description**                                   |
-| ----------- | --------------- | ------------------------------------------------- |
-| Memory/Disk | 0.5–2 seconds   | Memory and disk from snapshot                     |
-| Disk        | 5–20 seconds    | Disk from snapshot, will run setup tasks          |
-| Archived    | 20–60 seconds   | Disk from cold storage with, will run setup tasks |
-
 ### Default persistence
 
 By default, when a Sandbox is hibernated, a memory snapshot is created. This allows for near-instant resumes the next time the Sandbox is accessed—typically within 0.5–2 seconds.
@@ -55,15 +47,21 @@ By default, when a Sandbox is hibernated, a memory snapshot is created. This all
 - After 7 days, or if disk space is limited, Sandboxes may be archived to long-term storage.
 - Archived Sandboxes are slower to resume, but still retain their full state.
 
+| **State**   | **Resume Time** | **Description**                                   |
+| ----------- | --------------- | ------------------------------------------------- |
+| Memory/Disk | 0.5–2 seconds   | Memory and disk from snapshot                     |
+| Disk        | 5–20 seconds    | Disk from snapshot, will run setup tasks          |
+| Archived    | 20–60 seconds   | Disk from cold storage with, will run setup tasks |
+
 ### Managed Persistence
 
-While advanced persistence controls are coming in future SDK versions, you can improve reliability and startup times today by following these best practices:
+If you want complete control of persistence and ensure optimal resume times, you can follow these best practices:
 
 - Persist workspace data to Git or a database.
-- Prefer deleting Sandboxes over hibernating when longer inactivity is expected.
+- Delete Sandboxes when user/agent sessions ends.
 - On resume, recreate the environment from a template and pull data from Git or your database.
 
-These steps reduce reliance on long-term VM snapshots and improve resume consistency—especially in high-scale or collaborative environments.
+These steps reduce reliance on long-term VM snapshots and improve resume consistency.
 
 ## The Sandbox Lifecycle
 

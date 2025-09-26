@@ -11,7 +11,7 @@ import { Callout } from 'nextra-theme-docs'
 We are currently working on improvements to our infrastructure. Please read our [RFC](https://gist.github.com/christianalfoni/70335f989312484c8f348148aa2e166e) for planned deprecations, discussing hibernation timouts and future roadmap. We would love your feedback!
 </Callout>
 
-Use your own persistence layer to track VM sessions and sandbox lifecycle states. This will give you the following benefits:
+We provide a hibernation timeout mechanism to get you quickly going with the SDK. For some use cases this hibernation timeout might be good enough, but if you want optimal user experience vs cost we recommend **active lifecycle management** as best practice. This gives you the following benefits:
 
 - A request does not accidentally keep a Sandbox running
 - A webhook can be called from a process inside the Sandbox to control lifecycle
@@ -25,118 +25,111 @@ To adopt best practices set `hibernationTimeoutSeconds` to `86400` (24 hours) an
 
 How you manage the resume/hibernate/delete part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` or `delete` when the sessions ends.
 
-Examples of identifying lifecycles:
-
-- **User opens a project**: Resume the related Sandbox as part of fetching the project data. Hibernate the Sandbox on a timeout after the last interaction with the project.
-- **User connection**: Resume the related Sandbox when the user has an active connection to your server (WebSocket, heartbeat, etc.), and hibernate on disconnect.
-- **Host request**: Use a proxy to resume the Sandbox on HTTP requests and hibernate on request debounce. Read more in [Hosts](./sandbox-hosts).
+The challenge of **active lifecycle management** is to identify when a session actually ends. Here are some examples for inspiration. Note that these examples are meant for readability, not optimal parallelization, locking and error handling.
 
 ## User heartbeat example
 
-In this example we keep track of user activity on the project using a heartbeat. A cleanup job checks Sandboxes not interacted with and hibernates them.
+In this example we keep track of user activity on the project using an SSE connection.
 
 ```ts
+import express from 'express';
+const app = express();
+app.use(express.json());
+
+// ---- in-memory connection tracking ----
+const activeConnCount = new Map();        // sandboxId -> number
+
 // POST /api/projects - Create a new project
 app.post('/api/projects', async (req, res) => {
-  const { userId, projectName } = req.body;
+  const { userId, projectName, templateId = 'some-template-id' } = req.body;
 
-  // Create sandbox from template
-  const sandbox = await sdk.sandboxes.create({
-    id: 'some-template-id'
-  });
+  const sandbox = await sdk.sandboxes.create({ id: templateId });
 
-  // Save project to database
   const project = await db.projects.create({
     id: generateId(),
     userId,
     name: projectName,
     sandboxId: sandbox.id,
     templateId,
-    createdAt: new Date()
+    status: 'active',
+    createdAt: new Date(),
+    lastAccessedAt: new Date(),
+    lastActivityAt: new Date(),
   });
 
-  // Create session for immediate use
   const session = await sandbox.createSession();
-
-  // Wait for setup if clean boot
-  if (sandbox.bootupType === 'CLEAN') {
-    const client = await sandbox.connect();
-    const steps = await client.setup.getSteps();
-
-    for (const step of steps) {
-      await step.waitUntilComplete();
-    }
-  }
+  await ensureCleanBootSetup(sandbox);
 
   res.json({ project, session });
 });
 
-// GET /api/projects/:id/session - Resume project and get session
-app.get('/api/projects/:id/session', async (req, res) => {
+// GET /api/projects/:id/resume - SSE; hibernate Sandbox on disconnect
+app.get('/api/projects/:id/resume', async (req, res) => {
   const { id } = req.params;
 
-  // Get project from database
+  // SSE headers
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Track connections
+  activeConnCount.set(id, (activeConnCount.get(id) || 0) + 1)
+
+  const onClose = () => {
+    const newActiveCount = activeConnCount.get(id) - 1
+    activeConnCount.set(id, newActiveCount)
+
+    if (newActiveCount > 0) {
+      return
+    }
+
+    activeConnCount.delete(id)
+    await sdk.sandboxes.hibernate(project.sandboxId);
+    await db.projects.update(id, { status: 'hibernated', hibernatedAt: new Date() });
+    console.log(`Hibernated project ${id} (no active SSE consumers)`);
+  };
+
+  res.on('error', onClose);
+  req.on('close', onClose);
+
+  // Find project
   const project = await db.projects.findById(id);
   if (!project) {
-    return res.status(404).json({ error: 'Project not found' });
+    res.write(`event: error\ndata: ${JSON.stringify({ error: 'Project not found' })}\n\n`);
+    return cleanup();
   }
 
-  // Resume the sandbox
-  const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+  try {
+    // Resume & prep session
+    const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+    const session = await sandbox.createSession();
+    await db.projects.update(id, { lastAccessedAt: new Date(), status: 'active' });
 
-  // Create new session
-  const session = await sandbox.createSession();
-
-  // Update last accessed time
-  await db.projects.update(id, { lastAccessedAt: new Date() });
-
-  res.json({ session });
-});
-
-// POST /api/projects/:id/heartbeat - Keep project active
-app.post('/api/projects/:id/heartbeat', async (req, res) => {
-  const { id } = req.params;
-
-  // Update last activity timestamp
-  await db.projects.update(id, { lastActivityAt: new Date() });
-
-  res.json({ success: true });
-});
-
-// Background job to hibernate inactive projects
-setInterval(async () => {
-  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-
-  // Find projects inactive for more than 5 minutes
-  const inactiveProjects = await db.projects.findWhere({
-    lastActivityAt: { lt: fiveMinutesAgo },
-    status: 'active'
-  });
-
-  for (const project of inactiveProjects) {
-    try {
-      // Hibernate the sandbox
-      await sdk.sandboxes.hibernate(project.sandboxId);
-
-      // Update project status
-      await db.projects.update(project.id, {
-        status: 'hibernated',
-        hibernatedAt: new Date()
-      });
-
-      console.log(`Hibernated inactive project ${project.id}`);
-    } catch (error) {
-      console.error(`Failed to hibernate project ${project.id}:`, error);
+    if (sandbox.bootupType === 'CLEAN') {
+      const client = await sandbox.connect();
+      const steps = await client.setup.getSteps();
+      for (const step of steps) {
+        await step.waitUntilComplete();
+      }
     }
+
+    res.write(`event: ready\ndata: ${JSON.stringify({ session })}\n\n`);
+  } catch (err) {
+    console.error('SSE resume error:', err);
   }
-}, 60 * 1000); // Check every minute
+});
 ```
 
 ## Managed persistence example
 
+<<<<<<< Updated upstream
 You can choose not to rely on our persistence at all. By using `delete`, instead of `hibernate`, you maintain optimal control of Sandbox resumes.
 
-When you want to stop using the Sandbox, push any changes to your database or Git. Then `delete` the Sandbox. When you want to resume, `create` a new Sandbox from the template and pull data back from your database or Git.
+# When you want to stop using the Sandbox, push any changes to your database or Git. Then `delete` the Sandbox. When you want to resume, `create` a new Sandbox from the template and pull data back from your database or Git.
+
+By using `delete` instead of `hibernate`, you minimize costs and maintain optimal control of Sandbox resume latency. When you want to stop using the Sandbox, push any changes to your database or Git. Then `delete` the Sandbox. When you want to resume, `create` a new Sandbox from the template and pull data back from your database or Git.
+
+> > > > > > > Stashed changes
 
 ```ts
 // POST /api/projects - Create project with git initialization
@@ -175,95 +168,90 @@ app.post('/api/projects', async (req, res) => {
   res.json({ project, session });
 });
 
-// GET /api/projects/:id/session - Resume or recreate project
-app.get('/api/projects/:id/session', async (req, res) => {
+
+// GET /api/projects/:id/resume - SSE; hibernate Sandbox on disconnect
+app.get('/api/projects/:id/resume', async (req, res) => {
   const { id } = req.params;
 
+  // SSE headers
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Track connections
+  const newActiveConnCount = (activeConnCount.get(id) || 0) + 1
+  activeConnCount.set(id, newActiveConnCount)
+
+  const onClose = () => {
+    const newActiveCount = activeConnCount.get(id) - 1
+    activeConnCount.set(id, newActiveCount)
+
+    if (newActiveCount > 0) {
+      return
+    }
+
+    activeConnCount.delete(id)
+    // Push any uncommitted changes to Git
+    const client = await sandbox.connect();
+    await client.commands.run([
+      'git add -A',
+      'git commit -m "Auto-save before cleanup" || true',
+      'git push origin main'
+    ]);
+    client.dispose()
+    await sdk.sandboxes.delete(project.sandboxId);
+    await db.projects.update(id, { status: 'hibernated', hibernatedAt: new Date() });
+    console.log(`Deleted project ${id} (no active SSE consumers)`);
+  };
+
+  res.on('error', onClose);
+  req.on('close', onClose);
+
+  // Find project
   const project = await db.projects.findById(id);
-
   if (!project) {
-    return res.status(404).json({ error: 'Project not found' });
+    res.write(`event: error\ndata: ${JSON.stringify({ error: 'Project not found' })}\n\n`);
+    return cleanup();
   }
-
-  let sandbox;
-  let session;
 
   try {
-    // Try to resume existing sandbox
-    sandbox = await sdk.sandboxes.resume(project.sandboxId);
-    session = await sandbox.createSession();
-  } catch (error) {
-    // Sandbox not available, create new one
-    console.log(`Sandbox ${project.sandboxId} not available, creating new one`);
+    let session
+    if (newActiveConnCount === 1) {
+      // Start new Sandbox
+      const sandbox = await sdk.sandboxes.create({
+        id: 'the-template-id'
+      });
 
-    sandbox = await sdk.sandboxes.create({
-      id: 'some-template-id'
-    });
+      await db.projects.update(id, { lastAccessedAt: new Date(), status: 'active' });
 
-    const client = await sandbox.connect();
-
-    // Initialize Git remote and pull
-    await client.commands.run([
-      `git remote remove origin`
-      `git remote add origin ${repositoryUrl}`
-      'git fetch origin main',
-      'git pull origin main'
-    ]);
-
-    // Update database with new sandbox ID
-    await db.projects.update(id, {
-      sandboxId: sandbox.id,
-      status: 'active'
-    });
-
-    session = await sandbox.createSession();
-  }
-
-  // Update last activity
-  await db.projects.update(id, { lastActivityAt: new Date() });
-
-  res.json({ session });
-});
-
-// POST /api/projects/:id/heartbeat - Keep project active
-app.post('/api/projects/:id/heartbeat', async (req, res) => {
-  const { id } = req.params;
-
-  await db.projects.update(id, { lastActivityAt: new Date() });
-  res.json({ success: true });
-});
-
-// Background job to delete inactive projects after Git push
-setInterval(async () => {
-  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-
-  const inactiveProjects = await db.projects.findWhere({
-    lastActivityAt: { lt: fiveMinutesAgo },
-    status: 'active'
-  });
-
-  for (const project of inactiveProjects) {
-    try {
-      // Resume sandbox to push changes
-      const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+      // Initialize Git remote and pull
       const client = await sandbox.connect();
-
-      // Push any uncommitted changes to Git
       await client.commands.run([
-        'git add -A',
-        'git commit -m "Auto-save before cleanup" || true',
-        'git push origin main'
+        `git remote remove origin`
+        `git remote add origin ${repositoryUrl}`
+        'git fetch origin main',
+        'git pull origin main'
       ]);
+      client.dispose()
 
-      // Delete the sandbox
-      await sdk.sandboxes.delete(project.sandboxId);
+      // Update database with new sandbox ID
+      await db.projects.update(id, {
+        sandboxId: sandbox.id,
+        status: 'active'
+      });
 
-      console.log(`Deleted sandbox on project ${project.id} after git push`);
-    } catch (error) {
-      console.error(`Failed to cleanup project ${project.id}:`, error);
+      session = await sandbox.createSession();
+    } else {
+      // Resume running Sandbox
+      const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+      session = await sandbox.createSession();
     }
+
+    res.write(`event: ready\ndata: ${JSON.stringify({ session })}\n\n`);
+  } catch (err) {
+    console.error('SSE resume error:', err);
   }
-}, 60 * 1000); // Check every minute
+});
 ```
 
 ## Ephemeral branches example

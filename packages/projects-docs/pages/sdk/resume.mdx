@@ -26,18 +26,7 @@ This will:
 
 ## Clean Bootups
 
-Whenever we boot a sandbox from scratch, we'll:
-
-1. Start the Firecracker VM
-2. Create a default user (called `pitcher-host`)
-3. (optional) Build the Docker image specified in the `.devcontainer/devcontainer.json` file
-4. Start the Docker container
-5. Mount the `/project/workspace` directory as a volume inside the Docker container
-6. Run all `setupTasks` defined in your template's `.codesandbox/tasks.json`
-7. Install dependencies and perform initial configuration
-8. Start configured tasks that have `runAtStart: true`
-
-This ensures your environment is properly initialized even after extended hibernation.
+The Sandbox will only be able to directly resume its state if it has a memory snapshot. If we are unable to resume from a memory snapshot the Sandbox will need to run its setup tasks again. This ensures your environment is properly initialized even after extended hibernation.
 
 ### Server
 
