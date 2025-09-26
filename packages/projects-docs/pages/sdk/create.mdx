@@ -7,11 +7,15 @@ import { Callout } from 'nextra-theme-docs'
 
 # Creating Sandboxes
 
-Sandboxes are the main building blocks of the CodeSandbox SDK. Each one represents an isolated development environment that can be run in a virtual machine, forked, and modified. Every Sandbox is backed by a Firecracker VM and is completely isolated and persisted, providing you with a secure environment to run untrusted code.
+Sandboxes are the main building blocks of your SDK experience. Every Sandbox is backed by a Firecracker VM and is completely isolated and persisted, providing you with a secure environment to modify, test and run your code.
 
 ## Creating a Sandbox
 
-Once you have [created a template](sdk/templates) using the CLI, you can use its template ID to create sandboxes. The template ID is returned when you successfully build a template.
+Once you have [created a template](sdk/templates) using the CLI, you can use the returned template ID to create sandboxes. The template ID is only returned when you successfully build a template.
+
+<Callout type="warning">
+If you fork a standard Sandbox instead of using a template ID, this can lead to issues if the parent sandbox is in an archived state. 
+</Callout>
 
 ```ts
 import { CodeSandbox } from '@codesandbox/sdk'
@@ -99,7 +103,7 @@ Be careful with the state of the parent Sandbox:
 Every sandbox comes with a workspace that provides persistent storage and configuration for your project. The workspace is located at `/project/workspace` and serves as the main working directory for your code and files.
 
 <Callout>
-There is also a `/project/sandbox` folder, but consider this deprecated. Use `/project/workspace` for all new projects.
+Each sandbox also has a `/project/sandbox` folder, but this has now been deprecated. Use `/project/workspace` for all new projects.
 </Callout>
 
 The primary persistence mechanism is based on git with a local remote. This means the workspace is initialized with git automatically.
