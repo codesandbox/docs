@@ -166,12 +166,6 @@ You can run additional services using Docker Compose by adding a `docker-compose
 
 ```yaml
 services:
-  app:
-    build:
-      context: ./.codesandbox
-      dockerfile: Dockerfile
-    command: sleep infinity
-
   db:
     image: postgres:16-alpine
     ports:
