@@ -129,13 +129,35 @@ If you run the template builder on **CI** you can pass the `--ci` flag. This rem
 
 By default the template uses a universal image which gives you the most common tools and setup. You can configure your own environment by using docker. You can create your own `.codesandbox/Dockerfile` file to configure the environment, for example:
 
-```Dockerfile
-FROM node:latest
-WORKDIR /project/workspace
+```shell
+# ---- Builder: install deps & build ----
+FROM node:22-alpine AS builder
+
+# Install zsh (and optionally git, curl, etc.)
+RUN apk add --no-cache zsh git curl
+
+# Enable corepack (pnpm/yarn) if you use it; safe to keep on
+RUN corepack enable
+
+WORKDIR /workspace/project
 ```
+
+Ensure that you include `zsh` as this is our default shell.
 
 <Callout type="warning">
 This only works from SDK version `2.3.0`. You can rely on the default devcontainer setup for older versions.
+</Callout>
+
+### CodeSandbox Editor
+
+If you want to use the CodeSandbox editor on https://codesandbox.io for debugging you will need to build from the CodeSandbox image:
+
+```bash
+FROM ghcr.io/codesandbox/devcontainers/typescript-node:latest
+```
+
+<Callout>
+You can debug Sandboxes using the CLI Dashboard `npx @codesandbox/sdk`.
 </Callout>
 
 ### Docker Compose Support
@@ -145,11 +167,13 @@ You can run additional services using Docker Compose by adding a `docker-compose
 ```yaml
 services:
   app:
-    image: mcr.microsoft.com/devcontainers/javascript-node:18
+    build:
+      context: ./.codesandbox
+      dockerfile: Dockerfile
     command: sleep infinity
 
   db:
-    image: postgres:14
+    image: postgres:16-alpine
     ports:
       - 5432:5432
     environment:
