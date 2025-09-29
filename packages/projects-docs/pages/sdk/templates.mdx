@@ -134,6 +134,10 @@ FROM node:latest
 WORKDIR /project/workspace
 ```
 
+<Callout type="warning">
+This only works from SDK version `2.3.0`. You can rely on the default devcontainer setup for older versions.
+</Callout>
+
 ### Docker Compose Support
 
 You can run additional services using Docker Compose by adding a `docker-compose.yml` configuration to your template:
