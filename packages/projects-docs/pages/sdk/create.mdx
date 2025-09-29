@@ -54,13 +54,13 @@ const sandbox = await sdk.sandboxes.create({
     // What VM Tier to use for the Sandbox
     vmTier: VMTier.Micro,
 
-    // How quickly the sandbox should hibernate after inactivity. Recommended
-    // setting is 24 hours
+    // How quickly the sandbox should hibernate after inactivity. With active lifecycle
+    // management this is recommended to be set to 24 hours
     hibernationTimeoutSeconds: 300,
 
     // Configure if Sandbox should wake up automatically on HTTP
     // or requests or WebSocket connections. Recommended setting
-    // is false
+    // is false and use a proxy through your own server to manage lifecycles
     automaticWakeupConfig: {
         http: true,
         websocket: false
