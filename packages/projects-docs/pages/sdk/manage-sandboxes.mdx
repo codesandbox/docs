@@ -353,4 +353,4 @@ app.post('/api/projects/:id/branches/:branchId/promote', async (req, res) => {
 
 - **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer.
 - **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate Sandboxes when sessions are done and actively resume them when you want to continue.
-- **Delete Sandboxes** - With custom or long-term persistence, delete Sandboxes to manage cost.
+- **Delete Sandboxes** - Take advantage of templates to re-create the Sandbox from external persistence for predictable resume times
