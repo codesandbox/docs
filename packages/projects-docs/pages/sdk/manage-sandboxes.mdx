@@ -122,15 +122,6 @@ app.get('/api/projects/:id/resume', async (req, res) => {
 
 ## Managed persistence example
 
-<<<<<<< Updated upstream
-You can choose not to rely on our persistence at all. By using `delete`, instead of `hibernate`, you maintain optimal control of Sandbox resumes.
-
-# When you want to stop using the Sandbox, push any changes to your database or Git. Then `delete` the Sandbox. When you want to resume, `create` a new Sandbox from the template and pull data back from your database or Git.
-
-By using `delete` instead of `hibernate`, you minimize costs and maintain optimal control of Sandbox resume latency. When you want to stop using the Sandbox, push any changes to your database or Git. Then `delete` the Sandbox. When you want to resume, `create` a new Sandbox from the template and pull data back from your database or Git.
-
-> > > > > > > Stashed changes
-
 ```ts
 // POST /api/projects - Create project with git initialization
 app.post('/api/projects', async (req, res) => {
