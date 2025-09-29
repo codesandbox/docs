@@ -1,0 +1,126 @@
+---
+title: Core Concepts
+description: What you need to know to get the most out of the SDK
+---
+
+import Hero from "../../../../shared-components/Hero.js";
+import { Callout } from 'nextra-theme-docs'
+
+<Hero
+  title="Core Concepts"
+  subtitle="What you need to know to get the most out of the SDK"
+/>
+
+The CodeSandbox SDK provides a complete cloud development infrastructure that allows you to programmatically create, manage, and interact with isolated development environments. This page explains the conceptual architecture and terminology to help you understand how Sandboxes can integrate with your product.
+
+## Sandbox Types
+
+### Templates
+
+Templates are pre-configured environment snapshots that serve as the foundation for creating Sandboxes. Think of them as “golden images” that streamline the setup process and improve startup performance. A template includes:
+
+- Pre-installed dependencies
+- Environment configurations via Devcontainers and/or Docker
+- Custom setup tasks and workflows
+- Pre-started processes to ensure fast, consistent Sandbox creation
+
+Using templates allows developers to spin up environments in seconds with everything they need—no manual setup required.
+
+### Sandboxes
+
+**Sandboxes** are isolated virtual machines (powered by Firecracker) that run your development environments securely and independently. Each Sandbox offers:
+
+- Full isolation and virtualized environment
+- Persistent file storage across sessions
+- Hibernation and resume with full state preservation
+- Secure host URLs for exposing services (public or private)
+
+Sandboxes are designed for fast startup, strong isolation, and flexible persistence—ideal for collaborative development, automation, or ephemeral dev workflows.
+
+## Sandbox Persistence
+
+### Default persistence
+
+By default, when a Sandbox is hibernated, a memory snapshot is created. This allows for near-instant resumes the next time the Sandbox is accessed—typically within 0.5–2 seconds.
+
+- Hibernated Sandboxes are stored on disk for up to 7 days
+- After 7 days, or if disk space is limited, Sandboxes may be archived to long-term storage.
+- Archived Sandboxes are slower to resume, but still retain their full state.
+
+| **State**   | **Resume Time** | **Description**                                   |
+| ----------- | --------------- | ------------------------------------------------- |
+| Memory/Disk | 0.5–2 seconds   | Memory and disk from snapshot                     |
+| Disk        | 5–20 seconds    | Disk from snapshot, will run setup tasks          |
+| Archived    | 20–60 seconds   | Disk from cold storage with, will run setup tasks |
+
+### Managed Persistence
+
+If you want complete control of persistence and ensure optimal resume times, you can follow these best practices:
+
+- Persist workspace data to Git or a database.
+- Delete Sandboxes when user/agent sessions ends.
+- On resume, recreate the environment from a template and pull data from Git or your database.
+
+These steps reduce reliance on long-term VM snapshots and improve resume consistency.
+
+## The Sandbox Lifecycle
+
+The Sandbox lifecycle defines how environments are created, used, paused, resumed, and eventually cleaned up. Users may interact with Sandboxes directly, or indirectly via agents (such as automation tools or connected services).
+
+📘 For detailed API usage, refer to [Lifecycle Management](./manage-sandboxes)
+
+### Template creation
+
+- Templates are created with the CLI or the SDK in advance of engagement by the end-user or agent
+- Once created, they’re distributed across multiple clusters for quick access and scaling.
+
+### Sandbox creation
+
+- A user or agent initiates the creation of a new environment.
+- The SDK is used to create a Sandbox from an existing template.
+- The template is forked from a cluster, and the new Sandbox is ready in 1–3 seconds.
+
+### User interaction
+
+- Users or agents interact with the live Sandbox.
+- Use the SDK to establish a connection.
+- The Sandbox Agent handles session management and communication behind the scenes.
+
+### Host interaction
+
+- Users can access services exposed from within the Sandbox.
+- Hosts are public by default.
+- For restricted access, use the SDK to generate private access tokens.
+- For more control and reliability, route host traffic through your own proxy server.
+
+### Hibernation
+
+- When a user or agent ends a session, the Sandbox can be hibernated.
+- Hibernation is triggered using the SDK.
+- A snapshot of the entire VM is saved, enabling seamless continuation later.
+
+### Resume from hibernation
+
+- The user or agent starts a new session on a previously hibernated Sandbox.
+- The Sandbox resumes using the SDK.
+- Resume times vary based on persistence:
+  - From memory/disk snapshot: 0.5–2 seconds
+  - From disk snapshot: 5–20 seconds
+  - From archive: 20–60 seconds
+
+### Deleting
+
+To clean up unused resources:
+
+- Persist all necessary state to Git or a database.
+- Use the SDK to delete the Sandbox.
+
+This helps manage storage while keeping user progress safe.
+
+### Resume from deletion
+
+If a user returns later, a new Sandbox can be recreated:
+
+- Use the SDK to create a new Sandbox from the original template.
+- Pull persisted state (e.g., project files, config) from Git or a database.
+- The new environment is spun up in 1–3 seconds—just like before.

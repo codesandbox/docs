@@ -30,7 +30,7 @@ import { trace } from '@opentelemetry/api';
 const tracer = trace.getTracer('codesandbox-sdk', '1.0.0');
 
 // Pass tracer to SDK
-const sdk = new CodeSandbox(process.env.CSB_API_KEY, { tracer });
+const sdk = new CodeSandbox({ tracer });
 ```
 
 ## Traced Operations
@@ -40,7 +40,9 @@ const sdk = new CodeSandbox(process.env.CSB_API_KEY, { tracer });
 All sandbox lifecycle operations are automatically traced:
 
 ```ts
-const sandbox = await sdk.sandboxes.create(); // Traced as "sandboxes.create"
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+}); // Traced as "sandboxes.create"
 await sandbox.hibernate(); // Traced as "sandbox.hibernate"
 const client = await sandbox.connect(); // Traced as "sandbox.connect"
 ```
@@ -54,7 +56,7 @@ SandboxClient methods are comprehensively instrumented:
 await client.filesystem.writeFile('/app/file.txt', 'content'); // Traced as "sandboxClient.filesystem.writeFile"
 const files = await client.filesystem.list('/app'); // Traced as "sandboxClient.filesystem.list"
 
-// Command execution  
+// Command execution
 const result = await client.commands.run('npm test'); // Traced as "sandboxClient.commands.run"
 
 // Terminal management
@@ -87,7 +89,7 @@ Traces include rich attributes for debugging and monitoring:
 
 // Example span attributes for file operations
 {
-  "sandbox.id": "abc123", 
+  "sandbox.id": "abc123",
   "filesystem.path": "/app/package.json",
   "filesystem.operation": "writeFile",
   "filesystem.size": 1024
@@ -121,7 +123,7 @@ const client = await connectToSandbox({
   tracer: myTracer // Pass tracer to browser connector
 });
 
-// Node connector with tracing  
+// Node connector with tracing
 import { connectToSandbox } from '@codesandbox/sdk/node';
 
 const client = await connectToSandbox({
@@ -149,7 +151,7 @@ sdk.start();
 
 // Get tracer and use with CodeSandbox SDK
 const tracer = trace.getTracer('my-app');
-const csb = new CodeSandbox(process.env.CSB_API_KEY, { tracer });
+const csb = new CodeSandbox({ tracer });
 ```
 
 ### Jaeger Integration

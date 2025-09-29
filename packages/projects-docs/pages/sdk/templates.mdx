@@ -1,5 +1,5 @@
 ---
-title: Templates
+title: Creating Templates
 description: Learn how to create templates with the CodeSandbox SDK.
 ---
 
@@ -7,21 +7,21 @@ import { Callout } from 'nextra-theme-docs'
 
 # Templates
 
-CodeSandbox has default templates that you can use to create sandboxes. These templates are available in the [Template Library](/sdk/template-library) and by default we use the "Universal" template. To create your own template you will need to use our CLI.
+SDK Templates are custom, pre-configured environments that allow you to quickly create sandboxes with your specific setup tasks, dependencies, and configurations already in place. If you're using the SDK at scale, you must create your own templates using our CLI. This will ensure reliability and that your sandboxes are perfectly tailored to your specific use cases and requirements.
 
 <Callout>
 To find inspiration check our template repository on GitHub: https://github.com/codesandbox/sandbox-templates
 </Callout>
 
-## Creating the template
+## Setting up the Template
 
-Create a new folder in your project and add the files you want to have available inside your Sandbox. For example set up a Vite project:
+Create a new folder in your project and add the files you want to have available inside your Sandbox. For example if you were setting up a Vite project you would run:
 
 ```sh
 npx create-vite@latest my-template
 ```
 
-Now we need to configure the template with tasks so that it will install dependencies and start the dev server. Create a `my-template/.codesandbox/tasks.json` file with the following content:
+Next you will need to configure the template with your tasks, so that it will install dependencies and start the dev server when created. Create a `my-template/.codesandbox/tasks.json` file with the following contents:
 
 ```json
 {
@@ -45,72 +45,160 @@ Now we need to configure the template with tasks so that it will install depende
 }
 ```
 
-The `setupTasks` will run after the Sandbox has started, before any other tasks.
+Your `setupTasks` will run after the Sandbox has started, before any other tasks.
 
-<Callout>
+<Callout type="warning">
 Do **NOT** start dev servers or other long running processes in the `setupTasks`. This will block the setup process and prevent the Sandbox from starting properly.
 </Callout>
+
+## Automating tasks
+
+Often you want tasks to automatically run or restart. The `restartOn` field is deprecated in favour of using low level tools that allows you to configure the exact behavior you want. The recommended tools are `nodemon` and `chokidar`. For example you want to restart a dev server whenever the lock file changes:
+
+```json
+{
+    "setupTasks": ["npm install -g nodemon", "npm install"],
+    "tasks": {
+        "dev-server": {
+            "name": "Dev Server",
+            "command": "nodemon --watch \"package-json.lock\" --exec \"npm run dev\"",
+            "preview": {
+                "port": 5173
+            },
+            "runAtStart": true
+        }
+    }
+}
+```
+
+With `nodemon` the process starts immediately and then restarts whenever the `.lock` file changes. If you rather want to only run a command when a file changes, but not run it initially `chokidar` is a great tool for this:
+
+```json
+{
+    "setupTasks": ["npm install -g chokidar", "npm install"],
+    "tasks": {
+        "dev-server": {
+            "name": "Dev Server",
+            "command": "npm run dev",
+            "preview": {
+                "port": 5173
+            },
+            "runAtStart": true
+        },
+        "install": {
+          "name": "Install Deps",
+          "command": "chokidar \"package.json\" -c \"npm install\""
+        }
+    }
+}
+```
+
+Both of these tools allows configuration like debouncing, delays, logging etc. Giving you full control of the behavior.
+
+<Callout>
+Remember that you can always manually manage tasks in your server code. For example if you want to restart the dev server when forking a Sandbox or other explicit flows in your product.
+</Callout>
+
+### Building the Template
 
 Now we are ready to deploy the template to our clusters, run:
 
 ```bash
-$ CSB_API_KEY=your-api-key npx @codesandbox/sdk build ./my-template --privacy private --vm-tier Nano --vm-build-tier Micro --ports 5173
+$ npx @codesandbox/sdk build ./my-template --ports 5173
 ```
 
 <Callout>
-The template defaults to a `Micro` VM Tier for both building the template and when creating Sandboxes from it. You can not "downsize" Sandboxes when creating them from a template, so make sure you set the minimum tier you want here. It is recommended to make templates private, but they default to "unlisted". Use `build --help` for documentation on all parameters.
+The template defaults to a `Micro` VM Tier for both building the template and when creating Sandboxes from it. You can not "downsize" Sandboxes when creating them from a template, so make sure you set the minimum tier you want here. Use `build --help` for documentation on all parameters.
 </Callout>
 
 This will start the process of creating Sandboxes for each of our clusters, write files, restart, wait for port 5173 to be available and then hibernate. This generates the snapshot that allows you to quickly create Sandboxes already running a dev server from the template.
 
-When all clusters are updated successfully you will get a "Template Tag" back which you can use when you create your sandboxes.
+When all clusters are updated successfully you will get a **Template ID** back which you can use when creating your sandboxes:
 
 ```ts
-import { VMTier } from '@codesandbox/sdk'
-
 const sandbox = await sdk.sandboxes.create({
-    id: 'some-template-id',
-    // Defaults to your --vm-tier parameter when building the template
-    vmTier: VMTier.Micro
+  id: 'your-template-id-here'
 })
 ```
 
-## CI
+## CI Integration
 
 If you run the template builder on **CI** you can pass the `--ci` flag. This removes the interactive "failed sandbox" behavior and rather creates the template id regardless. The Sandbox that errored will show the error.
 
-## Custom Docker Image
+## Docker
 
-CodeSandbox uses [Dev Containers](https://containers.dev/) for configuring Docker or Docker Compose for an environment. You can configure Docker by creating a `.devcontainer/devcontainer.json` file inside your template folder with these contents:
+By default the template uses a universal image which gives you the most common tools and setup. You can configure your own environment by using docker. You can create your own `.codesandbox/Dockerfile` file to configure the environment, for example:
 
-```json
-{
-  "image": "ubuntu:22.04"
-}
+```shell
+# ---- Builder: install deps & build ----
+FROM node:22-alpine AS builder
+
+# Install zsh (and optionally git, curl, etc.)
+RUN apk add --no-cache zsh git curl
+
+# Enable corepack (pnpm/yarn) if you use it; safe to keep on
+RUN corepack enable
+
+WORKDIR /workspace/project
 ```
 
-When we boot the sandbox, we’ll make sure that the docker image is pulled (or built) and we’ll make sure that all shells will start within this container. Your `/project/workspace` folder will also be mounted inside the container.
+Ensure that you include `zsh` as this is our default shell.
 
-<Callout>
-There is also a `/project/sandbox` folder, but consider this deprecated.
+<Callout type="warning">
+This only works from SDK version `2.3.0`. You can rely on the default devcontainer setup for older versions.
 </Callout>
 
-You can decide to build the Docker image as part of the template creation process as well. You can do this by defining this in your `.devcontainer/devcontainer.json`:
+### CodeSandbox Editor
+
+If you want to use the CodeSandbox editor on https://codesandbox.io for debugging you will need to build from the CodeSandbox image:
+
+```bash
+FROM ghcr.io/codesandbox/devcontainers/typescript-node:latest
+```
+
+<Callout>
+You can debug Sandboxes using the CLI Dashboard `npx @codesandbox/sdk`.
+</Callout>
+
+### Docker Compose Support
+
+You can run additional services using Docker Compose by adding a `docker-compose.yml` configuration to your template:
+
+```yaml
+services:
+  app:
+    build:
+      context: ./.codesandbox
+      dockerfile: Dockerfile
+    command: sleep infinity
+
+  db:
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: password
+```
+
+Make sure that you run `docker-compose up` in your `tasks.json` file, or you will need to do this manually when creating Sandboxes from the template:
 
 ```json
 {
-  "build": {
-		"dockerfile": "Dockerfile"
-  }
+  // Runs in the workspace directory
+  "setupTasks": ["docker-compose up"]
 }
 ```
-
-And creating a `.devcontainer/Dockerfile` with the contents of your Dockerfile.
-
-For more options (like running docker compose, or adding additional features), you can look at the [Dev Container docs](https://containers.dev/implementors/json_reference/).
 
 ### Setup Tasks vs Dockerfile
 
 When would you configure something in the Dockerfile, and when would you configure something in setup tasks?
 
-As a rule of thumb, if something is configured in relation to the environment (like installing Node, or installing Postgres, or installing Bun), it should go into the Dockerfile. If something is related to the project setup (installing dependencies, building a binary), it should go inside setup tasks.
+As a rule of thumb, if something is configured in relation to the environment (like installing Node, Postgres, or Bun), it should go into the Dockerfile. If something is related to the project setup (installing dependencies, building a binary), it should go inside setup tasks.
+
+## ⚡ Best practices
+
+- **Use the CLI** - Don't create templates on codesandbox.io, use the CLI
+- **Pre-install dependencies in templates** - Use `setupTasks` to handle installation during template creation
+- **Only use setup tasks for shorter processes** - If you include dev servers or other longer processes in your setup tasks, this will cause the set up process to fail.
+- **Configure tasks properly** - Set up dev servers and processes in your template configuration and avoid using the deprecated _restartOn_ field
+- **Use an appropriate VM tier** - Many processes and frameworks require significant memory and CPU to operate correctly. If you're trying to optimise for cost, start with the default tier and try a lower tier if the build is successful.

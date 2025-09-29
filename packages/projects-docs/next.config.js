@@ -651,6 +651,56 @@ module.exports = withNextra({
         destination: "/learn/editors/overview",
         permanent: false,
       },
+      {
+        source: "/sdk/hibernate",
+        destination: "/sdk/",
+        permanent: false,
+      },
+      {
+        source: "/sdk/docker",
+        destination: "/sdk/",
+        permanent: false,
+      },
+      {
+        source: "/sdk/host-privacy",
+        destination: "/sdk/sandbox-hosts",
+        permanent: false,
+      },
+      {
+        source: "/sdk/persistence",
+        destination: "/sdk/manage-sandboxes",
+        permanent: false,
+      },
+      {
+        source: "/sdk/repositories",
+        destination: "/sdk/core-concepts",
+        permanent: false,
+      },
+      {
+        source: "/sdk/shells",
+        destination: "/sdk/commands",
+        permanent: false,
+      },
+      {
+        source: "/sdk/use-cases",
+        destination: "/sdk/",
+        permanent: false,
+      },
+      {
+        source: "/sdk/bootups",
+        destination: "/sdk/manage-sandboxes",
+        permanent: false,
+      },
+      {
+        source: "/sdk/create-resume",
+        destination: "/sdk/manage-sandboxes",
+        permanent: false,
+      },
+      {
+        source: "/sdk/lifecycle",
+        destination: "/sdk/manage-sandboxes",
+        permanent: false,
+      },
     ];
   },
 });

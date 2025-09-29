@@ -1,0 +1,68 @@
+---
+title: Key Terms
+description: Terminology and definitions used throughout the CodeSandbox SDK.
+---
+
+import Hero from "../../../../shared-components/Hero.js";
+import { Callout } from 'nextra-theme-docs'
+
+<Hero
+  title="Key Terms"
+  subtitle="Terminology and definitions used throughout the CodeSandbox SDK."
+/>
+
+## Authentication
+
+- **API Key**: Authentication token required to use the CodeSandbox SDK. Created at [https://codesandbox.io/t/api](https://codesandbox.io/t/api) and exposed as `CSB_API_KEY` environment variable.
+
+- **Session**: Authentication and connection context that allows client applications to interact with sandboxes directly.
+
+- **Host Token**: Authentication token required to access hosts of private sandboxes. Provides secure access to sandbox ports and services.
+
+## Development environments
+
+- **Firecracker VM**: The virtualization technology that powers each sandbox, providing complete isolation and security for running untrusted code.
+
+- **Sandbox**: An isolated, persistent virtual environment backed by a Firecracker Virtual Machine(VM) where code can be executed securely.
+
+- **Template**: Pre-configured environment specification that enables quick sandbox creation with specific setups, dependencies, and configurations.
+
+- **VM Tier**: Computing resource specification for sandboxes, ranging from Micro to Small (8 cores/16GB RAM) with higher tiers available through custom templates.
+
+- **DevContainer**: Container configuration system used by CodeSandbox for environment setup. Uses `.devcontainer/devcontainer.json` for configuration.
+
+- **Workspace**: The persistent working directory (`/project/workspace`) where sandbox files are stored and managed with git-based persistence.
+
+## Connections
+
+- **Hosts**: The publicly accessible URLs where sandbox services are exposed, following the pattern `https://$SANDBOX_ID-$PORT.csb.app`.
+
+- **Ports**: Network endpoints exposed by sandbox services. Automatically detected or manually configured in task definitions.
+
+- **Client**: A connection object that provides methods to interact with a sandbox, including file system operations, command execution, and terminal management.
+
+- **Browser Client**: A client connection that runs in a web browser environment, allowing interaction with sandboxes from frontend applications.
+
+- **Node Client**: A client connection designed for Node.js-like environments, such as React Native applications.
+
+## Interactions
+
+- **Terminal**: Interactive shell process that persists throughout a session, allowing command-line interaction with the sandbox environment.
+
+- **Commands**: Interface for running shell commands in a sandbox. Commands clean themselves up after execution, unlike terminals which persist.
+
+- **Tasks**: Long-running processes defined in sandbox configuration, such as development servers. Managed through the Tasks API with start, stop, and restart capabilities.
+
+- **Setup Tasks**: Commands that run automatically after a sandbox starts, typically used for dependency installation and initial configuration.
+
+- **Forks**: A new sandbox created from an existing sandbox.
+
+- **Live Forks**: Sandboxes created from a currently running sandbox, which is slower than forking from templates or hibernated sandboxes.
+
+## Lifecycle
+
+- **Hibernation**: Automatic suspension of sandbox execution after a specified timeout period. Sandboxes can be resumed later while preserving their state.
+
+- **Resume**: Resumes a hibernated sandbox, restoring it to an active state while preserving all previous work and configurations.
+
+- **Snapshots**: Disk/Memory snapshot that is generated when hibernating a Sandbox and consumed when resuming a Sandbox.

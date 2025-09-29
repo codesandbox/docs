@@ -1,0 +1,356 @@
+---
+title: Manage Sandbox Lifecycles
+description: Learn how to manage sandbox lifecycles and get information about your sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Manage Sandbox Lifecycles
+
+<Callout>
+We are currently working on improvements to our infrastructure. Please read our latest [Best Practices Release](https://github.com/codesandbox/codesandbox-sdk/releases/tag/v2.3.0) for more details. We would love your feedback!
+</Callout>
+
+We provide a hibernation timeout mechanism to get you quickly going with the SDK. For some use cases this hibernation timeout might be good enough, but if you want optimal user experience vs cost we recommend **active lifecycle management** as best practice. This gives you the following benefits:
+
+- A request does not accidentally keep a Sandbox running
+- A webhook can be called from a process inside the Sandbox to control lifecycle
+- As hibernation is directly called, error management is straight forward
+- No **ux** vs **cost** tradeoff
+- Latency is reduced as session/db state determines state of Sandbox, preventing unecessary calls to `resume`
+
+<Callout>
+To adopt best practices set `hibernationTimeoutSeconds` to `86400` (24 hours) and `automaticWakeupConfig` to `false` when you create Sandboxes.
+</Callout>
+
+How you manage the resume/hibernate/delete part of the lifecycle depends on your use case. You might have user sessions, agent sessions or maybe sessions bound to accessing a process exposing a host. Regardless you want to `resume` the Sandbox when the session starts and `hibernate` or `delete` when the sessions ends.
+
+The challenge of **active lifecycle management** is to identify when a session actually ends. Here are some examples for inspiration. Note that these examples are meant for readability, not optimal parallelization, locking and error handling.
+
+## User heartbeat example
+
+In this example we keep track of user activity on the project using an SSE connection.
+
+```ts
+import express from 'express';
+const app = express();
+app.use(express.json());
+
+// ---- in-memory connection tracking ----
+const activeConnCount = new Map();        // sandboxId -> number
+
+// POST /api/projects - Create a new project
+app.post('/api/projects', async (req, res) => {
+  const { userId, projectName, templateId = 'some-template-id' } = req.body;
+
+  const sandbox = await sdk.sandboxes.create({ id: templateId });
+
+  const project = await db.projects.create({
+    id: generateId(),
+    userId,
+    name: projectName,
+    sandboxId: sandbox.id,
+    templateId,
+    status: 'active',
+    createdAt: new Date(),
+    lastAccessedAt: new Date(),
+    lastActivityAt: new Date(),
+  });
+
+  const session = await sandbox.createSession();
+  await ensureCleanBootSetup(sandbox);
+
+  res.json({ project, session });
+});
+
+// GET /api/projects/:id/resume - SSE; hibernate Sandbox on disconnect
+app.get('/api/projects/:id/resume', async (req, res) => {
+  const { id } = req.params;
+
+  // SSE headers
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Track connections
+  activeConnCount.set(id, (activeConnCount.get(id) || 0) + 1)
+
+  const onClose = () => {
+    const newActiveCount = activeConnCount.get(id) - 1
+    activeConnCount.set(id, newActiveCount)
+
+    if (newActiveCount > 0) {
+      return
+    }
+
+    activeConnCount.delete(id)
+    await sdk.sandboxes.hibernate(project.sandboxId);
+    await db.projects.update(id, { status: 'hibernated', hibernatedAt: new Date() });
+    console.log(`Hibernated project ${id} (no active SSE consumers)`);
+  };
+
+  res.on('error', onClose);
+  req.on('close', onClose);
+
+  // Find project
+  const project = await db.projects.findById(id);
+  if (!project) {
+    res.write(`event: error\ndata: ${JSON.stringify({ error: 'Project not found' })}\n\n`);
+    return cleanup();
+  }
+
+  try {
+    // Resume & prep session
+    const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+    const session = await sandbox.createSession();
+    await db.projects.update(id, { lastAccessedAt: new Date(), status: 'active' });
+
+    if (sandbox.bootupType === 'CLEAN') {
+      const client = await sandbox.connect();
+      const steps = await client.setup.getSteps();
+      for (const step of steps) {
+        await step.waitUntilComplete();
+      }
+    }
+
+    res.write(`event: ready\ndata: ${JSON.stringify({ session })}\n\n`);
+  } catch (err) {
+    console.error('SSE resume error:', err);
+  }
+});
+```
+
+## Managed persistence example
+
+```ts
+// POST /api/projects - Create project with git initialization
+app.post('/api/projects', async (req, res) => {
+  const { userId, projectName, repositoryUrl } = req.body;
+
+  // Create sandbox from template
+  const sandbox = await sdk.sandboxes.create({
+    id: 'some-template-id'
+  });
+
+  const client = await sandbox.connect();
+
+  // Initialize Git remote
+  await client.commands.run([
+    `git remote remove origin`
+    `git remote add origin ${repositoryUrl}`
+    'git push -u origin main'
+  ]);
+
+  client.dispose()
+
+  // Save project to database
+  const project = await db.projects.create({
+    id: generateId(),
+    userId,
+    name: projectName,
+    sandboxId: sandbox.id,
+    repositoryUrl,
+    status: 'active',
+    lastActivityAt: new Date(),
+    createdAt: new Date()
+  });
+
+  const session = await sandbox.createSession();
+  res.json({ project, session });
+});
+
+
+// GET /api/projects/:id/resume - SSE; hibernate Sandbox on disconnect
+app.get('/api/projects/:id/resume', async (req, res) => {
+  const { id } = req.params;
+
+  // SSE headers
+  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Track connections
+  const newActiveConnCount = (activeConnCount.get(id) || 0) + 1
+  activeConnCount.set(id, newActiveConnCount)
+
+  const onClose = () => {
+    const newActiveCount = activeConnCount.get(id) - 1
+    activeConnCount.set(id, newActiveCount)
+
+    if (newActiveCount > 0) {
+      return
+    }
+
+    activeConnCount.delete(id)
+    // Push any uncommitted changes to Git
+    const client = await sandbox.connect();
+    await client.commands.run([
+      'git add -A',
+      'git commit -m "Auto-save before cleanup" || true',
+      'git push origin main'
+    ]);
+    client.dispose()
+    await sdk.sandboxes.delete(project.sandboxId);
+    await db.projects.update(id, { status: 'hibernated', hibernatedAt: new Date() });
+    console.log(`Deleted project ${id} (no active SSE consumers)`);
+  };
+
+  res.on('error', onClose);
+  req.on('close', onClose);
+
+  // Find project
+  const project = await db.projects.findById(id);
+  if (!project) {
+    res.write(`event: error\ndata: ${JSON.stringify({ error: 'Project not found' })}\n\n`);
+    return cleanup();
+  }
+
+  try {
+    let session
+    if (newActiveConnCount === 1) {
+      // Start new Sandbox
+      const sandbox = await sdk.sandboxes.create({
+        id: 'the-template-id'
+      });
+
+      await db.projects.update(id, { lastAccessedAt: new Date(), status: 'active' });
+
+      // Initialize Git remote and pull
+      const client = await sandbox.connect();
+      await client.commands.run([
+        `git remote remove origin`
+        `git remote add origin ${repositoryUrl}`
+        'git fetch origin main',
+        'git pull origin main'
+      ]);
+      client.dispose()
+
+      // Update database with new sandbox ID
+      await db.projects.update(id, {
+        sandboxId: sandbox.id,
+        status: 'active'
+      });
+
+      session = await sandbox.createSession();
+    } else {
+      // Resume running Sandbox
+      const sandbox = await sdk.sandboxes.resume(project.sandboxId);
+      session = await sandbox.createSession();
+    }
+
+    res.write(`event: ready\ndata: ${JSON.stringify({ session })}\n\n`);
+  } catch (err) {
+    console.error('SSE resume error:', err);
+  }
+});
+```
+
+## Ephemeral branches example
+
+In this example we show how you can keep a hibernated Sandbox as the "main branch" of a project. Where you will generate new branches to preview or create AI suggestions.
+
+```ts
+// POST /api/projects - Create project with permanent hibernated sandbox
+app.post('/api/projects', async (req, res) => {
+  const { userId, projectName } = req.body;
+
+  // Create main project sandbox (always hibernated when not in use)
+  const projectSandbox = await sdk.sandboxes.create({
+    id: 'some-template-id'
+  });
+
+  // Hibernate the main project sandbox
+  await sdk.sandboxes.hibernate(projectSandbox.id);
+
+  // Save project to database
+  const project = await db.projects.create({
+    id: generateId(),
+    userId,
+    name: projectName,
+    mainSandboxId: projectSandbox.id, // Hibernated project sandbox
+    status: 'hibernated',
+    createdAt: new Date()
+  });
+
+  res.json({ project });
+});
+
+// POST /api/projects/:id/branches - Create branch sandbox
+app.post('/api/projects/:id/branches', async (req, res) => {
+  const { id } = req.params;
+  const { branchName } = req.body;
+
+  const project = await db.projects.findById(id);
+
+  if (!project) {
+    return res.status(404).json({ error: 'Project not found' });
+  }
+
+  // Create branch sandbox
+  const branchSandbox = await sdk.sandboxes.create({
+    id: project.mainSandboxId
+  });
+
+  // Save branch to database
+  const branch = await db.branches.create({
+    id: generateId(),
+    projectId: id,
+    name: branchName,
+    sandboxId: branchSandbox.id,
+    status: 'active',
+    createdAt: new Date()
+  });
+
+  const session = await branchSandbox.createSession();
+
+  res.json({ branch, session });
+});
+
+
+// POST /api/projects/:id/branches/:branchId/promote - Make branch the new main
+app.post('/api/projects/:id/branches/:branchId/promote', async (req, res) => {
+  const { id, branchId } = req.params;
+
+  const project = await db.projects.findById(id);
+  const branch = await db.branches.findById(branchId);
+
+  if (!project || !branch || branch.projectId !== id) {
+    return res.status(404).json({ error: 'Project or branch not found' });
+  }
+
+  // Hibernate the branch sandbox (it becomes the new main)
+  await sdk.sandboxes.hibernate(branch.sandboxId);
+
+  // Update project with new main sandbox
+  await db.projects.update(id, {
+    mainSandboxId: branch.sandboxId
+  });
+
+  const otherBranches = await db.branches.findWhere({
+    projectId: id,
+    status: 'active'
+  });
+
+  // Clean up other branches
+  for (const otherBranch of otherBranches) {
+    try {
+      await sdk.sandboxes.delete(otherBranch.sandboxId);
+      await db.branches.update(otherBranch.id, { status: 'deleted' });
+    } catch (error) {
+      console.error(`Failed to delete branch ${otherBranch.id}:`, error);
+    }
+  }
+
+  res.json({
+    success: true,
+    message: `Branch ${branch.name} promoted to main`,
+    newMainSandboxId: branch.sandboxId
+  });
+});
+```
+
+## ⚡ Best practices
+
+- **Track lifecycle in your database** - Store sandbox IDs, lifecycle states, and metadata in your own persistence layer.
+- **Control lifecycles explicitly** - Don't rely on automatic hibernation or resumes; actively hibernate Sandboxes when sessions are done and actively resume them when you want to continue.
+- **Delete Sandboxes** - Take advantage of templates to re-create the Sandbox from external persistence for predictable resume times

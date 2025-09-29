@@ -8,7 +8,7 @@ import { Callout } from 'nextra-theme-docs'
 # VM Specs
 
 Whenever you start a sandbox, you can specify which VM specs to use. This allows you to customize the VM to your needs. We also allow you to change the VM specs of a running sandbox on the fly,
-without reboot. This is useful if you want to scale up or down your sandbox dynamically based on workload needs.
+without reboot. This is useful if you want to dynamically scale up the available hardware based on workload needs.
 
 <Callout>
   SDK Sandbox VMTier parameters can be used to create/update environments up to **Small (8 Cores/16GB RAM) specs**. If higher tiers are specified only the core count will increase unless you create a custom [template](https://codesandbox.io/docs/sdk/templates) using our CLI.
@@ -52,3 +52,9 @@ This will change the VM specs of the sandbox dynamically, without rebooting.
 <Callout>
   Be careful when scaling down the VM specs of a running sandbox. If you scale down the VM too much, it might not have enough resources to run your tasks and will slow to a crawl.
 </Callout>
+
+## ⚡ Best practices
+
+- **Set appropriate tier when building templates** - Choose the minimum VM tier needed for your template's workload and dependencies
+- **Don't downgrade from template tier** - When creating sandboxes from templates, use the same or higher tier than specified in the template
+- **Avoid downgrading running sandboxes** - Don't update to a lower tier than the sandbox's initial tier to prevent resource conflicts

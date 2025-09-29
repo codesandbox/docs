@@ -1,0 +1,185 @@
+---
+title: Creating Sandboxes
+description: Learn how to create sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Creating Sandboxes
+
+Sandboxes are the main building blocks of your SDK experience. Every Sandbox is backed by a Firecracker VM and is completely isolated and persisted, providing you with a secure environment to modify, test and run your code.
+
+## Creating a Sandbox
+
+Once you have [created a template](sdk/templates) using the CLI, you can use the returned template ID to create sandboxes. The template ID is only returned when you successfully build a template.
+
+<Callout type="warning">
+If you fork a standard Sandbox instead of using a template ID, this can lead to issues if the parent sandbox is in an archived state. 
+</Callout>
+
+```ts
+import { CodeSandbox } from '@codesandbox/sdk'
+
+const sdk = new CodeSandbox();
+
+// Create a sandbox from your custom template
+const sandbox = await sdk.sandboxes.create({
+  id: 'your-template-id-here'
+});
+```
+
+<Callout>
+By default, Sandboxes are `public-hosts`. Available privacy options:
+- `public`: Sandbox and hosts are publicly accessible
+- `private`: Sandbox is private, hosts require tokens 
+- `public-hosts`: Sandbox is private, but hosts are publicly accessible
+</Callout>
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+    // The template id
+    id: 'your-custom-template-id',
+
+    // Optional properties
+    title: 'my-sandbox',
+    description: 'My sandbox',
+    tags: ['my-tag'],
+
+    // Privacy options: 'public', 'private', or 'public-hosts'
+    privacy: 'public-hosts',
+
+    // Collection folder on Dashboard
+    path: '/users/some-user-folder',
+
+    // What VM Tier to use for the Sandbox
+    vmTier: VMTier.Micro,
+
+    // How quickly the sandbox should hibernate after inactivity. With active lifecycle
+    // management this is recommended to be set to 24 hours
+    hibernationTimeoutSeconds: 300,
+
+    // Configure if Sandbox should wake up automatically on HTTP
+    // or requests or WebSocket connections. Recommended setting
+    // is false and use a proxy through your own server to manage lifecycles
+    automaticWakeupConfig: {
+        http: true,
+        websocket: false
+    }
+})
+```
+
+<Callout type="warning">
+Both `hibernationTimeoutSeconds` and `wakeupConfig` should be carefully evaluated. Manual lifecycle management is considered best practice and is required to scale, control costs, and create a predictable user experience.
+</Callout>
+
+Each Sandbox has the following properties, with information about its own instance:
+
+- `id`: The unique identifier of the sandbox.
+- `isUpToDate`: Whether the sandbox is up to date with the latest agent version.
+- `cluster`: The cluster the sandbox is running on.
+- `bootupType`: The type of bootup, `RUNNING`, `CLEAN`, `RESUME` or `FORK`.
+
+## Fork existing Sandbox
+
+You can create a Sandbox by referencing the `id` of an existing Sandbox:
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-sandbox-id'
+})
+```
+
+<Callout type="warning">
+Be careful with the state of the parent Sandbox:
+
+- **HIBERNATED**: It will be a fast fork of 1-3 seconds
+- **RUNNING**: This creates what we call a "Live Fork", which is limited to 5. The created Sandboxes will share memory with the parent and causes a degraded experience if excessively used
+- **ARCHIVED**: The parent Sandbox first needs to be resumed, which can take 20-60 seconds, causing the creation to take a long time
+
+</Callout>
+
+## Workspace
+
+Every sandbox comes with a workspace that provides persistent storage and configuration for your project. The workspace is located at `/project/workspace` and serves as the main working directory for your code and files.
+
+<Callout>
+Each sandbox also has a `/project/sandbox` folder, but this has now been deprecated. Use `/project/workspace` for all new projects.
+</Callout>
+
+The primary persistence mechanism is based on git with a local remote. This means the workspace is initialized with git automatically.
+
+### Using git in the root workspace
+
+Since the default persistence of a Sandbox is using git you should not run any git commands in the workspace unless you change the remote.
+
+```bash
+# Remove the default local remote and add your own
+git remote remove origin
+git remote add origin https://github.com/your-username/your-repo.git
+
+# Now you can push/pull normally
+git push -u origin main
+```
+
+### Using git as a submodule
+
+```bash
+# Clone your repository inside the workspace
+cd /project/workspace
+git clone https://github.com/your-username/your-repo.git my-project
+cd my-project
+
+# Work normally within the cloned repository
+git add .
+git commit -m "Your changes"
+git push
+```
+
+This approach ensures your work is properly persisted and archived when necessary.
+
+## Connect
+
+Establishes a connection to the sandbox and returns a client for interacting with it:
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+  id: 'your-template-id'
+});
+const client = await sandbox.connect();
+```
+
+## Create a session
+
+Creates a session you can pass to browser/node clients.
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+  id: 'your-template-id'
+});
+const session = await sandbox.createSession();
+```
+
+## Update tier
+
+Updates the VM tier of the running sandbox:
+
+```ts
+import { VMTier } from '@codesandbox/sdk';
+
+const sandbox = await sdk.sandboxes.resume('some-sandbox-id');
+
+// Upgrade to a more powerful VM tier
+await sandbox.updateTier(VMTier.Small);
+```
+
+<Callout type="warning">
+You can only upgrade to higher VM tiers than the initial one.
+</Callout>
+
+## ⚡ Best practices
+
+- **Be careful forking Sandboxes** - When creating a Sandbox from a running or archived Sandbox, you risk a degraded experience. Ensure the parent Sandbox is resumed and hibernated if you intend to fork multiple times from it
+- **Avoid VM Tier downsizing** - Set the minimum tier needed for your templates and never downsize the tier of a Sandbox created from a template or other Sandboxes
+- **Hibernation timeout** - Set maximum hibernation timeout of `86400` and do manual hibernation
+- **Automatic wakup** - Turn off automatic wakeup and use your own server proxy to manage resume and hibernation
+- **Initialize git** - Do not perform git commands without a new remote or a git submodule

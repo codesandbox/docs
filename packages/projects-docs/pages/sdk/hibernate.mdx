@@ -1,22 +1,22 @@
 ---
-title: Hibernate
+title: Hibernate Sandboxes
 description: Learn how to hibernate sandboxes with the CodeSandbox SDK.
 ---
 
 import { Callout } from 'nextra-theme-docs'
 
-# Hibernate
+# Hibernate Sandboxes
 
-By default all Sandboxes hibernate automatically, but you can choose to explicitly hibernate as well. This will save the memory state of the sandbox, so it will resume from the same state when you start it again.
+Hibernating a Sandbox allows you to stop its running costs and resume it at a later point. When hibernating the Sandbox it will produce a snapshot with memory and disk, but depending on cluster load, and days passed, the persistence will change its state.
+
+| **State**   | **Resume Time** | **Description**                                   |
+| ----------- | --------------- | ------------------------------------------------- |
+| Memory/Disk | 0.5–2 seconds   | Memory and disk from snapshot                     |
+| Disk        | 5–20 seconds    | Disk from snapshot, will run setup tasks          |
+| Archived    | 20–60 seconds   | Disk from cold storage with, will run setup tasks |
+
+## Hibernating a Sandbox
 
 ```ts
-const sandbox = await sdk.sandboxes.resume('sandbox-id')
-
-await sdk.sandboxes.hibernate(sandbox.id);
+await sdk.sandboxes.hibernate('sandbox-id');
 ```
-
-When you set a hibernation timeout, the sandbox will hibernate after the specified period of inactivity (no calls from the SDK). While the SDK remains connected, we recommend either explicitly hibernating the sandbox or disconnecting from it when you're done using it. Resuming only takes a few seconds, so you can be aggressive with hibernation to conserve resources.
-
-<Callout>
-If you resume a Sandbox while it's entering hibernation, it will finish creating the snapshot before resuming. This does mean that there can be some inconsistency in resume times if you try to resume your Sandboxes too soon after telling them to hibernate.
-</Callout>

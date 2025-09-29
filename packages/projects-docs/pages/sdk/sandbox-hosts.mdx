@@ -1,0 +1,189 @@
+---
+title: Host Privacy 
+description: Learn about private hosts in CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Hosts
+
+All ports on sandboxes are exposed on URLs following this pattern:
+
+- **HTTP/HTTPS**: `https://$SANDBOX_ID-$PORT.csb.app`
+- **WebSocket**: `ws://$SANDBOX_ID-$PORT.csb.app`
+
+For example, if your sandbox ID is `abc123` and your dev server runs on port `3000`, it would be accessible at `https://abc123-3000.csb.app`.
+
+## Private Sandboxes
+
+When you have `private` Sandboxes the hosts can not be accessed by default. You will need to generate a token to access the hosts. You create signed urls to your Sandboxes using the `hosts` API on the server:
+
+```ts
+const hostToken = await sdk.hosts.createToken('sandbox-id')
+```
+
+This gives you low level management of your Sandboxes hosts. You can pass the host token when connecting to the Sandbox, either on the server or in one of the clients. This is useful as any generated urls from the SDK will include the token:
+
+```ts
+const sandbox = await sdk.sandboxes.create({
+  id: 'some-template-id'
+})
+const hostToken = await sdk.hosts.createToken(sandbox.id)
+
+// Signed URL
+const url = sdk.hosts.getUrl(hostToken, 5173)
+
+// Or create a session for the browser/node clients
+const session = await sandbox.createSession({
+  hostToken
+})
+
+// In the browser you will get signed URLs
+const url = client.hosts.getUrl(5173)
+```
+
+<Callout>
+When you open a signed URL in the browser, we will automatically put the preview token in a
+cookie so subsequent requests from the same browser don't require the token.
+</Callout>
+
+## Token expiration
+
+You can set an expiration on the preview token when creating it:
+
+```ts
+const hostToken = await sdk.hosts.createToken('sandbox-id', {
+  expiresAt: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+})
+```
+
+This is useful if you want to limit the lifetime of a host token. For example when a user shared a preview of their app with someone who should only have access for a limited time.
+
+## Proxying To Hosts
+
+You can implement custom domains and routing by proxying requests through your own server. This allows you to create user-friendly URLs that map to your sandbox hosts while maintaining control over access and lifecycle management.
+
+### Use Cases
+
+Implementing custom domains and proxy setups provides several benefits:
+
+#### Better URLs
+
+Transform technical sandbox URLs into user-friendly branded domains:
+
+- `https://abc123-3000.csb.app` → `https://my-project.yourdomain.com`
+- Improves user experience and branding
+
+<Callout type="warning">
+**Security Note**: We recommend evaluating using subdomains on a different domain than your main application. This mitigates blacklisting your domain due to phishing attempts.
+</Callout>
+
+#### Enhanced Security
+
+- **Token Protection**: Hide preview tokens from end users by mapping app user sessions to preview tokens on your backend
+- **Access Control**: Implement custom authentication and authorization logic
+- **Session Management**: Control who can access previews and for how long
+
+#### Custom Error Pages
+
+Handle sandbox errors gracefully with branded error pages:
+
+- Display custom 404 pages when sandboxes are not found
+- Show maintenance pages during sandbox startup
+- Provide helpful error messages for connection issues
+
+#### Lifecycle Management
+
+Implement intelligent sandbox management:
+
+- **Auto-Resume**: Automatically wake up hibernated sandboxes on first request
+- **Auto-Hibernate**: Put unused sandboxes to sleep to save resources
+- **Request-Based Control**: Resume sandboxes only when needed (e.g., HTML requests but not asset requests)
+
+### Proxy Solutions
+
+You can use various proxy solutions to implement custom domain routing:
+
+- **Nginx** - Popular reverse proxy with excellent performance and configuration flexibility
+- **Cloudflare** - CDN with built-in proxy capabilities and additional security features
+- **Vercel** - Edge functions and serverless proxy solutions
+- **Custom Node.js/Express** - Full control with custom middleware and logic
+
+<Callout type="warning">
+**Performance Consideration**: Using a proxy will increase latency as requests must travel through your proxy server before reaching CodeSandbox hosts.
+</Callout>
+
+### Required Configuration
+
+When proxying requests to CodeSandbox hosts, you must set the `trust_csb_preview` cookie to ensure proper authentication:
+
+```js
+// Set the csb_is_trusted cookie when proxying
+res.cookie('csb_is_trusted', 'true', {
+  domain: '.csb.app',
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none'
+});
+```
+
+### Example Implementation
+
+For a complete example of implementing custom domain proxying with Nginx, see our [example custom preview proxy repository](https://github.com/codesandbox/example-custom-preview-proxy).
+
+Here is an example using Node:
+
+```ts
+
+import http from "http";
+import httpProxy from "http-proxy";
+import { CodeSandbox } from "@codesandbox/sdk";
+
+const SOURCE_DOMAIN = "some-domain.com";
+const TARGET_DOMAIN = "csb.app";
+const TARGET_PROTOCOL = "https";
+const PORT = process.env.PORT || 8080;
+const sdk = new CodeSandbox();
+const proxy = httpProxy.createProxyServer({});
+const server = http.createServer(async (req, res) => {
+  const host = req.headers.host || "";
+  const suffix = `.${SOURCE_DOMAIN}`;
+  const subdomain = host.slice(0, -suffix.length); // e.g. "abc123-5173"
+  const m = subdomain.match(/^(.+)-(\d{1,5})$/);
+  const sandboxId = m[1];
+  const targetHost = `${subdomain}.${TARGET_DOMAIN}`;
+  const target = `${TARGET_PROTOCOL}://${targetHost}`;
+  const isHtmlRequest = accepts.includes("text/html");
+
+  if (isHtmlRequest) {
+    await sdk.sandboxes.resume(sandboxId);
+  }
+
+  const sanitizedCookies = (req.headers.cookie || "").split(";").map((c) => c.trim())
+  sanitizedCookies.push("csb_is_trusted=true");
+
+  const cookieHeader = sanitizedCookies.join("; ");
+
+  proxy.web(req, res, {
+    target,
+    changeOrigin: true,
+    secure: true,
+    headers: {
+      "X-Forwarded-Host": host,
+      cookie: cookieHeader,
+    },
+  });
+});
+```
+
+This approach can be extended with:
+
+- **User session tracking** - Know exactly which sandboxes belong to which users
+- **Automatic hibernation** - Enforce hibernation when user sessions end
+- **Transparent access** - Users can access their sandbox by mapping a friendly project name to a related sandboxId and port
+
+## ⚡ Best practices
+
+- **Use private sandboxes** - Set privacy 'private'` for secure sandbox hosts
+- **Persist host tokens** - Persist one host token per sandbox alongside other sandbox metadata
+- **Proxy through your server** - Route preview requests through your backend for lifecycle management and custom logic

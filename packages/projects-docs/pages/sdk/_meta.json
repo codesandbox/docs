@@ -1,48 +1,29 @@
 {
   "index": "Introduction",
-  "use-cases": "Use Cases",
+  "key-terms": "Key Terms",
+  "core-concepts": "Core Concepts",
   "faq": "FAQ",
   "pricing": "Pricing",
-  "-- guides": {
-    "type": "separator",
-    "title": "Guides"
-  },
-  "templates": "Templates",
-  "repositories": "Repositories",
-  "clients": "Clients",
-  "bootups": "Bootups",
-  "browser-previews": "Previews",
-  "shells": "Shells",
-  "docker": "Docker & Docker Compose",
   "-- sandboxes": {
     "type": "separator",
     "title": "Sandboxes"
   },
-  "create-resume": "Create & Resume",
-  "update-sandbox": "Update Sandbox",
-  "sessions": "Sessions",
+  "templates": "Templates",
+  "create": "Create",
+  "resume": "Resume",
   "hibernate": "Hibernate",
+  "delete": "Delete",
+  "manage-sandboxes": "Lifecycle Management",
   "restart-shutdown": "Restart & Shutdown",
-  "lifecycle": "Lifecycle",
+  "users": "Users",
+  "sandbox-hosts": "Hosts",
   "specs": "VM Specs",
-  "persistence": "Persistence",
-
-  "-- privacy-security": {
+  "tracing": "OpenTelemetry & Tracing",
+  "-- clients": {
     "type": "separator",
-    "title": "Privacy & Security"
+    "title": "Clients"
   },
-  "host-privacy": "Host Privacy",
-  "preview-api-access": "Preview API Access",
-
-  "-- cli": {
-    "type": "separator",
-    "title": "CLI"
-  },
-  "cli": "CLI Reference",
-  "-- client": {
-    "type": "separator",
-    "title": "Client"
-  },
+  "clients": "Clients",
   "filesystem": "File System",
   "terminals": "Terminals",
   "commands": "Commands",
@@ -51,16 +32,23 @@
   "hosts": "Hosts",
   "tasks": "Tasks",
   "setup": "Setup",
-  "-- observability": {
+  "-- previews": {
     "type": "separator",
-    "title": "Observability"
+    "title": "Previews"
   },
-  "tracing": "OpenTelemetry & Tracing",
+  "browser-previews": "Previews",
+  "preview-api-access": "Preview API Access",
+  "-- cli": {
+    "type": "separator",
+    "title": "CLI"
+  },
+  "cli": "CLI Reference",
   "-- resources": {
     "type": "separator",
     "title": "Resources"
   },
   "template-library": "Template Library",
+  "version-history": "Version History",
   "contact": {
     "title": "Contact Us",
     "href": "https://codesandbox.io/support#form",

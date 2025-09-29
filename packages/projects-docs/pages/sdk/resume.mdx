@@ -1,0 +1,90 @@
+---
+title: Resuming Sandboxes
+description: Learn how to resume hibernated sandboxes with the CodeSandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Resuming Sandboxes
+
+Resuming allows you to wake up a hibernated sandbox and reconnect to it, restoring it to its exact previous state including file system, memory, and running processes.
+
+## Resuming a Sandbox
+
+To resume an existing sandbox from hibernation call: `sdk.sandboxes.resume(id)`:
+
+```ts
+const sandbox = await sdk.sandboxes.resume('sandbox-id');
+```
+
+This will:
+
+1. Restore the sandbox from its hibernated snapshot
+2. Resume all processes that were running
+3. Restore network connections and file system state
+4. Return a sandbox instance
+
+## Clean Bootups
+
+The Sandbox will only be able to directly resume its state if it has a memory snapshot. If we are unable to resume from a memory snapshot the Sandbox will need to run its setup tasks again. This ensures your environment is properly initialized even after extended hibernation.
+
+### Server
+
+```ts
+const sandbox = await sdk.sandboxes.resume('sandbox-id');
+
+if (sandbox.bootupType === 'CLEAN') {
+  const client = await sandbox.connect()
+  const steps = await clients.setup.getSteps()
+
+  for (const step of setupSteps) {
+    await step.waitUntilComplete()
+  }
+}
+```
+
+### Client
+
+```ts
+const client = await connectToSandbox({
+   session,
+   getSession: (id) => fetchJSON(`/api/sandboxes/${id}`)
+})
+
+if (client.bootupType === 'CLEAN') {
+  const steps = await clients.setup.getSteps()
+
+  for (const step of setupSteps) {
+    console.log(`Step: ${step.name}`);
+    console.log(`Command: ${step.command}`);
+    console.log(`Status: ${step.status}`);
+
+    const output = await step.open()
+    output.onOutput((output) => console.log(output))
+    await step.waitUntilComplete()
+  }
+}
+```
+
+## Agent Updates
+
+Every Sandbox has an agent running on it. This agent is what allows you to interact with the Sandbox environment.
+
+When a new version of the agent is published, existing sandboxes will need to restart before they get new version.
+
+You can check if the current sandbox is up to date using `isUpToDate()`:
+
+```ts
+const sandbox = await sdk.sandboxes.resume('sandbox-id')
+
+if (!sandbox.isUpToDate) {
+    await sdk.sandboxes.restart(sandbox.id)
+}
+```
+
+It is up to you to decide what the best user experience will be for your use case. At CodeSandbox we would show a notification when the agent was out of date and the user could choose when to update.
+
+## ⚡ Best practices
+
+- **Track bootupType** - Resume times vary from 1-3 seconds (regular) to 10-60 seconds (archived Sandbox), use the bootupType to detect what UX to introduce
+- **Avoid automatic HTTP wakeup** - As Sandboxes are archived after period of inactivity, waking it up from a preview url can create a blocking UX. Rather implement a proxy through your server to better manage the UX
