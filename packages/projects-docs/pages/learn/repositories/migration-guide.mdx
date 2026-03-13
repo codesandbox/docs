@@ -47,24 +47,7 @@ In CodeSandbox Repositories, you visit the main branch and the VM is already run
 
 ## Step-by-step: starting a feature
 
-### Step 1: Set up Prebuilds (Prerequisite)
-
-To replicate the "instant" feel of CodeSandbox where you don't wait for `npm install`, enable Prebuilds in your GitHub repo settings. This tells GitHub to run your setup scripts every time code is pushed, so the container is ready when you open it.
-
-1. Go to your repository on GitHub.
-2. Navigate to **Settings** > **Codespaces**.
-3. Under **Prebuild configuration**, click **Set up prebuild**.
-4. Select the branch and region, then save.
-
-### Step 2: Create a branch and Codespace
-
-In CodeSandbox, you "Forked" to branch. In the new workflow:
-
-1. Go to the GitHub repository.
-2. Create a new branch (e.g., `feat/new-ui`).
-3. Click **Code** > **Codespaces** > **+**.
-
-### Step 3: Move tasks to `.devcontainer/devcontainer.json`
+### Step 1: Move tasks to `.devcontainer/devcontainer.json`
 
 Since you no longer have a `.codesandbox/tasks.json`, move those commands into the `.devcontainer/devcontainer.json` lifecycle hooks.
 
@@ -93,14 +76,33 @@ Since you no longer have a `.codesandbox/tasks.json`, move those commands into t
 
 Place this file at `.devcontainer/devcontainer.json` in your repository root.
 
-### Step 4: Connect from VS Code desktop
+### Step 2: Set up Prebuilds (Prerequisite)
+
+To replicate the "instant" feel of CodeSandbox where you don't wait for `npm install`, enable Prebuilds in your GitHub repo settings. This tells GitHub to run your setup scripts every time code is pushed, so the container is ready when you open it.
+
+1. Go to your repository on GitHub.
+2. Navigate to **Settings** > **Codespaces**.
+3. Under **Prebuild configuration**, click **Set up prebuild**.
+4. Select the branch and region, then save.
+
+### Step 3: Create a branch and Codespace
+
+In CodeSandbox, you "Forked" to branch. In the new workflow, you can create a branch and Codespace from either the web or VS Code:
+
+#### From the web
+
+1. Go to the GitHub repository.
+2. Create a new branch (e.g., `feat/new-ui`).
+3. Click **Code** > **Codespaces** > **+**.
+
+#### From VS Code
 
 The Codespaces extension is built into VS Code:
 
 1. Open VS Code locally.
 2. Click the **Remote Explorer** icon (bottom-left green icon or sidebar).
 3. Select **GitHub Codespaces**.
-4. Your environment will be listed. Click to connect.
+4. Click **Create Codespace** and select your repository and branch.
 
 <Callout emoji="⚠️">
 **Important:** A branch must already exist on GitHub before you can connect Codespaces to it. If you don't see your branch, create it first—either locally and push it to GitHub, or create it directly on GitHub.
