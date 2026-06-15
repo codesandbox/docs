@@ -1,0 +1,269 @@
+---
+title: SDK Migration Guide
+description: How to migrate off the CodeSandbox SDK — to Daytona for feature parity, or to Together Sandbox.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Migrate from the CodeSandbox SDK
+
+CodeSandbox is now part of Together AI, and we recommend migrating off `@codesandbox/sdk`. This guide covers two destinations:
+
+- **[Option 1 — Daytona](#option-1--daytona-recommended-for-feature-parity)** *(recommended for feature parity)*: the provider whose SDK matches the broadest set of CodeSandbox SDK capabilities — sandboxes, fork, snapshots, preview URLs with token auth, terminals, git, and code interpreters.
+- **[Option 2 — Together Sandbox](#option-2--together-sandbox)**: the Together AI sandbox SDK. It covers the core sandbox loop but does **not** support several CodeSandbox features, which you'd need to rebuild yourself.
+
+<Callout>
+This guide focuses on the TypeScript SDK and CLI. If you're on the Python or Node-specific paths, the concepts map across but the exact APIs differ.
+</Callout>
+
+## Choosing a path
+
+| Your situation | Recommended path |
+| --- | --- |
+| You rely on previews/hosts, sessions, terminals, git, code interpreters, or fork | **Daytona** — these have direct equivalents |
+| You only use the core loop (create, run commands, files, ports) and want to stay within Together AI | **Together Sandbox** — minimal API, rebuild the gaps yourself |
+
+If in doubt, start with **Daytona**: it requires the fewest changes to an existing CodeSandbox SDK integration.
+
+## Option 1 — Daytona (recommended for feature parity)
+
+[Daytona](https://www.daytona.io/docs/) provides programmatic sandboxes with the closest match to the CodeSandbox SDK feature set. Almost every CodeSandbox capability has a direct equivalent.
+
+### Feature mapping
+
+| CodeSandbox SDK | Daytona |
+| --- | --- |
+| `sandboxes.create()` + `connect()` | `daytona.create()` |
+| `sandboxes.list()` / `get()` | `daytona.list()` / `daytona.get(id)` |
+| Templates / `csb build` | Snapshots + the [declarative builder](https://www.daytona.io/docs/en/declarative-builder/) |
+| `sandboxes.resume/hibernate/shutdown` | `sandbox.start()` / `archive()` / `stop()` |
+| Fork | `sandbox._experimental_fork()` |
+| `updateTier` | `sandbox.resize({ cpu, memory, disk })` |
+| `client.commands` | `sandbox.process.executeCommand()` |
+| `client.interpreters.*` | `sandbox.process.codeRun()` / `codeInterpreter` |
+| `client.fs` | `sandbox.fs` |
+| `client.terminals` (PTY) | PTY support |
+| Git integration | `sandbox.git` |
+| `ports.getPreviewUrl()` + host tokens | `sandbox.getPreviewLink(port)` / `getSignedPreviewUrl()` |
+
+### Installation & client
+
+```bash
+# Before
+npm install @codesandbox/sdk   # auth via CSB_API_KEY
+
+# After
+npm install @daytona/sdk       # auth via DAYTONA_API_KEY
+```
+
+```ts
+// Before — CodeSandbox
+import { CodeSandbox } from '@codesandbox/sdk';
+
+const sdk = new CodeSandbox();
+const sandbox = await sdk.sandboxes.create({ id: 'your-template-id' });
+const client = await sandbox.connect();
+
+const output = await client.commands.run("echo 'Hello World'");
+console.log(output);
+```
+
+```ts
+// After — Daytona
+import { Daytona } from '@daytona/sdk';
+
+const daytona = new Daytona();
+const sandbox = await daytona.create();
+
+const response = await sandbox.process.executeCommand("echo 'Hello World'");
+console.log(response.result);
+```
+
+### Previews (the big win over Together Sandbox)
+
+Preview URLs and token auth map directly onto CodeSandbox hosts and host tokens, so you don't have to build a proxy.
+
+```ts
+// Before — CodeSandbox
+const url = client.hosts.getUrl(3000);
+const { token } = await sdk.hosts.createToken(sandbox.id);
+```
+
+```ts
+// After — Daytona
+// Standard preview link — token sent via header
+const preview = await sandbox.getPreviewLink(3000);
+await fetch(preview.url, { headers: { 'x-daytona-preview-token': preview.token } });
+
+// Signed preview URL — token embedded in the URL, time-limited & shareable
+const signed = await sandbox.getSignedPreviewUrl(3000, 3600);
+await fetch(signed.url);
+```
+
+### Fork & snapshots
+
+```ts
+// Fork a sandbox (filesystem + memory), like CodeSandbox fork
+const forked = await sandbox._experimental_fork({ name: 'feature-branch' });
+
+// Create a reusable snapshot, like a CodeSandbox template
+await sandbox._experimental_createSnapshot('my-snapshot');
+```
+
+<Callout>
+Daytona also provides `sandbox.git`, a stateful Python `codeInterpreter`, LSP servers (`createLspServer`), volumes, and a full CLI. See the [Daytona docs](https://www.daytona.io/docs/) for the complete API. The main concept without a one-to-one match is CodeSandbox's per-session/browser-client model — use Daytona preview tokens and your own auth for multi-user access.
+</Callout>
+
+## Option 2 — Together Sandbox
+
+[Together Sandbox](https://github.com/togethercomputer/together-sandbox) (`together-sandbox`) runs on new infrastructure within your Together AI account. It covers the core sandbox loop — create a sandbox, run commands, read and write files, watch ports — but exposes a deliberately minimal API. Choose this path only if the missing features below aren't core to your product, or you're willing to rebuild them.
+
+### Features without a direct equivalent
+
+These CodeSandbox capabilities have **no counterpart** in the Together Sandbox TS SDK.
+
+| Capability | What to do instead |
+| --- | --- |
+| **Previews / hosts** (`getPreviewUrl`, `hosts.createToken`, privacy modes, custom domains) | Run your own [preview proxy](#implementing-previews) over the discovered ports. |
+| **Browser / Node clients & sessions** (`createSession`, `@codesandbox/sdk/browser`, per-session git & env, reconnect, collaboration) | Run a [browser proxy](#implementing-browser-access); reimplement per-user isolation in your backend. |
+| **Tasks** (`client.tasks`, `.codesandbox/tasks.json`) | Run dev servers / long-running processes as background `execs`. |
+| **Setup hooks** (`client.setup`, `setupTasks`) | Bake setup into the Dockerfile, or use the boot-then-hibernate `memorySnapshot` flow. |
+| **Git integration** (`connect({ git })`) | Run `git` commands via `execs` inside the sandbox. |
+| **Code interpreters** (`client.interpreters.*`) | Run `node -e` / `python -c` via `execs`. |
+| **Terminals namespace** (`client.terminals`) | Use `execs.create({ pty: true })`; no persistence (`getAll`) or resize. |
+| **OpenTelemetry tracing** (`{ tracer }`) | No equivalent. |
+| **Sandbox `list` / `get` / `listRunning`** | Track your own inventory of which sandboxes exist and are running. |
+| **TTL / idle auto-hibernate** (`hibernationTimeoutSeconds`, `automaticWakeupConfig`) | Drive hibernation from your own server. |
+| **Live tier resize** (`updateTier`), **`restart`**, **`delete`** (non-ephemeral) | Pick the size at create; shutdown + start to restart; use `ephemeral: true` to auto-delete. |
+| **`docker-compose` multi-service** | Bake services into a single image or run them as processes. |
+
+<Callout type="warning">
+Two of these require running your own server, and are the most common blockers:
+
+- **Previews require your own proxy.** Together exposes port *discovery* only — no preview URLs, host tokens, or privacy modes. See [Implementing previews](#implementing-previews).
+- **Using the SDK from the browser requires a server proxy.** There is no browser client and no session layer. `TOGETHER_API_KEY` must stay server-side. See [Implementing browser access](#implementing-browser-access).
+</Callout>
+
+### What changes for the supported core loop
+
+Installation and auth swap the package and env var:
+
+```bash
+# Before
+npm install @codesandbox/sdk   # auth via CSB_API_KEY
+
+# After
+npm install together-sandbox   # auth via TOGETHER_API_KEY (Node 18+)
+```
+
+The main structural change is that **create and start are two steps**: `create()` makes a record (state `created`) and `start()` boots the VM and returns a connected `Sandbox`.
+
+```ts
+// Before — CodeSandbox
+const sdk = new CodeSandbox();
+const sandbox = await sdk.sandboxes.create({ id: 'your-template-id' });
+const client = await sandbox.connect();
+const output = await client.commands.run("echo 'Hello World'");
+```
+
+```ts
+// After — Together Sandbox
+import { TogetherSandbox } from 'together-sandbox';
+
+const sdk = new TogetherSandbox();
+const { id } = await sdk.sandboxes.create({ /* params */ });
+const sandbox = await sdk.sandboxes.start(id);
+const { output } = await sandbox.execs.exec('echo', ["Hello World"]);
+```
+
+The supported namespaces are renamed:
+
+| CodeSandbox | Together Sandbox |
+| --- | --- |
+| `client.commands.run()` | `sandbox.execs.exec()` (and `execs.create/list/get/streamOutput/sendStdin`) |
+| `client.fs.*` | `sandbox.files.*` / `sandbox.directories.*` |
+| `client.ports.*` | `sandbox.ports.list()` / `streamList()` (discovery only) |
+| Templates / `csb build` | `sdk.snapshots.create()` (and the `together-sandbox snapshots create` CLI) |
+| `sandbox.hibernate()` / `shutdown()` | `sandbox.hibernate()` / `shutdown()` (unchanged) |
+
+<Callout type="warning">
+`snapshots.create` is **not idempotent** — exclude it from any retry logic. Context builds also require local Docker in the TS SDK.
+</Callout>
+
+### Implementing previews
+
+CodeSandbox gave each open port a public, optionally token-gated URL. Together exposes only the *list* of open ports (`sandbox.ports.list()`), so to show a running app to an end user you run a reverse proxy in front of the sandbox:
+
+1. Start the sandbox and discover the open port with `sandbox.ports.list()`.
+2. Resolve the sandbox's reachable upstream address from its connection details.
+3. Forward requests from your public URL to that address, applying your own authentication and routing — this is where you reimplement host tokens and privacy modes.
+
+```ts
+// Express-style preview proxy (illustrative)
+import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import { TogetherSandbox } from 'together-sandbox';
+
+const sdk = new TogetherSandbox();
+const app = express();
+
+// e.g. https://preview.example.com/:sandboxId/:port/...
+app.use('/:sandboxId/:port', async (req, res, next) => {
+  const { sandboxId, port } = req.params;
+
+  // Your own authentication / authorization (replaces host tokens & privacy modes).
+  if (!(await isAllowed(req, sandboxId))) return res.sendStatus(403);
+
+  const sandbox = await sdk.sandboxes.start(sandboxId);
+  await sandbox.ports.list(); // confirm the port is open
+  const target = resolveUpstream(sandbox, Number(port)); // map to the sandbox address
+
+  return createProxyMiddleware({ target, changeOrigin: true, ws: true })(req, res, next);
+});
+
+app.listen(8080);
+```
+
+<Callout>
+Cache the started sandbox and its upstream target instead of starting on every request, and keep idle sandboxes hibernated yourself — there is no automatic TTL.
+</Callout>
+
+### Implementing browser access
+
+`TOGETHER_API_KEY` is a server credential. CodeSandbox solved browser usage with sessions and `@codesandbox/sdk/browser`; Together has neither, so browser clients call **your** backend, which holds the key and talks to the Together API. Your backend is also where you reimplement the per-user isolation that sessions used to provide.
+
+```ts
+// Backend — the only place the API key lives
+import express from 'express';
+import { TogetherSandbox } from 'together-sandbox';
+
+const sdk = new TogetherSandbox(); // reads TOGETHER_API_KEY
+const app = express();
+app.use(express.json());
+
+// Authenticate the end user, then scope what they're allowed to do.
+app.post('/api/sandboxes/:id/exec', authenticateUser, async (req, res) => {
+  const sandbox = await sdk.sandboxes.start(req.params.id);
+  const { cmd, args } = req.body;
+  const result = await sandbox.execs.exec(cmd, args);
+  res.json(result);
+});
+
+app.listen(3000);
+```
+
+```ts
+// Browser — no SDK, no API key; just calls your backend
+const res = await fetch(`/api/sandboxes/${id}/exec`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ cmd: 'npm', args: ['test'] }),
+});
+const { output } = await res.json();
+```
+
+For streaming surfaces (exec output, file watch, ports), forward the SDK's SSE streams through your backend to the browser using `EventSource` or a `ReadableStream` response.
+
+## Need help?
+
+If you run into issues during migration, contact us at [support@codesandbox.io](mailto:support@codesandbox.io).
