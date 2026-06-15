@@ -7,42 +7,65 @@ import { Callout } from 'nextra-theme-docs'
 
 # Migrate from CodeSandbox SDK to Together Sandbox
 
-This guide walks you through moving from `@codesandbox/sdk` to `together-sandbox`.
+This guide walks you through moving from `@codesandbox/sdk` to `together-sandbox`. It is organized in three parts:
 
-Together Sandbox runs on new, improved infrastructure and exposes a smaller, differently shaped API. The core loop maps across — build a snapshot, create a sandbox, run commands, read and write files, watch ports — but several APIs are used differently and some features have no direct equivalent. This guide covers how each capability is used in `together-sandbox`.
+1. **[Should you migrate?](#1-should-you-migrate)** — an overview of what is no longer supported, so you can decide whether the migration is worth it.
+2. **[Supported features](#2-supported-features)** — the capabilities that carry over, and the `together-sandbox` API that provides each one.
+3. **[Implementing previews and browser access](#3-implementing-previews-and-browser-access)** — how to build the proxy layers that replace CodeSandbox previews and the browser SDK.
 
 <Callout>
 This guide focuses on the TypeScript SDK and CLI. If you're on the Python or Node-specific paths, the concepts map across but the exact APIs differ.
 </Callout>
 
-## Migration checklist
+## 1. Should you migrate?
 
-1. Swap the package (`@codesandbox/sdk` → `together-sandbox`) and env var (`CSB_API_KEY` → `TOGETHER_API_KEY`).
-2. Convert templates to snapshots; move any `docker-compose` services into a single image.
-3. Split the single `connect()` into `create()` + `start()`.
-4. Rename `commands` → `execs`, `fs` → `files`/`directories`, and reassemble any `runBackground` usage.
-5. Build your own **sandbox inventory** (list/get) and **idle-hibernation** logic — there are no built-in knobs.
-6. Replace sessions, tasks, setup hooks, git integration, and preview hosts with application-layer or in-Dockerfile equivalents.
-7. Exclude `snapshots.create` from any retry logic — it is not idempotent.
+Together Sandbox runs on new, improved infrastructure and exposes a smaller, differently shaped API. The core sandbox loop carries over cleanly — build a snapshot, create a sandbox, run commands, read and write files, watch ports — but several CodeSandbox capabilities are not supported and have to be rebuilt in your own application layer.
 
-## Features without a direct equivalent
+Read this section first. If any of the items below are central to your product, factor the extra work into your decision.
+
+### You must build two things yourself
+
+<Callout type="warning">
+These two are the most common blockers. Both require running your own server.
+
+- **Previews require your own proxy.** Together Sandbox exposes port *discovery* only — there is no preview-URL builder, no host tokens, no privacy modes, and no custom domains. To serve a running app from a sandbox to end users, you must run a reverse proxy that forwards requests to the sandbox's open port and applies your own access control. See [Preview proxy](#preview-proxy).
+- **Using the SDK from the browser requires a server proxy.** There is no `@codesandbox/sdk/browser` equivalent and no session layer. The `TOGETHER_API_KEY` is a server credential and must never reach the browser, so any browser client has to call your own backend, which relays requests to the Together API. See [Browser proxy](#browser-proxy).
+</Callout>
+
+### Functionality that is no longer supported
 
 These CodeSandbox capabilities have **no counterpart** in the Together Sandbox TS SDK. Plan a different approach before migrating if you depend on them.
 
 | Capability | What to do instead |
 | --- | --- |
-| **Sessions / multi-user** (`createSession`, browser/node clients, per-session git & env, reconnect, collaboration) | No session layer exists. The unit is a single `Sandbox` with auto-wired agent auth. Multi-tenant isolation must be built in your own application layer. |
-| **Tasks** (`client.tasks`, `.codesandbox/tasks.json`) | The agent defines tasks but the TS SDK doesn't wrap them. Run dev servers / long-running processes as background `execs`. |
+| **Previews / hosts** (`getPreviewUrl`, `hosts.createToken`, privacy modes, custom domains) | Run your own [preview proxy](#preview-proxy) over the discovered ports. |
+| **Browser / Node clients & sessions** (`createSession`, `@codesandbox/sdk/browser`, per-session git & env, reconnect, collaboration) | Run a [browser proxy](#browser-proxy); reimplement per-user isolation in your backend. |
+| **Tasks** (`client.tasks`, `.codesandbox/tasks.json`) | Run dev servers / long-running processes as background `execs`. |
 | **Setup hooks** (`client.setup`, `setupTasks`) | Bake environment setup into the Dockerfile, or use the boot-then-hibernate `memorySnapshot` flow. |
 | **Git integration** (`connect({ git })`, default git persistence) | Run `git clone` / `git` commands via `execs` inside the sandbox. |
-| **Hosts & preview URLs** | Front sandboxes with your own proxy (see [Ports & hosts](#ports--hosts) below). |
 | **Code interpreters** (`client.interpreters.*`) | Run `node -e` / `python -c` via `execs`. |
-| **Browser Preview API** (`@codesandbox/sdk/browser`) | No equivalent. |
 | **OpenTelemetry tracing** (`{ tracer }`) | No equivalent. |
 | **Sandbox `list` / `get` / `listRunning`** | Track your own inventory of which sandboxes exist and are running. |
 | **TTL / idle auto-hibernate** (`hibernationTimeoutSeconds`, `automaticWakeupConfig`) | Drive hibernation from your own server. |
+| **Live tier resize** (`updateTier`), **`restart`**, **`delete`** (non-ephemeral) | Pick the size at create; shutdown + start to restart; use `ephemeral: true` to auto-delete. |
+| **`docker-compose` multi-service** | Bake services into a single image or run them as processes. |
 
-## Installation & authentication
+## 2. Supported features
+
+Everything in this section carries over. The table maps each capability to the `together-sandbox` API, and the subsections show before/after usage.
+
+| Capability | CodeSandbox | Together Sandbox |
+| --- | --- | --- |
+| Create & start | `create()` + `connect()` | `create()` + `start()` |
+| Templates / snapshots | Templates / `csb build` | `sdk.snapshots.*` |
+| Run commands | `client.commands` | `sandbox.execs` |
+| Filesystem | `client.fs` | `sandbox.files` / `sandbox.directories` |
+| Interactive PTY | `client.terminals` | `sandbox.execs` (`pty: true`) |
+| Port discovery | `client.ports` | `sandbox.ports` |
+| Hibernate / shutdown | `sandbox.hibernate()` / `shutdown()` | `sandbox.hibernate()` / `shutdown()` |
+| Persistence & versioning | implicit | `start(id, { versionNumber })` |
+
+### Installation & authentication
 
 Swap the package and the API key environment variable. Together Sandbox requires Node 18+.
 
@@ -56,7 +79,7 @@ npm install together-sandbox   # auth via TOGETHER_API_KEY
 
 The Together CLI ships as a prebuilt binary (darwin/linux/win) via a shell installer rather than as a bundled `csb` binary.
 
-## Client initialization
+### Client initialization
 
 ```ts
 // Before
@@ -72,7 +95,7 @@ import { TogetherSandbox } from 'together-sandbox';
 const sdk = new TogetherSandbox(); // reads TOGETHER_API_KEY
 ```
 
-## The core loop
+### The core loop
 
 The biggest structural change is that **creating a sandbox and booting its VM are two steps**. In CodeSandbox, `create()` boots a VM and you `connect()` to it. In Together, `create()` makes a record (state `created`) and `start()` boots the VM and returns a connected `Sandbox`.
 
@@ -96,7 +119,7 @@ const { exitCode, output } = await sandbox.execs.exec('echo', ["Hello World"]);
 console.log(output);
 ```
 
-## Templates → Snapshots
+### Templates → Snapshots
 
 Templates become snapshots. The snapshot API supports structured progress callbacks, list/get/delete by id or alias, direct registration of any public image, and mutable aliases.
 
@@ -122,10 +145,7 @@ await sdk.snapshots.deleteByAlias('latest');
 ```
 
 <Callout type="warning">
-Two things to plan for when migrating template builds:
-
-- **Context builds require local Docker** in the TS SDK (the Python/CLI paths can build remotely).
-- There is **no `docker-compose` multi-service** story. If your CodeSandbox template ran Postgres alongside your app via `docker-compose.yml`, you'll need to bake services into a single image or run them as processes.
+**Context builds require local Docker** in the TS SDK (the Python/CLI paths can build remotely), and `snapshots.create` is **not idempotent** — exclude it from any retry logic.
 </Callout>
 
 The CLI equivalent of `csb build` is the only command Together's CLI provides:
@@ -138,9 +158,9 @@ together-sandbox snapshots create \
 # also supports --context / --dockerfile
 ```
 
-## Sandbox lifecycle
+### Sandbox lifecycle
 
-Hibernate and shutdown carry over directly. Several operations are missing and need to be handled by your own code.
+Hibernate and shutdown carry over directly. The operations marked _(none)_ are covered in [Part 1](#functionality-that-is-no-longer-supported).
 
 | Operation | CodeSandbox | Together | Migration note |
 | --- | --- | --- | --- |
@@ -152,19 +172,10 @@ Hibernate and shutdown carry over directly. Several operations are missing and n
 | Restart | `sdk.sandboxes.restart(id)` | _(none)_ | Shutdown + start. |
 | Delete | `sdk.sandboxes.delete(id)` | _(ephemeral only)_ | Use `ephemeral: true` to auto-delete on stop. |
 | Fork | `create({ id })` / Live Fork | _(indirect)_ | Create from a version's `snapshot_id`, or `start(id, { versionNumber })`. |
-| List / get / listRunning | ✅ | _(none)_ | **Track your own inventory.** |
+| List / get / listRunning | ✅ | _(none)_ | Track your own inventory. |
 | Specs | `vmTier` (named tiers) | `millicpu` / `memoryBytes` / `diskBytes` | Finer-grained on Together. |
-| Live tier resize | `sandbox.updateTier()` | _(none)_ | Choose the right size at create. |
-| TTL / idle auto-hibernate | `hibernationTimeoutSeconds`, `automaticWakeupConfig` | _(none)_ | **No timeout knobs** — drive lifecycle from your own server. |
 
-<Callout type="warning">
-The most important lifecycle gaps to design around:
-
-- **No `list` / `get` / `listRunning`.** You must persist your own record of which sandboxes exist and which are running.
-- **No TTL or idle auto-hibernate.** There is no `hibernationTimeoutSeconds` equivalent. You are responsible for hibernating idle sandboxes yourself.
-</Callout>
-
-## Commands
+### Commands
 
 The namespace changes from `commands` to `execs`. There is no single `runBackground` helper — background execution is assembled from `create({ autostart })` + `streamOutput`/`getOutput`.
 
@@ -196,11 +207,7 @@ await sandbox.execs.get(exec.id);
 await sandbox.execs.delete(exec.id);
 ```
 
-<Callout type="warning">
-There is **no JS/Python code interpreter** (`client.interpreters.*`). If you relied on it, run code via `execs` instead — e.g. `node -e '...'` or `python -c '...'`.
-</Callout>
-
-## Filesystem
+### Filesystem
 
 The single `fs` namespace splits into `files` and `directories`. `stat` and recursive `mkdir -p` are available via these namespaces.
 
@@ -232,18 +239,12 @@ const watcher = sandbox.files.watch('/app', {
 ```
 
 <Callout type="warning">
-Bulk and binary file movement works differently on Together:
-
-- **No binary read** — `files.read` returns a string only.
-- **No `batchWrite`** (compressed multi-file write).
-- **No zip `download`** or dedicated upload helper.
-
-For binary writes, `files.create` accepts a `Blob`/`File`. For bulk transfer, move files individually or tar them inside the sandbox via `execs`.
+`files.read` returns a string only (no binary read), there is no `batchWrite`, and no zip `download`/upload helper. For binary writes, `files.create` accepts a `Blob`/`File`; for bulk transfer, move files individually or tar them inside the sandbox via `execs`.
 </Callout>
 
-## Terminals & PTY
+### Terminals & PTY
 
-Together has no dedicated terminals namespace. You get an interactive PTY through `execs` with `pty: true`. There is **no persistence (`getAll`) and no resize**.
+Together has no dedicated terminals namespace. You get an interactive PTY through `execs` with `pty: true`. There is no persistence (`getAll`) and no resize.
 
 ```ts
 // After — interactive PTY via execs
@@ -254,9 +255,9 @@ for await (const chunk of sandbox.execs.streamOutput(term.id)) {
 }
 ```
 
-## Ports & hosts
+### Ports
 
-Together exposes **port discovery only**.
+Together exposes **port discovery only**. Serving those ports to end users is covered in [Part 3](#preview-proxy).
 
 ```ts
 // After — discovery only
@@ -266,11 +267,7 @@ for await (const update of sandbox.ports.streamList()) {
 }
 ```
 
-<Callout type="warning">
-There is **no preview-URL builder, no host tokens, no privacy modes, and no custom-domain support** in Together Sandbox. If your product relies on `getPreviewUrl(port)`, `hosts.createToken`, `public`/`private`/`public-hosts` privacy, or custom domains, there is no direct equivalent — you'll need to front sandboxes with your own proxy layer.
-</Callout>
-
-## Persistence & version history
+### Persistence & version history
 
 Memory-snapshot hibernation and cross-run persistence work the same way. Together exposes explicit, numbered version history.
 
@@ -282,6 +279,85 @@ const sandbox = await sdk.sandboxes.start(id, { versionNumber: 3 });
 <Callout>
 Version *retrieval* is available at the REST level (`current_version_number`, `/versions/{n}`) but is not yet wrapped as `sdk.sandboxes.versions.*` in the TS SDK. Together also exposes `recovery_status` fields for crash recovery and an explicit `ephemeral: true` flag.
 </Callout>
+
+## 3. Implementing previews and browser access
+
+These are the two pieces CodeSandbox provided out of the box that you now run yourself. Both live in your backend, where the `TOGETHER_API_KEY` stays.
+
+### Preview proxy
+
+CodeSandbox gave each open port a public, optionally token-gated URL. Together exposes only the *list* of open ports, so to show a running app to an end user you run a reverse proxy in front of the sandbox:
+
+1. Start the sandbox and discover the open port with `sandbox.ports.list()`.
+2. Resolve the sandbox's reachable upstream address from its connection details.
+3. Forward incoming requests from your public URL to that address, applying your own authentication, routing, and (if needed) custom-domain handling — this is where you reimplement host tokens and privacy modes.
+
+```ts
+// Express-style preview proxy (illustrative)
+import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import { TogetherSandbox } from 'together-sandbox';
+
+const sdk = new TogetherSandbox();
+const app = express();
+
+// e.g. https://preview.example.com/:sandboxId/:port/...
+app.use('/:sandboxId/:port', async (req, res, next) => {
+  const { sandboxId, port } = req.params;
+
+  // Your own authentication / authorization happens here.
+  // This replaces CodeSandbox host tokens and privacy modes.
+  if (!(await isAllowed(req, sandboxId))) return res.sendStatus(403);
+
+  const sandbox = await sdk.sandboxes.start(sandboxId);
+  await sandbox.ports.list(); // confirm the port is open
+  const target = resolveUpstream(sandbox, Number(port)); // map to the sandbox address
+
+  return createProxyMiddleware({ target, changeOrigin: true, ws: true })(req, res, next);
+});
+
+app.listen(8080);
+```
+
+<Callout>
+Cache the started sandbox and its upstream target instead of starting on every request, and keep idle sandboxes hibernated yourself — there is no automatic TTL.
+</Callout>
+
+### Browser proxy
+
+The `TOGETHER_API_KEY` is a server credential. CodeSandbox solved browser usage with sessions and `@codesandbox/sdk/browser`; Together has neither, so browser clients call **your** backend, which holds the key and talks to the Together API. Your backend is also where you reimplement the per-user isolation that sessions used to provide.
+
+```ts
+// Backend — the only place the API key lives
+import express from 'express';
+import { TogetherSandbox } from 'together-sandbox';
+
+const sdk = new TogetherSandbox(); // reads TOGETHER_API_KEY
+const app = express();
+app.use(express.json());
+
+// Authenticate the end user, then scope what they're allowed to do.
+app.post('/api/sandboxes/:id/exec', authenticateUser, async (req, res) => {
+  const sandbox = await sdk.sandboxes.start(req.params.id);
+  const { cmd, args } = req.body;
+  const result = await sandbox.execs.exec(cmd, args);
+  res.json(result);
+});
+
+app.listen(3000);
+```
+
+```ts
+// Browser — no SDK, no API key; just calls your backend
+const res = await fetch(`/api/sandboxes/${id}/exec`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ cmd: 'npm', args: ['test'] }),
+});
+const { output } = await res.json();
+```
+
+For streaming surfaces (exec output, file watch, ports), forward the SDK's SSE streams through your backend to the browser using `EventSource` or a `ReadableStream` response.
 
 ## Need help?
 
