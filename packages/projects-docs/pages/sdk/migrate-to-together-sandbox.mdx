@@ -1,0 +1,332 @@
+---
+title: Migrate to Together Sandbox
+description: How to migrate from the CodeSandbox SDK to the Together Sandbox SDK.
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Migrate from CodeSandbox SDK to Together Sandbox
+
+This guide walks you through moving from `@codesandbox/sdk` to `together-sandbox`.
+
+Together Sandbox is a hosted wrapper over the same underlying infrastructure that powers the CodeSandbox SDK — the in-VM agent, the Firecracker microVMs, and the memory-snapshot mechanism are the same engine. The difference is **how much of that engine each SDK surfaces**: CodeSandbox exposes a broad, ergonomic API; Together Sandbox exposes a deliberately minimal slice with a strong snapshot, streaming, and client-reliability story.
+
+This means the **core loop carries over cleanly** — build a snapshot, create a sandbox, run commands, read and write files, watch ports — but several developer-experience and platform features either need a different approach or aren't available. This guide covers both.
+
+<Callout>
+This guide focuses on the TypeScript SDK and CLI. If you're on the Python or Node-specific paths, the concepts map across but the exact APIs differ.
+</Callout>
+
+## Vocabulary mapping
+
+Before you start, here's how CodeSandbox concepts translate to Together Sandbox.
+
+| CodeSandbox SDK | Together Sandbox SDK | Difference |
+| --- | --- | --- |
+| Template | Snapshot | Same underlying memory-snapshot mechanism. |
+| `CodeSandbox` client | `TogetherSandbox` client | Together adds `baseUrl` and `retry`; CodeSandbox adds an OpenTelemetry `tracer`. |
+| `sandbox.connect()` → `client` | `sdk.sandboxes.start()` → `Sandbox` | Together separates create (record only) from start (boots the VM). |
+| `client.commands` | `sandbox.execs` | Together exposes more primitives but no `runBackground` helper. |
+| `client.fs` | `sandbox.files` / `sandbox.directories` | Split into two namespaces. |
+| `client.ports` | `sandbox.ports` | Discovery only — no preview-URL builder or host tokens. |
+| Sessions | _(none)_ | Together has no session / multi-user layer. |
+| `client.tasks`, `client.setup` | _(none)_ | Setup moves into the Docker image. |
+
+## Installation & authentication
+
+Swap the package and the API key environment variable. Together Sandbox requires Node 18+.
+
+```bash
+# Before
+npm install @codesandbox/sdk   # auth via CSB_API_KEY
+
+# After
+npm install together-sandbox   # auth via TOGETHER_API_KEY
+```
+
+The Together CLI ships as a prebuilt binary (darwin/linux/win) via a shell installer rather than as a bundled `csb` binary.
+
+## Client initialization
+
+```ts
+// Before
+import { CodeSandbox } from '@codesandbox/sdk';
+
+const sdk = new CodeSandbox(); // reads CSB_API_KEY
+```
+
+```ts
+// After
+import { TogetherSandbox } from 'together-sandbox';
+
+const sdk = new TogetherSandbox(); // reads TOGETHER_API_KEY
+
+// Optional configuration
+const sdk = new TogetherSandbox({
+  apiKey: process.env.TOGETHER_API_KEY,
+  baseUrl: 'https://...',          // override the management API endpoint
+  retry: {                          // built-in configurable retry
+    maxAttempts: 3,
+    shouldRetry: (err) => err.status === 0 || err.status >= 500,
+    onRetry: (err, attempt) => console.warn(`retry ${attempt}`, err),
+  },
+});
+```
+
+<Callout emoji="⭐">
+The built-in `retry` config (backoff + jitter, `shouldRetry`, `onRetry`) and the typed `HttpError` (`{ message, status }`, where `status === 0` signals a transport error) are a genuine improvement over the CodeSandbox client. Make sure to **exclude `snapshots.create` from retries** — it is not idempotent.
+</Callout>
+
+## The core loop
+
+The biggest structural change is that **creating a sandbox and booting its VM are two steps**. In CodeSandbox, `create()` boots a VM and you `connect()` to it. In Together, `create()` makes a record (state `created`) and `start()` boots the VM and returns a connected `Sandbox`.
+
+```ts
+// Before — CodeSandbox
+const sdk = new CodeSandbox();
+const sandbox = await sdk.sandboxes.create({ id: 'your-template-id' });
+const client = await sandbox.connect();
+
+const output = await client.commands.run("echo 'Hello World'");
+console.log(output);
+```
+
+```ts
+// After — Together Sandbox
+const sdk = new TogetherSandbox();
+const { id } = await sdk.sandboxes.create({ /* params */ });
+const sandbox = await sdk.sandboxes.start(id);
+
+const { exitCode, output } = await sandbox.execs.exec('echo', ["Hello World"]);
+console.log(output);
+```
+
+## Templates → Snapshots
+
+This is Together's strongest area, and the snapshot API is arguably cleaner than CodeSandbox templates — structured progress callbacks, list/get/delete by id or alias, direct registration of any public image, and mutable aliases.
+
+```ts
+// Register an existing public image (remote pull + nydus optimization)
+const snapshot = await sdk.snapshots.create({
+  image: 'node:20',
+  memorySnapshot: true,                 // warm-start hibernation snapshot
+  onProgress: (p) => console.log(p.stage), // prepare/build/auth/push/register/...
+});
+
+// Build from a local context + Dockerfile
+const snapshot = await sdk.snapshots.create({
+  context: './app',
+  dockerfile: 'Dockerfile',
+});
+
+// Manage snapshots
+await sdk.snapshots.list();
+await sdk.snapshots.getByAlias('latest');
+await sdk.snapshots.alias(snapshot.id, 'latest'); // mutable "latest" pointer
+await sdk.snapshots.deleteByAlias('latest');
+```
+
+<Callout type="warning">
+Two things to plan for when migrating template builds:
+
+- **Context builds require local Docker** in the TS SDK (the Python/CLI paths can build remotely).
+- There is **no `docker-compose` multi-service** story. If your CodeSandbox template ran Postgres alongside your app via `docker-compose.yml`, you'll need to bake services into a single image or run them as processes.
+</Callout>
+
+The CLI equivalent of `csb build` is the only command Together's CLI provides:
+
+```bash
+together-sandbox snapshots create \
+  --image node:20 \
+  --alias latest \
+  --ci
+# also supports --context / --dockerfile
+```
+
+## Sandbox lifecycle
+
+Hibernate and shutdown carry over directly. Several operations are missing and need to be handled by your own code.
+
+| Operation | CodeSandbox | Together | Migration note |
+| --- | --- | --- | --- |
+| Create | `sdk.sandboxes.create()` (boots VM) | `sdk.sandboxes.create()` (record only) | Add a `start()` step. |
+| Start / connect | `sandbox.connect()` | `sdk.sandboxes.start(id, opts)` | Returns a connected `Sandbox`. |
+| Resume | `sdk.sandboxes.resume(id)` | _(implicit)_ | `start()` auto-resumes a hibernated sandbox. |
+| Hibernate | `sandbox.hibernate()` | `sandbox.hibernate()` | Direct. |
+| Shutdown | `sandbox.shutdown()` | `sandbox.shutdown()` | Direct. |
+| Restart | `sdk.sandboxes.restart(id)` | _(none)_ | Shutdown + start. |
+| Delete | `sdk.sandboxes.delete(id)` | _(ephemeral only)_ | Use `ephemeral: true` to auto-delete on stop. |
+| Fork | `create({ id })` / Live Fork | _(indirect)_ | Create from a version's `snapshot_id`, or `start(id, { versionNumber })`. |
+| List / get / listRunning | ✅ | _(none)_ | **Track your own inventory.** |
+| Specs | `vmTier` (named tiers) | `millicpu` / `memoryBytes` / `diskBytes` | Finer-grained on Together. |
+| Live tier resize | `sandbox.updateTier()` | _(none)_ | Choose the right size at create. |
+| TTL / idle auto-hibernate | `hibernationTimeoutSeconds`, `automaticWakeupConfig` | _(none)_ | **No timeout knobs** — drive lifecycle from your own server. |
+
+<Callout type="warning">
+The most important lifecycle gaps to design around:
+
+- **No `list` / `get` / `listRunning`.** You must persist your own record of which sandboxes exist and which are running.
+- **No TTL or idle auto-hibernate.** There is no `hibernationTimeoutSeconds` equivalent. You are responsible for hibernating idle sandboxes yourself (this was already recommended best practice on CodeSandbox).
+</Callout>
+
+## Commands
+
+Raw execution is roughly at parity, and Together actually exposes **more** exec primitives. The main change is the namespace (`commands` → `execs`) and that there's no single `runBackground` helper — you assemble background execution from `create({ autostart })` + `streamOutput`/`getOutput`.
+
+```ts
+// Before — CodeSandbox
+const output = await client.commands.run('npm test');
+const bg = await client.commands.runBackground('npm run dev', { name: 'dev' });
+bg.onOutput((data) => console.log(data));
+```
+
+```ts
+// After — Together Sandbox
+const { exitCode, output } = await sandbox.execs.exec('npm', ['test'], {
+  cwd: '/project/workspace',
+  env: { NODE_ENV: 'test' },
+  user: 'root',
+});
+
+// Background command — assembled from primitives
+const exec = await sandbox.execs.create({ autostart: true /* cmd, args, ... */ });
+for await (const chunk of sandbox.execs.streamOutput(exec.id /* { lastSequence } */)) {
+  console.log(chunk); // resumable SSE
+}
+await sandbox.execs.sendStdin(exec.id, { input: 'y\n' });
+
+// Manage execs
+await sandbox.execs.list();
+await sandbox.execs.get(exec.id);
+await sandbox.execs.delete(exec.id);
+```
+
+<Callout type="warning">
+There is **no JS/Python code interpreter** (`client.interpreters.*`). If you relied on it, run code via `execs` instead — e.g. `node -e '...'` or `python -c '...'`.
+</Callout>
+
+## Filesystem
+
+Everyday operations map cleanly. The single `fs` namespace splits into `files` and `directories`, and Together adds `stat` and recursive `mkdir -p`.
+
+```ts
+// Before — CodeSandbox
+await client.fs.writeTextFile('/app/index.js', 'console.log(1)');
+const text = await client.fs.readTextFile('/app/index.js');
+await client.fs.readdir('/app');
+await client.fs.rename('/app/a.js', '/app/b.js');
+await client.fs.copy('/app/b.js', '/app/c.js');
+await client.fs.remove('/app/c.js');
+const watcher = await client.fs.watch('/app', { recursive: true });
+```
+
+```ts
+// After — Together Sandbox
+await sandbox.files.create('/app/index.js', 'console.log(1)'); // string or Blob/File
+const text = await sandbox.files.read('/app/index.js');         // returns string
+await sandbox.directories.list('/app');
+await sandbox.directories.create('/app/nested');                // mkdir -p
+await sandbox.files.move('/app/a.js', '/app/b.js');
+await sandbox.files.copy('/app/b.js', '/app/c.js');
+await sandbox.files.stat('/app/b.js');
+await sandbox.files.delete('/app/c.js');
+const watcher = sandbox.files.watch('/app', {
+  recursive: true,
+  ignorePatterns: ['node_modules'],
+}); // SSE
+```
+
+<Callout type="warning">
+Bulk and binary file movement is clunkier on Together:
+
+- **No binary read** — `files.read` returns a string only.
+- **No `batchWrite`** (compressed multi-file write).
+- **No zip `download`** or dedicated upload helper.
+
+For binary writes, `files.create` does accept a `Blob`/`File`. For bulk transfer, you'll need to move files individually or tar them inside the sandbox via `execs`.
+</Callout>
+
+## Terminals & PTY
+
+Together has no dedicated terminals namespace. You get an interactive PTY through `execs` with `pty: true`, but there is **no persistence (`getAll`) and no resize**.
+
+```ts
+// After — interactive PTY via execs
+const term = await sandbox.execs.create({ pty: true /* cmd, args, ... */ });
+await sandbox.execs.sendStdin(term.id, { input: 'ls\n' });
+for await (const chunk of sandbox.execs.streamOutput(term.id)) {
+  process.stdout.write(chunk);
+}
+```
+
+## Ports & hosts
+
+Together exposes **port discovery only**. This is the largest gap for products that serve running sandbox apps to end-users behind authenticated or branded URLs.
+
+```ts
+// After — discovery only
+const ports = await sandbox.ports.list();
+for await (const update of sandbox.ports.streamList()) {
+  console.log(update); // SSE — poll this to "wait for a port"
+}
+```
+
+<Callout type="warning">
+There is **no preview-URL builder, no host tokens, no privacy modes, and no custom-domain support** in Together Sandbox. If your product relies on `getPreviewUrl(port)`, `hosts.createToken`, `public`/`private`/`public-hosts` privacy, or custom domains, there is no direct equivalent — you'll need to front sandboxes with your own proxy layer.
+</Callout>
+
+## Persistence & version history
+
+Memory-snapshot hibernation and cross-run persistence work the same way. Together adds **explicit, numbered version history** — a clean way to branch or roll back.
+
+```ts
+// Start a specific version of a hibernated sandbox
+const sandbox = await sdk.sandboxes.start(id, { versionNumber: 3 });
+```
+
+<Callout>
+Version *retrieval* is available at the REST level (`current_version_number`, `/versions/{n}`) but is not yet wrapped as `sdk.sandboxes.versions.*` in the TS SDK. Together also adds `recovery_status` fields for crash recovery and an explicit `ephemeral: true` flag.
+</Callout>
+
+## Features without a direct equivalent
+
+These CodeSandbox capabilities have **no counterpart** in the Together Sandbox TS SDK. Plan a different approach before migrating if you depend on them.
+
+| Capability | What to do instead |
+| --- | --- |
+| **Sessions / multi-user** (`createSession`, browser/node clients, per-session git & env, reconnect, collaboration) | No session layer exists. The unit is a single `Sandbox` with auto-wired agent auth. Multi-tenant isolation must be built in your own application layer. |
+| **Tasks** (`client.tasks`, `.codesandbox/tasks.json`) | The Pint agent defines tasks but the TS SDK doesn't wrap them. Run dev servers / long-running processes as background `execs`. |
+| **Setup hooks** (`client.setup`, `setupTasks`) | Bake environment setup into the Dockerfile, or use the boot-then-hibernate `memorySnapshot` flow. |
+| **Git integration** (`connect({ git })`, default git persistence) | Run `git clone` / `git` commands via `execs` inside the sandbox. |
+| **Hosts & preview URLs** | Front sandboxes with your own proxy (see Ports above). |
+| **Code interpreters** (`client.interpreters.*`) | Run `node -e` / `python -c` via `execs`. |
+| **Browser Preview API** (`@codesandbox/sdk/browser`) | No equivalent. |
+| **OpenTelemetry tracing** (`{ tracer }`) | No equivalent; rely on the typed `HttpError` and `onRetry` hooks. |
+| **Documented pricing / rate limits / region selection** | Not documented for Together Sandbox; billing routes through your Together AI account. `cluster` is read-only. |
+
+## Where Together Sandbox is nicer
+
+Migrating isn't only about gaps — several areas are genuinely better:
+
+- **Cleaner snapshot API** — structured `onProgress`, list/get/delete by id or alias, direct public-image registration, mutable aliases.
+- **Built-in client reliability** — configurable retry with backoff/jitter and a typed `HttpError` (`status === 0` transport sentinel).
+- **Richer exec primitives** — `list` / `get` / `delete` / `streamList`, resumable SSE output (`lastSequence`), `sendStdin`, run-as `user`.
+- **Explicit version history** — numbered versions and `versionNumber` start for branching/rollback.
+- **Finer CPU granularity** (`millicpu`) and an explicit `ephemeral` flag.
+- **SSE-first streaming** across watch, exec output/list, and ports.
+
+## Migration checklist
+
+1. Swap the package (`@codesandbox/sdk` → `together-sandbox`) and env var (`CSB_API_KEY` → `TOGETHER_API_KEY`).
+2. Convert templates to snapshots; move any `docker-compose` services into a single image.
+3. Split the single `connect()` into `create()` + `start()`.
+4. Rename `commands` → `execs`, `fs` → `files`/`directories`, and reassemble any `runBackground` usage.
+5. Build your own **sandbox inventory** (list/get) and **idle-hibernation** logic — there are no built-in knobs.
+6. Replace sessions, tasks, setup hooks, git integration, and preview hosts with application-layer or in-Dockerfile equivalents.
+7. Adopt the built-in `retry` config, and exclude `snapshots.create` from it.
+
+## Need help?
+
+If you run into issues during migration, contact us at [support@codesandbox.io](mailto:support@codesandbox.io).
+</content>
+</invoke>

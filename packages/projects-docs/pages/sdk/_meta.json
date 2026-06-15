@@ -49,6 +49,7 @@
   },
   "template-library": "Template Library",
   "version-history": "Version History",
+  "migrate-to-together-sandbox": "Migrate to Together Sandbox",
   "contact": {
     "title": "Contact Us",
     "href": "https://codesandbox.io/support#form",
