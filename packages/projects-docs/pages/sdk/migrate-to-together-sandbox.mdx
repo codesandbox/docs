@@ -15,20 +15,15 @@ Together Sandbox runs on new, improved infrastructure and exposes a smaller, dif
 This guide focuses on the TypeScript SDK and CLI. If you're on the Python or Node-specific paths, the concepts map across but the exact APIs differ.
 </Callout>
 
-## Vocabulary mapping
+## Migration checklist
 
-Before you start, here's how CodeSandbox concepts translate to Together Sandbox.
-
-| CodeSandbox SDK | Together Sandbox SDK | Difference |
-| --- | --- | --- |
-| Template | Snapshot | Same memory-snapshot concept. |
-| `CodeSandbox` client | `TogetherSandbox` client | Top-level client. |
-| `sandbox.connect()` → `client` | `sdk.sandboxes.start()` → `Sandbox` | Together separates create (record only) from start (boots the VM). |
-| `client.commands` | `sandbox.execs` | No `runBackground` helper — assembled from primitives. |
-| `client.fs` | `sandbox.files` / `sandbox.directories` | Split into two namespaces. |
-| `client.ports` | `sandbox.ports` | Discovery only — no preview-URL builder or host tokens. |
-| Sessions | _(none)_ | No session / multi-user layer. |
-| `client.tasks`, `client.setup` | _(none)_ | Setup moves into the Docker image. |
+1. Swap the package (`@codesandbox/sdk` → `together-sandbox`) and env var (`CSB_API_KEY` → `TOGETHER_API_KEY`).
+2. Convert templates to snapshots; move any `docker-compose` services into a single image.
+3. Split the single `connect()` into `create()` + `start()`.
+4. Rename `commands` → `execs`, `fs` → `files`/`directories`, and reassemble any `runBackground` usage.
+5. Build your own **sandbox inventory** (list/get) and **idle-hibernation** logic — there are no built-in knobs.
+6. Replace sessions, tasks, setup hooks, git integration, and preview hosts with application-layer or in-Dockerfile equivalents.
+7. Exclude `snapshots.create` from any retry logic — it is not idempotent.
 
 ## Features without a direct equivalent
 
@@ -46,16 +41,6 @@ These CodeSandbox capabilities have **no counterpart** in the Together Sandbox T
 | **OpenTelemetry tracing** (`{ tracer }`) | No equivalent. |
 | **Sandbox `list` / `get` / `listRunning`** | Track your own inventory of which sandboxes exist and are running. |
 | **TTL / idle auto-hibernate** (`hibernationTimeoutSeconds`, `automaticWakeupConfig`) | Drive hibernation from your own server. |
-
-## Migration checklist
-
-1. Swap the package (`@codesandbox/sdk` → `together-sandbox`) and env var (`CSB_API_KEY` → `TOGETHER_API_KEY`).
-2. Convert templates to snapshots; move any `docker-compose` services into a single image.
-3. Split the single `connect()` into `create()` + `start()`.
-4. Rename `commands` → `execs`, `fs` → `files`/`directories`, and reassemble any `runBackground` usage.
-5. Build your own **sandbox inventory** (list/get) and **idle-hibernation** logic — there are no built-in knobs.
-6. Replace sessions, tasks, setup hooks, git integration, and preview hosts with application-layer or in-Dockerfile equivalents.
-7. Exclude `snapshots.create` from any retry logic — it is not idempotent.
 
 ## Installation & authentication
 
