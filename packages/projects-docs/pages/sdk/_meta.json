@@ -49,6 +49,7 @@
   },
   "template-library": "Template Library",
   "version-history": "Version History",
+  "migration-guide": "Migration Guide",
   "contact": {
     "title": "Contact Us",
     "href": "https://codesandbox.io/support#form",
