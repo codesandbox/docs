@@ -10,7 +10,7 @@ import { Callout } from 'nextra-theme-docs'
 CodeSandbox is now part of Together AI, and we recommend migrating off `@codesandbox/sdk`. This guide covers two destinations:
 
 - **[Option 1 — Daytona](#option-1--daytona-recommended-for-feature-parity)** *(recommended for feature parity)*: the provider whose SDK matches the broadest set of CodeSandbox SDK capabilities — sandboxes, fork, snapshots, preview URLs with token auth, terminals, git, and code interpreters.
-- **[Option 2 — Together Sandbox](#option-2--together-sandbox)**: the Together AI sandbox SDK. It covers the core sandbox loop but does **not** support several CodeSandbox features, which you'd need to rebuild yourself.
+- **[Option 2 — Together Sandbox](#option-2--together-sandbox)**: the Together AI sandbox SDK. It supports the core sandbox loop — create, run commands, files, snapshots, ports — with a focused API. Some CodeSandbox features aren't part of it; this guide shows which, and how to add them where you need them.
 
 <Callout>
 This guide focuses on the TypeScript SDK and CLI. If you're on the Python or Node-specific paths, the concepts map across but the exact APIs differ.
@@ -21,9 +21,9 @@ This guide focuses on the TypeScript SDK and CLI. If you're on the Python or Nod
 | Your situation | Recommended path |
 | --- | --- |
 | You rely on previews/hosts, sessions, terminals, git, code interpreters, or fork | **Daytona** — these have direct equivalents |
-| You only use the core loop (create, run commands, files, ports) and want to stay within Together AI | **Together Sandbox** — minimal API, rebuild the gaps yourself |
+| You use the core loop (create, run commands, files, ports) and want to stay within Together AI | **Together Sandbox** — a focused API; add the remaining pieces where you need them |
 
-If in doubt, start with **Daytona**: it requires the fewest changes to an existing CodeSandbox SDK integration.
+If you want the fewest changes to an existing CodeSandbox SDK integration, **Daytona** maps most closely. If you're consolidating on Together AI, **Together Sandbox** keeps everything in one account.
 
 ## Option 1 — Daytona (recommended for feature parity)
 
@@ -79,7 +79,7 @@ const response = await sandbox.process.executeCommand("echo 'Hello World'");
 console.log(response.result);
 ```
 
-### Previews (the big win over Together Sandbox)
+### Previews
 
 Preview URLs and token auth map directly onto CodeSandbox hosts and host tokens, so you don't have to build a proxy.
 
@@ -116,11 +116,11 @@ Daytona also provides `sandbox.git`, a stateful Python `codeInterpreter`, LSP se
 
 ## Option 2 — Together Sandbox
 
-[Together Sandbox](https://github.com/togethercomputer/together-sandbox) (`together-sandbox`) runs on new infrastructure within your Together AI account. It covers the core sandbox loop — create a sandbox, run commands, read and write files, watch ports — but exposes a deliberately minimal API. Choose this path only if the missing features below aren't core to your product, or you're willing to rebuild them.
+[Together Sandbox](https://github.com/togethercomputer/together-sandbox) (`together-sandbox`) runs on new infrastructure within your Together AI account. It supports the core sandbox loop — create a sandbox, run commands, read and write files, build snapshots, watch ports — through a focused API, and adds resumable SSE streaming, a typed error model, and explicit version history. The sections below cover what carries over and which CodeSandbox features you'd add yourself.
 
 ### Features without a direct equivalent
 
-These CodeSandbox capabilities have **no counterpart** in the Together Sandbox TS SDK.
+Some CodeSandbox capabilities aren't part of the Together Sandbox TS SDK today. If you use these, here's how to cover them.
 
 | Capability | What to do instead |
 | --- | --- |
@@ -138,10 +138,10 @@ These CodeSandbox capabilities have **no counterpart** in the Together Sandbox T
 | **`docker-compose` multi-service** | Bake services into a single image or run them as processes. |
 
 <Callout type="warning">
-Two of these require running your own server, and are the most common blockers:
+Two of these involve a server-side component worth planning for early:
 
-- **Previews require your own proxy.** Together exposes port *discovery* only — no preview URLs, host tokens, or privacy modes. See [Implementing previews](#implementing-previews).
-- **Using the SDK from the browser requires a server proxy.** There is no browser client and no session layer. `TOGETHER_API_KEY` must stay server-side. See [Implementing browser access](#implementing-browser-access).
+- **Previews go through your own proxy.** Together exposes port *discovery* (`sandbox.ports.list()`); you add the public URL and access control in front of it. See [Implementing previews](#implementing-previews).
+- **Browser usage goes through your backend.** There's no browser client or session layer, and `TOGETHER_API_KEY` stays server-side, so browser clients call your backend. See [Implementing browser access](#implementing-browser-access).
 </Callout>
 
 ### What changes for the supported core loop
